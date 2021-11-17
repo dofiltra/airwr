@@ -28,7 +28,7 @@ const RewriterResultPage: FC<TRewriterResultPage> = () => {
   console.log('rewriteData', rewriteData)
 
   if (!rewriteData?.blocks?.length) {
-    return <>{translate('loading')}</>
+    return <div className="h-96">{translate('loading')}</div>
   }
 
   const blocksForRewrite = rewriteData.blocks.filter(
@@ -59,7 +59,7 @@ const RewriterResultPage: FC<TRewriterResultPage> = () => {
     <>
       <div className="min-h-full w-full card bg-base-200">
         <main>
-          <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+          <div className="max-w-7xl">
             <div className="px-4 sm:px-0">
               <div className="mb-1 md:mb-0 w-full p-1">
                 <div className={'alert ' + getBackgroundColorByStatus(status)}>

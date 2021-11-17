@@ -7,7 +7,7 @@ export const SignOutButton = () => {
   return (
     <DefaultButton
       onClick={() => auth.signOut()}
-      title={translate('sign out')}
+      title={translate('sign out').toUpperCase()}
     />
   )
 }

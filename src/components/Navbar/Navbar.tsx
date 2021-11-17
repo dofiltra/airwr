@@ -19,8 +19,8 @@ export default function Navbar({}) {
 
   return (
     <>
-      <div className="navbar shadow-lg bg-neutral text-neutral-content rounded-box mb-6">
-        <div className=" px-2 mx-2 ">
+      <div className="navbar shadow-lg bg-neutral text-neutral-content rounded-box mb-2">
+        <div className="hidden md:block px-2 mx-2 ">
           <Link to="/" className="btn btn-ghost btn-sm rounded-btn">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -39,26 +39,7 @@ export default function Navbar({}) {
             Rewriter
           </Link>
         </div>
-        <div className=" px-2 mx-2">
-          <Link to="/info/about" className="btn btn-ghost btn-sm rounded-btn">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
-              />
-            </svg>
-            About
-          </Link>
-        </div>
-        <div className=" px-2 mx-2">
+        <div className="hidden md:block px-2 mx-2">
           <Link to="/info/api" className="btn btn-ghost btn-sm rounded-btn">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -77,7 +58,26 @@ export default function Navbar({}) {
             API
           </Link>
         </div>
-        <div className="flex-1 px-2 mx-2">
+        <div className="hidden md:block px-2 mx-2">
+          <Link to="/info/about" className="btn btn-ghost btn-sm rounded-btn">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+              />
+            </svg>
+            About
+          </Link>
+        </div>
+        <div className="hidden md:block flex-1 px-2 mx-2">
           <Link
             to="/info/contacts"
             className="btn btn-ghost btn-sm rounded-btn"
@@ -100,7 +100,7 @@ export default function Navbar({}) {
           </Link>
         </div>
         <div className="flex-none">
-          <div className="flex justify-end flex-1 px-2">
+          <div className="flex justify-end md:justify-start flex-1 px-2">
             <div className="flex items-stretch">
               <div className="dropdown dropdown-end">
                 <div tabIndex={0} className="btn btn-ghost rounded-btn">
@@ -127,26 +127,44 @@ export default function Navbar({}) {
             <div className="flex items-stretch">
               <div className="dropdown dropdown-end">
                 <div tabIndex={0} className="btn btn-ghost rounded-btn">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                    />
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                    />
-                  </svg>
+                  {!user?.uid && (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"
+                      />
+                    </svg>
+                  )}
+                  {user?.uid && (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                      />
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
+                    </svg>
+                  )}
                 </div>
                 <ul
                   tabIndex={0}

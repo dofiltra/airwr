@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC } from 'react'
 import { classnames } from 'classnames/tailwind'
 
 type ButtonProps = {
   onClick: () => void
-  title: string
+  title: any
 }
 
 const button = classnames(

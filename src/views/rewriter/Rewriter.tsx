@@ -39,8 +39,8 @@ export default class RewriterPage extends React.Component<
       <>
         <div className="min-h-full">
           <main>
-            <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-              <div className="px-4 sm:px-0">{this.RewriteContent()}</div>
+            <div className="max-w-7xl ">
+              <div className="">{this.RewriteContent()}</div>
             </div>
           </main>
         </div>
@@ -89,62 +89,68 @@ export default class RewriterPage extends React.Component<
     // const editorData = this.reactEditorRef?.current?.state?.editorData
 
     if (!showRewriteContent) {
-      return <>{'Loading'}</>
+      return <div className="h-96">{'Loading'}</div>
     }
     const placeholder = 'EnterTextForRewritePlaceholder'
 
     return (
       <>
-        <div className="mb-1 md:mb-0 w-full p-2">
-          <label className="text-gray-700">{'EnterTextForRewrite'}</label>
-          <div
-            className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3"
-            style={{ minHeight: '300px' }}
-          >
-            <ReactEditor ref={this.reactEditorRef} placeholder={placeholder} />
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-2">
-          <div className="mb-1 md:mb-0 w-full p-2">
-            <label className="text-gray-700">{'SelectTargetLang'}</label>
-            <select
-              defaultValue={targetLang}
-              onChange={(val) => {
-                this.setState({ targetLang: parseInt(val.target.value, 10) })
-              }}
-              // disabled
-              className="h-10 pl-3 pr-6 text-base w-full placeholder-gray-600 border rounded-lg focus:shadow-outline"
+        <div className=" w-full card bg-base-200 p-5">
+          <div className="mb-1 md:mb-0 w-full p-2 ">
+            <label className="">{'EnterTextForRewrite'}</label>
+            <div
+              className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3"
+              style={{ minHeight: '300px' }}
             >
-              <option value={1}>Russian</option>
-              <option value={0}>English</option>
-            </select>
+              <ReactEditor
+                ref={this.reactEditorRef}
+                placeholder={placeholder}
+              />
+            </div>
           </div>
-          <div className="mb-1 md:mb-0 w-full p-2">
-            <label className="text-gray-700">{'SelectRewriteLevel'}</label>
-            <select
-              defaultValue={rewriteLevel}
-              onChange={(val) => {
-                this.setState({ rewriteLevel: parseInt(val.target.value, 10) })
-              }}
-              disabled
-              className="h-10 pl-3 pr-6 text-base w-full placeholder-gray-600 border rounded-lg focus:shadow-outline"
-            >
-              <option value={1}>Light</option>
-              <option value={2}>Medium</option>
-              <option value={3}>Hard</option>
-            </select>
-          </div>
-        </div>
 
-        <div className="flex-auto space-x-3 my-6 flex items-center">
-          <button
-            // disabled={!editorData?.blocks?.length}
-            onClick={() => this.addQueue()}
-            className="w-full disabled:opacity-50 flex items-center justify-center rounded-md bg-black text-white px-6 py-2"
-          >
-            {'ButtonSend'}
-          </button>
+          <div className="grid grid-cols-1 gap-2">
+            <div className="mb-1 md:mb-0 w-full p-2">
+              <label className="text-white-700">{'SelectTargetLang'}</label>
+              <select
+                defaultValue={targetLang}
+                onChange={(val) => {
+                  this.setState({ targetLang: parseInt(val.target.value, 10) })
+                }}
+                className="select w-full select-bordered select-primary "
+              >
+                <option value={1}>Russian</option>
+                <option value={0}>English</option>
+              </select>
+            </div>
+            {/* <div className="mb-1 md:mb-0 w-full p-2">
+              <label className="text-white-700">{'SelectRewriteLevel'}</label>
+              <select
+                defaultValue={rewriteLevel}
+                onChange={(val) => {
+                  this.setState({
+                    rewriteLevel: parseInt(val.target.value, 10),
+                  })
+                }}
+                disabled
+                className="select w-full select-bordered select-primary "
+              >
+                <option value={1}>Light</option>
+                <option value={2}>Medium</option>
+                <option value={3}>Hard</option>
+              </select>
+            </div> */}
+          </div>
+
+          <div className="flex-auto space-x-3 my-6 flex items-center">
+            <button
+              // disabled={!editorData?.blocks?.length}
+              onClick={() => this.addQueue()}
+              className="w-full btn btn-success"
+            >
+              {'ButtonSend'}
+            </button>
+          </div>
         </div>
       </>
     )

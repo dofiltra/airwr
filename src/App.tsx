@@ -23,7 +23,7 @@ const App = () => {
               />
               <Route path="/login" element={<Login />} />
             </Routes>
-            <FooterSmall transparent />
+            <FooterSmall />
           </AuthContextProvider>
         </LocalizationProvider>
       </Root>
