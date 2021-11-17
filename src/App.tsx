@@ -5,7 +5,7 @@ import LocalizationProvider from 'localization/LocalizationProvider'
 import Login from 'views/Login'
 import Navbar from 'components/Navbar/Navbar'
 import RewriterPage from 'views/rewriter/Rewriter'
-import RewriterResultPage from 'views/rewriter/result'
+import RewriterResultPage from 'views/rewriter/Result'
 import Root from 'components/Root'
 
 const App = () => {

@@ -6,7 +6,16 @@ export const headers = {
   'Content-Type': 'application/json',
 }
 
-export async function getUserCount() {
-  const data = await (await fetch(`${HOST_API}/`)).json()
-  return data.count
+export async function geRewriteData(id: string) {
+  try {
+    const resp = await fetch(`${HOST_API}/api/rewriteText/get?id=${id}`, {
+      headers,
+      method: 'GET',
+    })
+
+    const { item } = await resp.json()
+    return item
+  } catch {
+    //
+  }
 }
