@@ -1,0 +1,7 @@
+{
+  "loading": "Loading...",
+  "sign in": "Sign in",
+  "sign out": "Sign out",
+  "title": "Frontend Template",
+  "userCount": "User count: {{count}}"
+}
