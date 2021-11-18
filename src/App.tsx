@@ -1,6 +1,9 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { RewriterPage } from 'views/rewriter/Rewriter'
+import AboutPage from 'views/info/About'
+import ApiPage from 'views/info/Api'
 import AuthContextProvider from 'components/Auth/AuthContextProvider'
+import ContactsPage from 'views/info/Contacts'
 import FooterSmall from 'components/Footer/FooterSmall'
 import LocalizationProvider from 'localization/LocalizationProvider'
 import Login from 'views/Login'
@@ -22,6 +25,9 @@ const App = () => {
                 element={<RewriterResultPage />}
               />
               <Route path="/login" element={<Login />} />
+              <Route path="/info/api" element={<ApiPage />} />
+              <Route path="/info/about" element={<AboutPage />} />
+              <Route path="/info/contacts" element={<ContactsPage />} />
             </Routes>
             <FooterSmall />
           </AuthContextProvider>

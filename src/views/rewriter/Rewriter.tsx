@@ -105,8 +105,8 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
               {translate('SelectTargetLang')}
             </label>
             <select
-              defaultValue={targetLang}
-              onChange={(val) => {
+              value={targetLang}
+              onChange={(val: any) => {
                 setTargetLang(parseInt(val.target.value, 10))
               }}
               className="select w-full select-bordered select-primary "

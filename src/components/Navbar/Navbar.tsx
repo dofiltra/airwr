@@ -21,7 +21,7 @@ export default function Navbar({}) {
     <>
       <div className="navbar shadow-lg bg-neutral text-neutral-content rounded-box mb-2">
         <div className="hidden md:block px-2 mx-2 ">
-          <Link to="/" className="btn btn-ghost btn-sm rounded-btn">
+          <Link to="/" className="btn btn-ghost rounded-btn">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
@@ -40,7 +40,7 @@ export default function Navbar({}) {
           </Link>
         </div>
         <div className="hidden md:block px-2 mx-2">
-          <Link to="/info/api" className="btn btn-ghost btn-sm rounded-btn">
+          <Link to="/info/api" className="btn btn-ghost rounded-btn">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
@@ -59,7 +59,7 @@ export default function Navbar({}) {
           </Link>
         </div>
         <div className="hidden md:block px-2 mx-2">
-          <Link to="/info/about" className="btn btn-ghost btn-sm rounded-btn">
+          <Link to="/info/about" className="btn btn-ghost rounded-btn">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
@@ -78,10 +78,7 @@ export default function Navbar({}) {
           </Link>
         </div>
         <div className="hidden md:block flex-1 px-2 mx-2">
-          <Link
-            to="/info/contacts"
-            className="btn btn-ghost btn-sm rounded-btn"
-          >
+          <Link to="/info/contacts" className="btn btn-ghost rounded-btn">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
