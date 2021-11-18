@@ -18,7 +18,9 @@ export default () => {
                     {translate('ApiTitle')}
                   </h1>
                   <p className="mb-5">{translate('ApiText')}</p>
-                  <button className="btn btn-primary">Get Started</button>
+                  <div className="text-center justify-center flex">
+                    <img src="https://i.smiles2k.net/computer_smiles/downloading.gif" />
+                  </div>
                 </div>
               </div>
             </div>

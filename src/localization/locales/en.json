@@ -2,6 +2,13 @@
   "loading": "Loading...",
   "sign in": "Sign in",
   "sign out": "Sign out",
-  "title": "Frontend Template",
-  "userCount": "User count: {{count}}"
+
+  "AboutTitle": "About",
+  "AboutText": "Coming soon...",
+
+  "ApiTitle": "API",
+  "ApiText": "Coming soon...",
+
+  "ContactsTitle": "Contacts",
+  "ContactsText": "Coming soon..."
 }
