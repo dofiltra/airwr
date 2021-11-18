@@ -37,17 +37,18 @@ type TQueueOpts = {
   editorData: any
   setShowRewriteContent: (arg: boolean) => void
   setLinkResult: (arg: string) => void
+  translate: any
 }
 async function addQueue({
   editorData,
   targetLang,
   setShowRewriteContent,
   setLinkResult,
+  translate,
 }: TQueueOpts) {
   if (!editorData?.blocks?.length) {
     return
   }
-  const { translate } = useLocalize()
   setShowRewriteContent(false)
 
   const resp = await fetch(`${HOST_API}/api/rewriteText/add`, {
@@ -160,6 +161,7 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
                 editorData,
                 setShowRewriteContent,
                 setLinkResult,
+                translate,
               })
             }
             className="w-full btn btn-success"

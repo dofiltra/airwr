@@ -1,14 +1,28 @@
 {
   "loading": "Загрузка...",
+  "ButtonSend": "Отправить",
+  "TryAgainLater": "Произошла ошибка, попробуйте позже",
   "sign in": "Войти",
-  "sign out": "Выйти",
-  
+  "sign out": "Выйти",  
   "AboutTitle": "О сервисе",
   "AboutText": "Информация скоро появится. К концу месяца уж точно!",
-
   "ApiTitle": "API",
   "ApiText": "Информация скоро появится. К концу месяца уж точно!",
-
   "ContactsTitle": "Контакты",
-  "ContactsText": "Информация скоро появится. К концу месяца уж точно!"
+  "ContactsText": "Информация скоро появится. К концу месяца уж точно!",
+
+  "H1": "Рерайтер",
+  "SelectedTargetLang": "Язык:",
+  "SelectTargetLang": "Язык:",
+  "SelectRewriteLevel": "Сила рерайта:",
+  "EnterTextForRewrite": "Введите текст для рерайта:",
+  "EnterTextForRewritePlaceholder": "Вставьте сюда текст, который нужно отрерайтить...",
+  "Show result": "Ссылка на результата",
+  "Original text": "Изначальный текст",
+  "TaskStatus": "Статус задачи",
+  "NotStarted": "В очереди",
+  "InProgress": "Запущена",
+  "Completed": "Завершена",
+  "TaskResult": "Результат задачи",
+  "Rewrited text": "Отрерайченный текст"
 }

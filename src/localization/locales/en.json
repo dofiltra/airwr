@@ -1,14 +1,28 @@
 {
   "loading": "Loading...",
+  "ButtonSend": "Send",
+  "TryAgainLater": "There was an error, try again later",
   "sign in": "Sign in",
   "sign out": "Sign out",
-
   "AboutTitle": "About",
   "AboutText": "Coming soon...",
-
   "ApiTitle": "API",
   "ApiText": "Coming soon...",
-
   "ContactsTitle": "Contacts",
-  "ContactsText": "Coming soon..."
+  "ContactsText": "Coming soon...",
+
+  "H1": "Rewrite service",
+  "SelectTargetLang": "Select target language:",
+  "SelectedTargetLang": "Target language:",
+  "SelectRewriteLevel": "Rewrite Level:",
+  "EnterTextForRewrite": "Enter text for rewrite:",
+  "EnterTextForRewritePlaceholder": "Replace this the text that needs to be redacted...",
+  "Show result": "Show result",
+  "Original text": "Original text",
+  "TaskStatus": "Task Status",
+  "NotStarted": "Not started",
+  "InProgress": "In progress",
+  "Completed": "Completed",
+  "TaskResult": "Task result",
+  "Rewrited text": "Rewrited text"
 }
