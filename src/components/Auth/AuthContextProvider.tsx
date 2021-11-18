@@ -1,3 +1,4 @@
+import { Loading } from 'components/Loader'
 import { auth } from 'services/firebase'
 import { onAuthStateChanged } from 'firebase/auth'
 import { useCallback, useState } from 'react'
@@ -19,7 +20,12 @@ const AuthContextProvider: React.FC = ({ children }) => {
 
   const getContent = useCallback(() => {
     if (!isInitialized) {
-      return <div>{translate('loading')}</div>
+      return (
+        <div className="">
+          <div className="justify-center flex">{translate('loading')}</div>
+          <Loading />
+        </div>
+      )
     }
 
     return children

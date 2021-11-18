@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { Loading } from 'components/Loader'
 import { useLocalize } from '@borodutch-labs/localize-react'
 
 export default () => {
@@ -18,9 +19,7 @@ export default () => {
                     {translate('ApiTitle')}
                   </h1>
                   <p className="mb-5">{translate('ApiText')}</p>
-                  <div className="text-center justify-center flex">
-                    <img src="https://i.smiles2k.net/computer_smiles/downloading.gif" />
-                  </div>
+                  <Loading />
                 </div>
               </div>
             </div>

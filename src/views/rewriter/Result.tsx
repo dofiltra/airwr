@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
 import { FC } from 'preact/compat'
-import { ReactEditor } from 'components/Editorjs'
+import { Loading } from 'components/Loader'
 import { getRewriterStatusText } from 'helpers/rewriter'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import { useParams } from 'react-router-dom'
+import EditorJS from '@editorjs/editorjs'
 import useRewriteText from 'hooks/useRewriteData'
 
 type TRewriterResultPage = {
@@ -28,7 +30,12 @@ const RewriterResultPage: FC<TRewriterResultPage> = () => {
   console.log('rewriteData', rewriteData)
 
   if (!rewriteData?.blocks?.length) {
-    return <div className="h-96">{translate('loading')}</div>
+    return (
+      <div className="h-96">
+        <div className="justify-center flex">{translate('loading')}</div>
+        <Loading />
+      </div>
+    )
   }
 
   const blocksForRewrite = rewriteData.blocks.filter(
@@ -54,6 +61,18 @@ const RewriterResultPage: FC<TRewriterResultPage> = () => {
   const isCompleted = status === 9
   const isShowResult =
     isCompleted || blocksRewrited.length === blocksForRewrite.length
+
+  const origEditor = new EditorJS({
+    holder: 'orig',
+    tools: EDITOR_JS_TOOLS,
+    data,
+    readOnly: true,
+  })
+  const rewriteEditor = new EditorJS({
+    holder: 'rewrite',
+    tools: EDITOR_JS_TOOLS,
+    data: dataRewrite,
+  })
 
   return (
     <>
@@ -110,7 +129,7 @@ const RewriterResultPage: FC<TRewriterResultPage> = () => {
                 <div className="mb-1 md:mb-0 w-full p-2 ">
                   <label className="text-white">{'Original text'}</label>
                   <div className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3">
-                    <ReactEditor holder="orig" readOnly={true} data={data} />
+                    <div id="orig"></div>
                   </div>
                 </div>
 
@@ -118,7 +137,7 @@ const RewriterResultPage: FC<TRewriterResultPage> = () => {
                   <div className="mb-1 md:mb-0 w-full p-2 ">
                     <label className="text-white">{'Rewrited text'}</label>
                     <div className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3">
-                      <ReactEditor holder="rewrite" data={dataRewrite} />
+                      <div id="rewrite"></div>
                     </div>
                   </div>
                 )}

@@ -1,11 +1,14 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FC, createRef } from 'preact/compat'
+import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
+import { FC } from 'preact/compat'
 import { HOST_API, headers } from 'helpers/api'
+import { Loading } from 'components/Loader'
 import { Navigate } from 'react-router-dom'
-import { ReactEditor } from 'components/Editorjs'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import { useState } from 'preact/hooks'
+import EditorJS from '@editorjs/editorjs'
 
 export const RewriterPage: FC = () => {
   const [linkResultId, setLinkResult] = useState('')
@@ -41,12 +44,10 @@ async function addQueue({
   setShowRewriteContent,
   setLinkResult,
 }: TQueueOpts) {
-  // const editorApi = this.reactEditorRef?.current?.state?.api
-
   if (!editorData?.blocks?.length) {
     return
   }
-
+  const { translate } = useLocalize()
   setShowRewriteContent(false)
 
   const resp = await fetch(`${HOST_API}/api/rewriteText/add`, {
@@ -61,7 +62,7 @@ async function addQueue({
 
   if (!resp.ok) {
     setShowRewriteContent(true)
-    return alert('TryAgainLater')
+    return alert(translate('TryAgainLater'))
   }
 
   const { result, error } = await resp.json()
@@ -79,23 +80,39 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
   const [showRewriteContent, setShowRewriteContent] = useState(true)
   const [targetLang, setTargetLang] = useState(1)
   const [rewriteLevel, setRewriteLevel] = useState(1)
-  const reactEditorRef = createRef<any>()
 
   if (!showRewriteContent) {
-    return <div className="h-96">{translate('loading')}</div>
+    return (
+      <div className="h-96">
+        <div className="justify-center flex">{translate('loading')}</div>
+        <Loading />
+      </div>
+    )
   }
-  const placeholder = 'EnterTextForRewritePlaceholder'
+  let editorData: any = {}
+
+  const placeholder = translate('EnterTextForRewritePlaceholder')
+  const api = new EditorJS({
+    holder: 'holder1',
+    tools: EDITOR_JS_TOOLS,
+    placeholder,
+    onChange: (api: any) => {
+      api.saver.save().then((newEditorData: any) => {
+        editorData = newEditorData
+        if (!editorData.blocks?.length) {
+          api.blocks.insertNewBlock()
+        }
+      })
+    },
+  })
 
   return (
     <>
       <div className=" w-full card bg-base-200 p-5">
         <div className="mb-1 md:mb-0 w-full p-2 ">
           <label className="">{'EnterTextForRewrite'}</label>
-          <div
-            className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3"
-            style={{ minHeight: '300px' }}
-          >
-            <ReactEditor ref={reactEditorRef} placeholder={placeholder} />
+          <div className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3 min-h-16">
+            <div id="holder1"></div>
           </div>
         </div>
 
@@ -140,7 +157,7 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
             onClick={() =>
               addQueue({
                 targetLang,
-                editorData: reactEditorRef?.current?.state?.editorData,
+                editorData,
                 setShowRewriteContent,
                 setLinkResult,
               })
