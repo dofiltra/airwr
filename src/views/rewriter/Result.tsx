@@ -97,7 +97,7 @@ const RewriterResultPage: FC<TRewriterResultPage> = () => {
                       />
                     </svg>
                     <label>
-                      {'TaskStatus'}:{' '}
+                      {translate('TaskStatus')}:{' '}
                       {getRewriterStatusText(rewriteData.status).toLowerCase()}{' '}
                       (
                       {isCompleted
@@ -113,7 +113,9 @@ const RewriterResultPage: FC<TRewriterResultPage> = () => {
               </div>
 
               <div className="mb-1 md:mb-0 w-full p-2">
-                <label className="text-white">{'SelectedTargetLang'}</label>
+                <label className="text-white">
+                  {translate('SelectedTargetLang')}
+                </label>
                 <select
                   name="targetLang"
                   value={rewriteData.targetLang}
@@ -127,7 +129,9 @@ const RewriterResultPage: FC<TRewriterResultPage> = () => {
 
               <div className="grid grid-cols-2 gap-1">
                 <div className="mb-1 md:mb-0 w-full p-2 ">
-                  <label className="text-white">{'Original text'}</label>
+                  <label className="text-white">
+                    {translate('Original text')}
+                  </label>
                   <div className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3">
                     <div id="orig"></div>
                   </div>

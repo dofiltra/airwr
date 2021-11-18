@@ -6,17 +6,17 @@ import { useLocalize } from '@borodutch-labs/localize-react'
 export default () => {
   const { translate } = useLocalize()
   const smileSrc = [
-    'https://i.smiles2k.net/computer_smiles/type.gif',
-    'http://www.kolobok.us/smiles/artists/vishenka/d_clock.gif',
-    'http://www.kolobok.us/smiles/artists/mother_goose/MG_76.gif',
-    'http://www.kolobok.us/smiles/artists/mother_goose/MG_216.gif',
-    'http://www.kolobok.us/smiles/artists/phil/phil_24.gif',
-    'http://www.kolobok.us/smiles/artists/big/LorDeR_ahgm.gif',
-    'http://www.kolobok.us/smiles/artists/cherna/Cherna-kunst.gif',
-    'http://www.kolobok.us/smiles/user/kattemad_03.gif',
-    'http://www.kolobok.us/smiles/user/KidRock_06.gif',
-    'http://www.kolobok.us/smiles/user/kuzya_02.gif',
-    'http://www.kolobok.us/smiles/artists/fool/bath.gif',
+    '/img/type.gif',
+    '/img/d_clock.gif',
+    '/img/MG_76.gif',
+    '/img/MG_216.gif',
+    '/img/phil_24.gif',
+    '/img/LorDeR_ahgm.gif',
+    '/img/Cherna-kunst.gif',
+    '/img/kattemad_03.gif',
+    '/img/KidRock_06.gif',
+    '/img/kuzya_02.gif',
+    '/img/bath.gif',
   ].sort(() => (Math.random() > 0.5 ? 1 : -1))[0]
 
   return (
