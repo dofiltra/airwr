@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
-import { FC } from 'preact/compat'
+import { FC, useState } from 'preact/compat'
 import { Loading } from 'components/Loader'
 import { getRewriterStatusText } from 'helpers/rewriter'
 import { useLocalize } from '@borodutch-labs/localize-react'
@@ -58,21 +58,32 @@ const RewriterResultPage: FC<TRewriterResultPage> = () => {
     }),
   }
 
-  const isCompleted = status === 9
+  const percent =
+    ((blocksRewrited.length + 1) / (blocksForRewrite.length + 1)) * 100
+
+  const isCompleted = status === 9 || percent === 100
+
   const isShowResult =
     isCompleted || blocksRewrited.length === blocksForRewrite.length
 
-  const origEditor = new EditorJS({
-    holder: 'orig',
-    tools: EDITOR_JS_TOOLS,
-    data,
-    readOnly: true,
-  })
-  const rewriteEditor = new EditorJS({
-    holder: 'rewrite',
-    tools: EDITOR_JS_TOOLS,
-    data: dataRewrite,
-  })
+  const [origEditor] = useState(
+    () =>
+      new EditorJS({
+        holder: 'orig',
+        tools: EDITOR_JS_TOOLS,
+        data,
+        readOnly: true,
+      })
+  )
+  const [rewriteEditor] = useState(
+    () =>
+      isShowResult &&
+      new EditorJS({
+        holder: 'rewrite',
+        tools: EDITOR_JS_TOOLS,
+        data: dataRewrite,
+      })
+  )
 
   return (
     <>
@@ -98,14 +109,12 @@ const RewriterResultPage: FC<TRewriterResultPage> = () => {
                     </svg>
                     <label>
                       {translate('TaskStatus')}:{' '}
-                      {getRewriterStatusText(rewriteData.status).toLowerCase()}{' '}
-                      (
-                      {isCompleted
-                        ? '100.00'
-                        : (
-                            (blocksRewrited.length / blocksForRewrite.length) *
-                            100
-                          ).toFixed(2)}
+                      {translate(
+                        getRewriterStatusText(
+                          isCompleted ? 9 : rewriteData.status
+                        )
+                      ).toLowerCase()}{' '}
+                      ({isCompleted ? '100.00' : percent.toFixed(2)}
                       %)
                     </label>
                   </div>

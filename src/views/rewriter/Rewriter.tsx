@@ -10,6 +10,8 @@ import { useLocalize } from '@borodutch-labs/localize-react'
 import { useState } from 'preact/hooks'
 import EditorJS from '@editorjs/editorjs'
 
+const editorId = 'holder1'
+
 export const RewriterPage: FC = () => {
   const [linkResultId, setLinkResult] = useState('')
 
@@ -34,18 +36,19 @@ export const RewriterPage: FC = () => {
 
 type TQueueOpts = {
   targetLang: number
-  editorData: any
+  api: any
   setShowRewriteContent: (arg: boolean) => void
   setLinkResult: (arg: string) => void
   translate: any
 }
 async function addQueue({
-  editorData,
+  api,
   targetLang,
   setShowRewriteContent,
   setLinkResult,
   translate,
 }: TQueueOpts) {
+  const editorData = await api.saver.save()
   if (!editorData?.blocks?.length) {
     return
   }
@@ -90,22 +93,18 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
       </div>
     )
   }
-  let editorData: any = {}
 
-  const placeholder = translate('EnterTextForRewritePlaceholder')
-  const api = new EditorJS({
-    holder: 'holder1',
-    tools: EDITOR_JS_TOOLS,
-    placeholder,
-    onChange: (api: any) => {
-      api.saver.save().then((newEditorData: any) => {
-        editorData = newEditorData
-        if (!editorData.blocks?.length) {
-          api.blocks.insertNewBlock()
-        }
+  const [api] = useState(
+    () =>
+      new EditorJS({
+        holder: editorId,
+        tools: EDITOR_JS_TOOLS,
+        placeholder: translate('EnterTextForRewritePlaceholder'),
+        autofocus: true,
+        inlineToolbar: false,
+        hideToolbar: true,
       })
-    },
-  })
+  )
 
   return (
     <>
@@ -113,7 +112,7 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
         <div className="mb-1 md:mb-0 w-full p-2 ">
           <label className="">{translate('EnterTextForRewrite')}</label>
           <div className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3 min-h-16">
-            <div id="holder1"></div>
+            <div id={editorId}></div>
           </div>
         </div>
 
@@ -157,8 +156,8 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
             // disabled={!editorData?.blocks?.length}
             onClick={() =>
               addQueue({
+                api,
                 targetLang,
-                editorData,
                 setShowRewriteContent,
                 setLinkResult,
                 translate,
