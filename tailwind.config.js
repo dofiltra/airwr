@@ -33,7 +33,7 @@ module.exports = {
   },
   daisyui: {
     styled: true,
-    themes: true,
+    themes: ['wireframe'],
     base: true,
     utils: true,
     logs: true,

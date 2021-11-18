@@ -6,7 +6,7 @@
   "scripts": {
     "start": "serve -s dist -l 2985",
     "dev": "vite --port 2985",
-    "preview": "vite preivew",
+    "preview": "yarn run build && yarn start",
     "build": "cross-env NODE_ENV=production tsc && vite build",
     "pretty": "prettier --check src",
     "lint": "yarn pretty && eslint --max-warnings 0 --ext ts,tsx,json src",
@@ -50,7 +50,6 @@
     "daisyui": "^1.16.2",
     "firebase": "^9.4.1",
     "preact": "^10.5.15",
-    "react-editor-js": "^2.0.3",
     "react-router-dom": "^6.0.2",
     "unfetch": "^4.2.0",
     "valtio": "^1.2.6"
