@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
 import { FC, useState } from 'preact/compat'
-import { Loading } from 'components/Loader'
+import { Loading } from 'components/Base/Loader'
 import { getRewriterStatusText } from 'helpers/rewriter'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import { useParams } from 'react-router-dom'

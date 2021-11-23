@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Loading } from 'components/Loader'
+import { Loading } from 'components/Base/Loader'
 import { useLocalize } from '@borodutch-labs/localize-react'
 
 export default () => {
