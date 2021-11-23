@@ -9,7 +9,7 @@ import LocalizationProvider from 'localization/LocalizationProvider'
 import Login from 'views/Login'
 import Navbar from 'components/Navbar/Navbar'
 import RewriterResultPage from 'views/rewriter/Result'
-import Root from 'components/Root'
+import Root from 'components/Containers/Root'
 
 const App = () => {
   return (
