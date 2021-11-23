@@ -9,8 +9,8 @@ export const DocumentationApi: FC = () => {
   return (
     <div className="">
       <div className="overflow-x-auto">
-        <table className="table w-full">
-          <thead className="text-center">
+        <table className="table w-full text-center ">
+          <thead className="">
             <tr>
               <th>{translate('ApiName')}</th>
               <th>{translate('ApiDescription')}</th>
@@ -25,17 +25,31 @@ export const DocumentationApi: FC = () => {
               </th>
               <td>...</td>
               <td>
-                <div className="collapse w-96 border rounded-box border-base-300 collapse-arrow">
-                  <input type="checkbox" />
-                  <div className="collapse-title font-medium">Fetch</div>
-                  <div className="collapse-content ">
-                    <p className="whitespace-pre-wrap overflow-auto">
-                      {addFetch}
-                    </p>
+                <div>
+                  <label
+                    htmlFor="my-modal-2"
+                    className="btn btn-primary modal-button"
+                  >
+                    Show
+                  </label>
+                  <input
+                    type="checkbox"
+                    id="my-modal-2"
+                    className="modal-toggle"
+                  />
+                  <div className="modal w-full">
+                    <div className="modal-box overflow-auto whitespace-pre-wrap ">
+                      <textarea className="w-full h-96">{addFetch}</textarea>
+                      <div className="modal-action">
+                        <label htmlFor="my-modal-2" className="btn">
+                          Close
+                        </label>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </td>
-              <td>
+              <td className="text-left">
                 <div className="collapse w-96 border rounded-box border-base-300 collapse-arrow">
                   <input type="checkbox" />
                   <div className="collapse-title font-medium">Response</div>
@@ -50,9 +64,9 @@ export const DocumentationApi: FC = () => {
             <tr>
               <th>Get</th>
               <td>...</td>
-              <td>{`?id={id}&token={token}`}</td>
+              <td>...</td>
               {/* <td>Purple</td> */}
-              <td>Purple</td>
+              <td>asd</td>
             </tr>
             <tr />
           </tbody>
@@ -95,15 +109,61 @@ const AdditionalInfo = ({ text = '', body = '...', position = 'top' }: any) => {
   )
 }
 
+const token = '{your_token}'
+const addFetchBody = JSON.stringify(
+  {
+    token,
+    targetLang: 1, // 0 - en, 1 - ru
+    blocks: [
+      {
+        type: 'header',
+        data: {
+          text: 'Dofiltra H2',
+          level: 2,
+        },
+      },
+      {
+        type: 'paragraph',
+        data: {
+          text: 'Hello, dear friend!',
+        },
+      },
+      {
+        type: 'header',
+        data: {
+          text: 'Subtitle H3',
+          level: 3,
+        },
+      },
+      {
+        type: 'list',
+        data: {
+          style: 'unordered',
+          items: ['item 1', 'item 2', 'item 3'],
+        },
+      },
+      {
+        type: 'image',
+        data: {
+          file: {
+            url: 'https://codex.so/public/app/img/external/codex2x.png',
+          },
+          caption: '',
+        },
+      },
+    ],
+  },
+  null,
+  6
+)
 const addFetch = `fetch("${HOST_API}/api/rewriteText/create", {
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
   },
   method: "POST",
-  body: JSON.stringify({
-      targetLang: 1
-  }),
+  mode: 'cors',
+  body: JSON.stringify(${addFetchBody}),
 })`
 const addResponse = JSON.stringify(
   {
