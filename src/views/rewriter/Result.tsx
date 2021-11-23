@@ -59,7 +59,9 @@ const RewriterResultPage: FC<TRewriterResultPage> = () => {
   }
 
   const percent =
-    ((blocksRewrited.length + 1) / (blocksForRewrite.length + 1)) * 100
+    status === 9
+      ? 100
+      : ((blocksRewrited.length + 1) / (blocksForRewrite.length + 1)) * 100
 
   const isCompleted = status === 9 || percent === 100
 
@@ -106,7 +108,7 @@ const RewriterResultPage: FC<TRewriterResultPage> = () => {
                         d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
                       />
                     </svg>
-                    <label>
+                    <label className="w-full">
                       {translate('TaskStatus')}:{' '}
                       {translate(
                         getRewriterStatusText(
@@ -117,6 +119,15 @@ const RewriterResultPage: FC<TRewriterResultPage> = () => {
                       %){' '}
                       {!isCompleted && (
                         <button className="btn btn-ghost btn-sm btn-circle loading"></button>
+                      )}
+                      {!isCompleted && (
+                        <div className="w-full">
+                          <progress
+                            className="w-full progress progress-info"
+                            value={percent}
+                            max={100}
+                          />
+                        </div>
                       )}
                     </label>
                   </div>
