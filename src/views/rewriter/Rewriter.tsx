@@ -4,7 +4,7 @@
 import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
 import { FC } from 'preact/compat'
 import { HOST_API, headers } from 'helpers/api'
-import { Loading } from 'components/Base/Loader'
+import { Loading } from 'components/Containers/Loader'
 import { Navigate } from 'react-router-dom'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import { useState } from 'preact/hooks'

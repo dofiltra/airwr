@@ -1,4 +1,4 @@
-import { Loading } from 'components/Base/Loader'
+import { Loading } from 'components/Containers/Loader'
 import { auth } from 'services/firebase'
 import { onAuthStateChanged } from 'firebase/auth'
 import { useCallback, useState } from 'react'
