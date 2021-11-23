@@ -9,7 +9,16 @@ export default function useRewriteText(id: string) {
   >(undefined)
 
   const fetchData = async () => {
-    setRewriteData(await geRewriteData(id))
+    const data = await geRewriteData(id)
+    setRewriteData(data)
+    // console.log('r', data)
+    const status = data?.status || 0
+
+    if (status !== 9) {
+      setTimeout(() => {
+        void fetchData()
+      }, 7e3)
+    }
   }
 
   useEffect(() => {

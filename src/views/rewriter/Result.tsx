@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
-import { FC, useState } from 'preact/compat'
+import { FC, useEffect, useState } from 'preact/compat'
 import { Loading } from 'components/Loader'
 import { getRewriterStatusText } from 'helpers/rewriter'
 import { useLocalize } from '@borodutch-labs/localize-react'
@@ -27,7 +27,20 @@ const RewriterResultPage: FC<TRewriterResultPage> = () => {
   const { id = '' } = useParams()
   const { rewriteData } = useRewriteText(id)
   const { translate } = useLocalize()
-  console.log('rewriteData', rewriteData)
+  // console.log('rewriteData', rewriteData)
+  // const [seconds, setSeconds] = useState(0)
+
+  // useEffect(() => {
+  //   const interval: any = setInterval(() => {
+  //     if (seconds > 5) {
+  //       return clearInterval(interval)
+  //     }
+  //     console.log(seconds, interval)
+
+  //     setSeconds((seconds) => seconds + 1)
+  //   }, 1000)
+  //   return () => clearInterval(interval)
+  // }, [seconds])
 
   if (!rewriteData?.blocks?.length) {
     return (
@@ -76,8 +89,7 @@ const RewriterResultPage: FC<TRewriterResultPage> = () => {
       })
   )
   const [rewriteEditor] = useState(
-    () =>
-      isShowResult &&
+    isShowResult &&
       new EditorJS({
         holder: 'rewrite',
         tools: EDITOR_JS_TOOLS,
