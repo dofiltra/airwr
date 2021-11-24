@@ -55,7 +55,7 @@ export const DocumentationApi: FC = () => {
                               {
                                 type: 'header|paragraph|list|table|image',
                                 data: {
-                                  text: 'see fetch example',
+                                  text: 'see request example',
                                 },
                               },
                             ],
@@ -126,16 +126,16 @@ export const DocumentationApi: FC = () => {
                   content={
                     <div className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
                       <p className="pb-2">
+                        <p className="pb-2">
+                          <b>Id*</b>
+                          : string
+                          <br />
+                          <small>"{_id}"</small>
+                        </p>
                         <b>Token*</b>
                         : string
                         <br />
                         <small>{'"your_token"'}</small>
-                      </p>
-                      <p className="pb-2">
-                        <b>TargetLang*</b>
-                        : enum (number)
-                        <br />
-                        <small>EN = 0, RU = 1</small>
                       </p>
                     </div>
                   }
@@ -339,8 +339,11 @@ const add = {
 }
 
 const get = {
-  request: `const resp = await fetch(${HOST_API}/api/rewriteText/get?id=${_id}&token=${token}, {
-    headers,
+  request: `const resp = await fetch("${HOST_API}/api/rewriteText/get?id=${_id}&token=${token}", {
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
     method: 'GET',
   })
 
