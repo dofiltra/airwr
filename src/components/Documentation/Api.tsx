@@ -42,11 +42,11 @@ export const DocumentationApi: FC = () => {
                       </p>
                       <p className="pb-2">
                         <b>TargetLang*</b>
-                        : enum
+                        : enum (number)
                         <br />
                         <small>EN = 0, RU = 1</small>
                       </p>
-                      <p className="pb-2">
+                      <p className="pb-3">
                         <b>Blocks*</b>
                         : array of objects
                         <br />
@@ -66,19 +66,20 @@ export const DocumentationApi: FC = () => {
                         </small>
                       </p>
                       <p className="pb-2">
-                        <b>Dataset</b>: enum
+                        <b>Dataset</b>: enum (number)
                         <br />
                         <small>
-                          Auto = 0, News = 1, Crypto = 2, Finance = 3, Medicine
-                          = 4
+                          Auto = 0
+                          {/* ,News = 1, Crypto = 2, Finance = 3, Medicine
+                          = 4 */}
                         </small>
                       </p>
-                      {/* <p className="pb-2">
-                        <b>Level</b>
-                        : enum
+                      <p className="pb-2">
+                        <b>Power</b>
+                        : enum (number)
                         <br />
-                        <small> Light = 0, Medium = 3, Hard = 9</small>
-                      </p> */}
+                        <small> Light = 0</small>
+                      </p>
                     </div>
                   }
                 />
@@ -170,7 +171,7 @@ const addFetchBody = JSON.stringify(
     token,
     targetLang: 1, // 0 - en, 1 - ru
     dataset: 0,
-    level: 0,
+    power: 0,
     blocks: [
       {
         type: 'header',
