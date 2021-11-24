@@ -59,6 +59,9 @@ async function addQueue({
     method: 'POST',
     body: JSON.stringify({
       targetLang,
+      dataset: 0,
+      power: 0,
+      token: '',
       blocks: editorData.blocks,
     }),
     mode: 'cors',
