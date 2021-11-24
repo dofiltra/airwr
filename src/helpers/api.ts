@@ -13,7 +13,7 @@ export async function geRewriteData(id: string) {
       method: 'GET',
     })
 
-    const { item } = await resp.json()
+    const { item, error } = await resp.json()
     return item
   } catch {
     //

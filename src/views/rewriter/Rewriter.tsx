@@ -86,7 +86,7 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
   const { translate } = useLocalize()
   const [showRewriteContent, setShowRewriteContent] = useState(true)
   const [targetLang, setTargetLang] = useState(1)
-  const [rewriteLevel, setRewriteLevel] = useState(1)
+  // const [rewritePower, setRewritePower] = useState(0)
 
   if (!showRewriteContent) {
     return (
@@ -136,20 +136,18 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
             </select>
           </div>
           {/* <div className="mb-1 md:mb-0 w-full p-2">
-            <label className="text-white-700">{'SelectRewriteLevel'}</label>
+            <label className="text-white-700">{'SelectRewritePowrt'}</label>
             <select
-              defaultValue={rewriteLevel}
+              defaultValue={rewritePowrt}
               onChange={(val) => {
-                this.setState({
-                  rewriteLevel: parseInt(val.target.value, 10),
-                })
+                setRewritePower(parseInt(val.target.value, 10))
               }}
               disabled
               className="select w-full select-bordered select-primary "
             >
-              <option value={1}>Light</option>
-              <option value={2}>Medium</option>
-              <option value={3}>Hard</option>
+              <option value={0}>Light</option>
+              <option value={3}>Medium</option>
+              <option value={9}>Hard</option>
             </select>
           </div> */}
         </div>
