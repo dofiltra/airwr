@@ -1,14 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FC } from 'react'
+import { FC } from 'preact/compat'
 import { HOST_API } from 'helpers/api'
+import { SignInButtons } from 'components/Buttons/SignIn'
+import { useContext } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
+import AuthContext from 'components/Auth/AuthContext'
 
 export const DocumentationApi: FC = () => {
   const { translate } = useLocalize()
+  const { user } = useContext(AuthContext)
 
   return (
     <div className="">
       <div className="overflow-x-auto">
+        <p className="py-3">
+          <b>{translate('Your token')}</b>: {user?.uid || <SignInButtons />}
+        </p>
+        <hr />
         <table className="table w-full text-center ">
           <thead className="">
             <tr>
@@ -225,39 +233,6 @@ const ModalBtn = ({
   )
 }
 
-const AdditionalInfo = ({ text = '', body = '', position = 'center' }: any) => {
-  return (
-    <>
-      {text}{' '}
-      <div className={`dropdown dropdown-${position}`}>
-        <div tabIndex={0} className="btn btn-circle btn-ghost btn-xs text-info">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            className="inline w-5 h-5 stroke-current"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-        </div>
-        <div
-          tabIndex={0}
-          className="shadow card compact dropdown-content bg-base-100 rounded-box w-64"
-        >
-          <div className="card-body">
-            <p>{body}</p>
-          </div>
-        </div>
-      </div>
-    </>
-  )
-}
-
 const token = '{your_token}'
 const _id = '619e2b6d18f0e61f6701c016'
 const textOriginal =
@@ -273,7 +248,7 @@ const add = {
       'Content-Type': 'application/json',
     },
     method: "POST",
-    mode: 'cors',
+    mode: "cors",
     body: JSON.stringify(${JSON.stringify(
       {
         token,
@@ -326,6 +301,7 @@ const add = {
   
   const { result, error } = await resp.json()
   `,
+
   response: JSON.stringify(
     {
       result: {
@@ -345,9 +321,12 @@ const get = {
       'Content-Type': 'application/json',
     },
     method: 'GET',
+    mode: "cors",
   })
 
-  const { item, error } = await resp.json()`,
+  const { item, error } = await resp.json()
+  `,
+
   response: JSON.stringify(
     {
       item: {
@@ -378,3 +357,36 @@ const get = {
     2
   ),
 }
+
+// const AdditionalInfo = ({ text = '', body = '', position = 'center' }: any) => {
+//   return (
+//     <>
+//       {text}{' '}
+//       <div className={`dropdown dropdown-${position}`}>
+//         <div tabIndex={0} className="btn btn-circle btn-ghost btn-xs text-info">
+//           <svg
+//             xmlns="http://www.w3.org/2000/svg"
+//             fill="none"
+//             viewBox="0 0 24 24"
+//             className="inline w-5 h-5 stroke-current"
+//           >
+//             <path
+//               strokeLinecap="round"
+//               strokeLinejoin="round"
+//               strokeWidth={2}
+//               d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+//             />
+//           </svg>
+//         </div>
+//         <div
+//           tabIndex={0}
+//           className="shadow card compact dropdown-content bg-base-100 rounded-box w-64"
+//         >
+//           <div className="card-body">
+//             <p>{body}</p>
+//           </div>
+//         </div>
+//       </div>
+//     </>
+//   )
+// }
