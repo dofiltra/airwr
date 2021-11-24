@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC } from 'preact/compat'
-import { HOST_API } from 'helpers/api'
+import { HOST_API, headers } from 'helpers/api'
 import { SignInButtons } from 'components/Buttons/SignIn'
 import { useContext } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
@@ -9,6 +9,7 @@ import AuthContext from 'components/Auth/AuthContext'
 export const DocumentationApi: FC = () => {
   const { translate } = useLocalize()
   const { user } = useContext(AuthContext)
+  const token = user?.uid || '{your_token}'
 
   return (
     <div className="">
@@ -33,7 +34,7 @@ export const DocumentationApi: FC = () => {
                   title={'Request'}
                   content={
                     <textarea className="w-full h-96 text-sm">
-                      {add.request}
+                      {add.request({ token })}
                     </textarea>
                   }
                 />
@@ -45,7 +46,7 @@ export const DocumentationApi: FC = () => {
                         <b>Token*</b>
                         : string
                         <br />
-                        <small>{'"your_token"'}</small>
+                        <small>{token}</small>
                       </p>
                       <p className="pb-2">
                         <b>TargetLang*</b>
@@ -76,8 +77,8 @@ export const DocumentationApi: FC = () => {
                         <b>Dataset</b>: enum (number)
                         <br />
                         <small>
-                          Auto = 0
-                          {/* ,News = 1, Crypto = 2, Finance = 3, Medicine
+                          Auto = 0, News = 1
+                          {/*, Crypto = 2, Finance = 3, Medicine
                           = 4 */}
                         </small>
                       </p>
@@ -85,7 +86,7 @@ export const DocumentationApi: FC = () => {
                         <b>Power</b>
                         : enum (number)
                         <br />
-                        <small> Light = 0</small>
+                        <small> Auto = 0, Light = 1</small>
                       </p>
                     </div>
                   }
@@ -126,7 +127,9 @@ export const DocumentationApi: FC = () => {
                 <ModalBtn
                   title={'Request'}
                   content={
-                    <textarea className="w-full h-96">{get.request}</textarea>
+                    <textarea className="w-full h-96 text-sm">
+                      {get.request({ token })}
+                    </textarea>
                   }
                 />
                 <ModalBtn
@@ -143,7 +146,7 @@ export const DocumentationApi: FC = () => {
                         <b>Token*</b>
                         : string
                         <br />
-                        <small>{'"your_token"'}</small>
+                        <small>{token}</small>
                       </p>
                     </div>
                   }
@@ -154,7 +157,7 @@ export const DocumentationApi: FC = () => {
                   title={'Response'}
                   content={
                     <p className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
-                      {get.response}
+                      {get.response({ token })}
                     </p>
                   }
                 />
@@ -233,7 +236,6 @@ const ModalBtn = ({
   )
 }
 
-const token = '{your_token}'
 const _id = '619e2b6d18f0e61f6701c016'
 const textOriginal =
   'Свою долю в импорте в Казахстан значительно увеличила Россия. Если в прошлом году РФ занимала долю 40% от общего объема импорта мебели в РК, то в этом году эта цифра выросла до 45%. В январе-сентябре 2021 года соседняя страна заработала $118,7 млн на продаже мебели Казахстану (+55% в сравнении с аналогичным периодом). Другие крупные экспортеры мебельной продукции также преумножили свои поставки: Турция (+23%), Китай (+32%).'
@@ -242,7 +244,9 @@ const textRewrite =
   'Среди стран-импортеров из Казахстана значительная доля приходится на Россию. По сравнению с предыдущим годом, в этом году на долю России пришлось 45% от общего объема импорта мебели в Казахстан. Рост продаж мебели в Казахстан на 20% +55% по сравнению с аналогичным периодом прошлого года принес соседней стране $118,7 млн в январе-сентябре 2021 года. Турция (+23%) и Китай (+32%) также были в числе ведущих экспортеров мебели.'
 
 const add = {
-  request: `const resp = await fetch("${HOST_API}/api/rewriteText/create", {
+  request: ({
+    token,
+  }: any) => `const resp = await fetch("${HOST_API}/api/rewriteText/create", {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
@@ -315,11 +319,10 @@ const add = {
 }
 
 const get = {
-  request: `const resp = await fetch("${HOST_API}/api/rewriteText/get?id=${_id}&token=${token}", {
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+  request: ({
+    token,
+  }: any) => `const resp = await fetch("${HOST_API}/api/rewriteText/get?id=${_id}&token=${token}", {
+    headers: ${JSON.stringify(headers, null, 8)},
     method: 'GET',
     mode: "cors",
   })
@@ -327,35 +330,36 @@ const get = {
   const { item, error } = await resp.json()
   `,
 
-  response: JSON.stringify(
-    {
-      item: {
-        _id,
-        token,
-        targetLang: 1,
-        blocks: [
-          {
-            type: 'paragraph',
-            data: {
-              text: textOriginal,
-            },
-            rewriteDataSuggestions: [
-              {
-                text: textRewrite,
+  response: ({ token }: any) =>
+    JSON.stringify(
+      {
+        item: {
+          _id,
+          token,
+          targetLang: 1,
+          blocks: [
+            {
+              type: 'paragraph',
+              data: {
+                text: textOriginal,
               },
-            ],
-          },
-        ],
-        status: 9,
-        dataset: 0,
-        power: 0,
-        createdAt: new Date().toJSON(),
-        updatedAt: new Date().toJSON(),
+              rewriteDataSuggestions: [
+                {
+                  text: textRewrite,
+                },
+              ],
+            },
+          ],
+          status: 9,
+          dataset: 0,
+          power: 0,
+          createdAt: new Date().toJSON(),
+          updatedAt: new Date().toJSON(),
+        },
       },
-    },
-    null,
-    2
-  ),
+      null,
+      2
+    ),
 }
 
 // const AdditionalInfo = ({ text = '', body = '', position = 'center' }: any) => {
