@@ -247,10 +247,7 @@ const add = {
   request: ({
     token,
   }: any) => `const resp = await fetch("${HOST_API}/api/rewriteText/create", {
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+    headers: ${JSON.stringify(headers, null, 8)},
     method: "POST",
     mode: "cors",
     body: JSON.stringify(${JSON.stringify(
