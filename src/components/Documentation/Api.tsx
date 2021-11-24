@@ -15,7 +15,6 @@ export const DocumentationApi: FC = () => {
               <th>{translate('ApiName')}</th>
               <th>{translate('ApiDescription')}</th>
               <th>{translate('ApiExample')}</th>
-              <th>{translate('ApiResponse')}</th>
             </tr>
           </thead>
           <tbody>
@@ -23,50 +22,80 @@ export const DocumentationApi: FC = () => {
               <th>
                 <AdditionalInfo text={'Add '} />
               </th>
-              <td>...</td>
+              <td>-</td>
               <td>
-                <div>
-                  <label
-                    htmlFor="my-modal-2"
-                    className="btn btn-primary modal-button"
-                  >
-                    Show
-                  </label>
-                  <input
-                    type="checkbox"
-                    id="my-modal-2"
-                    className="modal-toggle"
-                  />
-                  <div className="modal w-full">
-                    <div className="modal-box overflow-auto whitespace-pre-wrap ">
-                      <textarea className="w-full h-96">{addFetch}</textarea>
-                      <div className="modal-action">
-                        <label htmlFor="my-modal-2" className="btn">
-                          Close
-                        </label>
-                      </div>
+                <ModalBtn
+                  title={'Fetch'}
+                  content={
+                    <textarea className="w-full h-96">{addFetch}</textarea>
+                  }
+                />
+                <ModalBtn
+                  title={'Types'}
+                  content={
+                    <div className="h-96 whitespace-pre-wrap overflow-auto text-left">
+                      <p className="pb-2">
+                        <b>Token*</b>
+                        : string
+                        <br />
+                        <small>{'"your_token"'}</small>
+                      </p>
+                      <p className="pb-2">
+                        <b>TargetLang*</b>
+                        : enum
+                        <br />
+                        <small>EN = 0, RU = 1</small>
+                      </p>
+                      <p className="pb-2">
+                        <b>Blocks*</b>
+                        : array of objects
+                        <br />
+                        <small>
+                          {JSON.stringify(
+                            [
+                              {
+                                type: 'header|paragraph|list|table|image',
+                                data: {
+                                  text: 'see fetch example',
+                                },
+                              },
+                            ],
+                            null,
+                            2
+                          )}
+                        </small>
+                      </p>
+                      <p className="pb-2">
+                        <b>Dataset</b>: enum
+                        <br />
+                        <small>
+                          Auto = 0, News = 1, Crypto = 2, Finance = 3, Medicine
+                          = 4
+                        </small>
+                      </p>
+                      {/* <p className="pb-2">
+                        <b>Level</b>
+                        : enum
+                        <br />
+                        <small> Light = 0, Medium = 3, Hard = 9</small>
+                      </p> */}
                     </div>
-                  </div>
-                </div>
-              </td>
-              <td className="text-left">
-                <div className="collapse w-96 border rounded-box border-base-300 collapse-arrow">
-                  <input type="checkbox" />
-                  <div className="collapse-title font-medium">Response</div>
-                  <div className="collapse-content ">
-                    <p className="whitespace-pre-wrap overflow-auto">
+                  }
+                />
+                <ModalBtn
+                  title={'Response'}
+                  content={
+                    <p className="h-96 whitespace-pre-wrap overflow-auto text-left">
                       {addResponse}
                     </p>
-                  </div>
-                </div>
+                  }
+                />
               </td>
             </tr>
             <tr>
               <th>Get</th>
+              <td>-</td>
               <td>...</td>
-              <td>...</td>
-              {/* <td>Purple</td> */}
-              <td>asd</td>
             </tr>
             <tr />
           </tbody>
@@ -76,10 +105,36 @@ export const DocumentationApi: FC = () => {
   )
 }
 
-const AdditionalInfo = ({ text = '', body = '...', position = 'top' }: any) => {
+const ModalBtn = ({
+  id = Math.random(),
+  title = '',
+  cls = '',
+  content,
+}: any) => {
   return (
-    <div>
-      {text}
+    <div className={`p-2 ${cls}`}>
+      <label htmlFor={id} className="btn btn-primary btn-sm modal-button">
+        {title}
+      </label>
+      <input type="checkbox" id={id} className="modal-toggle" />
+      <div className="modal w-full">
+        <div className="modal-box overflow-auto whitespace-pre-wrap ">
+          {content}
+          <div className="modal-action">
+            <label htmlFor={id} className="btn">
+              Close
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const AdditionalInfo = ({ text = '', body = '', position = 'center' }: any) => {
+  return (
+    <>
+      {text}{' '}
       <div className={`dropdown dropdown-${position}`}>
         <div tabIndex={0} className="btn btn-circle btn-ghost btn-xs text-info">
           <svg
@@ -98,14 +153,14 @@ const AdditionalInfo = ({ text = '', body = '...', position = 'top' }: any) => {
         </div>
         <div
           tabIndex={0}
-          className="shadow card compact dropdown-content bg-base-100 rounded-box "
+          className="shadow card compact dropdown-content bg-base-100 rounded-box w-64"
         >
           <div className="card-body">
             <p>{body}</p>
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
@@ -114,6 +169,8 @@ const addFetchBody = JSON.stringify(
   {
     token,
     targetLang: 1, // 0 - en, 1 - ru
+    dataset: 0,
+    level: 0,
     blocks: [
       {
         type: 'header',
