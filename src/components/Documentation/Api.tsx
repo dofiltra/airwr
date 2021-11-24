@@ -13,19 +13,16 @@ export const DocumentationApi: FC = () => {
           <thead className="">
             <tr>
               <th>{translate('ApiName')}</th>
-              <th>{translate('ApiDescription')}</th>
-              <th>{translate('ApiExample')}</th>
+              <th>{translate('ApiRequest')}</th>
+              <th>{translate('ApiResponse')}</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <th>
-                <AdditionalInfo text={'Add '} />
-              </th>
-              <td>-</td>
+              <th>Add</th>
               <td>
                 <ModalBtn
-                  title={'Fetch'}
+                  title={'Request'}
                   content={
                     <textarea className="w-full h-96">{addFetch}</textarea>
                   }
@@ -83,12 +80,32 @@ export const DocumentationApi: FC = () => {
                     </div>
                   }
                 />
+              </td>
+              <td>
                 <ModalBtn
                   title={'Response'}
                   content={
                     <p className="h-96 whitespace-pre-wrap overflow-auto text-left">
                       {addResponse}
                     </p>
+                  }
+                />
+                <ModalBtn
+                  title={'Types'}
+                  content={
+                    <div className="h-96 whitespace-pre-wrap overflow-auto text-left">
+                      <p className="pb-2">
+                        <b>Result</b>: object
+                        <br />
+                        <small>"_id" - id of result item</small>
+                      </p>
+                      <p className="pb-2">
+                        <b>Error</b>
+                        : Object|null
+                        <br />
+                        <small>error info</small>
+                      </p>
+                    </div>
                   }
                 />
               </td>
@@ -225,7 +242,10 @@ const addFetch = `fetch("${HOST_API}/api/rewriteText/create", {
 })`
 const addResponse = JSON.stringify(
   {
-    result: 'asd',
+    result: {
+      _id: '619e2b6d18f0e61f6701c016',
+    },
+    error: null,
   },
   null,
   2
