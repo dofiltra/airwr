@@ -246,7 +246,7 @@ const textRewrite =
 const add = {
   request: ({
     token,
-  }: any) => `const resp = await fetch("${HOST_API}/api/rewriteText/create", {
+  }: any) => `const resp = await fetch("${HOST_API}/api/rewriteText/add", {
     headers: ${JSON.stringify(headers, null, 8)},
     method: "POST",
     mode: "cors",
