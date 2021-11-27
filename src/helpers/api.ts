@@ -19,3 +19,17 @@ export async function geRewriteData(id: string) {
     //
   }
 }
+
+export async function getRewriteQueue() {
+  try {
+    const resp = await fetch(`${HOST_API}/api/rewriteText/getQueue`, {
+      headers,
+      method: 'GET',
+    })
+
+    const { count } = await resp.json()
+    return count
+  } catch {
+    //
+  }
+}

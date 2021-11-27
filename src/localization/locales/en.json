@@ -24,5 +24,6 @@
   "InProgress": "In progress",
   "Completed": "Completed",
   "TaskResult": "Task result",
-  "Rewrited text": "Rewrited text"
+  "Rewrited text": "Rewrited text",
+  "Queue":"Queue: {{count}} pages (~{{chars}} chars)"
 }

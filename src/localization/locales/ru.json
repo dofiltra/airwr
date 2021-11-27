@@ -3,7 +3,7 @@
   "ButtonSend": "Отправить",
   "TryAgainLater": "Произошла ошибка, попробуйте позже",
   "sign in": "Войти",
-  "sign out": "Выйти",  
+  "sign out": "Выйти",
   "AboutTitle": "О сервисе",
   "AboutText": "Информация скоро появится. К концу месяца уж точно!",
   "ApiTitle": "API",
@@ -24,5 +24,6 @@
   "InProgress": "Запущена",
   "Completed": "Завершена",
   "TaskResult": "Результат задачи",
-  "Rewrited text": "Отрерайченный текст"
+  "Rewrited text": "Отрерайченный текст",
+  "Queue": "Очередь: {{count}} страниц (~{{chars}} символов)"
 }

@@ -9,6 +9,7 @@ import { Navigate } from 'react-router-dom'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import { useState } from 'preact/hooks'
 import EditorJS from '@editorjs/editorjs'
+import useRewriteQueue from 'hooks/useRewriteQueue'
 
 const editorId = 'holder1'
 
@@ -97,6 +98,9 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
     )
   }
 
+  const { queueCount = 0 } = useRewriteQueue()
+  const queueChars = queueCount * 7503
+
   const [api] = useState(
     () =>
       new EditorJS({
@@ -112,6 +116,12 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
   return (
     <>
       <div className=" w-full card bg-base-200 p-5">
+        <div className="mb-1 md:mb-0 w-full p-2 text-center">
+          <div>
+            {translate('Queue', { count: queueCount, chars: queueChars })}
+          </div>
+        </div>
+
         <div className="mb-1 md:mb-0 w-full p-2 ">
           <label className="">{translate('EnterTextForRewrite')}</label>
           <div className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3 min-h-16">
