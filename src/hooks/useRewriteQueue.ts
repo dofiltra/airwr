@@ -15,5 +15,5 @@ export default function useRewriteQueue() {
     void fetchData()
   }, [])
 
-  return { queueCount }
+  return { queueCount, queueChars: (queueCount || 0) * 7503 }
 }

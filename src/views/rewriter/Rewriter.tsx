@@ -98,8 +98,7 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
     )
   }
 
-  const { queueCount = 0 } = useRewriteQueue()
-  const queueChars = queueCount * 7503
+  const { queueCount = 0, queueChars = 0 } = useRewriteQueue()
 
   const [api] = useState(
     () =>

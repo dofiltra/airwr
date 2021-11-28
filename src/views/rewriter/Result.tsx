@@ -6,6 +6,7 @@ import { getRewriterStatusText } from 'helpers/rewriter'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import { useParams } from 'react-router-dom'
 import EditorJS from '@editorjs/editorjs'
+import useRewriteQueue from 'hooks/useRewriteQueue'
 import useRewriteText from 'hooks/useRewriteData'
 
 type TRewriterResultPage = {
@@ -85,6 +86,7 @@ const RewriterResultPage: FC<TRewriterResultPage> = () => {
         data: dataRewrite,
       })
   )
+  const { queueCount = 0, queueChars = 0 } = useRewriteQueue()
 
   return (
     <>
@@ -92,6 +94,12 @@ const RewriterResultPage: FC<TRewriterResultPage> = () => {
         <main>
           <div className="max-w-7xl">
             <div className="px-4 sm:px-0">
+              <div className="mt-4 md:mb-0 w-full text-center">
+                <div>
+                  {translate('Queue', { count: queueCount, chars: queueChars })}
+                </div>
+              </div>
+
               <div className="mb-1 md:mb-0 w-full p-1">
                 <div className={'alert ' + getBackgroundColorByStatus(status)}>
                   <div className="flex-1">
