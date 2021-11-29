@@ -17,7 +17,7 @@ export default function useRewriteText(id: string) {
     if (status !== 9) {
       setTimeout(() => {
         void fetchData()
-      }, 7e3)
+      }, 15e3)
     }
   }
 
