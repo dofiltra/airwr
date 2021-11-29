@@ -28,7 +28,8 @@ const RewriterResultPage: FC<TRewriterResultPage> = () => {
   const { id = '' } = useParams()
   const { rewriteData } = useRewriteText(id)
   const { translate } = useLocalize()
-  // console.log('rewriteData', rewriteData)
+  const { queueCount = 0, queueChars = 0 } = useRewriteQueue()
+  console.log('rewriteData', rewriteData)
 
   if (!rewriteData?.blocks?.length) {
     return (
@@ -79,6 +80,7 @@ const RewriterResultPage: FC<TRewriterResultPage> = () => {
       })
   )
   const [rewriteEditor] = useState(
+    // () =>
     isShowResult &&
       new EditorJS({
         holder: 'rewrite',
@@ -86,7 +88,6 @@ const RewriterResultPage: FC<TRewriterResultPage> = () => {
         data: dataRewrite,
       })
   )
-  const { queueCount = 0, queueChars = 0 } = useRewriteQueue()
 
   return (
     <>
@@ -169,7 +170,9 @@ const RewriterResultPage: FC<TRewriterResultPage> = () => {
 
                 {isShowResult && (
                   <div className="mb-1 md:mb-0 w-full p-2 ">
-                    <label className="text-white">{'Rewrited text'}</label>
+                    <label className="text-white">
+                      {translate('Rewrited text')}
+                    </label>
                     <div className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3">
                       <div id="rewrite"></div>
                     </div>

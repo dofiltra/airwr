@@ -6,8 +6,9 @@ import { FC } from 'preact/compat'
 import { HOST_API, headers } from 'helpers/api'
 import { Loading } from 'components/Containers/Loader'
 import { Navigate } from 'react-router-dom'
+import { useContext, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
-import { useState } from 'preact/hooks'
+import AuthContext from 'components/Auth/AuthContext'
 import EditorJS from '@editorjs/editorjs'
 import useRewriteQueue from 'hooks/useRewriteQueue'
 
@@ -41,6 +42,7 @@ type TQueueOpts = {
   setShowRewriteContent: (arg: boolean) => void
   setLinkResult: (arg: string) => void
   translate: any
+  token: string
 }
 async function addQueue({
   api,
@@ -48,6 +50,7 @@ async function addQueue({
   setShowRewriteContent,
   setLinkResult,
   translate,
+  token,
 }: TQueueOpts) {
   const editorData = await api.saver.save()
   if (!editorData?.blocks?.length) {
@@ -62,7 +65,7 @@ async function addQueue({
       targetLang,
       dataset: 0,
       power: 0,
-      token: '',
+      token,
       blocks: editorData.blocks,
     }),
     mode: 'cors',
@@ -99,6 +102,8 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
   }
 
   const { queueCount = 0, queueChars = 0 } = useRewriteQueue()
+  const { user } = useContext(AuthContext)
+  const token = user?.uid || ''
 
   const [api] = useState(
     () =>
@@ -171,6 +176,7 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
                 setShowRewriteContent,
                 setLinkResult,
                 translate,
+                token,
               })
             }
             className="w-full btn btn-success"
