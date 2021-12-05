@@ -25,5 +25,7 @@
   "Completed": "Completed",
   "TaskResult": "Task result",
   "Rewrited text": "Rewrited text",
-  "Queue":"Queue: {{count}} pages (~{{chars}} chars)"
+  "Queue": "Queue: {{count}} pages (~{{chars}} chars)",
+  "Balance": "Balance: ${{coins}}",
+  "RewriteStats": "Rewrite Stats"
 }

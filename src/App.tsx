@@ -8,6 +8,7 @@ import FooterSmall from 'components/Footer/FooterSmall'
 import LocalizationProvider from 'localization/LocalizationProvider'
 import Login from 'views/Login'
 import Navbar from 'components/Navbar/Navbar'
+import ProfilePage from 'views/info/Profile'
 import RewriterResultPage from 'views/rewriter/Result'
 import Root from 'components/Containers/Root'
 
@@ -25,6 +26,7 @@ const App = () => {
                 element={<RewriterResultPage />}
               />
               <Route path="/login" element={<Login />} />
+              <Route path="/profile" element={<ProfilePage />} />
               <Route path="/info/api" element={<ApiPage />} />
               <Route path="/info/about" element={<AboutPage />} />
               <Route path="/info/contacts" element={<ContactsPage />} />
