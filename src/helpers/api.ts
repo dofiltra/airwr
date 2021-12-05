@@ -33,3 +33,21 @@ export async function getRewriteQueue() {
     //
   }
 }
+
+export async function getCoins(token?: string) {
+  if (!token) {
+    return 0
+  }
+
+  try {
+    const resp = await fetch(`${HOST_API}/api/balance/get?token=${token}`, {
+      headers,
+      method: 'GET',
+    })
+
+    const { coins = 0 } = await resp.json()
+    return coins
+  } catch {
+    //
+  }
+}

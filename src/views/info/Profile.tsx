@@ -1,7 +1,10 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { useContext } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
+import AuthContext from 'components/Auth/AuthContext'
+import useBalance from 'hooks/useBalance'
 
 export default () => {
   const { translate } = useLocalize()
@@ -19,6 +22,9 @@ export default () => {
     '/img/bath.gif',
   ].sort(() => (Math.random() > 0.5 ? 1 : -1))[0]
 
+  const { user } = useContext(AuthContext)
+  const { coins = 0 } = useBalance(user?.uid || '')
+
   return (
     <>
       <div className="min-h-full">
@@ -33,7 +39,7 @@ export default () => {
                   <div className="text-center mb-5 justify-center flex">
                     <img src={smileSrc} />
                   </div>
-                  <p className="mb-5">{translate('Balance', { coins: 0 })}</p>
+                  <p className="mb-5">{translate('Balance', { coins })}</p>
                   <p className="mb-5">{translate('RewriteStats')}</p>
                 </div>
               </div>
