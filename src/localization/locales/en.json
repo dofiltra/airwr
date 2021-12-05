@@ -28,5 +28,7 @@
   "Queue": "Queue: {{count}} pages (~{{chars}} chars)",
   "ProfileTitle": "Profile",
   "Balance": "Balance: ${{coins}}",
+  "BalanceUp": "How much to recharge?",
+  "BalanceUpButton": "Pay",
   "RewriteStats": "Rewrite Stats:"
 }

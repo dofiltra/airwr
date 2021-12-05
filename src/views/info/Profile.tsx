@@ -4,6 +4,7 @@
 import { useContext } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import AuthContext from 'components/Auth/AuthContext'
+import Pay from 'components/Pay/Pay'
 import useBalance from 'hooks/useBalance'
 import useRewritedCharsCount from 'hooks/useRewritedCharsCount'
 
@@ -24,7 +25,6 @@ export default () => {
   ].sort(() => (Math.random() > 0.5 ? 1 : -1))[0]
 
   const { user } = useContext(AuthContext)
-  const { coins = 0 } = useBalance(user?.uid || '')
   const { history = {} } = useRewritedCharsCount(user?.uid || '')
 
   return (
@@ -41,8 +41,11 @@ export default () => {
                   <div className="text-center mb-5 justify-center flex">
                     <img src={smileSrc} />
                   </div>
-                  <hr className="mb-5" />
-                  <p className="mb-5">{translate('Balance', { coins })}</p>
+                  {/* <hr className="mb-5" /> */}
+                  {/* <p className="mb-5">{translate('Balance', { coins })}</p> */}
+                  <p className="mb-5">
+                    <Pay />
+                  </p>
                   <hr className="mb-5" />
                   <p className="mb-5">{translate('RewriteStats')}</p>
                   <pre>{JSON.stringify(history, null, 4)}</pre>

@@ -28,5 +28,7 @@
   "Queue": "Очередь: {{count}} страниц (~{{chars}} символов)",
   "ProfileTitle": "Профиль",
   "Balance": "Баланс: ${{coins}}",
+  "BalanceUp": "На сколько пополнить?",
+  "BalanceUpButton": "Пополнить",
   "RewriteStats": "Статистика по рерайту:"
 }

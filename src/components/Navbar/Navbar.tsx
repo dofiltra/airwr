@@ -13,7 +13,6 @@ import Language from 'models/Language'
 import React, { useContext } from 'preact/compat'
 
 export default function Navbar({}) {
-  // const [navbarOpen, setNavbarOpen] = useState(false)
   const { user } = useContext(AuthContext)
 
   return (
