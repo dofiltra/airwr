@@ -25,10 +25,11 @@ export const DocumentationApi: FC = () => {
               <th>{translate('ApiRequest')}</th>
               <th>{translate('ApiResponse')}</th>
             </tr>
+            <tr />
           </thead>
           <tbody>
             <tr>
-              <th>Add</th>
+              <th>Add queue</th>
               <td>
                 <ModalBtn
                   title={'Request'}
@@ -122,7 +123,7 @@ export const DocumentationApi: FC = () => {
               </td>
             </tr>
             <tr>
-              <th>Get</th>
+              <th>Get queue</th>
               <td>
                 <ModalBtn
                   title={'Request'}
@@ -221,6 +222,30 @@ export const DocumentationApi: FC = () => {
                   content={
                     <p className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
                       {balance.response()}
+                    </p>
+                  }
+                />
+              </td>
+            </tr>
+
+            <tr>
+              <th>Stats</th>
+              <td>
+                <ModalBtn
+                  title={'Request'}
+                  content={
+                    <textarea className="w-full h-96 text-sm">
+                      {stats.request({ token })}
+                    </textarea>
+                  }
+                />
+              </td>
+              <td>
+                <ModalBtn
+                  title={'Response'}
+                  content={
+                    <p className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
+                      {stats.response()}
                     </p>
                   }
                 />
@@ -399,6 +424,33 @@ const balance = {
     JSON.stringify(
       {
         coins: 100,
+      },
+      null,
+      2
+    ),
+}
+
+const stats = {
+  request: ({
+    token,
+  }: any) => `const resp = await fetch("${HOST_API}/api/stats/getRewritedCharsCount?token=${token}", {
+    headers: ${JSON.stringify(headers, null, 8)},
+    method: 'GET',
+    mode: "cors",
+  })
+
+  const { history = {} } = await resp.json()
+  `,
+
+  response: () =>
+    JSON.stringify(
+      {
+        history: {
+          ['9.2022']: 1000,
+          ['10.2022']: 800,
+          ['11.2022']: 2000,
+          ['12.2021']: 5000,
+        },
       },
       null,
       2
