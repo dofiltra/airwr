@@ -202,6 +202,30 @@ export const DocumentationApi: FC = () => {
                 />
               </td>
             </tr>
+
+            <tr>
+              <th>Balance</th>
+              <td>
+                <ModalBtn
+                  title={'Request'}
+                  content={
+                    <textarea className="w-full h-96 text-sm">
+                      {balance.request({ token })}
+                    </textarea>
+                  }
+                />
+              </td>
+              <td>
+                <ModalBtn
+                  title={'Response'}
+                  content={
+                    <p className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
+                      {balance.response()}
+                    </p>
+                  }
+                />
+              </td>
+            </tr>
             <tr />
           </tbody>
         </table>
@@ -353,6 +377,28 @@ const get = {
           createdAt: new Date().toJSON(),
           updatedAt: new Date().toJSON(),
         },
+      },
+      null,
+      2
+    ),
+}
+
+const balance = {
+  request: ({
+    token,
+  }: any) => `const resp = await fetch("${HOST_API}/api/balance/get?token=${token}", {
+    headers: ${JSON.stringify(headers, null, 8)},
+    method: 'GET',
+    mode: "cors",
+  })
+
+  const { coins = 0 } = await resp.json()
+  `,
+
+  response: () =>
+    JSON.stringify(
+      {
+        coins: 100,
       },
       null,
       2
