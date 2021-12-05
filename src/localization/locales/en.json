@@ -26,6 +26,7 @@
   "TaskResult": "Task result",
   "Rewrited text": "Rewrited text",
   "Queue": "Queue: {{count}} pages (~{{chars}} chars)",
+  "ProfileTitle": "Profile",
   "Balance": "Balance: ${{coins}}",
-  "RewriteStats": "Rewrite Stats"
+  "RewriteStats": "Rewrite Stats:"
 }

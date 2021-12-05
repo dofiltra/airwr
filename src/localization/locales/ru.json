@@ -26,6 +26,7 @@
   "TaskResult": "Результат задачи",
   "Rewrited text": "Отрерайченный текст",
   "Queue": "Очередь: {{count}} страниц (~{{chars}} символов)",
+  "ProfileTitle": "Профиль",
   "Balance": "Баланс: ${{coins}}",
-  "RewriteStats": "Статистика по рерайту"
+  "RewriteStats": "Статистика по рерайту:"
 }

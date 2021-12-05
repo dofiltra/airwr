@@ -5,6 +5,7 @@ import { useContext } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import AuthContext from 'components/Auth/AuthContext'
 import useBalance from 'hooks/useBalance'
+import useRewritedCharsCount from 'hooks/useRewritedCharsCount'
 
 export default () => {
   const { translate } = useLocalize()
@@ -24,23 +25,27 @@ export default () => {
 
   const { user } = useContext(AuthContext)
   const { coins = 0 } = useBalance(user?.uid || '')
+  const { history = {} } = useRewritedCharsCount(user?.uid || '')
 
   return (
     <>
       <div className="min-h-full">
         <main>
-          <div className="max-w-7xl ">
-            <div className="hero  bg-base-200">
-              <div className="hero-content">
-                <div className="max-w-md">
-                  <h1 className="mb-5 text-5xl font-bold">
+          <div className="w-full ">
+            <div className="bg-base-200">
+              <div className="">
+                <div className="w-full">
+                  <h1 className="mb-5 text-5xl text-center font-bold">
                     {translate('ProfileTitle')}
                   </h1>
                   <div className="text-center mb-5 justify-center flex">
                     <img src={smileSrc} />
                   </div>
+                  <hr className="mb-5" />
                   <p className="mb-5">{translate('Balance', { coins })}</p>
+                  <hr className="mb-5" />
                   <p className="mb-5">{translate('RewriteStats')}</p>
+                  <pre>{JSON.stringify(history, null, 4)}</pre>
                 </div>
               </div>
             </div>

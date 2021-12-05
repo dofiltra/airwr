@@ -51,3 +51,24 @@ export async function getCoins(token?: string) {
     //
   }
 }
+
+export async function getRewritedCharsCount(token?: string) {
+  if (!token) {
+    return 0
+  }
+
+  try {
+    const resp = await fetch(
+      `${HOST_API}/api/stats/getRewritedCharsCount?token=${token}`,
+      {
+        headers,
+        method: 'GET',
+      }
+    )
+
+    const { history = {} } = await resp.json()
+    return history
+  } catch {
+    //
+  }
+}
