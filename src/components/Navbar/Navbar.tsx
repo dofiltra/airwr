@@ -167,7 +167,9 @@ export default function Navbar({}) {
                   className="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52"
                 >
                   <li className="text-center pb-3">
-                    <b>{user?.displayName?.toUpperCase()}</b>
+                    <Link to="/profile">
+                      {user?.displayName?.toUpperCase()}
+                    </Link>
                   </li>
                   {!user?.uid && (
                     <li>
