@@ -17,19 +17,26 @@ export const DocumentationApi: FC = () => {
         <p className="py-3">
           <b>{translate('Your token')}</b>: {user?.uid || <SignInButtons />}
         </p>
-        <hr />
+        {/* <hr className="border-b-2" /> */}
         <table className="table w-full text-center ">
           <thead className="">
-            <tr>
+            <tr className="border-2">
               <th>{translate('ApiName')}</th>
               <th>{translate('ApiRequest')}</th>
               <th>{translate('ApiResponse')}</th>
             </tr>
-            <tr />
+            {/* <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr> */}
           </thead>
           <tbody>
-            <tr>
-              <th>Add queue</th>
+            <tr className="border-b-2">
+              <th>
+                Add
+                <br /> Rewrite
+              </th>
               <td>
                 <ModalBtn
                   title={'Request'}
@@ -122,8 +129,12 @@ export const DocumentationApi: FC = () => {
                 />
               </td>
             </tr>
-            <tr>
-              <th>Get queue</th>
+
+            <tr className="border-b-2">
+              <th>
+                Get <br />
+                Rewrite
+              </th>
               <td>
                 <ModalBtn
                   title={'Request'}
@@ -204,8 +215,11 @@ export const DocumentationApi: FC = () => {
               </td>
             </tr>
 
-            <tr>
-              <th>Balance</th>
+            <tr className="border-b-2">
+              <th>
+                Get <br />
+                Balance
+              </th>
               <td>
                 <ModalBtn
                   title={'Request'}
@@ -228,8 +242,11 @@ export const DocumentationApi: FC = () => {
               </td>
             </tr>
 
-            <tr>
-              <th>Stats</th>
+            <tr className="border-b-2">
+              <th>
+                Get <br />
+                Stats
+              </th>
               <td>
                 <ModalBtn
                   title={'Request'}
@@ -251,7 +268,6 @@ export const DocumentationApi: FC = () => {
                 />
               </td>
             </tr>
-            <tr />
           </tbody>
         </table>
       </div>
