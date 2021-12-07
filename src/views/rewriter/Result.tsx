@@ -97,7 +97,7 @@ const RewriterResultPage: FC<TRewriterResultPage> = () => {
             <div className="px-4 sm:px-0">
               <div className="mt-4 md:mb-0 w-full text-center">
                 <div>
-                  {translate('Queue', { count: queueCount })}(
+                  {translate('Queue', { count: queueCount })}
                   {queueCount > 100 &&
                     translate('QueueCharsCount', { chars: queueChars })}
                 </div>
