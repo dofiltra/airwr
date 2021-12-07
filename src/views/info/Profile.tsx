@@ -5,7 +5,6 @@ import { useContext } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import AuthContext from 'components/Auth/AuthContext'
 import Pay from 'components/Pay/Pay'
-import useBalance from 'hooks/useBalance'
 import useRewritedCharsCount from 'hooks/useRewritedCharsCount'
 
 export default () => {

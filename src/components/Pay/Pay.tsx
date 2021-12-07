@@ -19,7 +19,7 @@ export default function Pay({}) {
     <>
       <div className="p-3  text-neutral-content rounded-box mb-2">
         <p className="md:block p-2">
-          {translate('Balance', { coins })}
+          {translate('Balance', { coins: coins.toFixed(2) })}
           <span className="text-purple-400"> + ${plusCoins || 1}</span>
         </p>
         <div className="md:block p-2">
@@ -72,7 +72,7 @@ function payYoomoney(token: string, plusCoins: number) {
   const USDRUB = 73 // TODO: from api
   const payLink = `https://api.dofiltra.com/api/balance/pay-yoomoney?sum=${
     plusCoins * USDRUB
-  }&label=${token}&targets=AI+Dofiltra`
+  }&label=${token}&targets=AI+Dofiltra&successUrl=https://ai.dofiltra.com/profile`
   window.open(payLink, '_blank')
 
   return payLink
