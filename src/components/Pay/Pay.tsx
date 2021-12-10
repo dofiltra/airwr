@@ -14,6 +14,7 @@ export default function Pay({}) {
   const { coins = 0 } = useBalance(user?.uid || '')
   const [plusCoins, setPlusCoins] = useState(10)
   const [payLink, setPayLink] = useState('')
+  const [payType, setPayType] = useState<'Yoomoney' | 'WMZ'>('Yoomoney')
 
   return (
     <>
@@ -45,10 +46,26 @@ export default function Pay({}) {
               </button>
             </div>
             <div className="btn-group py-2">
-              <button className="btn btn-error text-error btn-xs btn-active btn-disabled">
+              <button
+                className={`btn btn-xs ${
+                  payType === 'Yoomoney'
+                    ? 'btn-active btn-error text-error'
+                    : ''
+                }`}
+                onClick={() => setPayType('Yoomoney')}
+              >
                 Yoomoney
               </button>
+              <button
+                className={`btn btn-xs ${
+                  payType === 'WMZ' ? 'btn-active btn-error text-error' : ''
+                }`}
+                onClick={() => setPayType('WMZ')}
+              >
+                WMZ
+              </button>
             </div>
+
             {payLink && (
               <p>
                 <a href={payLink} className="text-purple-600">

@@ -34,7 +34,7 @@ export default () => {
             <div className="bg-base-200">
               <div className="">
                 <div className="w-full">
-                  <h1 className="mb-5 text-5xl text-center font-bold">
+                  <h1 className="mb-5 py-4 text-5xl text-center font-bold">
                     {translate('ProfileTitle')}
                   </h1>
                   <div className="text-center mb-5 justify-center flex">
