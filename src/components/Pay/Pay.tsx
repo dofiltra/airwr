@@ -14,37 +14,46 @@ export default function Pay({}) {
   const { coins = 0 } = useBalance(user?.uid || '')
   const [plusCoins, setPlusCoins] = useState(10)
   const [payLink, setPayLink] = useState('')
-  const [payType, setPayType] = useState<'Yoomoney' | 'WMZ'>('Yoomoney')
+  const [payType, setPayType] = useState<'Yoomoney' | 'WMZ' | 'CARDS'>(
+    'Yoomoney'
+  )
 
   return (
     <>
       <div className="p-3  text-neutral-content rounded-box mb-2">
         <p className="md:block p-2">
           {translate('Balance', { coins: coins.toFixed(4) })}
-          <span className="text-purple-400"> + ${plusCoins || 1}</span>
         </p>
         <div className="md:block p-2">
           <div className="form-control max-w-screen-sm">
-            <div className="relative">
-              <input
-                type="number"
-                placeholder="10"
-                value={plusCoins || 1}
-                onChange={(e: any) => {
-                  setPayLink('')
-                  setPlusCoins(parseInt(e.target.value || '1', 10))
-                }}
-                className="w-full pr-16 input input-primary input-bordered"
-              />
-              <button
-                className="absolute top-0 right-0 rounded-l-none btn btn-primary"
-                onClick={(e) =>
-                  user?.uid && setPayLink(payYoomoney(user.uid, plusCoins))
-                }
-              >
-                {translate('BalanceUpButton')}
-              </button>
-            </div>
+            {payType === 'Yoomoney' && (
+              <div className="relative">
+                <input
+                  type="number"
+                  placeholder="10"
+                  value={plusCoins || 1}
+                  onChange={(e: any) => {
+                    setPayLink('')
+                    setPlusCoins(parseInt(e.target.value || '1', 10))
+                  }}
+                  className="w-full pr-16 input input-primary input-bordered"
+                />
+                <button
+                  className="absolute top-0 right-0 rounded-l-none btn btn-primary"
+                  onClick={(e) =>
+                    user?.uid && setPayLink(payYoomoney(user.uid, plusCoins))
+                  }
+                >
+                  {translate('BalanceUpButton')}
+                </button>
+              </div>
+            )}
+            {payType === 'WMZ' && (
+              <div>{translate('WMZ', { token: user?.uid || '' })}</div>
+            )}
+            {payType === 'CARDS' && (
+              <div>{translate('CARDS', { token: user?.uid || '' })}</div>
+            )}
             <div className="btn-group py-2">
               <button
                 className={`btn btn-xs ${
@@ -63,6 +72,14 @@ export default function Pay({}) {
                 onClick={() => setPayType('WMZ')}
               >
                 WMZ
+              </button>
+              <button
+                className={`btn btn-xs ${
+                  payType === 'CARDS' ? 'btn-active btn-error text-error' : ''
+                }`}
+                onClick={() => setPayType('CARDS')}
+              >
+                Cards
               </button>
             </div>
 
