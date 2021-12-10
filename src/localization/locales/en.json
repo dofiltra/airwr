@@ -5,7 +5,7 @@
   "sign in": "Sign in",
   "sign out": "Sign out",
   "AboutTitle": "About",
-  "AboutText": "Coming soon...",
+  "RewritePrice": "Rewrite price per 1000 chars without spaces:\n\n0.01$ - volume before 1kk/сутки\n0.009$ - before 5kk\n0.008$ - before 10kk\n0.007$ - before 20kk\n0.006$ - before 50kk\n0.005$ - before 100kk\n0.004$ - more than 100kk",
   "ApiTitle": "API",
   "ApiText": "Coming soon...",
   "ContactsTitle": "Contacts",

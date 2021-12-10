@@ -1,7 +1,10 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { Link } from 'react-router-dom'
+import { useContext } from 'react'
 import { useLocalize } from '@borodutch-labs/localize-react'
+import AuthContext from 'components/Auth/AuthContext'
 
 export default () => {
   const { translate } = useLocalize()
@@ -17,6 +20,7 @@ export default () => {
     '/img/kuzya_02.gif',
     '/img/bath.gif',
   ].sort(() => (Math.random() > 0.5 ? 1 : -1))[0]
+  const { user } = useContext(AuthContext)
 
   return (
     <>
@@ -29,12 +33,19 @@ export default () => {
                   <h1 className="mb-5 text-5xl font-bold">
                     {translate('AboutTitle')}
                   </h1>
-                  <p className="mb-5 justify-center">
-                    {translate('AboutText')}
-                  </p>
                   <div className="text-center justify-center flex">
                     <img src={smileSrc} />
                   </div>
+                  <pre className="mb-5 justify-center  py-6">
+                    {translate('RewritePrice')}
+                  </pre>
+                  {user && (
+                    <p>
+                      <Link to="/profile" className="btn">
+                        {user?.displayName} | {user?.email}
+                      </Link>
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
