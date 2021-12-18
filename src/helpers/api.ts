@@ -1,6 +1,7 @@
 import fetch from 'unfetch'
 
 export const HOST_API = 'https://api.dofiltra.com'
+// export const HOST_API = 'http://localhost:2989'
 export const headers = {
   Accept: 'application/json',
   'Content-Type': 'application/json',
@@ -34,22 +35,27 @@ export async function getRewriteQueue() {
   }
 }
 
-export async function getCoins(token?: string) {
+export async function getCoins(token?: string, isFull = '') {
   if (!token) {
-    return 0
+    return { coins: 0 }
   }
 
   try {
-    const resp = await fetch(`${HOST_API}/api/balance/get?token=${token}`, {
-      headers,
-      method: 'GET',
-    })
+    const resp = await fetch(
+      `${HOST_API}/api/balance/get?token=${token}&isFull=${isFull}`,
+      {
+        headers,
+        method: 'GET',
+      }
+    )
 
-    const { coins = 0 } = await resp.json()
-    return coins
+    const { coins = 0, info = {} } = await resp.json()
+    return { coins, info }
   } catch {
     //
   }
+
+  return { coins: 0 }
 }
 
 export async function getRewritedCharsCount(token?: string) {

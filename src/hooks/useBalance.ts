@@ -7,7 +7,7 @@ export default function useBalance(token?: string) {
   const [coins, setCoins] = useState<number | undefined>(undefined)
 
   const fetchData = async () => {
-    const coinsResult = await getCoins(token)
+    const { coins: coinsResult } = await getCoins(token)
     setCoins(coinsResult)
   }
 
