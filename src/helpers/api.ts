@@ -1,7 +1,8 @@
 import fetch from 'unfetch'
 
-export const HOST_API = 'https://api.dofiltra.com'
-// export const HOST_API = 'http://localhost:2989'
+const { VITE_HOST_API_DEV, VITE_HOST_API_PROD, VITE_IS_DEV } = import.meta.env
+
+export const HOST_API = VITE_IS_DEV ? VITE_HOST_API_DEV : VITE_HOST_API_PROD
 export const headers = {
   Accept: 'application/json',
   'Content-Type': 'application/json',
