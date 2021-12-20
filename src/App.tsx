@@ -12,6 +12,7 @@ import Navbar from 'components/Navbar/Navbar'
 import ProfilePage from 'views/info/Profile'
 import RewriterResultPage from 'views/rewriter/Result'
 import Root from 'components/Containers/Root'
+import SocketPage from 'views/info/Socket'
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
               <Route path="/info/api" element={<ApiPage />} />
               <Route path="/info/about" element={<AboutPage />} />
               <Route path="/info/contacts" element={<ContactsPage />} />
+              <Route path="/test/socket" element={<SocketPage />} />
             </Routes>
             <FooterSmall />
           </AuthContextProvider>
