@@ -1,13 +1,15 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
-import { FC, useState } from 'preact/compat'
+import { FC, useEffect, useState } from 'preact/compat'
+import { HOST_API } from 'helpers/api'
 import { Loading } from 'components/Containers/Loader'
 import { getRewriterStatusText } from 'helpers/rewriter'
+import { io } from 'socket.io-client'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import { useParams } from 'react-router-dom'
 import EditorJS from '@editorjs/editorjs'
 import useRewriteQueue from 'hooks/useRewriteQueue'
-import useRewriteText from 'hooks/useRewriteData'
 
 type TRewriterResultPage = {
   //
@@ -26,10 +28,24 @@ function getBackgroundColorByStatus(status: number) {
 
 const RewriterResultPage: FC<TRewriterResultPage> = () => {
   const { id = '' } = useParams()
-  const { rewriteData } = useRewriteText(id)
   const { translate } = useLocalize()
   const { queueCount = 0, queueChars = 0 } = useRewriteQueue()
-  console.log('rewriteData', rewriteData)
+  const [rewriteData, setRewriteData] = useState({} as any)
+
+  useEffect(() => {
+    fetch(`${HOST_API}/api/socketio/exec`).finally(() => {
+      const socket = io(HOST_API!.toString(), {})
+
+      socket.on('connect', () => {
+        socket.emit('join', { roomId: `RewriteText_${id}` })
+      })
+
+      socket.on('update', (data: any) => {
+        console.log('update', data)
+        data && setRewriteData(data)
+      })
+    })
+  }, [id])
 
   if (!rewriteData?.blocks?.length) {
     return (
@@ -41,7 +57,9 @@ const RewriterResultPage: FC<TRewriterResultPage> = () => {
   }
 
   const blocksForRewrite = rewriteData.blocks.filter(
-    (b: any) => ['paragraph'].includes(b.type) && b.data?.text
+    (b: any) =>
+      (['paragraph'].includes(b.type) && b.data?.text) ||
+      (['list'].includes(b.type) && b.data?.items?.length)
   )
   const blocksRewrited = rewriteData.blocks.filter(
     (b: any) => b.rewriteDataSuggestions?.length

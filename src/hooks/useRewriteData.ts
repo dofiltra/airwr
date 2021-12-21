@@ -11,14 +11,13 @@ export default function useRewriteText(id: string) {
   const fetchData = async () => {
     const data = await geRewriteData(id)
     setRewriteData(data)
-    // console.log('r', data)
-    const status = data?.status || 0
+    // const status = data?.status || 0
 
-    if (status !== 9) {
-      setTimeout(() => {
-        void fetchData()
-      }, 15e3)
-    }
+    // if (status !== 9) {
+    //   setTimeout(() => {
+    //     void fetchData()
+    //   }, 15e3)
+    // }
   }
 
   useEffect(() => {
