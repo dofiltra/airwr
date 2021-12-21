@@ -42,7 +42,7 @@ const RewriterResultPage: FC<TRewriterResultPage> = () => {
       })
 
       socket.on('update', (data: any) => {
-        console.log('update', data)
+        // console.log('update', data)
         data && setRewriteData(data)
       })
     })
