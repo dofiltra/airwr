@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC } from 'preact/compat'
 import { HOST_API, headers } from 'helpers/api'
+import { LangCodes } from 'components/Select/Lang'
 import { SignInButtons } from 'components/Buttons/SignIn'
 import { useContext } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
@@ -58,9 +59,9 @@ export const DocumentationApi: FC = () => {
                       </p>
                       <p className="pb-2">
                         <b>TargetLang*</b>
-                        : enum (number)
+                        : enum (string)
                         <br />
-                        <small>EN = 0, RU = 1</small>
+                        <small>{LangCodes.map((l) => l.code).join(', ')}</small>
                       </p>
                       <p className="pb-3">
                         <b>Blocks*</b>
@@ -318,7 +319,7 @@ const add = {
     body: JSON.stringify(${JSON.stringify(
       {
         token,
-        targetLang: 1, // 0 - en, 1 - ru
+        targetLang: LangCodes[0].code,
         dataset: 0,
         power: 0,
         blocks: [

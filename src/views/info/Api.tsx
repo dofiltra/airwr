@@ -17,7 +17,7 @@ export default () => {
                 <div className="w-full">
                   <h1 className="mb-5 text-5xl font-bold">
                     {translate('ApiTitle')}
-                    <sup className="font-thin">v1.0</sup>
+                    <sup className="font-thin">v1.1</sup>
                   </h1>
                   <DocumentationApi />
                 </div>

@@ -4,6 +4,7 @@
 import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
 import { FC, useEffect, useState } from 'preact/compat'
 import { HOST_API } from 'helpers/api'
+import { LangBox } from 'components/Select/Lang'
 import { Loading } from 'components/Containers/Loader'
 import { getRewriterStatusText } from 'helpers/rewriter'
 import { io } from 'socket.io-client'
@@ -178,15 +179,11 @@ const RewriterResultPage: FC<TRewriterResultPage> = () => {
                 <label className="text-white">
                   {translate('SelectedTargetLang')}
                 </label>
-                <select
-                  name="targetLang"
+                <LangBox
                   value={rewriteData.targetLang}
                   disabled
                   className="select select-bordered select-warning w-full"
-                >
-                  <option value={'RU'}>Russian</option>
-                  <option value={'EN'}>English</option>
-                </select>
+                />
               </div>
 
               <div className="grid grid-cols-2 gap-1">

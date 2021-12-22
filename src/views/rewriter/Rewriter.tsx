@@ -5,6 +5,7 @@
 import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
 import { FC } from 'preact/compat'
 import { HOST_API, detectLang, headers } from 'helpers/api'
+import { LangBox } from 'components/Select/Lang'
 import { Loading } from 'components/Containers/Loader'
 import { Navigate } from 'react-router-dom'
 import { useContext, useState } from 'preact/hooks'
@@ -161,16 +162,13 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
             <label className="text-white-700">
               {translate('SelectTargetLang')}
             </label>
-            <select
+            <LangBox
               value={targetLang}
               onChange={(val: any) => {
                 setTargetLang(val.target.value)
               }}
               className="select w-full select-bordered select-primary "
-            >
-              <option value={'RU'}>Russian</option>
-              <option value={'EN'}>English</option>
-            </select>
+            />
           </div>
           {/* <div className="mb-1 md:mb-0 w-full p-2">
             <label className="text-white-700">{'SelectRewritePowrt'}</label>
