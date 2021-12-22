@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -37,7 +38,7 @@ export const RewriterPage: FC = () => {
 }
 
 type TQueueOpts = {
-  targetLang: number
+  targetLang: string
   api: any
   setShowRewriteContent: (arg: boolean) => void
   setLinkResult: (arg: string) => void
@@ -56,16 +57,6 @@ async function addQueue({
   if (!editorData?.blocks?.length) {
     return
   }
-
-  const text = editorData.blocks
-    .map((x: any) => x?.data?.text)
-    .filter((x: any) => x)
-    .join(' ')
-    .slice(0, 1e3)
-
-  const langResult = await detectLang(text)
-  console.log(langResult)
-  // return
 
   setShowRewriteContent(false)
 
@@ -100,7 +91,7 @@ async function addQueue({
 const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
   const { translate } = useLocalize()
   const [showRewriteContent, setShowRewriteContent] = useState(true)
-  const [targetLang, setTargetLang] = useState(1)
+  const [targetLang, setTargetLang] = useState('RU')
   // const [rewritePower, setRewritePower] = useState(0)
 
   if (!showRewriteContent) {
@@ -125,6 +116,25 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
         autofocus: true,
         inlineToolbar: false,
         hideToolbar: true,
+        onChange: () => {
+          const detect = async () => {
+            const editorData = await api.saver.save()
+            if (!editorData?.blocks?.length) {
+              return
+            }
+
+            const text = editorData.blocks
+              .map((x: any) => x?.data?.text)
+              .filter((x: any) => x)
+              .join(' ')
+              .slice(0, 1e3)
+
+            const [langResult] = await detectLang(text)
+            const lang = langResult?.code?.toUpperCase()
+            lang && setTargetLang(lang)
+          }
+          detect()
+        },
       })
   )
 
@@ -154,12 +164,12 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
             <select
               value={targetLang}
               onChange={(val: any) => {
-                setTargetLang(parseInt(val.target.value, 10))
+                setTargetLang(val.target.value)
               }}
               className="select w-full select-bordered select-primary "
             >
-              <option value={1}>Russian</option>
-              <option value={0}>English</option>
+              <option value={'RU'}>Russian</option>
+              <option value={'EN'}>English</option>
             </select>
           </div>
           {/* <div className="mb-1 md:mb-0 w-full p-2">

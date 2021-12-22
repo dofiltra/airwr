@@ -184,8 +184,8 @@ const RewriterResultPage: FC<TRewriterResultPage> = () => {
                   disabled
                   className="select select-bordered select-warning w-full"
                 >
-                  <option value={1}>Russian</option>
-                  <option value={0}>English</option>
+                  <option value={'RU'}>Russian</option>
+                  <option value={'EN'}>English</option>
                 </select>
               </div>
 
