@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
 import { FC } from 'preact/compat'
-import { HOST_API, headers } from 'helpers/api'
+import { HOST_API, detectLang, headers } from 'helpers/api'
 import { Loading } from 'components/Containers/Loader'
 import { Navigate } from 'react-router-dom'
 import { useContext, useState } from 'preact/hooks'
@@ -56,6 +56,17 @@ async function addQueue({
   if (!editorData?.blocks?.length) {
     return
   }
+
+  const text = editorData.blocks
+    .map((x: any) => x?.data?.text)
+    .filter((x: any) => x)
+    .join(' ')
+    .slice(0, 1e3)
+
+  const langResult = await detectLang(text)
+  console.log(langResult)
+  // return
+
   setShowRewriteContent(false)
 
   const resp = await fetch(`${HOST_API}/api/rewriteText/add`, {
