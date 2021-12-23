@@ -95,7 +95,7 @@ export const DocumentationApi: FC = () => {
                         <b>Power</b>
                         : number (double)
                         <br />
-                        <small> 0.00...1.00</small>
+                        <small> 0.00...0.50...1.00</small>
                       </p>
                     </div>
                   }
