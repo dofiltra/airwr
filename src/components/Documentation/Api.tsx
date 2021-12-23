@@ -93,9 +93,9 @@ export const DocumentationApi: FC = () => {
                       </p>
                       <p className="pb-2">
                         <b>Power</b>
-                        : enum (number)
+                        : number (double)
                         <br />
-                        <small> Auto = 0, Light = 1</small>
+                        <small> 0.00...1.00</small>
                       </p>
                     </div>
                   }
