@@ -184,7 +184,8 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
               max={100}
               value={power * 100}
               onChange={(e) => setPower(parseInt(e.target.value, 10) / 100)}
-              className="range range-md"
+              className={'range'}
+              style={{ backgroundColor: '#eeeeee' }}
             />
           </div>
           {/* <div className="mb-1 md:mb-0 w-full p-2">
