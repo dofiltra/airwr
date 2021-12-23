@@ -321,7 +321,7 @@ const add = {
         token,
         targetLang: LangCodes[0].code,
         dataset: 0,
-        power: 0,
+        power: 0.25,
         blocks: [
           {
             type: 'header',
