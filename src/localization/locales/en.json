@@ -14,7 +14,7 @@
   "H1": "Rewrite service",
   "SelectTargetLang": "Select target language:",
   "SelectedTargetLang": "Target language:",
-  "SelectRewriteLevel": "Rewrite Level:",
+  "SelectRewritePower": "Rewrite power",
   "EnterTextForRewrite": "Enter text for rewrite:",
   "EnterTextForRewritePlaceholder": "Replace this the text that needs to be redacted...",
   "Show result": "Show result",

@@ -40,15 +40,17 @@ export const RewriterPage: FC = () => {
 
 type TQueueOpts = {
   targetLang: string
+  power: number
+  token: string
+  translate: any
   api: any
   setShowRewriteContent: (arg: boolean) => void
   setLinkResult: (arg: string) => void
-  translate: any
-  token: string
 }
 async function addQueue({
   api,
   targetLang,
+  power,
   setShowRewriteContent,
   setLinkResult,
   translate,
@@ -66,10 +68,10 @@ async function addQueue({
     method: 'POST',
     body: JSON.stringify({
       targetLang,
-      dataset: 0,
-      power: 0,
+      power,
       token,
       blocks: editorData.blocks,
+      dataset: 0,
     }),
     mode: 'cors',
   })
@@ -93,7 +95,7 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
   const { translate } = useLocalize()
   const [showRewriteContent, setShowRewriteContent] = useState(true)
   const [targetLang, setTargetLang] = useState('RU')
-  // const [rewritePower, setRewritePower] = useState(0)
+  const [power, setPower] = useState(0.5)
 
   if (!showRewriteContent) {
     return (
@@ -173,6 +175,18 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
               className="select w-full select-bordered select-primary "
             />
           </div>
+          <div className="mb-1 md:mb-0 w-full p-2">
+            <label className="text-white-700">
+              {translate('SelectRewritePower')} ({(power * 100).toFixed(0)}%)
+            </label>
+            <input
+              type="range"
+              max={100}
+              value={power * 100}
+              onChange={(e) => setPower(parseInt(e.target.value, 10) / 100)}
+              className="range range-md"
+            />
+          </div>
           {/* <div className="mb-1 md:mb-0 w-full p-2">
             <label className="text-white-700">{'SelectRewritePowrt'}</label>
             <select
@@ -197,6 +211,7 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
               addQueue({
                 api,
                 targetLang,
+                power,
                 setShowRewriteContent,
                 setLinkResult,
                 translate,

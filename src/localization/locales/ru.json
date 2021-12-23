@@ -14,7 +14,7 @@
   "H1": "Рерайтер",
   "SelectedTargetLang": "Язык:",
   "SelectTargetLang": "Язык:",
-  "SelectRewriteLevel": "Сила рерайта:",
+  "SelectRewritePower": "Сила рерайта",
   "EnterTextForRewrite": "Введите текст для рерайта:",
   "EnterTextForRewritePlaceholder": "Вставьте сюда текст, который нужно отрерайтить...",
   "Show result": "Ссылка на результата",
