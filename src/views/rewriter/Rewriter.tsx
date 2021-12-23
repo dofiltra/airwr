@@ -130,9 +130,12 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
               .join(' ')
               .slice(0, 1e3)
 
-            const [langResult] = await detectLang(text)
-            const lang = langResult?.code?.toUpperCase()
-            lang && setTargetLang(lang)
+            const detectResult = await detectLang(text)
+            if (detectResult?.length) {
+              const [lang] = detectResult
+              const code = lang?.code?.toUpperCase()
+              code && setTargetLang(code)
+            }
           }
           detect()
         },
