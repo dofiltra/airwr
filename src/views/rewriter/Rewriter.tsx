@@ -95,7 +95,7 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
   const { translate } = useLocalize()
   const [showRewriteContent, setShowRewriteContent] = useState(true)
   const [targetLang, setTargetLang] = useState('RU')
-  const [power, setPower] = useState(0.5)
+  const [power, setPower] = useState(0.6)
 
   if (!showRewriteContent) {
     return (
@@ -182,28 +182,12 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
             <input
               type="range"
               max={100}
-              min={30}
+              min={25}
               value={power * 100}
               onChange={(e) => setPower(parseInt(e.target.value, 10) / 100)}
               className={'range'}
-              // style={{ backgroundColor: '#eeeeee' }}
             />
           </div>
-          {/* <div className="mb-1 md:mb-0 w-full p-2">
-            <label className="text-white-700">{'SelectRewritePowrt'}</label>
-            <select
-              defaultValue={rewritePowrt}
-              onChange={(val) => {
-                setRewritePower(parseInt(val.target.value, 10))
-              }}
-              disabled
-              className="select w-full select-bordered select-primary "
-            >
-              <option value={0}>Light</option>
-              <option value={3}>Medium</option>
-              <option value={9}>Hard</option>
-            </select>
-          </div> */}
         </div>
 
         <div className="flex-auto space-x-3 my-6 flex items-center">
