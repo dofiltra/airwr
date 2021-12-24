@@ -121,7 +121,7 @@ const RewriterResultPage: FC<TRewriterResultPage> = () => {
 
   return (
     <>
-      <div className="min-h-full w-full card bg-base-200">
+      <div className="min-h-full w-full card">
         <main>
           <div className="max-w-7xl">
             <div className="px-4 sm:px-0">

@@ -12,7 +12,7 @@ export default () => {
       <div className="min-h-full">
         <main>
           <div className="w-full">
-            <div className="hero bg-base-200">
+            <div className="hero">
               <div className="text-center hero-content w-full">
                 <div className="w-full">
                   <h1 className="mb-5 text-5xl font-bold">

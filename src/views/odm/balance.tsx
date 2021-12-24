@@ -13,7 +13,7 @@ export const OdmBalancePage: FC = () => {
 
   return (
     <>
-      <div className=" w-full card bg-base-200 p-5">
+      <div className=" w-full card p-5">
         <div className="mb-1 md:mb-0 w-full p-2 ">
           <div className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3 min-h-16">
             <label>Token</label>

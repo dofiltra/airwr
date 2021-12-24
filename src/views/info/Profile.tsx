@@ -45,24 +45,22 @@ export default () => {
       <div className="min-h-full">
         <main>
           <div className="w-full ">
-            <div className="bg-base-200">
-              <div className="">
-                <div className="w-full">
-                  <h1 className="mb-5 py-4 text-5xl text-center font-bold">
-                    {translate('ProfileTitle')}
-                  </h1>
-                  <div className="text-center mb-5 justify-center flex">
-                    <img src={smileSrc} />
-                  </div>
-                  {/* <hr className="mb-5" /> */}
-                  {/* <p className="mb-5">{translate('Balance', { coins })}</p> */}
-                  <p className="mb-5">
-                    <Pay />
-                  </p>
-                  <hr className="mb-5" />
-                  <p className="mb-5">{translate('RewriteStats')}</p>
-                  <pre>{JSON.stringify(history, null, 4)}</pre>
+            <div className="">
+              <div className="w-full">
+                <h1 className="mb-5 py-4 text-5xl text-center font-bold">
+                  {translate('ProfileTitle')}
+                </h1>
+                <div className="text-center mb-5 justify-center flex">
+                  <img src={smileSrc} />
                 </div>
+                {/* <hr className="mb-5" /> */}
+                {/* <p className="mb-5">{translate('Balance', { coins })}</p> */}
+                <p className="mb-5">
+                  <Pay />
+                </p>
+                <hr className="mb-5" />
+                <p className="mb-5">{translate('RewriteStats')}</p>
+                <pre>{JSON.stringify(history, null, 4)}</pre>
               </div>
             </div>
           </div>

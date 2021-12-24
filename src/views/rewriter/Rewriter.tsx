@@ -146,7 +146,7 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
 
   return (
     <>
-      <div className=" w-full card bg-base-200 p-5">
+      <div className=" w-full card p-5">
         <div className="mb-1 md:mb-0 w-full p-2 text-center">
           <div>
             {translate('Queue', { count: queueCount })}
@@ -182,10 +182,11 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
             <input
               type="range"
               max={100}
+              min={30}
               value={power * 100}
               onChange={(e) => setPower(parseInt(e.target.value, 10) / 100)}
               className={'range'}
-              style={{ backgroundColor: '#eeeeee' }}
+              // style={{ backgroundColor: '#eeeeee' }}
             />
           </div>
           {/* <div className="mb-1 md:mb-0 w-full p-2">
