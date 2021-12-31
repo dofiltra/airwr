@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { classnames, container, padding, width } from 'classnames/tailwind'
 
 const root = classnames(
-  container('container'),
+  container('md:container'),
   padding('py-4'),
   width('w-full')
 )
