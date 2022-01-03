@@ -12,6 +12,7 @@ import Navbar from 'components/Navbar/Navbar'
 import ProfilePage from 'views/info/Profile'
 import RewriterResultPage from 'views/rewriter/Result'
 import Root from 'components/Containers/Root'
+import TranslatorPage from 'views/translator/Translator'
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
                 path="/rewrite/result/:id"
                 element={<RewriterResultPage />}
               />
+              <Route path="/translator" element={<TranslatorPage />} />
               <Route path="/login" element={<Login />} />
               <Route path="/odm/balance" element={<OdmBalancePage />} />
               <Route path="/profile" element={<ProfilePage />} />
