@@ -56,7 +56,7 @@ export default function Navbar({}) {
           </Link>
         </div>
         <div className="hidden md:block px-2">
-          <Link to="/info/about" className="btn btn-ghost rounded-btn">
+          <Link to="/info/faq" className="btn btn-ghost rounded-btn">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6 text-pink-500 mx-1"

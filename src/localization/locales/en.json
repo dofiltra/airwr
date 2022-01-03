@@ -12,6 +12,9 @@
   "ContactsText": "Coming soon...",
   "TranslatorTitle": "Translator",
   "TranslatorText": "Coming soon...",
+  "FAQ": "FAQ",
+  "FaqText": "Инструкция к плагину Rewritery (WordPress)\n  1. Авторизоваться в сервисе ai.dofiltra.com через Google-аккаунт (вверху справа нажать на шестеренку).\n  2. Снова нажать на шестеренку и войти в профиль.\n  3. Пополнить баланс через Yoomoney, WMZ или по карте (тарифы на странице https://ai.dofiltra.com/info/about).\n  4. Установить плагин Rewritery в админке WP.\n  5. В настройки плагина внести токен отсюда - https://ai.dofiltra.com/info/api и сохранить изменения.\n  6. Теперь в каждом посте внизу появилась кнопка 'Зареврайтить' и статус.\n  7. Для групповой обработки используйте стандартное меню раздела 'Все записи'.\n  8. Статистика и баланс отображаются в настройках плагина.",
+  "PluginDownload": "Download plugin for WordPress",
 
   "H1": "Rewrite service",
   "SelectTargetLang": "Select target language:",

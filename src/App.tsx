@@ -5,6 +5,7 @@ import AboutPage from 'views/info/About'
 import ApiPage from 'views/info/Api'
 import AuthContextProvider from 'components/Auth/AuthContextProvider'
 import ContactsPage from 'views/info/Contacts'
+import FaqPage from 'views/info/Faq'
 import FooterSmall from 'components/Footer/FooterSmall'
 import LocalizationProvider from 'localization/LocalizationProvider'
 import Login from 'views/Login'
@@ -34,6 +35,7 @@ const App = () => {
               <Route path="/info/api" element={<ApiPage />} />
               <Route path="/info/about" element={<AboutPage />} />
               <Route path="/info/contacts" element={<ContactsPage />} />
+              <Route path="/info/faq" element={<FaqPage />} />
             </Routes>
             <FooterSmall />
           </AuthContextProvider>
