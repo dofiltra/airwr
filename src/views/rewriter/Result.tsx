@@ -39,11 +39,10 @@ const RewriterResultPage: FC<TRewriterResultPage> = () => {
       const socket = io(HOST_API!.toString(), {})
 
       socket.on('connect', () => {
-        socket.emit('join', { roomId: `RewriteText_${id}` })
+        socket.emit('join', { roomId: `RewriteText_${id}`.toLowerCase() })
       })
 
       socket.on('update', (data: any) => {
-        // console.log('update', data)
         data && setRewriteData(data)
       })
     })
