@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { Link } from 'react-router-dom'
+
 export default function FooterSmall() {
   return (
     <>
@@ -20,11 +22,21 @@ export default function FooterSmall() {
             </div>
             <div className="w-full md:w-8/12 px-4">
               <ul className="flex flex-wrap list-none md:justify-end  justify-center">
-                <li>
-                  <a
-                    href="#"
-                    className=" hover:text-gray-400 text-sm font-semibold block py-1 px-3"
-                  ></a>
+                <li className="bordered border-r-2 px-4">
+                  <Link
+                    to="/info/about"
+                    className="hover:text-gray-400 text-sm font-semibold block py-1"
+                  >
+                    About
+                  </Link>
+                </li>
+                <li className="bordered border-r-2 px-4">
+                  <Link
+                    to="/info/contacts"
+                    className="hover:text-gray-400 text-sm font-semibold block py-1"
+                  >
+                    Contacts
+                  </Link>
                 </li>
                 <li>
                   <a
