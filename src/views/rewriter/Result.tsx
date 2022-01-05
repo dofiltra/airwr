@@ -36,8 +36,14 @@ const RewriterResultPage: FC<TRewriterResultPage> = () => {
 
   useEffect(() => {
     fetch(`${HOST_API}/api/socketio/exec`).finally(() => {
-      const socket = io(HOST_API!.toString(), {})
+      const socket = io(HOST_API!.toString(), {
+        autoConnect: true,
+        reconnection: true,
+      })
 
+      socket.on('reconnect', () => {
+        socket.emit('join', { roomId: `RewriteText_${id}`.toLowerCase() })
+      })
       socket.on('connect', () => {
         socket.emit('join', { roomId: `RewriteText_${id}`.toLowerCase() })
       })
