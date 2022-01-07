@@ -171,7 +171,11 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
         </div>
 
         <div className="grid grid-cols-1 gap-2">
-          <div className="mb-1 md:mb-0 w-full p-2">
+          <div
+            className={`mb-1 md:mb-0 w-full p-2 ${
+              targetLang === 'RU' ? 'hidden' : ''
+            }`}
+          >
             <label className="text-white-700">
               {translate('SelectTargetLang')}
             </label>
@@ -223,7 +227,7 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
                 translate,
                 token,
                 expand,
-                tone
+                tone,
               })
             }
             className="w-full btn btn-success"
