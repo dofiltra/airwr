@@ -5,6 +5,7 @@ import AboutPage from 'views/info/About'
 import ApiPage from 'views/info/Api'
 import AuthContextProvider from 'components/Auth/AuthContextProvider'
 import ContactsPage from 'views/info/Contacts'
+import ExtractorPage from 'views/extractor/Extractor'
 import FaqPage from 'views/info/Faq'
 import FooterSmall from 'components/Footer/FooterSmall'
 import LocalizationProvider from 'localization/LocalizationProvider'
@@ -29,6 +30,7 @@ const App = () => {
                 element={<RewriterResultPage />}
               />
               <Route path="/translator" element={<TranslatorPage />} />
+              <Route path="/extractor" element={<ExtractorPage />} />
               <Route path="/login" element={<Login />} />
               <Route path="/odm/balance" element={<OdmBalancePage />} />
               <Route path="/profile" element={<ProfilePage />} />
