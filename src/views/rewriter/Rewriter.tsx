@@ -183,7 +183,7 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
               className="select w-full select-bordered select-primary "
             />
           </div>
-          <div className="mb-1 md:mb-0 w-full p-2">
+          <div className="mb-1 md:mb-0 w-full p-2 hidden">
             <label className="text-white-700">
               {translate('SelectExpand')}
             </label>
@@ -195,7 +195,7 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
               className="select w-full select-bordered select-primary "
             />
           </div>
-          <div className="mb-1 md:mb-0 w-full p-2">
+          <div className="mb-1 md:mb-0 w-full p-2 hidden">
             <label className="text-white-700">
               {translate('SelectRewritePower')} ({(power * 100).toFixed(0)}%)
             </label>
