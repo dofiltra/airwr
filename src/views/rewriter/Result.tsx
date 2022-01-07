@@ -33,6 +33,8 @@ const RewriterResultPage: FC<TRewriterResultPage> = () => {
   const { translate } = useLocalize()
   const { queueCount = 0, queueChars = 0 } = useRewriteQueue()
   const [rewriteData, setRewriteData] = useState({} as any)
+  // const { rewriteData: rwrData } = useRewriteText(id)
+  // console.log('rwrData', rwrData)
 
   useEffect(() => {
     fetch(`${HOST_API}/api/socketio/exec`).finally(() => {
