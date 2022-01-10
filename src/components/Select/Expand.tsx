@@ -4,8 +4,8 @@ import { RewriteMode } from 'dprx-types'
 import { useLocalize } from '@borodutch-labs/localize-react'
 
 export const ExpandMode = [
-  { value: RewriteMode.Longer, title: 'Expand' },
-  { value: RewriteMode.Shorter, title: 'Shorten' },
+  { value: RewriteMode.Shorter, title: 'Shorter' },
+  { value: RewriteMode.Longer, title: 'Longer' },
 ]
 
 export const ExpandBox = (props: any) => {
