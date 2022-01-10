@@ -6,6 +6,7 @@ import { FC, useEffect, useState } from 'preact/compat'
 import { HOST_API } from 'helpers/api'
 import { LangBox } from 'components/Select/Lang'
 import { Loading } from 'components/Containers/Loader'
+import { RewriteTextStatus } from 'dprx-types'
 import { getRewriterStatusText } from 'helpers/rewriter'
 import { io } from 'socket.io-client'
 import { useLocalize } from '@borodutch-labs/localize-react'
@@ -19,9 +20,9 @@ type TRewriterResultPage = {
 
 function getBackgroundColorByStatus(status: number) {
   switch (status) {
-    case 3: // inProgrss
+    case RewriteTextStatus.InProgress:
       return 'alert-info'
-    case 9: // completed
+    case RewriteTextStatus.Completed:
       return 'alert-success'
   }
 
@@ -94,11 +95,11 @@ const RewriterResultPage: FC<TRewriterResultPage> = () => {
   }
 
   const percent =
-    status === 9
+    status === RewriteTextStatus.Completed
       ? 100
       : ((blocksRewrited.length + 1) / (blocksForRewrite.length + 1)) * 100
 
-  const isCompleted = status === 9 || percent === 100
+  const isCompleted = status === RewriteTextStatus.Completed || percent === 100
 
   // const isShowResult =
   //   isCompleted || blocksRewrited.length === blocksForRewrite.length
@@ -160,7 +161,9 @@ const RewriterResultPage: FC<TRewriterResultPage> = () => {
                       {translate('TaskStatus')}:{' '}
                       {translate(
                         getRewriterStatusText(
-                          isCompleted ? 9 : rewriteData.status
+                          isCompleted
+                            ? RewriteTextStatus.Completed
+                            : rewriteData.status
                         )
                       ).toLowerCase()}{' '}
                       ({isCompleted ? '100.00' : percent.toFixed(2)}

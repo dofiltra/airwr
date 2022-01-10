@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-export const LangCodes = [
-  { code: 'EN', name: 'English' },
-  { code: 'RU', name: 'Russian' },
-  { code: 'FR', name: 'French' },
-  { code: 'ES', name: 'Spanish' },
-  { code: 'DE', name: 'German' },
-]
+import { LangCode } from 'dprx-types'
+
+export const LangCodes = Object.keys(LangCode).map((name) => ({
+  code: (LangCode as any)[name],
+  name,
+}))
 
 export const LangBox = (props: any) => {
   return (

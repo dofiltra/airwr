@@ -7,6 +7,7 @@ import { ExpandBox, ExpandMode } from 'components/Select/Expand'
 import { FC } from 'preact/compat'
 import { HOST_API, detectLang, headers } from 'helpers/api'
 import { LangBox } from 'components/Select/Lang'
+import { LangCode } from 'dprx-types'
 import { Loading } from 'components/Containers/Loader'
 import { Navigate } from 'react-router-dom'
 import { ToneMode } from 'components/Select/Tone'
@@ -100,7 +101,7 @@ async function addQueue({
 const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
   const { translate } = useLocalize()
   const [showRewriteContent, setShowRewriteContent] = useState(true)
-  const [targetLang, setTargetLang] = useState('RU')
+  const [targetLang, setTargetLang] = useState(LangCode.Russian)
   const [expand, setExpand] = useState(ExpandMode[0].value)
   const [tone, setTone] = useState(ToneMode[0].value)
   const [power, setPower] = useState(0.5)
@@ -173,7 +174,7 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
         <div className="grid grid-cols-1 gap-2">
           <div
             className={`mb-1 md:mb-0 w-full p-2 ${
-              targetLang === 'RU' ? 'hidden' : ''
+              targetLang === LangCode.Russian ? 'hidden' : ''
             }`}
           >
             <label className="text-white-700">

@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { RewriteMode } from 'dprx-types'
 import { useLocalize } from '@borodutch-labs/localize-react'
 
 export const ExpandMode = [
-  { value: 'LONGER', title: 'Expand' },
-  { value: 'SHORTER', title: 'Shorten' },
+  { value: RewriteMode.Longer, title: 'Expand' },
+  { value: RewriteMode.Shorter, title: 'Shorten' },
 ]
 
 export const ExpandBox = (props: any) => {
