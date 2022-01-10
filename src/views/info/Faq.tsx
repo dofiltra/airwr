@@ -24,31 +24,25 @@ export default () => {
       <div className="min-h-full">
         <main>
           <div className="w-full">
-            <div className="">
-              <div className="">
-                <div className="">
-                  <h1 className="mb-5 text-5xl font-bold text-center">
-                    {translate('FAQ')}
-                  </h1>
-                  <p className="text-center justify-center flex pb-6">
-                    <img src={smileSrc} />
-                  </p>
-                  <p className="w-full">
-                    <pre className="mb-5 whitespace-pre-wrap">
-                      {translate('FaqText')}
-                    </pre>
-                  </p>
-                  <p className="text-center">
-                    <a
-                      href="/download/Rewritery_v7.zip"
-                      className="btn btn-info text-white"
-                    >
-                      {translate('PluginDownload')}
-                    </a>
-                  </p>
-                </div>
-              </div>
-            </div>
+            <h1 className="mb-5 text-5xl font-bold text-center">
+              {translate('FAQ')}
+            </h1>
+            <p className="text-center justify-center flex pb-6">
+              <img src={smileSrc} />
+            </p>
+            <p className="w-full">
+              <pre className="mb-5 whitespace-pre-wrap">
+                {translate('FaqText')}
+              </pre>
+            </p>
+            <p className="text-center">
+              <a
+                href="/download/Rewritery_v7.zip"
+                className="btn btn-info text-white"
+              >
+                {translate('PluginDownload')}
+              </a>
+            </p>
           </div>
         </main>
       </div>
