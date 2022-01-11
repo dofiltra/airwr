@@ -39,6 +39,20 @@ export async function getRewriteQueue() {
   }
 }
 
+export async function getTranslateQueue() {
+  try {
+    const resp = await fetch(`${HOST_API}/api/translate/getQueue`, {
+      headers,
+      method: 'GET',
+    })
+
+    const { count } = await resp.json()
+    return count
+  } catch {
+    //
+  }
+}
+
 export async function getCoins(token?: string, isFull = '') {
   if (!token) {
     return { coins: 0 }

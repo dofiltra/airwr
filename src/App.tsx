@@ -14,6 +14,7 @@ import Navbar from 'components/Navbar/Navbar'
 import ProfilePage from 'views/info/Profile'
 import RewriterResultPage from 'views/rewriter/Result'
 import Root from 'components/Containers/Root'
+import TranslateResultPage from 'views/translator/Result'
 import TranslatorPage from 'views/translator/Translator'
 
 const App = () => {
@@ -30,6 +31,10 @@ const App = () => {
                 element={<RewriterResultPage />}
               />
               <Route path="/translator" element={<TranslatorPage />} />
+              <Route
+                path="/translator/result/:id"
+                element={<TranslateResultPage />}
+              />
               <Route path="/extractor" element={<ExtractorPage />} />
               <Route path="/login" element={<Login />} />
               <Route path="/odm/balance" element={<OdmBalancePage />} />

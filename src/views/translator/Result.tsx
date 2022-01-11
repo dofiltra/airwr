@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { BlockContent, RewriteText, TaskStatus } from 'dprx-types'
+
+import { Dotranslate, TaskStatus } from 'dprx-types'
 import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
 import { FC, useEffect, useState } from 'preact/compat'
 import { HOST_API } from 'helpers/api'
-import { LangBox } from 'components/Select/Lang'
 import { Loading } from 'components/Containers/Loader'
 import { getRewriterStatusText } from 'helpers/rewriter'
 import { io } from 'socket.io-client'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import { useParams } from 'react-router-dom'
 import EditorJS from '@editorjs/editorjs'
-import useRewriteQueue from 'hooks/useRewriteQueue'
+import useTranslateQueue from 'hooks/useTranslateQueue'
 
 type TResultPage = {
   //
@@ -29,11 +29,11 @@ function getBackgroundColorByStatus(status: number) {
   return ''
 }
 
-const RewriterResultPage: FC<TResultPage> = () => {
+const TranslateResultPage: FC<TResultPage> = () => {
   const { id = '' } = useParams()
   const { translate } = useLocalize()
-  const { queueCount = 0, queueChars = 0 } = useRewriteQueue()
-  const [rewriteData, setRewriteData] = useState({} as RewriteText)
+  const { queueCount = 0, queueChars = 0 } = useTranslateQueue()
+  const [translateData, setTranslateData] = useState({} as Dotranslate)
 
   useEffect(() => {
     fetch(`${HOST_API}/api/socketio/exec`).finally(() => {
@@ -43,16 +43,16 @@ const RewriterResultPage: FC<TResultPage> = () => {
       })
 
       socket.on('connect', () => {
-        socket.emit('join', { roomId: `RewriteText_${id}`.toLowerCase() })
+        socket.emit('join', { roomId: `Translate_${id}`.toLowerCase() })
       })
 
-      socket.on('update', (data: RewriteText) => {
-        data && setRewriteData(data)
+      socket.on('update', (data: any) => {
+        data && setTranslateData(data)
       })
     })
   }, [id])
 
-  if (!rewriteData?.blocks?.length) {
+  if (!translateData?.blocks?.length) {
     return (
       <div className="h-96">
         <div className="justify-center flex">{translate('loading')}</div>
@@ -61,39 +61,38 @@ const RewriterResultPage: FC<TResultPage> = () => {
     )
   }
 
-  const blocksForRewrite = rewriteData.blocks.filter(
-    (b: BlockContent) =>
-      (['paragraph'].includes(b.type) && b.data?.text) ||
-      (['list'].includes(b.type) && b.data?.items?.length)
+  const blocksForTranslate = translateData.blocks.filter(
+    (b: any) => b.data?.text || b.data?.items?.length
   )
-  const blocksRewrited = rewriteData.blocks.filter(
-    (b: BlockContent) => b.rewriteDataSuggestions?.length
+  const blocksTranslated = translateData.blocks.filter(
+    (b: any) => Object.keys(b?.results || {}).length
   )
-  const status = rewriteData.status
+  const status = translateData.status
   const data = {
     time: Date.now(),
     version: '2.2.2',
-    blocks: rewriteData?.blocks,
+    blocks: translateData?.blocks,
   }
-  const dataRewrite = {
-    time: Date.now() + 1,
-    version: '2.2.2',
-    blocks: rewriteData.blocks.map((b: BlockContent) => {
-      const sug = b.rewriteDataSuggestions || []
-      return {
-        ...b,
-        data: {
-          ...(sug[0] || b.data),
-          withBackground: !!sug[0],
-        },
-      }
-    }),
-  }
+  const dataTranslates = translateData.langs.map((lang) => {
+    return {
+      time: Date.now() + 1,
+      version: '2.2.2',
+      blocks: translateData.blocks.map((b: any) => {
+        return {
+          ...b,
+          data: {
+            ...(b.results[lang] || b.data),
+            withBackground: !!b.results[lang],
+          },
+        }
+      }),
+    }
+  })
 
   const percent =
     status === TaskStatus.Completed
       ? 100
-      : ((blocksRewrited.length + 1) / (blocksForRewrite.length + 1)) * 100
+      : ((blocksTranslated.length + 1) / (blocksForTranslate.length + 1)) * 100
 
   const isCompleted = status === TaskStatus.Completed || percent === 100
 
@@ -106,19 +105,22 @@ const RewriterResultPage: FC<TResultPage> = () => {
         readOnly: true,
       })
   )
-  const [rewriteEditor] = useState(
-    () =>
-      new EditorJS({
-        holder: 'rewrite',
-        tools: EDITOR_JS_TOOLS,
-        data: dataRewrite,
-      })
-  )
 
-  if (rewriteEditor?.clear) {
-    rewriteEditor.clear()
-    rewriteEditor.render(dataRewrite)
-  }
+  dataTranslates.forEach((dataTranslate, i) => {
+    const [translateEditor] = useState(
+      () =>
+        new EditorJS({
+          holder: `translate_${translateData.langs[i]}`,
+          tools: EDITOR_JS_TOOLS,
+          data: dataTranslate,
+        })
+    )
+  })
+
+  // if (translateEditor?.clear) {
+  //   translateEditor.clear()
+  //   translateEditor.render(dataTranslates)
+  // }
 
   return (
     <>
@@ -156,7 +158,7 @@ const RewriterResultPage: FC<TResultPage> = () => {
                         getRewriterStatusText(
                           isCompleted
                             ? TaskStatus.Completed
-                            : rewriteData.status
+                            : translateData.status
                         )
                       ).toLowerCase()}{' '}
                       ({isCompleted ? '100.00' : percent.toFixed(2)}
@@ -178,30 +180,27 @@ const RewriterResultPage: FC<TResultPage> = () => {
                 </div>
               </div>
 
-              <div className="mb-1 md:mb-0 w-full p-2">
-                <label>{translate('SelectedTargetLang')}</label>
-                <LangBox
-                  value={rewriteData.targetLang}
-                  disabled
-                  className="select select-bordered select-warning w-full"
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-1">
+              <div className="grid grid-cols-1 gap-1">
                 <div className="mb-1 md:mb-0 w-full p-2 ">
                   <label>{translate('Original text')}</label>
                   <div className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3">
                     <div id="orig"></div>
                   </div>
                 </div>
-
-                <div className="mb-1 md:mb-0 w-full p-2 ">
-                  <label>{translate('Rewrited text')}</label>
-                  <div className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3">
-                    <div id="rewrite"></div>
-                  </div>
-                </div>
               </div>
+
+              {translateData.langs.map((lang) => {
+                return (
+                  <div className="grid grid-cols-1 gap-1">
+                    <div className="mb-1 md:mb-0 w-full p-2 ">
+                      <label>{lang}</label>
+                      <div className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3">
+                        <div id={`translate_${lang}`}></div>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
             </div>
           </div>
         </main>
@@ -210,4 +209,4 @@ const RewriterResultPage: FC<TResultPage> = () => {
   )
 }
 
-export default RewriterResultPage
+export default TranslateResultPage
