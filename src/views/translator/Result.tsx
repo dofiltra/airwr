@@ -34,7 +34,6 @@ const TranslateResultPage: FC<TResultPage> = () => {
   const { translate } = useLocalize()
   const { queueCount = 0, queueChars = 0 } = useTranslateQueue()
   const [translateData, setTranslateData] = useState({} as Dotranslate)
-  const [editors, setEditors] = useState([] as any[])
 
   useEffect(() => {
     fetch(`${HOST_API}/api/socketio/exec`).finally(() => {
@@ -76,6 +75,7 @@ const TranslateResultPage: FC<TResultPage> = () => {
   }
   const dataTranslates = translateData.langs.map((lang, i) => {
     return {
+      lang,
       time: Date.now() + i + 1,
       version: '2.2.2',
       blocks: translateData.blocks.map((b: any) => {
@@ -108,23 +108,23 @@ const TranslateResultPage: FC<TResultPage> = () => {
       })
   )
 
-  dataTranslates.forEach((dataTranslate, i) => {
-    const [ed] = useState(() => {
-      const res = new EditorJS({
+  const [editors] = useState(() =>
+    dataTranslates.map((dataTranslate, i) => {
+      const editor = new EditorJS({
         holder: `translate_${translateData.langs[i]}`,
         tools: EDITOR_JS_TOOLS,
         data: dataTranslate,
       })
-      setEditors([...editors, { ed: res, edData: dataTranslate }])
 
-      return res
+      return { editor, dataTranslate }
     })
-  })
+  )
 
-  editors.forEach(({ ed, edData }) => {
-    if (ed?.clear) {
-      ed.clear()
-      ed.render(edData)
+  editors.forEach(({ editor, dataTranslate }) => {
+    const data = dataTranslates.find((x) => x.lang === dataTranslate.lang)
+    if (data && editor?.clear) {
+      editor.clear()
+      editor.render(data)
     }
   })
 

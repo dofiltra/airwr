@@ -93,7 +93,8 @@ const RewriterResultPage: FC<TResultPage> = () => {
   const percent =
     status === TaskStatus.Completed
       ? 100
-      : ((blocksRewrited.length + 1) / (blocksForRewrite.length + 1)) * 100
+      : blocksRewrited.length &&
+        (blocksRewrited.length / blocksForRewrite.length) * 100
 
   const isCompleted = status === TaskStatus.Completed || percent === 100
 
