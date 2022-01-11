@@ -34,6 +34,7 @@ const TranslateResultPage: FC<TResultPage> = () => {
   const { translate } = useLocalize()
   const { queueCount = 0, queueChars = 0 } = useTranslateQueue()
   const [translateData, setTranslateData] = useState({} as Dotranslate)
+  const [editors, setEditors] = useState([] as any[])
 
   useEffect(() => {
     fetch(`${HOST_API}/api/socketio/exec`).finally(() => {
@@ -73,16 +74,16 @@ const TranslateResultPage: FC<TResultPage> = () => {
     version: '2.2.2',
     blocks: translateData?.blocks,
   }
-  const dataTranslates = translateData.langs.map((lang) => {
+  const dataTranslates = translateData.langs.map((lang, i) => {
     return {
-      time: Date.now() + 1,
+      time: Date.now() + i + 1,
       version: '2.2.2',
       blocks: translateData.blocks.map((b: any) => {
         return {
           ...b,
           data: {
-            ...(b.results[lang] || b.data),
-            withBackground: !!b.results[lang],
+            ...((b.results && b.results[lang]) || b.data),
+            withBackground: !!(b.results && b.results[lang]),
           },
         }
       }),
@@ -92,7 +93,8 @@ const TranslateResultPage: FC<TResultPage> = () => {
   const percent =
     status === TaskStatus.Completed
       ? 100
-      : ((blocksTranslated.length + 1) / (blocksForTranslate.length + 1)) * 100
+      : blocksForTranslate.length &&
+        (blocksTranslated.length / blocksForTranslate.length) * 100
 
   const isCompleted = status === TaskStatus.Completed || percent === 100
 
@@ -107,20 +109,24 @@ const TranslateResultPage: FC<TResultPage> = () => {
   )
 
   dataTranslates.forEach((dataTranslate, i) => {
-    const [translateEditor] = useState(
-      () =>
-        new EditorJS({
-          holder: `translate_${translateData.langs[i]}`,
-          tools: EDITOR_JS_TOOLS,
-          data: dataTranslate,
-        })
-    )
+    const [ed] = useState(() => {
+      const res = new EditorJS({
+        holder: `translate_${translateData.langs[i]}`,
+        tools: EDITOR_JS_TOOLS,
+        data: dataTranslate,
+      })
+      setEditors([...editors, { ed: res, edData: dataTranslate }])
+
+      return res
+    })
   })
 
-  // if (translateEditor?.clear) {
-  //   translateEditor.clear()
-  //   translateEditor.render(dataTranslates)
-  // }
+  editors.forEach(({ ed, edData }) => {
+    if (ed?.clear) {
+      ed.clear()
+      ed.render(edData)
+    }
+  })
 
   return (
     <>
