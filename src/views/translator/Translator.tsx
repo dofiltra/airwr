@@ -26,6 +26,7 @@ export default () => {
   const [isVisibleContent, setVisibleContent] = useState(true)
 
   const [linkResultId, setLinkResult] = useState('')
+  const [langs, setLangs] = useState([] as LangCode[])
   const smileSrc = smiles.sort(() => (Math.random() > 0.5 ? 1 : -1))[0]
 
   if (linkResultId) {
@@ -88,8 +89,14 @@ export default () => {
             </div>
 
             <div className="mb-1 md:mb-0 w-full p-2 ">
-              <span className="text-gray-700">Langs</span>
+              <span className="text-gray-700">{translate('Select langs for Translate')}</span>
               <LangBox
+                value={langs}
+                onChange={(val: any) =>
+                  setLangs(
+                    Array.from(val.target.selectedOptions, (o: any) => o.value)
+                  )
+                }
                 className="form-multiselect block w-full h-48 mt-1  border-2 border-dashed border-gray-100 "
                 multiple
               />
