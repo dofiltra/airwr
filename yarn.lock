@@ -4159,10 +4159,10 @@ dotenv@^10.0.0:
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-10.0.0.tgz#3d4227b8fb95f81096cdd2b66653fb2c7085ba81"
   integrity sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==
 
-dprx-types@^1.1.29:
-  version "1.1.29"
-  resolved "https://registry.yarnpkg.com/dprx-types/-/dprx-types-1.1.29.tgz#143ef0df6520c087db3f364c74251c07c1cdaac5"
-  integrity sha512-2nJIUoLY6lXoL3aQ6qLgh/Jc39totKiM+H+WW/ej+Fq9I6nrwxrMLrA+gQGXjUKXw6EzMjtnRQWY1+aCMxaxoQ==
+dprx-types@^1.1.31:
+  version "1.1.31"
+  resolved "https://registry.yarnpkg.com/dprx-types/-/dprx-types-1.1.31.tgz#69acbc17c5be093eaac52b2c5d2c4152b16b9221"
+  integrity sha512-Rw7sUb6I9kUl2d2aj1kiL5BkeMsOe3Zh0ACr1OFvJtmwKomfHNG5X3q047mgFZ8l2OnnRPPCq6J5UZvaRT3s6g==
   dependencies:
     dotenv "^10.0.0"
     esm-requirer "^1.0.3"
@@ -4186,9 +4186,9 @@ ejs@^3.1.6:
     jake "^10.6.1"
 
 electron-to-chromium@^1.4.17:
-  version "1.4.42"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.42.tgz#fe3ee7c71f0b5302da12e730cd9cd395609625df"
-  integrity sha512-JJLT8bjdswJzk8sNRnQjee0MGtO4zTn1t7eWwYPr8gPTadQgNRR/wFRKLGD6HZVZby39yHERkvuCVKNm10r7Dg==
+  version "1.4.43"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.43.tgz#665c0cd8d5e7cce0ba78d90a514c8c813ca3bdbe"
+  integrity sha512-PO3kEfcxPrti/4STbXvCkNIF4fgWvCKl2508e6UI7KomCDffpIfeBZLXsh5DK/XGsjUw3kwq6WEsi0MJTlGAdg==
 
 emittery@^0.8.1:
   version "0.8.1"

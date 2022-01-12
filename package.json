@@ -50,7 +50,7 @@
     "@editorjs/warning": "^1.2.0",
     "@vitejs/plugin-react": "^1.1.4",
     "daisyui": "^1.22.0",
-    "dprx-types": "^1.1.29",
+    "dprx-types": "^1.1.31",
     "firebase": "^9.6.2",
     "preact": "^10.6.4",
     "react-router-dom": "^6.2.1",

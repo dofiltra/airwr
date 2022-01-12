@@ -38,8 +38,8 @@ export default () => {
               {translate('ExtractorTitle')}
               <img src={smileSrc} className="inline px-4" />
             </h1>
+            <p className="w-full pt-6">{translate('ExtractorText')}</p>
           </div>
-
         </main>
       </div>
     </>

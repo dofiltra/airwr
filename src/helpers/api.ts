@@ -1,4 +1,4 @@
-import { headers } from 'dprx-types'
+import { RewriteText, headers } from 'dprx-types'
 import fetch from 'unfetch'
 
 const { VITE_HOST_API_DEV, VITE_HOST_API_PROD } = import.meta.env
@@ -6,6 +6,17 @@ const { VITE_HOST_API_DEV, VITE_HOST_API_PROD } = import.meta.env
 export const HOST_API = window.location.origin.includes('localhost')
   ? VITE_HOST_API_DEV
   : VITE_HOST_API_PROD
+
+export async function addRewriteData(data: RewriteText) {
+  const resp = await fetch(`${HOST_API}/api/rewriteText/add`, {
+    headers,
+    method: 'POST',
+    // mode: 'cors',
+    body: JSON.stringify(data),
+  })
+
+  return resp
+}
 
 export async function geRewriteData(id: string) {
   try {

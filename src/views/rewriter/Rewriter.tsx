@@ -3,15 +3,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { Dataset, LangCode, RewriteMode, TaskStatus } from 'dprx-types'
 import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
 import { ExpandBox, ExpandMode } from 'components/Select/Expand'
 import { FC } from 'preact/compat'
-import { HOST_API, detectLang } from 'helpers/api'
 import { LangBox } from 'components/Select/Lang'
-import { LangCode, headers } from 'dprx-types'
 import { Loading } from 'components/Containers/Loader'
 import { Navigate } from 'react-router-dom'
 import { ToneMode } from 'components/Select/Tone'
+import { addRewriteData, detectLang } from 'helpers/api'
 import { smiles } from 'helpers/smiles'
 import { useContext, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
@@ -49,9 +49,9 @@ export const RewriterPage: FC = () => {
 }
 
 type TQueueOpts = {
-  targetLang: string
-  expand: string
-  tone: string
+  targetLang: LangCode
+  expand: RewriteMode.Longer | RewriteMode.Shorter
+  tone: RewriteMode.Formal | RewriteMode.Casual
   power: number
   token: string
   translate: any
@@ -68,6 +68,7 @@ async function addQueue({
   translate,
   token,
   expand,
+  tone,
 }: TQueueOpts) {
   const editorData = await api.saver.save()
   if (!editorData?.blocks?.length) {
@@ -76,18 +77,15 @@ async function addQueue({
 
   setShowRewriteContent(false)
 
-  const resp = await fetch(`${HOST_API}/api/rewriteText/add`, {
-    headers,
-    method: 'POST',
-    body: JSON.stringify({
-      targetLang,
-      power,
-      expand,
-      token,
-      blocks: editorData.blocks,
-      dataset: 0,
-    }),
-    mode: 'cors',
+  const resp = await addRewriteData({
+    targetLang,
+    power,
+    expand,
+    token,
+    tone,
+    blocks: editorData.blocks,
+    dataset: Dataset.Auto,
+    status: TaskStatus.NotStarted,
   })
 
   if (!resp.ok) {
@@ -109,8 +107,12 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
   const { translate } = useLocalize()
   const [showRewriteContent, setShowRewriteContent] = useState(true)
   const [targetLang, setTargetLang] = useState(LangCode.Russian)
-  const [expand, setExpand] = useState(ExpandMode[0].value)
-  const [tone, setTone] = useState(ToneMode[0].value)
+  const [expand, setExpand] = useState(
+    ExpandMode[0].value as RewriteMode.Longer | RewriteMode.Shorter
+  )
+  const [tone, setTone] = useState(
+    ToneMode[0].value as RewriteMode.Formal | RewriteMode.Casual
+  )
   const [power, setPower] = useState(0.5)
 
   if (!showRewriteContent) {

@@ -13,9 +13,9 @@ export const ExpandBox = (props: any) => {
 
   return (
     <select name="expand" {...props}>
-      {ExpandMode.map((lang) => (
-        <option value={lang.value}>
-          {translate(lang.title || lang.value)}
+      {ExpandMode.map((mode) => (
+        <option value={mode.value}>
+          {translate(mode.title || mode.value)}
         </option>
       ))}
     </select>
