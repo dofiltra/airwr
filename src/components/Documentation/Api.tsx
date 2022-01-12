@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC } from 'preact/compat'
-import { HOST_API, headers } from 'helpers/api'
+import { HOST_API } from 'helpers/api'
 import { LangCodes } from 'components/Select/Lang'
 import { SignInButtons } from 'components/Buttons/SignIn'
+import { headers } from 'dprx-types'
 import { useContext } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import AuthContext from 'components/Auth/AuthContext'

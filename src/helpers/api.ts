@@ -1,3 +1,4 @@
+import { headers } from 'dprx-types'
 import fetch from 'unfetch'
 
 const { VITE_HOST_API_DEV, VITE_HOST_API_PROD } = import.meta.env
@@ -5,11 +6,6 @@ const { VITE_HOST_API_DEV, VITE_HOST_API_PROD } = import.meta.env
 export const HOST_API = window.location.origin.includes('localhost')
   ? VITE_HOST_API_DEV
   : VITE_HOST_API_PROD
-
-export const headers = {
-  Accept: 'application/json',
-  'Content-Type': 'application/json',
-}
 
 export async function geRewriteData(id: string) {
   try {

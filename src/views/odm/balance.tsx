@@ -2,7 +2,8 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC } from 'preact/compat'
-import { HOST_API, getCoins, headers } from 'helpers/api'
+import { HOST_API, getCoins } from 'helpers/api'
+import { headers } from 'dprx-types'
 import { useState } from 'preact/hooks'
 
 export const OdmBalancePage: FC = () => {
