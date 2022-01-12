@@ -33,21 +33,13 @@ export default () => {
     <>
       <div className="min-h-full">
         <main>
-          <div className="max-w-7xl">
-            <div className="hero">
-              <div className="text-center hero-content">
-                <div className="max-w-md">
-                  <h1 className="mb-5 text-5xl font-bold">
-                    {translate('TranslatorTitle')}
-                  </h1>
-                  <p className="mb-5">{translate('TranslatorText')}</p>
-                  <div className="text-center justify-center flex">
-                    <img src={smileSrc} />
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div className="text-center">
+            <h1 className="mt-4 text-5xl font-bold">
+              {translate('TranslatorTitle')}
+              <img src={smileSrc} className="inline px-4" />
+            </h1>
           </div>
+
         </main>
       </div>
     </>

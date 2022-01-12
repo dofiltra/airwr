@@ -2,10 +2,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { DocumentationApi } from 'components/Documentation/Api'
+import { smiles } from 'helpers/smiles'
 import { useLocalize } from '@borodutch-labs/localize-react'
 
 export default () => {
   const { translate } = useLocalize()
+  const smileSrc = smiles.sort(() => (Math.random() > 0.5 ? 1 : -1))[0]
 
   return (
     <>
@@ -18,6 +20,7 @@ export default () => {
                   <h1 className="mb-5 text-5xl font-bold">
                     {translate('ApiTitle')}
                     <sup className="font-thin">v1.1</sup>
+                    <img src={smileSrc} className="inline px-4" />
                   </h1>
                   <DocumentationApi />
                 </div>
