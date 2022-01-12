@@ -26,6 +26,8 @@
   "SelectExpand": "Mode",
   "Longer": "Longer",
   "Shorter": "Shorter",
+  "EnterTextForTranslate": "Enter text for translate:",
+  "EnterTextForTranslatePlaceholder": "Replace this the text that needs to be translated...",
   "EnterTextForRewrite": "Enter text for rewrite:",
   "EnterTextForRewritePlaceholder": "Replace this the text that needs to be redacted...",
   "Show result": "Show result",

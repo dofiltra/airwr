@@ -56,14 +56,14 @@ type TQueueOpts = {
   token: string
   translate: any
   api: any
-  setShowRewriteContent: (arg: boolean) => void
+  setVisibleContent: (arg: boolean) => void
   setLinkResult: (arg: string) => void
 }
 async function addQueue({
   api,
   targetLang,
   power,
-  setShowRewriteContent,
+  setVisibleContent,
   setLinkResult,
   translate,
   token,
@@ -75,7 +75,7 @@ async function addQueue({
     return
   }
 
-  setShowRewriteContent(false)
+  setVisibleContent(false)
 
   const resp = await addRewriteData({
     targetLang,
@@ -89,7 +89,7 @@ async function addQueue({
   })
 
   if (!resp.ok) {
-    setShowRewriteContent(true)
+    setVisibleContent(true)
     return alert(translate('TryAgainLater'))
   }
 
@@ -105,7 +105,7 @@ async function addQueue({
 
 const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
   const { translate } = useLocalize()
-  const [showRewriteContent, setShowRewriteContent] = useState(true)
+  const [isVisibleContent, setVisibleContent] = useState(true)
   const [targetLang, setTargetLang] = useState(LangCode.Russian)
   const [expand, setExpand] = useState(
     ExpandMode[0].value as RewriteMode.Longer | RewriteMode.Shorter
@@ -115,7 +115,7 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
   )
   const [power, setPower] = useState(0.5)
 
-  if (!showRewriteContent) {
+  if (!isVisibleContent) {
     return (
       <div className="h-96">
         <div className="justify-center flex">{translate('loading')}</div>
@@ -232,7 +232,7 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
                 api,
                 targetLang,
                 power,
-                setShowRewriteContent,
+                setVisibleContent,
                 setLinkResult,
                 translate,
                 token,

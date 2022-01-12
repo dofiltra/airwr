@@ -26,6 +26,8 @@
   "SelectExpand": "Режим:",
   "Longer": "Расширение",
   "Shorter": "Сжатие",
+  "EnterTextForTranslate": "Введите текст для переводов:",
+  "EnterTextForTranslatePlaceholder": "Вставьте сюда текст, который нужно перевести...",
   "EnterTextForRewrite": "Введите текст для рерайта:",
   "EnterTextForRewritePlaceholder": "Вставьте сюда текст, который нужно отрерайтить...",
   "Show result": "Ссылка на результата",
