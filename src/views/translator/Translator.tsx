@@ -7,7 +7,7 @@ import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
 import { ExpandBox, ExpandMode } from 'components/Select/Expand'
 import { FC } from 'preact/compat'
 import { HOST_API, detectLang } from 'helpers/api'
-import { LangBox } from 'components/Select/Lang'
+import { LangBox, LangCodes } from 'components/Select/Lang'
 import { LangCode, headers } from 'dprx-types'
 import { Loading } from 'components/Containers/Loader'
 import { Navigate } from 'react-router-dom'
@@ -85,6 +85,14 @@ export default () => {
               <div className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3 min-h-16">
                 <div id={editorId}></div>
               </div>
+            </div>
+
+            <div className="mb-1 md:mb-0 w-full p-2 ">
+              <span className="text-gray-700">Langs</span>
+              <LangBox
+                className="form-multiselect block w-full h-48 mt-1  border-2 border-dashed border-gray-100 "
+                multiple
+              />
             </div>
           </div>
         </main>
