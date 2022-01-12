@@ -24,9 +24,8 @@ const editorId = 'holder_translate'
 export default () => {
   const { translate } = useLocalize()
   const [isVisibleContent, setVisibleContent] = useState(true)
-
   const [linkResultId, setLinkResult] = useState('')
-  const [langs, setLangs] = useState([] as LangCode[])
+
   const smileSrc = smiles.sort(() => (Math.random() > 0.5 ? 1 : -1))[0]
 
   if (linkResultId) {
@@ -43,6 +42,7 @@ export default () => {
   }
 
   const { queueCount = 0, queueChars = 0 } = useTranslateQueue()
+  const [langs, setLangs] = useState([] as LangCode[])
   const { user } = useContext(AuthContext)
   const token = user?.uid || ''
 
@@ -89,7 +89,9 @@ export default () => {
             </div>
 
             <div className="mb-1 md:mb-0 w-full p-2 ">
-              <span className="text-gray-700">{translate('Select langs for Translate')}</span>
+              <span className="text-gray-700">
+                {translate('Select langs for Translate')}
+              </span>
               <LangBox
                 value={langs}
                 onChange={(val: any) =>
@@ -100,6 +102,28 @@ export default () => {
                 className="form-multiselect block w-full h-48 mt-1  border-2 border-dashed border-gray-100 "
                 multiple
               />
+            </div>
+
+            <div className="flex-auto space-x-3 my-6 flex items-center">
+              <button
+                // disabled={!editorData?.blocks?.length}
+                onClick={() => {
+                  // addQueue({
+                  //   api,
+                  //   targetLang,
+                  //   power,
+                  //   setVisibleContent,
+                  //   setLinkResult,
+                  //   translate,
+                  //   token,
+                  //   expand,
+                  //   tone,
+                  // })
+                }}
+                className="w-full btn btn-success"
+              >
+                {translate('ButtonSend')}
+              </button>
             </div>
           </div>
         </main>
