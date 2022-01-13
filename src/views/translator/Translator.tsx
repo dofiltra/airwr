@@ -4,14 +4,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
-import { ExpandBox, ExpandMode } from 'components/Select/Expand'
-import { FC } from 'preact/compat'
 import { HOST_API, detectLang } from 'helpers/api'
 import { LangBox, LangCodes } from 'components/Select/Lang'
 import { LangCode, headers } from 'dprx-types'
 import { Loading } from 'components/Containers/Loader'
 import { Navigate } from 'react-router-dom'
-import { ToneMode } from 'components/Select/Tone'
 import { smiles } from 'helpers/smiles'
 import { useContext, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
@@ -25,7 +22,6 @@ export default () => {
   const { translate } = useLocalize()
   const [isVisibleContent, setVisibleContent] = useState(true)
   const [linkResultId, setLinkResult] = useState('')
-
   const smileSrc = smiles.sort(() => (Math.random() > 0.5 ? 1 : -1))[0]
 
   if (linkResultId) {
