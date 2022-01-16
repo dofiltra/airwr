@@ -43,7 +43,7 @@ const RewriterResultPage: FC<TResultPage> = () => {
       })
 
       socket.on('connect', () => {
-        socket.emit('join', { roomId: `RewriteText_${id}`.toLowerCase() })
+        socket.emit('join', { roomId: `rewritetext_${id}` })
       })
 
       socket.on('update', (data: RewriteText) => {

@@ -43,7 +43,7 @@ const TranslateResultPage: FC<TResultPage> = () => {
       })
 
       socket.on('connect', () => {
-        socket.emit('join', { roomId: `Translate_${id}`.toLowerCase() })
+        socket.emit('join', { roomId: `translate_${id}` })
       })
 
       socket.on('update', (data: any) => {
