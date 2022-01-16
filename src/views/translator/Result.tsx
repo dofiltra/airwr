@@ -189,7 +189,7 @@ const TranslateResultPage: FC<TResultPage> = () => {
               <div className="grid grid-cols-1 gap-1">
                 <div className="mb-1 md:mb-0 w-full p-2 ">
                   <label>{translate('Original text')}</label>
-                  <div className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3">
+                  <div className="editor-wrapper h-96 overflow-auto w-full border-4 border-dashed border-gray-200 rounded-lg p-3">
                     <div id="orig"></div>
                   </div>
                 </div>
@@ -200,7 +200,7 @@ const TranslateResultPage: FC<TResultPage> = () => {
                   <div className="grid grid-cols-1 gap-1">
                     <div className="mb-1 md:mb-0 w-full p-2 ">
                       <label>{lang}</label>
-                      <div className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3">
+                      <div className="editor-wrapper h-96 overflow-auto w-full border-4 border-dashed border-gray-200 rounded-lg p-3">
                         <div id={`translate_${lang}`}></div>
                       </div>
                     </div>
