@@ -3,12 +3,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { BlockContent, Dotranslate, LangCode, TaskStatus } from 'dprx-types'
 import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
-import { HOST_API, detectLang } from 'helpers/api'
-import { LangBox, LangCodes } from 'components/Select/Lang'
-import { LangCode, headers } from 'dprx-types'
+import { LangBox } from 'components/Select/Lang'
 import { Loading } from 'components/Containers/Loader'
 import { Navigate } from 'react-router-dom'
+import { addTranslateData } from 'helpers/api'
 import { smiles } from 'helpers/smiles'
 import { useContext, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
@@ -104,17 +104,37 @@ export default () => {
               <button
                 // disabled={!editorData?.blocks?.length}
                 onClick={() => {
-                  // addQueue({
-                  //   api,
-                  //   targetLang,
-                  //   power,
-                  //   setVisibleContent,
-                  //   setLinkResult,
-                  //   translate,
-                  //   token,
-                  //   expand,
-                  //   tone,
-                  // })
+                  const add = async () => {
+                    const editorData = await api.saver.save()
+                    if (!editorData?.blocks?.length) {
+                      return
+                    }
+
+                    setVisibleContent(false)
+
+                    const resp = await addTranslateData({
+                      token,
+                      langs,
+                      blocks: editorData.blocks as BlockContent[],
+                      status: TaskStatus.NotStarted,
+                    } as Dotranslate)
+
+                    if (!resp.ok) {
+                      setVisibleContent(true)
+                      return alert(translate('TryAgainLater'))
+                    }
+
+                    const { result, error } = await resp.json()
+
+                    if (result?._id) {
+                      setLinkResult(result._id)
+                    }
+                    if (error || result?.errors) {
+                      alert(JSON.stringify(error || result?.errors || {}))
+                    }
+                  }
+
+                  add()
                 }}
                 className="w-full btn btn-success"
               >
