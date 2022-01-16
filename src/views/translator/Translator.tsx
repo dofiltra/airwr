@@ -8,7 +8,7 @@ import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
 import { LangBox } from 'components/Select/Lang'
 import { Loading } from 'components/Containers/Loader'
 import { Navigate } from 'react-router-dom'
-import { addTranslateData } from 'helpers/api'
+import { addTranslateData, detectLang } from 'helpers/api'
 import { smiles } from 'helpers/smiles'
 import { useContext, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
@@ -39,6 +39,7 @@ export default () => {
 
   const { queueCount = 0, queueChars = 0 } = useTranslateQueue()
   const [langs, setLangs] = useState([] as LangCode[])
+  const [currentLang, setCurrentLang] = useState('' as LangCode)
   const { user } = useContext(AuthContext)
   const token = user?.uid || ''
 
@@ -52,7 +53,33 @@ export default () => {
         inlineToolbar: false,
         hideToolbar: true,
         onChange: () => {
-          //
+          console.log('onchange')
+
+          const detect = async () => {
+            const editorData = await api.saver.save()
+            if (!editorData?.blocks?.length) {
+              console.log('no blocks')
+
+              return
+            }
+
+            const text = editorData.blocks
+              .map((x: any) => x?.data?.text || x?.items?.join(' '))
+              .filter((x: any) => x)
+              .join(' ')
+              .slice(0, 1e3)
+
+            const detectResult = await detectLang(text)
+            if (detectResult?.length) {
+              const [lang] = detectResult
+              const code = lang?.code?.toUpperCase()
+              console.log(code)
+
+              code && setCurrentLang(code)
+            }
+          }
+
+          setTimeout(detect, 1e3)
         },
       })
   )
@@ -89,12 +116,13 @@ export default () => {
                 {translate('Select langs for Translate')}
               </span>
               <LangBox
+                exclude={[currentLang]}
                 value={langs}
-                onChange={(val: any) =>
+                onChange={(val: any) => {
                   setLangs(
                     Array.from(val.target.selectedOptions, (o: any) => o.value)
                   )
-                }
+                }}
                 className="form-multiselect block w-full h-48 mt-1  border-2 border-dashed border-gray-100 "
                 multiple
               />

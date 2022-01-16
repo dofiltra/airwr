@@ -50,6 +50,28 @@ class DoList extends List {
   }
 }
 
+class DoHeader extends Header {
+  constructor(settings: any) {
+    super(settings)
+    const { data } = settings
+
+    this._data = {
+      ...this._data,
+      withBackground: data?.withBackground,
+    }
+  }
+
+  render() {
+    const wrapper = super.render()
+
+    if (this.data?.withBackground) {
+      wrapper.style.backgroundColor = '#ecf5ed'
+    }
+
+    return wrapper
+  }
+}
+
 export const EDITOR_JS_TOOLS = {
   embed: Embed,
   table: Table,
@@ -60,7 +82,7 @@ export const EDITOR_JS_TOOLS = {
   linkTool: LinkTool,
   image: Image,
   raw: Raw,
-  header: Header,
+  header: DoHeader,
   quote: Quote,
   checklist: CheckList,
   delimiter: Delimiter,

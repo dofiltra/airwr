@@ -10,10 +10,11 @@ export const LangCodes = Object.keys(LangCode).map((name) => ({
 
 export const LangBox = (props: any) => {
   const { translate } = useLocalize()
+  const { exclude = [] } = { ...props }
 
   return (
     <select {...props}>
-      {LangCodes.map((lang) => (
+      {LangCodes.filter((lang) => !exclude.includes(lang.code)).map((lang) => (
         <option value={lang.code}>{translate(lang.name || lang.code)}</option>
       ))}
     </select>

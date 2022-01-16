@@ -79,10 +79,11 @@ const TranslateResultPage: FC<TResultPage> = () => {
       time: Date.now() + i + 1,
       version: '2.2.2',
       blocks: translateData.blocks.map((b: any) => {
+        const resultData = b.results && b.results[lang]
         return {
           ...b,
           data: {
-            ...((b.results && b.results[lang]) || b.data),
+            ...(resultData || b.data),
             withBackground: !!(b.results && b.results[lang]),
           },
         }

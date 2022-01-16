@@ -117,6 +117,7 @@ export async function getRewritedCharsCount(token?: string) {
 
 export async function detectLang(text: string) {
   try {
+    // const langResp = await fetch(`${HOST_API}/api/lang/detect`, {
     const langResp = await fetch('https://api.dofiltra.com/api/lang/detect', {
       headers,
       method: 'POST',
