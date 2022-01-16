@@ -53,8 +53,6 @@ export default () => {
         inlineToolbar: false,
         hideToolbar: true,
         onChange: () => {
-          console.log('onchange')
-
           const detect = async () => {
             const editorData = await api.saver.save()
             if (!editorData?.blocks?.length) {
@@ -79,7 +77,7 @@ export default () => {
             }
           }
 
-          setTimeout(detect, 1e3)
+          detect()
         },
       })
   )
