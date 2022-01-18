@@ -118,7 +118,7 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
   if (!isVisibleContent) {
     return (
       <div className="h-96">
-        <div className="justify-center flex">{translate('loading')}</div>
+        <div className="justify-center flex">{translate('Loading')}</div>
         <Loading />
       </div>
     )

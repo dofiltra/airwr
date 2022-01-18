@@ -23,10 +23,20 @@ const editorId = 'holder_translate'
 export default () => {
   const { translate } = useLocalize()
   const [linkResultId, setLinkResult] = useState('')
+  const [isVisibleContent, setVisibleContent] = useState(true)
   const smileSrc = smiles.sort(() => (Math.random() > 0.5 ? 1 : -1))[0]
 
   if (linkResultId) {
     return <Navigate to={`/extractor/result/${linkResultId}`} />
+  }
+
+  if (!isVisibleContent) {
+    return (
+      <div className="h-96">
+        <div className="justify-center flex">{translate('Loading')}</div>
+        <Loading />
+      </div>
+    )
   }
 
   return (

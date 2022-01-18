@@ -22,7 +22,7 @@ const AuthContextProvider: React.FC = ({ children }) => {
     if (!isInitialized) {
       return (
         <div className="">
-          <div className="justify-center flex">{translate('loading')}</div>
+          <div className="justify-center flex">{translate('Loading')}</div>
           <Loading />
         </div>
       )
