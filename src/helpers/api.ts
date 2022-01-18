@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Dotranslate, RewriteText, headers } from 'dprx-types'
 import fetch from 'unfetch'
 
@@ -7,68 +8,68 @@ export const HOST_API = window.location.origin.includes('localhost')
   ? VITE_HOST_API_DEV
   : VITE_HOST_API_PROD
 
-export async function addTranslateData(data: Dotranslate) {
-  const resp = await fetch(`${HOST_API}/api/translate/add`, {
-    headers,
-    method: 'POST',
-    // mode: 'cors',
-    body: JSON.stringify(data),
-  })
+export async function send({
+  method = 'GET',
+  body,
+  url,
+}: {
+  url: string
+  method: 'GET' | 'POST'
+  body?: any
+}) {
+  try {
+    const resp = await fetch(url, {
+      headers,
+      method,
+      body: body ? JSON.stringify(body) : undefined,
+    })
 
-  return resp
+    return await resp.json()
+  } catch (error: any) {
+    return { error }
+  }
+}
+
+export async function addTranslateData(data: Dotranslate) {
+  return await send({
+    url: `${HOST_API}/api/translate/add`,
+    method: 'POST',
+    body: data,
+  })
 }
 
 export async function addRewriteData(data: RewriteText) {
-  const resp = await fetch(`${HOST_API}/api/rewriteText/add`, {
-    headers,
+  return await send({
+    url: `${HOST_API}/api/rewriteText/add`,
     method: 'POST',
-    // mode: 'cors',
-    body: JSON.stringify(data),
+    body: data,
   })
-
-  return resp
 }
 
 export async function geRewriteData(id: string) {
-  try {
-    const resp = await fetch(`${HOST_API}/api/rewriteText/get?id=${id}`, {
-      headers,
-      method: 'GET',
-    })
+  const { item } = await send({
+    url: `${HOST_API}/api/rewriteText/get?id=${id}`,
+    method: 'GET',
+  })
 
-    const { item, error } = await resp.json()
-    return item
-  } catch {
-    //
-  }
+  return item
 }
 
 export async function getRewriteQueue() {
-  try {
-    const resp = await fetch(`${HOST_API}/api/rewriteText/getQueue`, {
-      headers,
-      method: 'GET',
-    })
+  const { count = 0 } = await send({
+    url: `${HOST_API}/api/rewriteText/getQueue`,
+    method: 'GET',
+  })
 
-    const { count } = await resp.json()
-    return count
-  } catch {
-    //
-  }
+  return count
 }
 
 export async function getTranslateQueue() {
-  try {
-    const resp = await fetch(`${HOST_API}/api/translate/getQueue`, {
-      headers,
-      method: 'GET',
-    })
-
-    const { count } = await resp.json()
-    return count
-  } catch {
-    //
-  }
+  const { count = 0 } = await send({
+    url: `${HOST_API}/api/translate/getQueue`,
+    method: 'GET',
+  })
+  return count
 }
 
 export async function getCoins(token?: string, isFull = '') {
@@ -76,22 +77,12 @@ export async function getCoins(token?: string, isFull = '') {
     return { coins: 0 }
   }
 
-  try {
-    const resp = await fetch(
-      `${HOST_API}/api/balance/get?token=${token}&isFull=${isFull}`,
-      {
-        headers,
-        method: 'GET',
-      }
-    )
+  const { coins = 0, info = {} } = await send({
+    url: `${HOST_API}/api/balance/get?token=${token}&isFull=${isFull}`,
+    method: 'GET',
+  })
 
-    const { coins = 0, info = {} } = await resp.json()
-    return { coins, info }
-  } catch {
-    //
-  }
-
-  return { coins: 0 }
+  return { coins, info }
 }
 
 export async function getRewritedCharsCount(token?: string) {
@@ -99,36 +90,26 @@ export async function getRewritedCharsCount(token?: string) {
     return 0
   }
 
-  try {
-    const resp = await fetch(
-      `${HOST_API}/api/stats/getRewritedCharsCount?token=${token}`,
-      {
-        headers,
-        method: 'GET',
-      }
-    )
+  const { history = {} } = await send({
+    url: `${HOST_API}/api/stats/getRewritedCharsCount?token=${token}`,
+    method: 'GET',
+  })
 
-    const { history = {} } = await resp.json()
-    return history
-  } catch {
-    //
-  }
+  return history
 }
 
 export async function detectLang(text: string) {
-  try {
-    // const langResp = await fetch(`${HOST_API}/api/lang/detect`, {
-    const langResp = await fetch('https://api.dofiltra.com/api/lang/detect', {
-      headers,
-      method: 'POST',
-      body: JSON.stringify({
-        text,
-      }),
-    })
-    return await langResp.json()
-  } catch {
-    //
-  }
+  return await send({
+    url: 'https://api.dofiltra.com/api/lang/detect',
+    body: { text },
+    method: 'POST',
+  })
+}
 
-  return {}
+export async function addExtractorGroups(opts: { groups: string[][] }) {
+  return await send({
+    url: `${HOST_API}/api/extractor/add`,
+    body: opts,
+    method: 'POST',
+  })
 }

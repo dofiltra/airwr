@@ -3,26 +3,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
-import { ExpandBox, ExpandMode } from 'components/Select/Expand'
-import { FC } from 'preact/compat'
-import { HOST_API, detectLang } from 'helpers/api'
-import { LangBox } from 'components/Select/Lang'
-import { LangCode, headers } from 'dprx-types'
 import { Loading } from 'components/Containers/Loader'
 import { Navigate } from 'react-router-dom'
-import { ToneMode } from 'components/Select/Tone'
+import { addExtractorGroups } from 'helpers/api'
 import { smiles } from 'helpers/smiles'
-import { useContext, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
-import AuthContext from 'components/Auth/AuthContext'
-import EditorJS from '@editorjs/editorjs'
-
-const editorId = 'holder_translate'
+import { useState } from 'preact/hooks'
 
 export default () => {
   const { translate } = useLocalize()
   const [linkResultId, setLinkResult] = useState('')
+  const [groups, setGroups] = useState([[]] as string[][])
   const [isVisibleContent, setVisibleContent] = useState(true)
   const smileSrc = smiles.sort(() => (Math.random() > 0.5 ? 1 : -1))[0]
 
@@ -57,8 +48,51 @@ export default () => {
                 className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3"
                 rows={10}
                 placeholder={`${translate('EnterTextForExtractorPlaceholder')}`}
+                onChange={(e) => {
+                  setGroups([
+                    e.target.value.split('\n').filter((x) => x?.trim()),
+                  ])
+                }}
               ></textarea>
             </div>
+          </div>
+
+          <div className="flex-auto space-x-3 my-6 flex items-center">
+            <button
+              // disabled={!editorData?.blocks?.length}
+              onClick={() => {
+                const add = async () => {
+                  if (!groups?.length) {
+                    return alert(translate('Required urls'))
+                  }
+
+                  setVisibleContent(false)
+
+                  const resp = await addExtractorGroups({
+                    groups,
+                  })
+
+                  if (!resp.ok) {
+                    setVisibleContent(true)
+                    return alert(translate('TryAgainLater'))
+                  }
+
+                  const { result, error } = await resp.json()
+
+                  if (result?._id) {
+                    setLinkResult(result._id)
+                  }
+                  if (error || result?.errors) {
+                    alert(JSON.stringify(error || result?.errors || {}))
+                  }
+                }
+
+                add()
+              }}
+              className="w-full btn btn-success"
+            >
+              {translate('ButtonSend')}
+            </button>
           </div>
         </main>
       </div>
