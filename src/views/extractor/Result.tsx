@@ -50,7 +50,7 @@ const ResultPage: FC<TResultPage> = () => {
     })
   }, [id])
 
-  if (!Object.keys(data?.results || {})?.length) {
+  if (!Object.keys(data || {})?.length) {
     return (
       <div className="h-96">
         <div className="justify-center flex">{translate('Loading')}</div>
@@ -58,8 +58,6 @@ const ResultPage: FC<TResultPage> = () => {
       </div>
     )
   }
-
-  const isCompleted = data.status === TaskStatus.Completed
 
   return (
     <>
@@ -97,10 +95,7 @@ const ResultPage: FC<TResultPage> = () => {
                       {translate('TaskStatus')}:{' '}
                       {translate(
                         getRewriterStatusText(data.status)
-                      ).toLowerCase()}{' '}
-                      {!isCompleted && (
-                        <button className="btn btn-ghost btn-sm btn-circle Loading"></button>
-                      )}
+                      ).toLowerCase()}
                     </label>
                   </div>
                 </div>
@@ -108,10 +103,15 @@ const ResultPage: FC<TResultPage> = () => {
 
               <div className="grid grid-cols-1 gap-1">
                 <div className="mb-1 md:mb-0 w-full p-2 ">
-                  <label>{translate('Original text')}</label>
-                  <div className="editor-wrapper h-96 overflow-auto w-full border-4 border-dashed border-gray-200 rounded-lg p-3">
-                    <div id="orig"></div>
-                  </div>
+                  {/* <label>{translate('EnterTextForExtractor')}</label> */}
+                  <textarea
+                    readOnly
+                    disabled
+                    rows={10}
+                    className="editor-wrapper overflow-auto w-full border-4 border-dashed border-gray-200 rounded-lg p-3"
+                  >
+                    {data.urls?.join('\n')}
+                  </textarea>
                 </div>
               </div>
             </div>
