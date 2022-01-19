@@ -102,17 +102,28 @@ const ResultPage: FC<TResultPage> = () => {
               </div>
 
               <div className="grid grid-cols-1 gap-1">
-                <div className="mb-1 md:mb-0 w-full p-2 ">
-                  {/* <label>{translate('EnterTextForExtractor')}</label> */}
-                  <textarea
-                    readOnly
-                    disabled
-                    rows={10}
-                    className="editor-wrapper overflow-auto w-full border-4 border-dashed border-gray-200 rounded-lg p-3"
-                  >
-                    {data.urls?.join('\n')}
-                  </textarea>
-                </div>
+                {data?.results?.map((doread) => {
+                  return (
+                    <div className="mb-1 md:mb-0 w-full p-2 ">
+                      <div className="collapse  w-full border rounded-box border-base-300 collapse-arrow bg-white">
+                        <input type="checkbox" />
+                        <div
+                          className="collapse-title text-xl font-medium"
+                          style={{ background: '#fff' }}
+                        >
+                          {doread.url}
+                        </div>
+                        <div
+                          className="collapse-content"
+                          style={{ background: '#fff' }}
+                          dangerouslySetInnerHTML={{
+                            __html: `<h1>${doread.title}</h1><br/>${doread.content}`,
+                          }}
+                        ></div>
+                      </div>
+                    </div>
+                  )
+                })}
               </div>
             </div>
           </div>
