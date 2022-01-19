@@ -5,10 +5,10 @@
 
 import { BlockContent, Dotranslate, LangCode, TaskStatus } from 'dprx-types'
 import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
+import { LangApi, TranslateApi } from 'helpers/api'
 import { LangBox } from 'components/Select/Lang'
 import { Loading } from 'components/Containers/Loader'
 import { Navigate } from 'react-router-dom'
-import { addTranslateData, detectLang } from 'helpers/api'
 import { smiles } from 'helpers/smiles'
 import { useContext, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
@@ -67,7 +67,7 @@ export default () => {
               .join(' ')
               .slice(0, 1e3)
 
-            const detectResult = await detectLang(text)
+            const detectResult = await LangApi.detect(text)
             if (detectResult?.length) {
               const [lang] = detectResult
               const code = lang?.code?.toUpperCase()
@@ -138,7 +138,7 @@ export default () => {
 
                     setVisibleContent(false)
 
-                    const resp = await addTranslateData({
+                    const resp = await TranslateApi.add({
                       token,
                       langs,
                       blocks: editorData.blocks as BlockContent[],

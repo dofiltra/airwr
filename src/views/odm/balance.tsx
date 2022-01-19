@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
+import { BalanceApi, HOST_API } from 'helpers/api'
 import { FC } from 'preact/compat'
-import { HOST_API, getCoins } from 'helpers/api'
 import { headers } from 'dprx-types'
 import { useState } from 'preact/hooks'
 
@@ -24,8 +25,8 @@ export const OdmBalancePage: FC = () => {
               value={token}
               onChange={(e) => {
                 setToken(e.target.value)
-                void getCoins(e.target.value, 'true').then(({ info }) =>
-                  setInfo(JSON.stringify(info, null, 4))
+                void BalanceApi.getCoins(e.target.value, 'true').then(
+                  ({ info }) => setInfo(JSON.stringify(info, null, 4))
                 )
               }}
             />

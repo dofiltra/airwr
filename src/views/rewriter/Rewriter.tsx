@@ -7,11 +7,11 @@ import { Dataset, LangCode, RewriteMode, TaskStatus } from 'dprx-types'
 import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
 import { ExpandBox, ExpandMode } from 'components/Select/Expand'
 import { FC } from 'preact/compat'
+import { LangApi, RewriteApi } from 'helpers/api'
 import { LangBox } from 'components/Select/Lang'
 import { Loading } from 'components/Containers/Loader'
 import { Navigate } from 'react-router-dom'
 import { ToneMode } from 'components/Select/Tone'
-import { addRewriteData, detectLang } from 'helpers/api'
 import { smiles } from 'helpers/smiles'
 import { useContext, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
@@ -77,7 +77,7 @@ async function addQueue({
 
   setVisibleContent(false)
 
-  const resp = await addRewriteData({
+  const resp = await RewriteApi.add({
     targetLang,
     power,
     expand,
@@ -150,7 +150,7 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
               .join(' ')
               .slice(0, 1e3)
 
-            const detectResult = await detectLang(text)
+            const detectResult = await LangApi.detect(text)
             if (detectResult?.length) {
               const [lang] = detectResult
               const code = lang?.code?.toUpperCase()

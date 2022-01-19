@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getCoins } from 'helpers/api'
+import { BalanceApi } from 'helpers/api'
 import { useEffect, useState } from 'react'
 
 export default function useBalance(token?: string) {
   const [coins, setCoins] = useState<number | undefined>(undefined)
 
   const fetchData = async () => {
-    const { coins: coinsResult } = await getCoins(token)
+    const { coins: coinsResult } = await BalanceApi.getCoins(token)
     setCoins(coinsResult)
   }
 

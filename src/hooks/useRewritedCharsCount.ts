@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getRewritedCharsCount } from 'helpers/api'
+
+import { RewriteApi } from 'helpers/api'
 import { useEffect, useState } from 'react'
 
 export default function useRewritedCharsCount(token?: string) {
@@ -9,7 +10,7 @@ export default function useRewritedCharsCount(token?: string) {
   >(undefined)
 
   const fetchData = async () => {
-    const result = await getRewritedCharsCount(token)
+    const result = await RewriteApi.getRewritedCharsCount(token)
     setHistory(result)
   }
 

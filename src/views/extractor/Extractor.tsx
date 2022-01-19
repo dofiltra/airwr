@@ -3,9 +3,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { ExtractorApi } from 'helpers/api'
 import { Loading } from 'components/Containers/Loader'
 import { Navigate } from 'react-router-dom'
-import { addExtractorGroups } from 'helpers/api'
+import { TaskStatus } from 'dprx-types'
 import { smiles } from 'helpers/smiles'
 import { useContext, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
@@ -20,7 +21,7 @@ export default () => {
   const smileSrc = smiles.sort(() => (Math.random() > 0.5 ? 1 : -1))[0]
   const { user } = useContext(AuthContext)
   const token = user?.uid || ''
-  
+
   if (linkResultId) {
     return <Navigate to={`/extractor/result/${linkResultId}`} />
   }
@@ -74,18 +75,17 @@ export default () => {
 
                   setVisibleContent(false)
 
-                  const resp = await addExtractorGroups({
+                  const { result, error } = await ExtractorApi.add({
                     token,
+                    status: TaskStatus.NotStarted,
                     urls,
-                    keywords
+                    keywords,
                   })
 
-                  if (!resp.ok) {
+                  if (!result && !error) {
                     setVisibleContent(true)
                     return alert(translate('TryAgainLater'))
                   }
-
-                  const { result, error } = await resp.json()
 
                   if (result?._id) {
                     setLinkResult(result._id)
