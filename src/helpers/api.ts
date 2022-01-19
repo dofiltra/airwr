@@ -106,7 +106,11 @@ export async function detectLang(text: string) {
   })
 }
 
-export async function addExtractorGroups(opts: { groups: string[][] }) {
+export async function addExtractorGroups(opts: {
+  token: string
+  urls: string[]
+  keywords: string[]
+}) {
   return await send({
     url: `${HOST_API}/api/extractor/add`,
     body: opts,

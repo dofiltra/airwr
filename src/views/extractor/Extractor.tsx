@@ -7,16 +7,20 @@ import { Loading } from 'components/Containers/Loader'
 import { Navigate } from 'react-router-dom'
 import { addExtractorGroups } from 'helpers/api'
 import { smiles } from 'helpers/smiles'
+import { useContext, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
-import { useState } from 'preact/hooks'
+import AuthContext from 'components/Auth/AuthContext'
 
 export default () => {
   const { translate } = useLocalize()
   const [linkResultId, setLinkResult] = useState('')
-  const [groups, setGroups] = useState([[]] as string[][])
+  const [urls, setUrls] = useState([] as string[])
+  const [keywords, setKeywords] = useState([] as string[])
   const [isVisibleContent, setVisibleContent] = useState(true)
   const smileSrc = smiles.sort(() => (Math.random() > 0.5 ? 1 : -1))[0]
-
+  const { user } = useContext(AuthContext)
+  const token = user?.uid || ''
+  
   if (linkResultId) {
     return <Navigate to={`/extractor/result/${linkResultId}`} />
   }
@@ -49,9 +53,11 @@ export default () => {
                 rows={10}
                 placeholder={`${translate('EnterTextForExtractorPlaceholder')}`}
                 onChange={(e) => {
-                  setGroups([
-                    e.target.value.split('\n').filter((x) => x?.trim()),
-                  ])
+                  const urls = e.target.value
+                    .split('\n')
+                    .filter((x) => x?.trim()?.startsWith('http'))
+
+                  setUrls(urls)
                 }}
               ></textarea>
             </div>
@@ -62,14 +68,16 @@ export default () => {
               // disabled={!editorData?.blocks?.length}
               onClick={() => {
                 const add = async () => {
-                  if (!groups?.length) {
+                  if (!urls?.length) {
                     return alert(translate('Required urls'))
                   }
 
                   setVisibleContent(false)
 
                   const resp = await addExtractorGroups({
-                    groups,
+                    token,
+                    urls,
+                    keywords
                   })
 
                   if (!resp.ok) {
