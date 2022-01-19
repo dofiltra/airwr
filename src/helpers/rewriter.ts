@@ -1,9 +1,11 @@
+import { TaskStatus } from 'dprx-types'
+
 export function getRewriterStatusText(status: number) {
   switch (status) {
-    case 3:
+    case TaskStatus.InProgress:
       return 'InProgress'
 
-    case 9:
+    case TaskStatus.Completed:
       return 'Completed'
   }
 
