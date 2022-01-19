@@ -77,7 +77,7 @@ async function addQueue({
 
   setVisibleContent(false)
 
-  const resp = await RewriteApi.add({
+  const { result, error } = await RewriteApi.add({
     targetLang,
     power,
     expand,
@@ -88,12 +88,10 @@ async function addQueue({
     status: TaskStatus.NotStarted,
   })
 
-  if (!resp.ok) {
+  if (!result && !error) {
     setVisibleContent(true)
     return alert(translate('TryAgainLater'))
   }
-
-  const { result, error } = await resp.json()
 
   if (result?._id) {
     setLinkResult(result._id)

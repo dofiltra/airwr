@@ -138,19 +138,17 @@ export default () => {
 
                     setVisibleContent(false)
 
-                    const resp = await TranslateApi.add({
+                    const { result, error } = await TranslateApi.add({
                       token,
                       langs,
                       blocks: editorData.blocks as BlockContent[],
                       status: TaskStatus.NotStarted,
                     } as Dotranslate)
 
-                    if (!resp.ok) {
+                    if (!result && !error) {
                       setVisibleContent(true)
                       return alert(translate('TryAgainLater'))
                     }
-
-                    const { result, error } = await resp.json()
 
                     if (result?._id) {
                       setLinkResult(result._id)
