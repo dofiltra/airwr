@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { OdmBalancePage } from 'views/odm/balance'
+import { OdmStatsPage } from 'views/odm/stats'
 import { RewriterPage } from 'views/rewriter/Rewriter'
 import AboutPage from 'views/info/About'
 import ApiPage from 'views/info/Api'
@@ -43,6 +44,7 @@ const App = () => {
               />
               <Route path="/login" element={<Login />} />
               <Route path="/odm/balance" element={<OdmBalancePage />} />
+              <Route path="/odm/stats" element={<OdmStatsPage />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/info/api" element={<ApiPage />} />
               <Route path="/info/about" element={<AboutPage />} />
