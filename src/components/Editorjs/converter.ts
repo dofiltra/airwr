@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 export function jsonToHtml(jsonStr: string) {
   const obj = JSON.parse(jsonStr)
 
   let html = ''
-  obj['blocks'].forEach(function (block: any) {
+  obj.blocks.forEach(function (block: any) {
     const data = block?.data
     const {
       text,
@@ -31,11 +32,11 @@ export function jsonToHtml(jsonStr: string) {
         break
 
       case 'list':
-        html += '<' + lsType + '>'
+        html += `<${lsType}>`
         items.forEach(function (item: any) {
-          html += '<li>' + item + '</li>'
+          html += `<li>${item}</li>`
         })
-        html += '</' + lsType + '>'
+        html += `</${lsType}>`
         break
 
       case 'code':
