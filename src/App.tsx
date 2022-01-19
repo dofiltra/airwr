@@ -6,6 +6,7 @@ import ApiPage from 'views/info/Api'
 import AuthContextProvider from 'components/Auth/AuthContextProvider'
 import ContactsPage from 'views/info/Contacts'
 import ExtractorPage from 'views/extractor/Extractor'
+import ExtractorResultPage from 'views/extractor/Result'
 import FaqPage from 'views/info/Faq'
 import FooterSmall from 'components/Footer/FooterSmall'
 import LocalizationProvider from 'localization/LocalizationProvider'
@@ -36,6 +37,10 @@ const App = () => {
                 element={<TranslateResultPage />}
               />
               <Route path="/extractor" element={<ExtractorPage />} />
+              <Route
+                path="/extractor/result/:id"
+                element={<ExtractorResultPage />}
+              />
               <Route path="/login" element={<Login />} />
               <Route path="/odm/balance" element={<OdmBalancePage />} />
               <Route path="/profile" element={<ProfilePage />} />
