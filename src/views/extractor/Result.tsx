@@ -46,6 +46,9 @@ const ResultPage: FC<TResultPage> = () => {
 
       socket.on('update', (data: any) => {
         data && setData(data)
+        if (data?.status === TaskStatus.Completed) {
+          socket?.disconnect()
+        }
       })
     })
   }, [id])

@@ -48,6 +48,9 @@ const TranslateResultPage: FC<TResultPage> = () => {
 
       socket.on('update', (data: any) => {
         data && setTranslateData(data)
+        if (data?.status === TaskStatus.Completed) {
+          socket?.disconnect()
+        }
       })
     })
   }, [id])

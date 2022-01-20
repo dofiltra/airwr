@@ -20,7 +20,7 @@ export const OdmStatsPage: FC = () => {
       })
 
       socket.on('connect', () => {
-        socket.emit('join', {})
+        socket.emit('join', { roomId: 'odm.stats' })
       })
 
       socket.on('odm.stats', ({ socketsData, used }: any) => {

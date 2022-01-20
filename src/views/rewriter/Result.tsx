@@ -43,11 +43,14 @@ const RewriterResultPage: FC<TResultPage> = () => {
       })
 
       socket.on('connect', () => {
-        socket.emit('join', { roomId: `rewritetext_${id}` })
+        socket?.emit('join', { roomId: `rewritetext_${id}` })
       })
 
       socket.on('update', (data: RewriteText) => {
         data && setRewriteData(data)
+        if (data?.status === TaskStatus.Completed) {
+          socket?.disconnect()
+        }
       })
     })
   }, [id])
@@ -60,7 +63,7 @@ const RewriterResultPage: FC<TResultPage> = () => {
       </div>
     )
   }
-
+  const status = rewriteData.status
   const blocksForRewrite = rewriteData.blocks.filter(
     (b: BlockContent) =>
       (['paragraph'].includes(b.type) && b.data?.text) ||
@@ -69,7 +72,6 @@ const RewriterResultPage: FC<TResultPage> = () => {
   const blocksRewrited = rewriteData.blocks.filter(
     (b: BlockContent) => b.rewriteDataSuggestions?.length
   )
-  const status = rewriteData.status
   const data = {
     time: Date.now(),
     version: '2.2.2',
