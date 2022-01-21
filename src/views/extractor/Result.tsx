@@ -105,6 +105,26 @@ const ResultPage: FC<TResultPage> = () => {
               </div>
 
               <div className="grid grid-cols-1 gap-1">
+                <div className="mb-1 md:mb-0 w-full p-2 ">
+                  <div className="collapse w-full h-screen border rounded-box border-base-300 collapse-arrow collapse-open">
+                    <div
+                      className="collapse-title text-xl font-medium border-b-2"
+                      style={{ background: '#fff' }}
+                    >
+                      {translate('Union article')}
+                    </div>
+                    <div
+                      className="collapse-content overflow-auto"
+                      style={{ background: '#fff' }}
+                      dangerouslySetInnerHTML={{
+                        __html: `<h1>${data.union?.title}</h1><br/>${data.union?.content}`,
+                      }}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 gap-1">
                 {data?.results?.map((doread) => {
                   return (
                     <div className="mb-1 md:mb-0 w-full p-2 ">
