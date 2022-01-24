@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Dotranslate, TaskStatus } from 'dprx-types'
+import { Dotranslate, SocketEvent, TaskStatus } from 'dprx-types'
 import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
 import { FC, useEffect, useState } from 'preact/compat'
 import { HOST_API } from 'helpers/api'
@@ -43,10 +43,10 @@ const TranslateResultPage: FC<TResultPage> = () => {
       })
 
       socket.on('connect', () => {
-        socket.emit('join', { roomId: `translate_${id}` })
+        socket.emit(SocketEvent.Join, { roomId: `translate_${id}` })
       })
 
-      socket.on('update', (data: any) => {
+      socket.on(SocketEvent.AibackUpdate, (data: any) => {
         data && setTranslateData(data)
         if (data?.status === TaskStatus.Completed) {
           socket?.disconnect()

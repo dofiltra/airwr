@@ -5,6 +5,7 @@
 
 import { FC } from 'preact/compat'
 import { HOST_API } from 'helpers/api'
+import { SocketEvent } from 'dprx-types'
 import { io } from 'socket.io-client'
 import { useEffect, useState } from 'preact/hooks'
 
@@ -20,10 +21,10 @@ export const OdmStatsPage: FC = () => {
       })
 
       socket.on('connect', () => {
-        socket.emit('join', { roomId: 'odm.stats' })
+        socket.emit(SocketEvent.Join, { roomId: SocketEvent.OdmStats })
       })
 
-      socket.on('odm.stats', ({ socketsData, used }: any) => {
+      socket.on(SocketEvent.OdmStats, ({ socketsData, used }: any) => {
         setData(socketsData)
         setProxies(used)
         console.log(socketsData, used)

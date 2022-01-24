@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { BlockContent, RewriteText, TaskStatus } from 'dprx-types'
+import { BlockContent, RewriteText, SocketEvent, TaskStatus } from 'dprx-types'
 import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
 import { FC, useEffect, useState } from 'preact/compat'
 import { HOST_API } from 'helpers/api'
@@ -43,10 +43,10 @@ const RewriterResultPage: FC<TResultPage> = () => {
       })
 
       socket.on('connect', () => {
-        socket?.emit('join', { roomId: `rewritetext_${id}` })
+        socket?.emit(SocketEvent.Join, { roomId: `rewritetext_${id}` })
       })
 
-      socket.on('update', (data: RewriteText) => {
+      socket.on(SocketEvent.AibackUpdate, (data: RewriteText) => {
         data && setRewriteData(data)
         if (data?.status === TaskStatus.Completed) {
           socket?.disconnect()
