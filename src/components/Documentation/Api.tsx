@@ -2,8 +2,8 @@
 import { FC } from 'preact/compat'
 import { HOST_API } from 'helpers/api'
 import { LangCodes } from 'components/Select/Lang'
+import { RewriteMode, headers } from 'dprx-types'
 import { SignInButtons } from 'components/Buttons/SignIn'
-import { headers } from 'dprx-types'
 import { useContext } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import AuthContext from 'components/Auth/AuthContext'
@@ -60,7 +60,7 @@ export const DocumentationApi: FC = () => {
                       </p>
                       <p className="pb-2">
                         <b>TargetLang*</b>
-                        : enum (string)
+                        : string
                         <br />
                         <small>{LangCodes.map((l) => l.code).join(', ')}</small>
                       </p>
@@ -84,7 +84,7 @@ export const DocumentationApi: FC = () => {
                         </small>
                       </p>
                       <p className="pb-2">
-                        <b>Dataset</b>: enum (number)
+                        <b>Dataset</b>: number
                         <br />
                         <small>
                           Auto = 0, News = 1
@@ -97,6 +97,14 @@ export const DocumentationApi: FC = () => {
                         : number (double)
                         <br />
                         <small> 0.00...0.50...1.00</small>
+                      </p>
+
+                      <p className="pb-2">
+                        <b>Expand</b>: string
+                        <br />
+                        <small>
+                          {RewriteMode.Longer}, {RewriteMode.Shorter}
+                        </small>
                       </p>
                     </div>
                   }
@@ -323,6 +331,7 @@ const add = {
         targetLang: LangCodes[0].code,
         dataset: 0,
         power: 0.25,
+        expand: RewriteMode.Shorter,
         blocks: [
           {
             type: 'header',
