@@ -41,7 +41,9 @@ const ResultPage: FC<TResultPage> = () => {
       })
 
       socket.on(SocketEvent.Connect, () => {
-        socket.emit(SocketEvent.Join, { roomId: `extractor_${id}` })
+        socket.emit(SocketEvent.Join, {
+          roomId: `${SocketEvent.ExtractorPrefix}${id}`,
+        })
       })
 
       socket.on(SocketEvent.AibackUpdate, (data: any) => {

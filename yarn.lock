@@ -4161,10 +4161,10 @@ dotenv@^14.2.0:
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-14.3.0.tgz#40f537fe90e229d35361c66cf432903e0db49001"
   integrity sha512-PCTcOQSXVo9FI1dB7AichJXMEvmiGCq0gnCpjfDUc8505uR+2MeLXWe+Ue4PN5UXa2isHSa78sr7L59fk+2mnQ==
 
-dprx-types@^1.1.39:
-  version "1.1.39"
-  resolved "https://registry.yarnpkg.com/dprx-types/-/dprx-types-1.1.39.tgz#ab3d3eb6482aca200fc329f25be26933b9fa66f4"
-  integrity sha512-eYyJGUY2nMnDOo3JnojzXzqPtdIaoW2bbnJfIVc3XMiTJF80Bbn6epl+4VdyjOwToigP1RF++r+NZASsn/5hRA==
+dprx-types@^1.1.41:
+  version "1.1.41"
+  resolved "https://registry.yarnpkg.com/dprx-types/-/dprx-types-1.1.41.tgz#9c3eae9c782220affe3f585b8f3320f0b89e2f48"
+  integrity sha512-6dTY6ZRS+YL0XjbE1XMWXGiGPf7bbCu2jQPtZD19EMHAicZJ7TmrK7p3feNKaOpaFgzmrl3kQX9cEo0/lsEJ7Q==
   dependencies:
     dotenv "^14.2.0"
     esm-requirer "^1.0.3"
@@ -9546,10 +9546,10 @@ v8-to-istanbul@^8.1.0:
     convert-source-map "^1.6.0"
     source-map "^0.7.3"
 
-valtio@^1.2.10:
-  version "1.2.10"
-  resolved "https://registry.yarnpkg.com/valtio/-/valtio-1.2.10.tgz#efeda34db5b8d94f565045c7fa4f7f700923903a"
-  integrity sha512-jIVaa6udqFoexUOeOS9Lr2GAvm+bW70eTgbg449mZ+Ya7v6LJc1ccZ3qYSXa/ruppUtbvU0CdPsv2BlQk0Q/xQ==
+valtio@^1.2.11:
+  version "1.2.11"
+  resolved "https://registry.yarnpkg.com/valtio/-/valtio-1.2.11.tgz#1a49c6a24d774a1f0bb70692b20d93c1f7d40a06"
+  integrity sha512-zNbJsBNQ0EpzZnOUpuy6lUlpGSvkZu+/hZ9g7ifY3AQxo1RkqL7Ld6fVxRNLE04tVwOMNiDOgYihpEd6apLrog==
   dependencies:
     proxy-compare "2.0.2"
 

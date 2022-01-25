@@ -43,7 +43,9 @@ const TranslateResultPage: FC<TResultPage> = () => {
       })
 
       socket.on(SocketEvent.Connect, () => {
-        socket.emit(SocketEvent.Join, { roomId: `translate_${id}` })
+        socket.emit(SocketEvent.Join, {
+          roomId: `${SocketEvent.TranslatePrefix}${id}`,
+        })
       })
 
       socket.on(SocketEvent.AibackUpdate, (data: any) => {
@@ -115,7 +117,7 @@ const TranslateResultPage: FC<TResultPage> = () => {
   const [editors] = useState(() =>
     dataTranslates.map((dataTranslate, i) => {
       const editor = new EditorJS({
-        holder: `translate_${translateData.langs[i]}`,
+        holder: `${SocketEvent.TranslatePrefix}${translateData.langs[i]}`,
         tools: EDITOR_JS_TOOLS,
         data: dataTranslate,
       })

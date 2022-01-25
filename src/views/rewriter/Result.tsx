@@ -43,7 +43,9 @@ const RewriterResultPage: FC<TResultPage> = () => {
       })
 
       socket.on(SocketEvent.Connect, () => {
-        socket?.emit(SocketEvent.Join, { roomId: `rewritetext_${id}` })
+        socket?.emit(SocketEvent.Join, {
+          roomId: `${SocketEvent.RewritePrefix}${id}`,
+        })
       })
 
       socket.on(SocketEvent.AibackUpdate, (data: RewriteText) => {

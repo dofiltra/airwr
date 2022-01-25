@@ -50,13 +50,13 @@
     "@editorjs/warning": "^1.2.0",
     "@vitejs/plugin-react": "^1.1.4",
     "daisyui": "^1.25.4",
-    "dprx-types": "^1.1.39",
+    "dprx-types": "^1.1.41",
     "firebase": "^9.6.4",
     "preact": "^10.6.4",
     "react-router-dom": "^6.2.1",
     "socket.io-client": "^4.4.1",
     "unfetch": "^4.2.0",
-    "valtio": "^1.2.10"
+    "valtio": "^1.2.11"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.1.7",
