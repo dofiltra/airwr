@@ -20,7 +20,7 @@ export const OdmStatsPage: FC = () => {
         reconnection: true,
       })
 
-      socket.on('connect', () => {
+      socket.on(SocketEvent.Connect, () => {
         socket.emit(SocketEvent.Join, { roomId: SocketEvent.OdmStats })
       })
 

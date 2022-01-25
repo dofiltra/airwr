@@ -42,7 +42,7 @@ const TranslateResultPage: FC<TResultPage> = () => {
         reconnection: true,
       })
 
-      socket.on('connect', () => {
+      socket.on(SocketEvent.Connect, () => {
         socket.emit(SocketEvent.Join, { roomId: `translate_${id}` })
       })
 

@@ -42,7 +42,7 @@ const RewriterResultPage: FC<TResultPage> = () => {
         reconnection: true,
       })
 
-      socket.on('connect', () => {
+      socket.on(SocketEvent.Connect, () => {
         socket?.emit(SocketEvent.Join, { roomId: `rewritetext_${id}` })
       })
 

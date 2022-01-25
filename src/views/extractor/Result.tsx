@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Doextractor, TaskStatus } from 'dprx-types'
+import { Doextractor, SocketEvent, TaskStatus } from 'dprx-types'
 import { FC, useEffect, useState } from 'preact/compat'
 import { HOST_API } from 'helpers/api'
 import { Loading } from 'components/Containers/Loader'
@@ -40,11 +40,11 @@ const ResultPage: FC<TResultPage> = () => {
         reconnection: true,
       })
 
-      socket.on('connect', () => {
+      socket.on(SocketEvent.Connect, () => {
         socket.emit('join', { roomId: `extractor_${id}` })
       })
 
-      socket.on('update', (data: any) => {
+      socket.on(SocketEvent.AibackUpdate, (data: any) => {
         data && setData(data)
         if (data?.status === TaskStatus.Completed) {
           socket?.disconnect()
