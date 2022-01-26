@@ -32,7 +32,7 @@ p {
 
 ol,
 ul {
-  list-style: auto;
+  list-style: revert;
   margin: auto;
   padding: revert;
 }
