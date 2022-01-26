@@ -29,3 +29,10 @@ h5,
 p {
   margin: 10px 0;
 }
+
+ol,
+ul {
+  list-style: auto;
+  margin: auto;
+  padding: revert;
+}
