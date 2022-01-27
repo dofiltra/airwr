@@ -55,6 +55,28 @@ const ResultPage: FC<TResultPage> = () => {
     })
   }, [id])
 
+  useEffect(() => {
+    if (data.status === TaskStatus.Completed) {
+      setTimeout(() => {
+        const twitterScript = document.createElement('script')
+        twitterScript.setAttribute(
+          'src',
+          'https://platform.twitter.com/widgets.js'
+        )
+        twitterScript.setAttribute('async', 'true')
+        document.body.appendChild(twitterScript)
+
+        const instagramScript = document.createElement('script')
+        instagramScript.setAttribute(
+          'src',
+          'https://www.instagram.com/embed.js'
+        )
+        instagramScript.setAttribute('async', 'true')
+        document.body.appendChild(instagramScript)
+      }, 5e3)
+    }
+  }, [data])
+
   if (!Object.keys(data || {})?.length) {
     return (
       <div className="h-96">
