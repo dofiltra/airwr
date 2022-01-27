@@ -117,10 +117,10 @@ export class LangApi extends BaseApi {
 }
 
 export class ExtractorApi extends BaseApi {
-  static async add(opts: Doextractor) {
+  static async add(body: Doextractor[]) {
     return await this.send({
       url: `${HOST_API}/api/extractor/add`,
-      body: opts,
+      body,
       method: 'POST',
     })
   }

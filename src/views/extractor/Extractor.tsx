@@ -3,10 +3,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { Doextractor, TaskStatus } from 'dprx-types'
 import { ExtractorApi } from 'helpers/api'
 import { Loading } from 'components/Containers/Loader'
 import { Navigate } from 'react-router-dom'
-import { TaskStatus } from 'dprx-types'
 import { smiles } from 'helpers/smiles'
 import { useContext, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
@@ -15,12 +15,11 @@ import AuthContext from 'components/Auth/AuthContext'
 export default () => {
   const { translate } = useLocalize()
   const [linkResultId, setLinkResult] = useState('')
-  const [urls, setUrls] = useState([] as string[])
-  const [keywords, setKeywords] = useState([] as string[])
+  const [groups, setGroups] = useState([] as string[][])
   const [isVisibleContent, setVisibleContent] = useState(true)
-  const smileSrc = smiles.sort(() => (Math.random() > 0.5 ? 1 : -1))[0]
   const { user } = useContext(AuthContext)
   const token = user?.uid || ''
+  const smileSrc = smiles.sort(() => (Math.random() > 0.5 ? 1 : -1))[0]
 
   if (linkResultId) {
     return <Navigate to={`/extractor/result/${linkResultId}`} />
@@ -54,11 +53,11 @@ export default () => {
                 rows={10}
                 placeholder={`${translate('EnterTextForExtractorPlaceholder')}`}
                 onChange={(e) => {
-                  const urls = e.target.value
-                    .split('\n')
-                    .filter((x) => x?.trim()?.startsWith('http'))
+                  const groups = e.target.value
+                    .split('\n\n')
+                    .map((x) => x.split('\n'))
 
-                  setUrls(urls)
+                  setGroups(groups)
                 }}
               ></textarea>
             </div>
@@ -66,21 +65,26 @@ export default () => {
 
           <div className="flex-auto space-x-3 my-6 flex items-center">
             <button
-              // disabled={!editorData?.blocks?.length}
               onClick={() => {
                 const add = async () => {
-                  if (!urls?.length) {
-                    return alert(translate('Required urls'))
+                  if (!groups?.length) {
+                    return alert(
+                      translate('Required groups (urls or keywords)')
+                    )
                   }
 
                   setVisibleContent(false)
 
-                  const { result, error } = await ExtractorApi.add({
-                    token,
-                    status: TaskStatus.NotStarted,
-                    urls,
-                    keywords,
-                  })
+                  const { result, error } = await ExtractorApi.add(
+                    groups.map(
+                      (urlsOrKeys) =>
+                        ({
+                          token,
+                          status: TaskStatus.NotStarted,
+                          urlsOrKeys,
+                        } as Doextractor)
+                    )
+                  )
 
                   if (!result && !error) {
                     setVisibleContent(true)
