@@ -57,13 +57,10 @@ const ResultPage: FC<TResultPage> = () => {
 
   useEffect(() => {
     if (data.status === TaskStatus.Completed) {
-      const twitterScript = document.createElement('script')
-      twitterScript.setAttribute(
-        'src',
-        'https://platform.twitter.com/widgets.js'
-      )
-      twitterScript.setAttribute('async', 'true')
-      document.body.appendChild(twitterScript)
+      const twiScript = document.createElement('script')
+      twiScript.setAttribute('src', 'https://platform.twitter.com/widgets.js')
+      twiScript.setAttribute('async', 'true')
+      document.body.appendChild(twiScript)
 
       const instagramScript = document.createElement('script')
       instagramScript.setAttribute('src', 'https://www.instagram.com/embed.js')
