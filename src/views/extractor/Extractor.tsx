@@ -3,6 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { DateTime } from 'luxon'
 import { Doextractor, TaskStatus } from 'dprx-types'
 import { ExtractorApi } from 'helpers/api'
 import { Loading } from 'components/Containers/Loader'
@@ -110,6 +111,14 @@ export default () => {
 
           <div className="w-full card p-4">
             {_.orderBy(AppStore.extractorTasks, 'createdAt', 'desc')
+              .filter((task) => {
+                const { days } = DateTime.fromJSDate(new Date()).diff(
+                  DateTime.fromJSDate(new Date(task.createdAt)),
+                  'days'
+                )
+
+                return days <= 7
+              })
               .slice(0, 100)
               .map((task: any, i: number) => (
                 <>
