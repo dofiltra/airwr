@@ -6,7 +6,6 @@
 import { Doextractor, TaskStatus } from 'dprx-types'
 import { ExtractorApi } from 'helpers/api'
 import { Loading } from 'components/Containers/Loader'
-import { Navigate } from 'react-router-dom'
 import { smiles } from 'helpers/smiles'
 import { useContext, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
@@ -14,18 +13,14 @@ import AuthContext from 'components/Auth/AuthContext'
 
 export default () => {
   const { translate } = useLocalize()
-  const [linkResultId, setLinkResult] = useState('')
+  const [tasks, setTasks] = useState([])
   const [groups, setGroups] = useState([] as string[][])
   const [isVisibleContent, setVisibleContent] = useState(true)
   const { user } = useContext(AuthContext)
   const token = user?.uid || ''
   const smileSrc = smiles.sort(() => (Math.random() > 0.5 ? 1 : -1))[0]
 
-  if (linkResultId) {
-    return <Navigate to={`/extractor/result/${linkResultId}`} />
-  }
-
-  if (!isVisibleContent) {
+  if (!isVisibleContent && !tasks.length) {
     return (
       <div className="h-96">
         <div className="justify-center flex">{translate('Loading')}</div>
@@ -75,7 +70,7 @@ export default () => {
 
                   setVisibleContent(false)
 
-                  const { results, errors } = await ExtractorApi.add(
+                  const { results = [], errors = [] } = await ExtractorApi.add(
                     groups.map(
                       (urlsOrKeys) =>
                         ({
@@ -86,16 +81,19 @@ export default () => {
                     )
                   )
 
-                  if (!results && !errors) {
+                  if (!results?.length && !errors?.length) {
                     setVisibleContent(true)
                     return alert(translate('TryAgainLater'))
                   }
 
-                  if (results[0]?._id) {
-                    setLinkResult(results[0]._id)
-                  }
-                  if (errors || results?.errors) {
+                  if (errors?.length || results?.errors) {
                     alert(JSON.stringify(errors || results?.errors || {}))
+                  }
+
+                  console.log(results)
+
+                  if (results?.length) {
+                    setTasks(results)
                   }
                 }
 
@@ -105,6 +103,22 @@ export default () => {
             >
               {translate('ButtonSend')}
             </button>
+          </div>
+
+          <div className="w-full card p-4">
+            {tasks.map((task: any, i: number) => (
+              <>
+                <div className="w-full card p-4">
+                  #{i + 1}{' '}
+                  <a href={`/extractor/result/${task._id}`} target={'_blank'}>
+                    {task._id}
+                  </a>
+                  <small className="w-full p-2">
+                    <pre>{JSON.stringify(task.urlsOrKeys, null, 4)}</pre>
+                  </small>
+                </div>
+              </>
+            ))}
           </div>
         </main>
       </div>
