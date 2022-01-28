@@ -9,7 +9,9 @@ import { Loading } from 'components/Containers/Loader'
 import { smiles } from 'helpers/smiles'
 import { useContext, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
+import AppStore from 'stores/AppStore'
 import AuthContext from 'components/Auth/AuthContext'
+import _ from 'lodash'
 
 export default () => {
   const { translate } = useLocalize()
@@ -93,6 +95,7 @@ export default () => {
                   console.log(results)
 
                   if (results?.length) {
+                    AppStore.extractorTasks.push(...results)
                     setTasks(results)
                   }
                 }
@@ -106,19 +109,23 @@ export default () => {
           </div>
 
           <div className="w-full card p-4">
-            {tasks.map((task: any, i: number) => (
-              <>
-                <div className="w-full card p-4">
-                  #{i + 1}{' '}
-                  <a href={`/extractor/result/${task._id}`} target={'_blank'}>
-                    {task._id}
-                  </a>
-                  <small className="w-full p-2">
-                    <pre>{JSON.stringify(task.urlsOrKeys, null, 4)}</pre>
-                  </small>
-                </div>
-              </>
-            ))}
+            {_.orderBy(AppStore.extractorTasks, 'createdAt', 'desc')
+              .slice(0, 100)
+              .map((task: any, i: number) => (
+                <>
+                  <div className="w-full card p-4 border-t-2">
+                    <span className="py-2">
+                      #{i + 1} <small>| {task.createdAt} </small>
+                    </span>
+                    <a href={`/extractor/result/${task._id}`} target={'_blank'}>
+                      {task._id}
+                    </a>
+                    <small className="w-full p-2">
+                      <pre>{JSON.stringify(task.urlsOrKeys, null, 4)}</pre>
+                    </small>
+                  </div>
+                </>
+              ))}
           </div>
         </main>
       </div>
