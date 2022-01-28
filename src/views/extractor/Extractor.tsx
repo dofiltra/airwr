@@ -16,14 +16,14 @@ import _ from 'lodash'
 
 export default () => {
   const { translate } = useLocalize()
-  const [tasks, setTasks] = useState([])
   const [groups, setGroups] = useState([] as string[][])
   const [isVisibleContent, setVisibleContent] = useState(true)
+  const [isOpenHistory, setIsOpenHistory] = useState(false)
   const { user } = useContext(AuthContext)
   const token = user?.uid || ''
   const smileSrc = smiles.sort(() => (Math.random() > 0.5 ? 1 : -1))[0]
 
-  if (!isVisibleContent && !tasks.length) {
+  if (!isVisibleContent && !AppStore.extractorTasks?.length) {
     return (
       <div className="h-96">
         <div className="justify-center flex">{translate('Loading')}</div>
@@ -49,6 +49,7 @@ export default () => {
               <textarea
                 className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3"
                 rows={10}
+                value={groups.map((x) => x.join('\n')).join('\n\n')}
                 placeholder={`${translate('EnterTextForExtractorPlaceholder')}`}
                 onChange={(e) => {
                   const groups = e.target.value
@@ -72,8 +73,7 @@ export default () => {
                   }
 
                   setVisibleContent(false)
-
-                  const { results = [], errors = [] } = await ExtractorApi.add(
+                  const { result = [], error } = await ExtractorApi.add(
                     groups.map(
                       (urlsOrKeys) =>
                         ({
@@ -83,21 +83,25 @@ export default () => {
                         } as Doextractor)
                     )
                   )
+                  setVisibleContent(true)
 
-                  if (!results?.length && !errors?.length) {
-                    setVisibleContent(true)
+                  if (!result?.length && !error) {
                     return alert(translate('TryAgainLater'))
                   }
 
-                  if (errors?.length || results?.errors) {
-                    alert(JSON.stringify(errors || results?.errors || {}))
+                  if (error) {
+                    alert(JSON.stringify(error || {}))
                   }
 
-                  console.log(results)
+                  if (result?.length) {
+                    const items = result.map((r: Doextractor) => ({
+                      createdAt: new Date().toJSON(),
+                      ...r,
+                    }))
 
-                  if (results?.length) {
-                    AppStore.extractorTasks.push(...results)
-                    setTasks(results)
+                    AppStore.extractorTasks.push(...items)
+                    setGroups([])
+                    setIsOpenHistory(true)
                   }
                 }
 
@@ -109,32 +113,45 @@ export default () => {
             </button>
           </div>
 
-          <div className="w-full card p-4">
-            {_.orderBy(AppStore.extractorTasks, 'createdAt', 'desc')
-              .filter((task) => {
-                const { days } = DateTime.fromJSDate(new Date()).diff(
-                  DateTime.fromJSDate(new Date(task.createdAt)),
-                  'days'
-                )
+          <div
+            className={`collapse w-full border rounded-box border-base-300 collapse-arrow ${
+              isOpenHistory ? 'collapse-open' : ''
+            }`}
+          >
+            <input type="checkbox" />
+            <div className="collapse-title text-xl font-medium">
+              {translate('History')}
+            </div>
+            <div className="collapse-content">
+              {_.orderBy(AppStore.extractorTasks, 'createdAt', 'desc')
+                .filter((task) => {
+                  const { days } = DateTime.fromJSDate(new Date()).diff(
+                    DateTime.fromJSDate(new Date(task.createdAt)),
+                    'days'
+                  )
 
-                return days <= 7
-              })
-              .slice(0, 100)
-              .map((task: any, i: number) => (
-                <>
-                  <div className="w-full card p-4 border-t-2">
-                    <span className="py-2">
-                      #{i + 1} <small>| {task.createdAt} </small>
-                    </span>
-                    <a href={`/extractor/result/${task._id}`} target={'_blank'}>
-                      {task._id}
-                    </a>
-                    <small className="w-full p-2">
-                      <pre>{JSON.stringify(task.urlsOrKeys, null, 4)}</pre>
-                    </small>
-                  </div>
-                </>
-              ))}
+                  return days <= 7
+                })
+                .slice(0, 100)
+                .map((task: any, i: number) => (
+                  <>
+                    <div className="w-full card p-4 border-t-2">
+                      <span className="py-2">
+                        #{i + 1} <small>| {task.createdAt} </small>
+                      </span>
+                      <a
+                        href={`/extractor/result/${task._id}`}
+                        target={'_blank'}
+                      >
+                        {task._id}
+                      </a>
+                      <small className="w-full p-2">
+                        <pre>{JSON.stringify(task.urlsOrKeys, null, 4)}</pre>
+                      </small>
+                    </div>
+                  </>
+                ))}
+            </div>
           </div>
         </main>
       </div>
