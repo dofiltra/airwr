@@ -75,7 +75,7 @@ export default () => {
 
                   setVisibleContent(false)
 
-                  const { result, error } = await ExtractorApi.add(
+                  const { results, errors } = await ExtractorApi.add(
                     groups.map(
                       (urlsOrKeys) =>
                         ({
@@ -86,16 +86,16 @@ export default () => {
                     )
                   )
 
-                  if (!result && !error) {
+                  if (!results && !errors) {
                     setVisibleContent(true)
                     return alert(translate('TryAgainLater'))
                   }
 
-                  if (result?._id) {
-                    setLinkResult(result._id)
+                  if (results[0]?._id) {
+                    setLinkResult(results[0]._id)
                   }
-                  if (error || result?.errors) {
-                    alert(JSON.stringify(error || result?.errors || {}))
+                  if (errors || results?.errors) {
+                    alert(JSON.stringify(errors || results?.errors || {}))
                   }
                 }
 
