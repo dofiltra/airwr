@@ -15,271 +15,287 @@ export const DocumentationApi: FC = () => {
 
   return (
     <div className="">
-      <div className="overflow-x-auto">
-        <p className="py-3">
-          <b>{translate('Your token')}</b>: {user?.uid || <SignInButtons />}
-        </p>
-        {/* <hr className="border-b-2" /> */}
-        <table className="table w-full text-center ">
-          <thead className="">
-            <tr className="border-2">
-              <th>{translate('ApiName')}</th>
-              <th>{translate('ApiRequest')}</th>
-              <th>{translate('ApiResponse')}</th>
-            </tr>
-            {/* <tr>
+      <div className="grid grid-cols-1 gap-1">
+        <div className="mb-1 w-full p-2 m-2">
+          <p className="py-3">
+            <b>{translate('Your token')}</b>: {user?.uid || <SignInButtons />}
+          </p>
+        </div>
+
+        <div className="mb-1 w-full p-2 ">
+          <div className="collapse w-full border rounded-box border-base-300 collapse-arrow">
+            <input type="checkbox" />
+            <div className="collapse-title text-xl font-medium">Rewrite</div>
+            <div className="collapse-content">
+              <div className="overflow-x-auto">
+                {/* <hr className="border-b-2" /> */}
+                <table className="table w-full text-center ">
+                  <thead className="">
+                    <tr className="border-2">
+                      <th>{translate('ApiName')}</th>
+                      <th>{translate('ApiRequest')}</th>
+                      <th>{translate('ApiResponse')}</th>
+                    </tr>
+                    {/* <tr>
               <th></th>
               <th></th>
               <th></th>
             </tr> */}
-          </thead>
-          <tbody>
-            <tr className="border-b-2">
-              <th>
-                Add
-                <br /> Rewrite
-              </th>
-              <td>
-                <ModalBtn
-                  title={'Request'}
-                  content={
-                    <textarea className="w-full h-96 text-sm">
-                      {add.request({ token })}
-                    </textarea>
-                  }
-                />
-                <ModalBtn
-                  title={'Types'}
-                  content={
-                    <div className="h-96 whitespace-pre-wrap overflow-auto text-left">
-                      <p className="pb-2">
-                        <b>Token*</b>
-                        : string
-                        <br />
-                        <small>{token}</small>
-                      </p>
-                      <p className="pb-2">
-                        <b>TargetLang*</b>
-                        : string
-                        <br />
-                        <small>{LangCodes.map((l) => l.code).join(', ')}</small>
-                      </p>
-                      <p className="pb-3">
-                        <b>Blocks*</b>
-                        : array of objects
-                        <br />
-                        <small>
-                          {JSON.stringify(
-                            [
-                              {
-                                type: 'header|paragraph|list|table|image',
-                                data: {
-                                  text: 'see request example',
-                                },
-                              },
-                            ],
-                            null,
-                            2
-                          )}
-                        </small>
-                      </p>
-                      <p className="pb-2">
-                        <b>Dataset</b>: number
-                        <br />
-                        <small>
-                          Auto = 0, News = 1
-                          {/*, Crypto = 2, Finance = 3, Medicine
+                  </thead>
+                  <tbody>
+                    <tr className="border-b-2">
+                      <th>
+                        Add
+                        <br /> Rewrite
+                      </th>
+                      <td>
+                        <ModalBtn
+                          title={'Request'}
+                          content={
+                            <textarea className="w-full h-96 text-sm">
+                              {add.request({ token })}
+                            </textarea>
+                          }
+                        />
+                        <ModalBtn
+                          title={'Types'}
+                          content={
+                            <div className="h-96 whitespace-pre-wrap overflow-auto text-left">
+                              <p className="pb-2">
+                                <b>Token*</b>
+                                : string
+                                <br />
+                                <small>{token}</small>
+                              </p>
+                              <p className="pb-2">
+                                <b>TargetLang*</b>
+                                : string
+                                <br />
+                                <small>
+                                  {LangCodes.map((l) => l.code).join(', ')}
+                                </small>
+                              </p>
+                              <p className="pb-3">
+                                <b>Blocks*</b>
+                                : array of objects
+                                <br />
+                                <small>
+                                  {JSON.stringify(
+                                    [
+                                      {
+                                        type: 'header|paragraph|list|table|image',
+                                        data: {
+                                          text: 'see request example',
+                                        },
+                                      },
+                                    ],
+                                    null,
+                                    2
+                                  )}
+                                </small>
+                              </p>
+                              <p className="pb-2">
+                                <b>Dataset</b>: number
+                                <br />
+                                <small>
+                                  Auto = 0, News = 1
+                                  {/*, Crypto = 2, Finance = 3, Medicine
                           = 4 */}
-                        </small>
-                      </p>
-                      <p className="pb-2">
-                        <b>Power</b>
-                        : number (double)
-                        <br />
-                        <small> 0.00...0.50...1.00</small>
-                      </p>
+                                </small>
+                              </p>
+                              <p className="pb-2">
+                                <b>Power</b>
+                                : number (double)
+                                <br />
+                                <small> 0.00...0.50...1.00</small>
+                              </p>
 
-                      <p className="pb-2">
-                        <b>Expand</b>: string
-                        <br />
-                        <small>
-                          {RewriteMode.Longer}, {RewriteMode.Shorter}
-                        </small>
-                      </p>
-                    </div>
-                  }
-                />
-              </td>
-              <td>
-                <ModalBtn
-                  title={'Response'}
-                  content={
-                    <p className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
-                      {add.response}
-                    </p>
-                  }
-                />
-                <ModalBtn
-                  title={'Types'}
-                  content={
-                    <div className="h-96 whitespace-pre-wrap overflow-auto text-left">
-                      <p className="pb-2">
-                        <b>Result</b>: object
-                        <br />
-                        <small>"_id" - id of result item</small>
-                      </p>
-                      <p className="pb-2">
-                        <b>Error</b>
-                        : Object|null
-                        <br />
-                        <small>error info</small>
-                      </p>
-                    </div>
-                  }
-                />
-              </td>
-            </tr>
+                              <p className="pb-2">
+                                <b>Expand</b>: string
+                                <br />
+                                <small>
+                                  {RewriteMode.Longer}, {RewriteMode.Shorter}
+                                </small>
+                              </p>
+                            </div>
+                          }
+                        />
+                      </td>
+                      <td>
+                        <ModalBtn
+                          title={'Response'}
+                          content={
+                            <p className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
+                              {add.response}
+                            </p>
+                          }
+                        />
+                        <ModalBtn
+                          title={'Types'}
+                          content={
+                            <div className="h-96 whitespace-pre-wrap overflow-auto text-left">
+                              <p className="pb-2">
+                                <b>Result</b>: object
+                                <br />
+                                <small>"_id" - id of result item</small>
+                              </p>
+                              <p className="pb-2">
+                                <b>Error</b>
+                                : Object|null
+                                <br />
+                                <small>error info</small>
+                              </p>
+                            </div>
+                          }
+                        />
+                      </td>
+                    </tr>
 
-            <tr className="border-b-2">
-              <th>
-                Get <br />
-                Rewrite
-              </th>
-              <td>
-                <ModalBtn
-                  title={'Request'}
-                  content={
-                    <textarea className="w-full h-96 text-sm">
-                      {get.request({ token })}
-                    </textarea>
-                  }
-                />
-                <ModalBtn
-                  title={'Types'}
-                  content={
-                    <div className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
-                      <p className="pb-2">
-                        <p className="pb-2">
-                          <b>Id*</b>
-                          : string
-                          <br />
-                          <small>"{_id}"</small>
-                        </p>
-                        <b>Token*</b>
-                        : string
-                        <br />
-                        <small>{token}</small>
-                      </p>
-                    </div>
-                  }
-                />
-              </td>
-              <td>
-                <ModalBtn
-                  title={'Response'}
-                  content={
-                    <p className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
-                      {get.response({ token })}
-                    </p>
-                  }
-                />
-                <ModalBtn
-                  title={'Types'}
-                  content={
-                    <div className="h-96 whitespace-pre-wrap overflow-auto text-left">
-                      <p className="pb-4">
-                        <b>item</b>: Object
-                        <br />
-                        <small>"_id" - result id</small>
-                        <br />
-                        <small>
-                          "status" - NotStarted = 0, InProgress = 3, Completed =
-                          9
-                        </small>
-                        <br />
-                        <small>"blocks" - array of objects</small>
-                        <br />
-                        <small className="p-4">
-                          "type" - "original <b>type</b> from request"
-                        </small>
-                        <br />
-                        <small className="p-4">
-                          "data" - {'{'} ...original <b>data</b> from request
-                          {' }'}
-                        </small>
-                        <br />
-                        <small className="p-4">
-                          "rewriteDataSuggestions" - [<b>array</b> with rewrite
-                          data suggestions]
-                        </small>
-                      </p>
-                      <p className="pb-2">
-                        <b>error</b>
-                        : Object|null
-                        <br />
-                        {/* <small>error info</small> */}
-                      </p>
-                    </div>
-                  }
-                />
-              </td>
-            </tr>
+                    <tr className="border-b-2">
+                      <th>
+                        Get <br />
+                        Rewrite
+                      </th>
+                      <td>
+                        <ModalBtn
+                          title={'Request'}
+                          content={
+                            <textarea className="w-full h-96 text-sm">
+                              {get.request({ token })}
+                            </textarea>
+                          }
+                        />
+                        <ModalBtn
+                          title={'Types'}
+                          content={
+                            <div className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
+                              <p className="pb-2">
+                                <p className="pb-2">
+                                  <b>Id*</b>
+                                  : string
+                                  <br />
+                                  <small>"{_id}"</small>
+                                </p>
+                                <b>Token*</b>
+                                : string
+                                <br />
+                                <small>{token}</small>
+                              </p>
+                            </div>
+                          }
+                        />
+                      </td>
+                      <td>
+                        <ModalBtn
+                          title={'Response'}
+                          content={
+                            <p className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
+                              {get.response({ token })}
+                            </p>
+                          }
+                        />
+                        <ModalBtn
+                          title={'Types'}
+                          content={
+                            <div className="h-96 whitespace-pre-wrap overflow-auto text-left">
+                              <p className="pb-4">
+                                <b>item</b>: Object
+                                <br />
+                                <small>"_id" - result id</small>
+                                <br />
+                                <small>
+                                  "status" - NotStarted = 0, InProgress = 3,
+                                  Completed = 9
+                                </small>
+                                <br />
+                                <small>"blocks" - array of objects</small>
+                                <br />
+                                <small className="p-4">
+                                  "type" - "original <b>type</b> from request"
+                                </small>
+                                <br />
+                                <small className="p-4">
+                                  "data" - {'{'} ...original <b>data</b> from
+                                  request
+                                  {' }'}
+                                </small>
+                                <br />
+                                <small className="p-4">
+                                  "rewriteDataSuggestions" - [<b>array</b> with
+                                  rewrite data suggestions]
+                                </small>
+                              </p>
+                              <p className="pb-2">
+                                <b>error</b>
+                                : Object|null
+                                <br />
+                                {/* <small>error info</small> */}
+                              </p>
+                            </div>
+                          }
+                        />
+                      </td>
+                    </tr>
 
-            <tr className="border-b-2">
-              <th>
-                Get <br />
-                Balance
-              </th>
-              <td>
-                <ModalBtn
-                  title={'Request'}
-                  content={
-                    <textarea className="w-full h-96 text-sm">
-                      {balance.request({ token })}
-                    </textarea>
-                  }
-                />
-              </td>
-              <td>
-                <ModalBtn
-                  title={'Response'}
-                  content={
-                    <p className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
-                      {balance.response()}
-                    </p>
-                  }
-                />
-              </td>
-            </tr>
+                    <tr className="border-b-2">
+                      <th>
+                        Get <br />
+                        Balance
+                      </th>
+                      <td>
+                        <ModalBtn
+                          title={'Request'}
+                          content={
+                            <textarea className="w-full h-96 text-sm">
+                              {balance.request({ token })}
+                            </textarea>
+                          }
+                        />
+                      </td>
+                      <td>
+                        <ModalBtn
+                          title={'Response'}
+                          content={
+                            <p className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
+                              {balance.response()}
+                            </p>
+                          }
+                        />
+                      </td>
+                    </tr>
 
-            <tr className="border-b-2">
-              <th>
-                Get <br />
-                Stats
-              </th>
-              <td>
-                <ModalBtn
-                  title={'Request'}
-                  content={
-                    <textarea className="w-full h-96 text-sm">
-                      {stats.request({ token })}
-                    </textarea>
-                  }
-                />
-              </td>
-              <td>
-                <ModalBtn
-                  title={'Response'}
-                  content={
-                    <p className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
-                      {stats.response()}
-                    </p>
-                  }
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                    <tr className="border-b-2">
+                      <th>
+                        Get <br />
+                        Stats
+                      </th>
+                      <td>
+                        <ModalBtn
+                          title={'Request'}
+                          content={
+                            <textarea className="w-full h-96 text-sm">
+                              {stats.request({ token })}
+                            </textarea>
+                          }
+                        />
+                      </td>
+                      <td>
+                        <ModalBtn
+                          title={'Response'}
+                          content={
+                            <p className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
+                              {stats.response()}
+                            </p>
+                          }
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )
