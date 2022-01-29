@@ -394,7 +394,7 @@ export const DocumentationApi: FC = () => {
                           title={'Response'}
                           content={
                             <p className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
-                              {addTranslate.response}
+                              {addTranslate.response({ token })}
                             </p>
                           }
                         />
@@ -419,7 +419,7 @@ export const DocumentationApi: FC = () => {
                       </td>
                     </tr>
 
-                    {/* <tr className="border-b-2">
+                    <tr className="border-b-2">
                       <th>
                         Get <br />
                         Translate
@@ -429,7 +429,7 @@ export const DocumentationApi: FC = () => {
                           title={'Request'}
                           content={
                             <textarea className="w-full h-96 text-sm">
-                              {get.request({ token })}
+                              {getTranslate.request({ token })}
                             </textarea>
                           }
                         />
@@ -442,7 +442,7 @@ export const DocumentationApi: FC = () => {
                                   <b>Id*</b>
                                   : string
                                   <br />
-                                  <small>"{_id}"</small>
+                                  <small>{_id}</small>
                                 </p>
                                 <b>Token*</b>
                                 : string
@@ -458,7 +458,7 @@ export const DocumentationApi: FC = () => {
                           title={'Response'}
                           content={
                             <p className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
-                              {get.response({ token })}
+                              {getTranslate.response({ token })}
                             </p>
                           }
                         />
@@ -489,8 +489,9 @@ export const DocumentationApi: FC = () => {
                                 </small>
                                 <br />
                                 <small className="p-4">
-                                  "rewriteDataSuggestions" - [<b>array</b> with
-                                  rewrite data suggestions]
+                                  "results" - {'{ '}
+                                  <b>Dictionary</b> 'lang'{' -> '}Object
+                                  {' }'}
                                 </small>
                               </p>
                               <p className="pb-2">
@@ -502,7 +503,7 @@ export const DocumentationApi: FC = () => {
                           }
                         />
                       </td>
-                    </tr> */}
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -771,51 +772,98 @@ const addTranslate = {
   const { result, error } = await resp.json()
   `,
 
-  response: JSON.stringify(
-    {
-      result: {
-        _id: '61f594ade70cdb551d77ca23',
-        token: 'EleafrgnA1WJgT5nfbToKJcoYRj2',
-        status: 0,
-        langs: ['RU', 'DE', 'ES'],
-        blocks: [
-          {
-            id: '61f594ade70cdb551d77ca1e',
-            type: 'header',
-            data: { text: 'Dofiltra H2', level: 2 },
-          },
-          {
-            id: '61f594ade70cdb551d77ca1f',
-            type: 'paragraph',
-            data: { text: 'Hello, dear friend!' },
-          },
-          {
-            id: '61f594ade70cdb551d77ca20',
-            type: 'header',
-            data: { text: 'Subtitle H3', level: 3 },
-          },
-          {
-            id: '61f594ade70cdb551d77ca21',
-            type: 'list',
-            data: { style: 'unordered', items: ['item 1', 'item 2', 'item 3'] },
-          },
-          {
-            id: '61f594ade70cdb551d77ca22',
-            type: 'image',
-            data: {
-              file: {
-                url: 'https://codex.so/public/app/img/external/codex2x.png',
-              },
-              caption: '',
+  response: ({ token }: any) =>
+    JSON.stringify(
+      {
+        result: {
+          _id,
+          token,
+          status: 0,
+          langs: [LangCode.Russian, LangCode.German, LangCode.Spanish],
+          blocks: [
+            {
+              id: '61f594ade70cdb551d77ca1e',
+              type: 'header',
+              data: { text: 'Dofiltra H2', level: 2 },
             },
-          },
-        ],
-        charsCount: 52,
-        tone: 'FORMAL',
+            {
+              id: '61f594ade70cdb551d77ca1f',
+              type: 'paragraph',
+              data: { text: 'Hello dear friend' },
+            },
+            {
+              id: '61f594ade70cdb551d77ca20',
+              type: 'header',
+              data: { text: 'Subtitle H3', level: 3 },
+            },
+            {
+              id: '61f594ade70cdb551d77ca21',
+              type: 'list',
+              data: {
+                style: 'unordered',
+                items: ['item 1', 'item 2', 'item 3'],
+              },
+            },
+            {
+              id: '61f594ade70cdb551d77ca22',
+              type: 'image',
+              data: {
+                file: {
+                  url: 'https://codex.so/public/app/img/external/codex2x.png',
+                },
+                caption: '',
+              },
+            },
+          ],
+          charsCount: 52,
+          tone: 'FORMAL',
+        },
+        error: null,
       },
-      error: null,
-    },
-    null,
-    2
-  ),
+      null,
+      2
+    ),
+}
+
+const getTranslate = {
+  request: ({
+    token,
+  }: any) => `const resp = await fetch("${HOST_API}/api/translate/get?id=${_id}&token=${token}", {
+    headers: ${JSON.stringify(headers, null, 8)},
+    method: 'GET',
+    mode: "cors",
+  })
+
+  const { item, error } = await resp.json()
+  `,
+
+  response: ({ token }: any) =>
+    JSON.stringify(
+      {
+        item: {
+          _id,
+          token,
+          status: 9,
+          langs: [LangCode.Russian, LangCode.German, LangCode.Spanish],
+          blocks: [
+            {
+              id: '61f594ade70cdb551d77ca1f',
+              type: 'paragraph',
+              data: { text: 'Hello dear friend' },
+              results: {
+                RU: { text: 'Привет, дорогой друг' },
+                DE: { text: 'Hallo lieber Freund' },
+                ES: { text: 'Hola querida amiga' },
+              },
+            },
+          ],
+          charsCount: 15,
+          tone: 'FORMAL',
+          createdAt: new Date().toJSON(),
+          updatedAt: new Date().toJSON(),
+        },
+      },
+      null,
+      2
+    ),
 }
