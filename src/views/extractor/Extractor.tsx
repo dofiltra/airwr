@@ -74,14 +74,17 @@ export default () => {
 
                   setVisibleContent(false)
                   const { result = [], error } = await ExtractorApi.add(
-                    groups.map(
-                      (urlsOrKeys) =>
-                        ({
-                          token,
-                          status: TaskStatus.NotStarted,
-                          urlsOrKeys,
-                        } as Doextractor)
-                    )
+                    groups
+                      .map((x) => x.filter((x) => x.trim()))
+                      .filter((x) => x.some((x) => x.trim().length))
+                      .map(
+                        (urlsOrKeys) =>
+                          ({
+                            token,
+                            status: TaskStatus.NotStarted,
+                            urlsOrKeys,
+                          } as Doextractor)
+                      )
                   )
                   setVisibleContent(true)
 

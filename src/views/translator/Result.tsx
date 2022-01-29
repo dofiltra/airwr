@@ -176,7 +176,7 @@ const TranslateResultPage: FC<TResultPage> = () => {
                       ({isCompleted ? '100.00' : percent.toFixed(2)}
                       %){' '}
                       {!isCompleted && (
-                        <button className="btn btn-ghost btn-sm btn-circle Loading"></button>
+                        <button className="btn btn-sm btn-circle loading"></button>
                       )}
                       {!isCompleted && (
                         <div className="w-full">
@@ -205,7 +205,12 @@ const TranslateResultPage: FC<TResultPage> = () => {
                 return (
                   <div className="grid grid-cols-1 gap-1">
                     <div className="mb-1 md:mb-0 w-full p-2 ">
-                      <label>{lang}</label>
+                      <label>
+                        {lang}{' '}
+                        {!isCompleted && (
+                          <button className="btn btn-circle loading"></button>
+                        )}
+                      </label>
                       <div className="editor-wrapper h-96 overflow-auto w-full border-4 border-dashed border-gray-200 rounded-lg p-3">
                         <div id={`translate_${lang}`}></div>
                       </div>

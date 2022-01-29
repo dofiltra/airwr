@@ -167,7 +167,7 @@ const RewriterResultPage: FC<TResultPage> = () => {
                       ({isCompleted ? '100.00' : percent.toFixed(2)}
                       %){' '}
                       {!isCompleted && (
-                        <button className="btn btn-ghost btn-sm btn-circle Loading"></button>
+                        <button className="btn btn-ghost btn-sm btn-circle loading"></button>
                       )}
                       {!isCompleted && (
                         <div className="w-full">

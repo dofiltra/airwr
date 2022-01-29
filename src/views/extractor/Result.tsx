@@ -114,27 +114,42 @@ const ResultPage: FC<TResultPage> = () => {
                       {translate('TaskStatus')}:{' '}
                       {translate(
                         getRewriterStatusText(data.status)
-                      ).toLowerCase()}
+                      ).toLowerCase()}{' '}
+                      {!data?.results?.length && (
+                        <button className="btn btn-sm btn-circle loading"></button>
+                      )}
                     </label>
                   </div>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 gap-1">
+                <div className="mb-1 w-full p-2 m-2">
+                  <h2>{translate('Group urls/keywords')}</h2>
+                  <ol className="">
+                    {data.urlsOrKeys.map((urlOrKey) => (
+                      <li>{urlOrKey}</li>
+                    ))}
+                  </ol>
+                </div>
+
                 <div className="mb-1 md:mb-0 w-full p-2 ">
                   <div className="collapse w-full border rounded-box border-base-300 collapse-open">
                     <div
                       className="collapse-title text-xl font-medium border-b-2"
                       style={{ background: '#e1f5fe' }}
                     >
-                      {translate('Union article')}
+                      {translate('Union article')}{' '}
+                      {!data?.results?.length && (
+                        <button className="btn btn-circle loading"></button>
+                      )}
                     </div>
                     <div
-                      className="collapse-content h-92 overflow-auto"
+                      className="collapse-content h-80 overflow-auto"
                       style={{ background: '#fff' }}
                       dangerouslySetInnerHTML={{
                         __html: `<h1>${data.union?.title || ''}</h1><br/>${
-                          data.union?.content || '...'
+                          data.union?.content || ''
                         }`,
                       }}
                     ></div>
@@ -144,38 +159,67 @@ const ResultPage: FC<TResultPage> = () => {
 
               <div className="grid grid-cols-1 gap-1">
                 <hr className="mt-6 border-2 border-dashed" />
+                <div className="mb-1 w-full p-2 m-2">
+                  <h2>
+                    {translate('Extracted urls')}{' '}
+                    {!data?.results?.length && (
+                      <button className="btn btn-circle loading"></button>
+                    )}
+                  </h2>
+
+                  <ol className="">
+                    {data?.results
+                      ?.filter((doread) => doread?.url)
+                      .map((doread) => (
+                        <li>
+                          <a href={doread.url} target={'_blank'}>
+                            {doread.url}
+                          </a>
+                        </li>
+                      ))}
+                  </ol>
+                </div>
+
                 <div className="collapse w-full">
                   <div
                     className="collapse-title text-xl font-medium "
                     style={{ background: '#e1f5fe' }}
                   >
                     {translate('Original articles')} (
-                    {data?.results?.length || 0})
+                    {data?.results?.length || 0}){' '}
+                    {!data?.results?.length && (
+                      <button className="btn btn-circle loading"></button>
+                    )}
                   </div>
                 </div>
 
-                {data?.results?.map((doread) => {
-                  return (
-                    <div className="mb-1 md:mb-0 w-full p-2 ">
-                      <div className="collapse  w-full border rounded-box border-base-300 collapse-arrow bg-white">
-                        <input type="checkbox" />
-                        <div
-                          className="collapse-title text-xl font-medium border-b-2"
-                          style={{ background: '#fff' }}
-                        >
-                          {doread.url}
+                {data?.results
+                  ?.filter((doread) => doread?.content)
+                  .map((doread) => {
+                    return (
+                      <div className="mb-1 md:mb-0 w-full p-2 ">
+                        <div className="collapse  w-full border rounded-box border-base-300 collapse-arrow bg-white">
+                          <input type="checkbox" />
+                          <div
+                            className="collapse-title text-xl font-medium border-b-2"
+                            style={{ background: '#fff' }}
+                          >
+                            {doread.url}
+                          </div>
+                          <div
+                            className="collapse-content"
+                            style={{ background: '#fff' }}
+                            dangerouslySetInnerHTML={{
+                              __html: `<h1>${doread.title || ''}</h1><br/>${
+                                doread.content ||
+                                translate('Article not found!')
+                              }`,
+                            }}
+                          ></div>
                         </div>
-                        <div
-                          className="collapse-content"
-                          style={{ background: '#fff' }}
-                          dangerouslySetInnerHTML={{
-                            __html: `<h1>${doread.title}</h1><br/>${doread.content}`,
-                          }}
-                        ></div>
                       </div>
-                    </div>
-                  )
-                })}
+                    )
+                  })}
               </div>
             </div>
           </div>
