@@ -25,6 +25,82 @@ export const DocumentationApi: FC = () => {
         <div className="mb-1 w-full p-2 ">
           <div className="collapse w-full border rounded-box border-base-300 collapse-arrow">
             <input type="checkbox" />
+            <div className="collapse-title text-xl font-medium">Base API</div>
+            <div className="collapse-content">
+              <div className="overflow-x-auto">
+                {/* <hr className="border-b-2" /> */}
+                <table className="table w-full text-center ">
+                  <thead className="">
+                    <tr className="border-2">
+                      <th>{translate('ApiName')}</th>
+                      <th>{translate('ApiRequest')}</th>
+                      <th>{translate('ApiResponse')}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="border-b-2">
+                      <th>
+                        Get <br />
+                        Balance
+                      </th>
+                      <td>
+                        <ModalBtn
+                          title={'Request'}
+                          content={
+                            <textarea className="w-full h-96 text-sm">
+                              {balance.request({ token })}
+                            </textarea>
+                          }
+                        />
+                      </td>
+                      <td>
+                        <ModalBtn
+                          title={'Response'}
+                          content={
+                            <p className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
+                              {balance.response()}
+                            </p>
+                          }
+                        />
+                      </td>
+                    </tr>
+
+                    <tr className="border-b-2">
+                      <th>
+                        Get <br />
+                        Stats
+                      </th>
+                      <td>
+                        <ModalBtn
+                          title={'Request'}
+                          content={
+                            <textarea className="w-full h-96 text-sm">
+                              {stats.request({ token })}
+                            </textarea>
+                          }
+                        />
+                      </td>
+                      <td>
+                        <ModalBtn
+                          title={'Response'}
+                          content={
+                            <p className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
+                              {stats.response()}
+                            </p>
+                          }
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mb-1 w-full p-2 ">
+          <div className="collapse w-full border rounded-box border-base-300 collapse-arrow">
+            <input type="checkbox" />
             <div className="collapse-title text-xl font-medium">Rewrite</div>
             <div className="collapse-content">
               <div className="overflow-x-auto">
@@ -36,11 +112,6 @@ export const DocumentationApi: FC = () => {
                       <th>{translate('ApiRequest')}</th>
                       <th>{translate('ApiResponse')}</th>
                     </tr>
-                    {/* <tr>
-              <th></th>
-              <th></th>
-              <th></th>
-            </tr> */}
                   </thead>
                   <tbody>
                     <tr className="border-b-2">
@@ -232,60 +303,6 @@ export const DocumentationApi: FC = () => {
                                 {/* <small>error info</small> */}
                               </p>
                             </div>
-                          }
-                        />
-                      </td>
-                    </tr>
-
-                    <tr className="border-b-2">
-                      <th>
-                        Get <br />
-                        Balance
-                      </th>
-                      <td>
-                        <ModalBtn
-                          title={'Request'}
-                          content={
-                            <textarea className="w-full h-96 text-sm">
-                              {balance.request({ token })}
-                            </textarea>
-                          }
-                        />
-                      </td>
-                      <td>
-                        <ModalBtn
-                          title={'Response'}
-                          content={
-                            <p className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
-                              {balance.response()}
-                            </p>
-                          }
-                        />
-                      </td>
-                    </tr>
-
-                    <tr className="border-b-2">
-                      <th>
-                        Get <br />
-                        Stats
-                      </th>
-                      <td>
-                        <ModalBtn
-                          title={'Request'}
-                          content={
-                            <textarea className="w-full h-96 text-sm">
-                              {stats.request({ token })}
-                            </textarea>
-                          }
-                        />
-                      </td>
-                      <td>
-                        <ModalBtn
-                          title={'Response'}
-                          content={
-                            <p className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
-                              {stats.response()}
-                            </p>
                           }
                         />
                       </td>
@@ -489,46 +506,13 @@ const stats = {
     JSON.stringify(
       {
         history: {
-          ['9.2022']: 1000,
-          ['10.2022']: 800,
-          ['11.2022']: 2000,
-          ['12.2021']: 5000,
+          ['9.2021']: 1000,
+          ['10.2021']: 800,
+          ['11.2021']: 2000,
+          [`${new Date().getMonth() + 1}.${new Date().getFullYear()}`]: 5000,
         },
       },
       null,
       2
     ),
 }
-
-// const AdditionalInfo = ({ text = '', body = '', position = 'center' }: any) => {
-//   return (
-//     <>
-//       {text}{' '}
-//       <div className={`dropdown dropdown-${position}`}>
-//         <div tabIndex={0} className="btn btn-circle btn-ghost btn-xs text-info">
-//           <svg
-//             xmlns="http://www.w3.org/2000/svg"
-//             fill="none"
-//             viewBox="0 0 24 24"
-//             className="inline w-5 h-5 stroke-current"
-//           >
-//             <path
-//               strokeLinecap="round"
-//               strokeLinejoin="round"
-//               strokeWidth={2}
-//               d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-//             />
-//           </svg>
-//         </div>
-//         <div
-//           tabIndex={0}
-//           className="shadow card compact dropdown-content bg-base-100 rounded-box w-64"
-//         >
-//           <div className="card-body">
-//             <p>{body}</p>
-//           </div>
-//         </div>
-//       </div>
-//     </>
-//   )
-// }
