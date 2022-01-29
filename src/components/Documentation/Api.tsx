@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC } from 'preact/compat'
 import { HOST_API } from 'helpers/api'
+import { LangCode, RewriteMode, headers } from 'dprx-types'
 import { LangCodes } from 'components/Select/Lang'
-import { RewriteMode, headers } from 'dprx-types'
 import { SignInButtons } from 'components/Buttons/SignIn'
 import { useContext } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
@@ -124,7 +124,7 @@ export const DocumentationApi: FC = () => {
                           title={'Request'}
                           content={
                             <textarea className="w-full h-96 text-sm">
-                              {add.request({ token })}
+                              {addRewrite.request({ token })}
                             </textarea>
                           }
                         />
@@ -197,7 +197,7 @@ export const DocumentationApi: FC = () => {
                           title={'Response'}
                           content={
                             <p className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
-                              {add.response}
+                              {addRewrite.response}
                             </p>
                           }
                         />
@@ -226,6 +226,203 @@ export const DocumentationApi: FC = () => {
                       <th>
                         Get <br />
                         Rewrite
+                      </th>
+                      <td>
+                        <ModalBtn
+                          title={'Request'}
+                          content={
+                            <textarea className="w-full h-96 text-sm">
+                              {getRewrite.request({ token })}
+                            </textarea>
+                          }
+                        />
+                        <ModalBtn
+                          title={'Types'}
+                          content={
+                            <div className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
+                              <p className="pb-2">
+                                <p className="pb-2">
+                                  <b>Id*</b>
+                                  : string
+                                  <br />
+                                  <small>"{_id}"</small>
+                                </p>
+                                <b>Token*</b>
+                                : string
+                                <br />
+                                <small>{token}</small>
+                              </p>
+                            </div>
+                          }
+                        />
+                      </td>
+                      <td>
+                        <ModalBtn
+                          title={'Response'}
+                          content={
+                            <p className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
+                              {getRewrite.response({ token })}
+                            </p>
+                          }
+                        />
+                        <ModalBtn
+                          title={'Types'}
+                          content={
+                            <div className="h-96 whitespace-pre-wrap overflow-auto text-left">
+                              <p className="pb-4">
+                                <b>item</b>: Object
+                                <br />
+                                <small>"_id" - result id</small>
+                                <br />
+                                <small>
+                                  "status" - NotStarted = 0, InProgress = 3,
+                                  Completed = 9
+                                </small>
+                                <br />
+                                <small>"blocks" - array of objects</small>
+                                <br />
+                                <small className="p-4">
+                                  "type" - "original <b>type</b> from request"
+                                </small>
+                                <br />
+                                <small className="p-4">
+                                  "data" - {'{'} ...original <b>data</b> from
+                                  request
+                                  {' }'}
+                                </small>
+                                <br />
+                                <small className="p-4">
+                                  "rewriteDataSuggestions" - [<b>array</b> with
+                                  rewrite data suggestions]
+                                </small>
+                              </p>
+                              <p className="pb-2">
+                                <b>error</b>
+                                : Object|null
+                                <br />
+                                {/* <small>error info</small> */}
+                              </p>
+                            </div>
+                          }
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mb-1 w-full p-2 ">
+          <div className="collapse w-full border rounded-box border-base-300 collapse-arrow">
+            <input type="checkbox" />
+            <div className="collapse-title text-xl font-medium">Translate</div>
+            <div className="collapse-content">
+              <div className="overflow-x-auto">
+                {/* <hr className="border-b-2" /> */}
+                <table className="table w-full text-center ">
+                  <thead className="">
+                    <tr className="border-2">
+                      <th>{translate('ApiName')}</th>
+                      <th>{translate('ApiRequest')}</th>
+                      <th>{translate('ApiResponse')}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="border-b-2">
+                      <th>
+                        Add
+                        <br /> Translate
+                      </th>
+                      <td>
+                        <ModalBtn
+                          title={'Request'}
+                          content={
+                            <textarea className="w-full h-96 text-sm">
+                              {addTranslate.request({ token })}
+                            </textarea>
+                          }
+                        />
+                        <ModalBtn
+                          title={'Types'}
+                          content={
+                            <div className="h-96 whitespace-pre-wrap overflow-auto text-left">
+                              <p className="pb-2">
+                                <b>Token*</b>
+                                : string
+                                <br />
+                                <small>{token}</small>
+                              </p>
+                              <p className="pb-2">
+                                <b>Langs*</b>
+                                : Array of string
+                                <br />
+                                <small>
+                                  [
+                                  {LangCodes.map((l) => `"${l.code}"`).join(
+                                    ', '
+                                  )}
+                                  ]
+                                </small>
+                              </p>
+                              <p className="pb-3">
+                                <b>Blocks*</b>
+                                : array of objects
+                                <br />
+                                <small>
+                                  {JSON.stringify(
+                                    [
+                                      {
+                                        type: 'header|paragraph|list|table|image',
+                                        data: {
+                                          text: 'see request example',
+                                        },
+                                      },
+                                    ],
+                                    null,
+                                    2
+                                  )}
+                                </small>
+                              </p>
+                            </div>
+                          }
+                        />
+                      </td>
+                      <td>
+                        <ModalBtn
+                          title={'Response'}
+                          content={
+                            <p className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
+                              {addTranslate.response}
+                            </p>
+                          }
+                        />
+                        <ModalBtn
+                          title={'Types'}
+                          content={
+                            <div className="h-96 whitespace-pre-wrap overflow-auto text-left">
+                              <p className="pb-2">
+                                <b>Result</b>: object
+                                <br />
+                                <small>"_id" - id of result item</small>
+                              </p>
+                              <p className="pb-2">
+                                <b>Error</b>
+                                : Object|null
+                                <br />
+                                <small>error info</small>
+                              </p>
+                            </div>
+                          }
+                        />
+                      </td>
+                    </tr>
+
+                    {/* <tr className="border-b-2">
+                      <th>
+                        Get <br />
+                        Translate
                       </th>
                       <td>
                         <ModalBtn
@@ -300,13 +497,12 @@ export const DocumentationApi: FC = () => {
                                 <b>error</b>
                                 : Object|null
                                 <br />
-                                {/* <small>error info</small> */}
                               </p>
                             </div>
                           }
                         />
                       </td>
-                    </tr>
+                    </tr> */}
                   </tbody>
                 </table>
               </div>
@@ -351,7 +547,56 @@ const textOriginal =
 const textRewrite =
   'Среди стран-импортеров из Казахстана значительная доля приходится на Россию. По сравнению с предыдущим годом, в этом году на долю России пришлось 45% от общего объема импорта мебели в Казахстан. Рост продаж мебели в Казахстан на 20% +55% по сравнению с аналогичным периодом прошлого года принес соседней стране $118,7 млн в январе-сентябре 2021 года. Турция (+23%) и Китай (+32%) также были в числе ведущих экспортеров мебели.'
 
-const add = {
+const balance = {
+  request: ({
+    token,
+  }: any) => `const resp = await fetch("${HOST_API}/api/balance/get?token=${token}", {
+    headers: ${JSON.stringify(headers, null, 8)},
+    method: 'GET',
+    mode: "cors",
+  })
+
+  const { coins = 0 } = await resp.json()
+  `,
+
+  response: () =>
+    JSON.stringify(
+      {
+        coins: 100,
+      },
+      null,
+      2
+    ),
+}
+
+const stats = {
+  request: ({
+    token,
+  }: any) => `const resp = await fetch("${HOST_API}/api/stats/getRewritedCharsCount?token=${token}", {
+    headers: ${JSON.stringify(headers, null, 8)},
+    method: 'GET',
+    mode: "cors",
+  })
+
+  const { history = {} } = await resp.json()
+  `,
+
+  response: () =>
+    JSON.stringify(
+      {
+        history: {
+          ['9.2021']: 1000,
+          ['10.2021']: 800,
+          ['11.2021']: 2000,
+          [`${new Date().getMonth() + 1}.${new Date().getFullYear()}`]: 5000,
+        },
+      },
+      null,
+      2
+    ),
+}
+
+const addRewrite = {
   request: ({
     token,
   }: any) => `const resp = await fetch("${HOST_API}/api/rewriteText/add", {
@@ -424,7 +669,7 @@ const add = {
   ),
 }
 
-const get = {
+const getRewrite = {
   request: ({
     token,
   }: any) => `const resp = await fetch("${HOST_API}/api/rewriteText/get?id=${_id}&token=${token}", {
@@ -468,51 +713,109 @@ const get = {
     ),
 }
 
-const balance = {
+const addTranslate = {
   request: ({
     token,
-  }: any) => `const resp = await fetch("${HOST_API}/api/balance/get?token=${token}", {
+  }: any) => `const resp = await fetch("${HOST_API}/api/translate/add", {
     headers: ${JSON.stringify(headers, null, 8)},
-    method: 'GET',
+    method: "POST",
     mode: "cors",
-  })
-
-  const { coins = 0 } = await resp.json()
-  `,
-
-  response: () =>
-    JSON.stringify(
+    body: JSON.stringify(${JSON.stringify(
       {
-        coins: 100,
+        token,
+        langs: [LangCode.Russian, LangCode.German, LangCode.Spanish],
+        blocks: [
+          {
+            type: 'header',
+            data: {
+              text: 'Dofiltra H2',
+              level: 2,
+            },
+          },
+          {
+            type: 'paragraph',
+            data: {
+              text: 'Hello, dear friend!',
+            },
+          },
+          {
+            type: 'header',
+            data: {
+              text: 'Subtitle H3',
+              level: 3,
+            },
+          },
+          {
+            type: 'list',
+            data: {
+              style: 'unordered',
+              items: ['item 1', 'item 2', 'item 3'],
+            },
+          },
+          {
+            type: 'image',
+            data: {
+              file: {
+                url: 'https://codex.so/public/app/img/external/codex2x.png',
+              },
+              caption: '',
+            },
+          },
+        ],
       },
       null,
-      2
-    ),
-}
-
-const stats = {
-  request: ({
-    token,
-  }: any) => `const resp = await fetch("${HOST_API}/api/stats/getRewritedCharsCount?token=${token}", {
-    headers: ${JSON.stringify(headers, null, 8)},
-    method: 'GET',
-    mode: "cors",
+      8
+    )}),
   })
-
-  const { history = {} } = await resp.json()
+  
+  const { result, error } = await resp.json()
   `,
 
-  response: () =>
-    JSON.stringify(
-      {
-        history: {
-          ['9.2021']: 1000,
-          ['10.2021']: 800,
-          ['11.2021']: 2000,
-          [`${new Date().getMonth() + 1}.${new Date().getFullYear()}`]: 5000,
-        },
+  response: JSON.stringify(
+    {
+      result: {
+        _id: '61f594ade70cdb551d77ca23',
+        token: 'EleafrgnA1WJgT5nfbToKJcoYRj2',
+        status: 0,
+        langs: ['RU', 'DE', 'ES'],
+        blocks: [
+          {
+            id: '61f594ade70cdb551d77ca1e',
+            type: 'header',
+            data: { text: 'Dofiltra H2', level: 2 },
+          },
+          {
+            id: '61f594ade70cdb551d77ca1f',
+            type: 'paragraph',
+            data: { text: 'Hello, dear friend!' },
+          },
+          {
+            id: '61f594ade70cdb551d77ca20',
+            type: 'header',
+            data: { text: 'Subtitle H3', level: 3 },
+          },
+          {
+            id: '61f594ade70cdb551d77ca21',
+            type: 'list',
+            data: { style: 'unordered', items: ['item 1', 'item 2', 'item 3'] },
+          },
+          {
+            id: '61f594ade70cdb551d77ca22',
+            type: 'image',
+            data: {
+              file: {
+                url: 'https://codex.so/public/app/img/external/codex2x.png',
+              },
+              caption: '',
+            },
+          },
+        ],
+        charsCount: 52,
+        tone: 'FORMAL',
       },
-      null,
-      2
-    ),
+      error: null,
+    },
+    null,
+    2
+  ),
 }
