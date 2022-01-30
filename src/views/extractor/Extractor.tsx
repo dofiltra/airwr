@@ -19,6 +19,8 @@ export default () => {
   const [groups, setGroups] = useState([] as string[][])
   const [limitContent, setLimitContent] = useState(50e3)
   const [canShuffleBlocks, setCanShuffleBlocks] = useState(true)
+  const [coefRemoveHeading, setCoefRemoveHeading] = useState(0.8)
+  const [coefRemoveContent, setCoefRemoveContent] = useState(0.7)
 
   const [isVisibleContent, setVisibleContent] = useState(true)
   const [isOpenHistory, setIsOpenHistory] = useState(false)
@@ -89,7 +91,7 @@ export default () => {
                     />
                   </div>
                 </div>
-                <div className="mb-1 w-full p-2 ">
+                <div className="mb-2 w-full p-2 ">
                   <div className="p-2 card bordered">
                     <div className="form-control">
                       <label className="cursor-pointer label">
@@ -105,6 +107,48 @@ export default () => {
                         />
                       </label>
                     </div>
+                  </div>
+                </div>
+                <div className="w-full p-1">
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text">
+                        {translate('Coef remove similar heading')} (
+                        {coefRemoveHeading * 100}%)
+                      </span>
+                    </label>
+                    <input
+                      type="range"
+                      className="range"
+                      max={100}
+                      value={coefRemoveHeading * 100}
+                      onChange={(e) =>
+                        setCoefRemoveHeading(
+                          Math.min(parseFloat(e.target.value) / 100, 1)
+                        )
+                      }
+                    />
+                  </div>
+                </div>
+                <div className="w-full p-1">
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text">
+                        {translate('Coef remove similar content blocks')} (
+                        {coefRemoveContent * 100}%)
+                      </span>
+                    </label>
+                    <input
+                      type="range"
+                      className="range"
+                      max={100}
+                      value={coefRemoveContent * 100}
+                      onChange={(e) =>
+                        setCoefRemoveContent(
+                          Math.min(parseFloat(e.target.value) / 100, 1)
+                        )
+                      }
+                    />
                   </div>
                 </div>
               </div>
@@ -136,6 +180,18 @@ export default () => {
                               limitContent,
                               canShuffleBlocks,
                             },
+                            similarOpts: {
+                              coefRemoveHeading,
+                              coefRemoveContent,
+                            },
+                            videosOpts: {},
+                            typographOpts: {
+                              replaceTags: {
+                                // a: 'span',
+                              },
+                            },
+                            rewriteOpts: {},
+                            translateOpts: {},
                           } as Doextractor)
                       )
                   )
