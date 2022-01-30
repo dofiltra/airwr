@@ -188,10 +188,10 @@ export default () => {
                             typographOpts: {
                               removeSelectors: {},
                               removeAttrs: {
-                                // 'a[href]': ['href', 'onload']
+                                'a[href]': ['href', 'onload']
                               },
                               replaceTags: {
-                                // a: 'span',
+                                a: 'span',
                               },
                             },
                             rewriteOpts: {},
