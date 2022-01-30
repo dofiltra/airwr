@@ -17,6 +17,9 @@ import _ from 'lodash'
 export default () => {
   const { translate } = useLocalize()
   const [groups, setGroups] = useState([] as string[][])
+  const [limitContent, setLimitContent] = useState(50e3)
+  const [canShuffleBlocks, setCanShuffleBlocks] = useState(true)
+
   const [isVisibleContent, setVisibleContent] = useState(true)
   const [isOpenHistory, setIsOpenHistory] = useState(false)
   const { user } = useContext(AuthContext)
@@ -44,7 +47,7 @@ export default () => {
           </div>
 
           <div className="w-full card p-4">
-            <div className="mb-1 md:mb-0 w-full p-2 ">
+            <div className="mb-1 w-full p-2 ">
               <label className="">{translate('EnterTextForExtractor')}</label>
               <textarea
                 className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3"
@@ -59,6 +62,52 @@ export default () => {
                   setGroups(groups)
                 }}
               ></textarea>
+            </div>
+          </div>
+
+          <div className="mb-1 w-full p-2 ">
+            <div className="collapse w-full border rounded-box border-base-300 collapse-arrow">
+              <input type="checkbox" />
+              <div className="collapse-title text-xl font-medium">
+                {translate('Content Settings')}
+              </div>
+              <div className="collapse-content">
+                <div className="mb-1 w-full p-2 ">
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text">
+                        {translate('Limit chars count')}
+                      </span>
+                    </label>
+                    <input
+                      className="input input-bordered"
+                      type="number"
+                      value={limitContent}
+                      onChange={(e) =>
+                        setLimitContent(parseInt(e.target.value, 10))
+                      }
+                    />
+                  </div>
+                </div>
+                <div className="mb-1 w-full p-2 ">
+                  <div className="p-2 card bordered">
+                    <div className="form-control">
+                      <label className="cursor-pointer label">
+                        <span className="label-text">
+                          {translate('Can shuffle blocks')}
+                        </span>
+                        <input
+                          type="checkbox"
+                          className="toggle"
+                          onChange={(e) =>
+                            setCanShuffleBlocks(e.target.checked)
+                          }
+                        />
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -83,6 +132,10 @@ export default () => {
                             token,
                             status: TaskStatus.NotStarted,
                             urlsOrKeys,
+                            contentOpts: {
+                              limitContent,
+                              canShuffleBlocks,
+                            },
                           } as Doextractor)
                       )
                   )
@@ -110,7 +163,7 @@ export default () => {
 
                 add()
               }}
-              className="w-full btn btn-success"
+              className="w-full btn btn-lg btn-success"
             >
               {translate('ButtonSend')}
             </button>
