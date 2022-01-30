@@ -186,6 +186,10 @@ export default () => {
                             },
                             videosOpts: {},
                             typographOpts: {
+                              removeSelectors: {},
+                              removeAttrs: {
+                                // 'a[href]': ['href', 'onload']
+                              },
                               replaceTags: {
                                 // a: 'span',
                               },
