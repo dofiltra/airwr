@@ -334,7 +334,7 @@ export default () => {
                       </span>
                       <a
                         href={`/extractor/result/${task._id}`}
-                        target={'_blank'}
+                        // target={'_blank'}
                       >
                         {task._id}
                       </a>
