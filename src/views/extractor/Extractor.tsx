@@ -4,9 +4,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { DateTime } from 'luxon'
-import { Doextractor, TaskStatus } from 'dprx-types'
+import { Doextractor, RewriteMode, TaskStatus } from 'dprx-types'
+import { ExpandBox, ExpandMode } from 'components/Select/Expand'
 import { ExtractorApi } from 'helpers/api'
 import { Loading } from 'components/Containers/Loader'
+import { ToneMode } from 'components/Select/Tone'
 import { smiles } from 'helpers/smiles'
 import { useContext, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
@@ -21,6 +23,15 @@ export default () => {
   const [canShuffleBlocks, setCanShuffleBlocks] = useState(true)
   const [coefRemoveHeading, setCoefRemoveHeading] = useState(0.8)
   const [coefRemoveContent, setCoefRemoveContent] = useState(0.7)
+
+  const [enableRewrite, setEnableRewrite] = useState(false)
+  const [expand, setExpand] = useState(
+    ExpandMode[0].value as RewriteMode.Longer | RewriteMode.Shorter
+  )
+  const [tone, setTone] = useState(
+    ToneMode[0].value as RewriteMode.Formal | RewriteMode.Casual
+  )
+  const [power, setPower] = useState(0.5)
 
   const [isVisibleContent, setVisibleContent] = useState(true)
   const [isOpenHistory, setIsOpenHistory] = useState(false)
@@ -155,6 +166,58 @@ export default () => {
             </div>
           </div>
 
+          <div className="mb-1 w-full p-2 ">
+            <div className="w-full">
+              <div className="p-2 card bordered">
+                <div className="form-control">
+                  <label className="cursor-pointer label">
+                    <span className="label-text">
+                      {translate('Enable rewrite')}
+                    </span>
+                    <input
+                      type="checkbox"
+                      className="toggle"
+                      onChange={(e) => setEnableRewrite(e.target.checked)}
+                    />
+                  </label>
+                </div>
+              </div>
+            </div>
+            {enableRewrite && (
+              <div className="mb-2 w-full border-2 border-dashed p-4">
+                <div className="mb-2 w-full p-1">
+                  <label className="text-white-700">
+                    {translate('SelectExpand')}
+                  </label>
+                  <ExpandBox
+                    value={expand}
+                    onChange={(val: any) => {
+                      setExpand(val.target.value)
+                    }}
+                    className="select w-full select-bordered select-primary "
+                  />
+                </div>
+                <div className="w-full mb-2 p-1">
+                  <div className="form-control">
+                    <label className="text-white-700">
+                      {translate('SelectRewritePower')} (
+                      {(power * 100).toFixed(0)}%)
+                    </label>
+                    <input
+                      type="range"
+                      max={100}
+                      min={0}
+                      value={power * 100}
+                      onChange={(e) =>
+                        setPower(parseInt(e.target.value, 10) / 100)
+                      }
+                      className={'range'}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
           <div className="flex-auto space-x-3 my-6 flex items-center">
             <button
               onClick={() => {
@@ -188,13 +251,17 @@ export default () => {
                             typographOpts: {
                               removeSelectors: {},
                               removeAttrs: {
-                                'a[href]': ['href', 'onload']
+                                'a[href]': ['href', 'onload'],
                               },
                               replaceTags: {
                                 a: 'span',
                               },
                             },
-                            rewriteOpts: {},
+                            rewriteOpts: {
+                              power,
+                              expand,
+                              tone,
+                            },
                             translateOpts: {},
                           } as Doextractor)
                       )
