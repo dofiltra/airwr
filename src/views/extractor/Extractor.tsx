@@ -85,9 +85,7 @@ export default () => {
               <div className="p-2 card bordered">
                 <div className="form-control">
                   <label className="cursor-pointer label">
-                    <span className="label-text">
-                      {translate('Customize content')}
-                    </span>
+                    <span className="">{translate('Customize content')}</span>
                     <input
                       type="checkbox"
                       className="toggle"
@@ -120,17 +118,15 @@ export default () => {
                 </div>
                 <div className="w-full p-1">
                   <div className="form-control">
-                    <label className="label">
-                      <span className="label-text">
-                        {translate('Coef shuffle blocks')} (
-                        {coefShuffleBlocks * 100}%)
-                      </span>
+                    <label className="text-white-700">
+                      {translate('Shuffle blocks')} (
+                      {(coefShuffleBlocks * 100).toFixed(0)}%)
                     </label>
                     <input
                       type="range"
                       className="range"
                       max={100}
-                      value={coefRemoveHeading * 100}
+                      value={coefShuffleBlocks * 100}
                       onChange={(e) =>
                         setCoefShuffleBlocks(
                           Math.min(parseFloat(e.target.value) / 100, 1)
@@ -141,11 +137,9 @@ export default () => {
                 </div>
                 <div className="w-full p-1">
                   <div className="form-control">
-                    <label className="label">
-                      <span className="label-text">
-                        {translate('Coef remove similar heading')} (
-                        {coefRemoveHeading * 100}%)
-                      </span>
+                    <label className="text-white-700">
+                      {translate('Remove similar heading')} (
+                      {(coefRemoveHeading * 100).toFixed(0)}%)
                     </label>
                     <input
                       type="range"
@@ -162,11 +156,9 @@ export default () => {
                 </div>
                 <div className="w-full p-1">
                   <div className="form-control">
-                    <label className="label">
-                      <span className="label-text">
-                        {translate('Coef remove similar content blocks')} (
-                        {coefRemoveContent * 100}%)
-                      </span>
+                    <label className="text-white-700">
+                      {translate('Remove similar content blocks')} (
+                      {(coefRemoveContent * 100).toFixed(0)}%)
                     </label>
                     <input
                       type="range"
@@ -190,9 +182,7 @@ export default () => {
               <div className="p-2 card bordered">
                 <div className="form-control">
                   <label className="cursor-pointer label">
-                    <span className="label-text">
-                      {translate('Enable rewrite')}
-                    </span>
+                    <span className="">{translate('Enable rewrite')}</span>
                     <input
                       type="checkbox"
                       className="toggle"
@@ -325,7 +315,7 @@ export default () => {
             <div className="collapse-title text-xl font-medium">
               {translate('History')}
             </div>
-            <div className="collapse-content">
+            <div className="collapse-content overflow-auto h-80">
               {_.orderBy(AppStore.extractorTasks, 'createdAt', 'desc')
                 .filter((task) => {
                   const { days } = DateTime.fromJSDate(new Date()).diff(
@@ -349,7 +339,9 @@ export default () => {
                         {task._id}
                       </a>
                       <small className="w-full p-2">
-                        <pre>{JSON.stringify(task.urlsOrKeys, null, 4)}</pre>
+                        {task.urlsOrKeys?.map((urlOrKey: string) => (
+                          <div>{urlOrKey}</div>
+                        ))}
                       </small>
                     </div>
                   </>
