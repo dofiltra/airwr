@@ -50,7 +50,7 @@
     "@editorjs/warning": "^1.2.0",
     "@vitejs/plugin-react": "^1.1.4",
     "daisyui": "^1.25.4",
-    "dprx-types": "^1.1.49",
+    "dprx-types": "^1.1.50",
     "firebase": "^9.6.5",
     "lodash": "^4.17.21",
     "luxon": "^2.3.0",
