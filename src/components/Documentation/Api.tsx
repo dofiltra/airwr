@@ -524,7 +524,7 @@ export const DocumentationApi: FC = () => {
           <div className="collapse w-full border rounded-box border-base-300 collapse-arrow">
             <input type="checkbox" />
             <div className="collapse-title text-xl font-medium">
-              Extractor
+              Extract
               <sup> [01.02.2022]</sup>
             </div>
             <div className="collapse-content">
@@ -542,7 +542,8 @@ export const DocumentationApi: FC = () => {
                     <tr className="border-b-2">
                       <th>
                         Add
-                        <br /> Extract
+                        <br /> Extracts <br />
+                        (groups)
                       </th>
                       <td>
                         <ModalBtn
@@ -625,7 +626,7 @@ export const DocumentationApi: FC = () => {
                           content={
                             <div className="h-96 whitespace-pre-wrap overflow-auto text-left">
                               <p className="pb-2">
-                                <b>Result</b>: object
+                                <b>Result</b>: array of objects
                                 <br />
                                 <small>"_id" - id of result item</small>
                               </p>
@@ -1098,37 +1099,39 @@ const addExtract = {
     method: "POST",
     mode: "cors",
     body: JSON.stringify(${JSON.stringify(
-      {
-        token,
-        urlsOrKeys: [
-          'https://lifehacker.ru/chto-meshaet-vybratsya-iz-bednosti/',
-          'https://lifehacker.ru/insult/',
-        ],
-        contentOpts: {
-          limitContent: 50e3,
-          coefShuffleBlocks: 0.5,
-        },
-        duplicateOpts: {
-          coefRemoveHeading: 0.8,
-          coefRemoveContent: 0.7,
-        },
-        videosOpts: {},
-        typographOpts: {
-          removeSelectors: {},
-          removeAttrs: {
-            'a[href]': ['href', 'onload'],
+      [
+        {
+          token,
+          urlsOrKeys: [
+            'https://lifehacker.ru/chto-meshaet-vybratsya-iz-bednosti/',
+            'https://lifehacker.ru/insult/',
+          ],
+          contentOpts: {
+            limitContent: 50e3,
+            coefShuffleBlocks: 0.5,
           },
-          replaceTags: {
-            a: 'span',
+          duplicateOpts: {
+            coefRemoveHeading: 0.8,
+            coefRemoveContent: 0.7,
           },
+          videosOpts: {},
+          typographOpts: {
+            removeSelectors: {},
+            removeAttrs: {
+              'a[href]': ['href', 'onload'],
+            },
+            replaceTags: {
+              a: 'span',
+            },
+          },
+          rewriteOpts: {
+            power: 0,
+            expand: RewriteMode.Shorter,
+            tone: RewriteMode.Formal,
+          },
+          translateOpts: {},
         },
-        rewriteOpts: {
-          power: 0,
-          expand: RewriteMode.Shorter,
-          tone: RewriteMode.Formal,
-        },
-        translateOpts: {},
-      },
+      ],
       null,
       8
     )}),
