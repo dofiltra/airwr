@@ -254,7 +254,7 @@ export default () => {
                               limitContent,
                               coefShuffleBlocks,
                             },
-                            similarOpts: {
+                            duplicateOpts: {
                               coefRemoveHeading,
                               coefRemoveContent,
                             },

@@ -25,7 +25,10 @@ export const DocumentationApi: FC = () => {
         <div className="mb-1 w-full p-2 ">
           <div className="collapse w-full border rounded-box border-base-300 collapse-arrow">
             <input type="checkbox" />
-            <div className="collapse-title text-xl font-medium">Base API</div>
+            <div className="collapse-title text-xl font-medium">
+              Base API
+              <sup> [01.11.2021]</sup>
+            </div>
             <div className="collapse-content">
               <div className="overflow-x-auto">
                 {/* <hr className="border-b-2" /> */}
@@ -101,7 +104,10 @@ export const DocumentationApi: FC = () => {
         <div className="mb-1 w-full p-2 ">
           <div className="collapse w-full border rounded-box border-base-300 collapse-arrow">
             <input type="checkbox" />
-            <div className="collapse-title text-xl font-medium">Rewrite</div>
+            <div className="collapse-title text-xl font-medium">
+              Rewrite
+              <sup> [10.11.2021]</sup>
+            </div>
             <div className="collapse-content">
               <div className="overflow-x-auto">
                 {/* <hr className="border-b-2" /> */}
@@ -317,7 +323,10 @@ export const DocumentationApi: FC = () => {
         <div className="mb-1 w-full p-2 ">
           <div className="collapse w-full border rounded-box border-base-300 collapse-arrow">
             <input type="checkbox" />
-            <div className="collapse-title text-xl font-medium">Translate</div>
+            <div className="collapse-title text-xl font-medium">
+              Translate
+              <sup> [01.12.2022]</sup>
+            </div>
             <div className="collapse-content">
               <div className="overflow-x-auto">
                 {/* <hr className="border-b-2" /> */}
@@ -459,6 +468,219 @@ export const DocumentationApi: FC = () => {
                           content={
                             <p className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
                               {getTranslate.response({ token })}
+                            </p>
+                          }
+                        />
+                        <ModalBtn
+                          title={'Types'}
+                          content={
+                            <div className="h-96 whitespace-pre-wrap overflow-auto text-left">
+                              <p className="pb-4">
+                                <b>item</b>: Object
+                                <br />
+                                <small>"_id" - result id</small>
+                                <br />
+                                <small>
+                                  "status" - NotStarted = 0, InProgress = 3,
+                                  Completed = 9
+                                </small>
+                                <br />
+                                <small>"blocks" - array of objects</small>
+                                <br />
+                                <small className="p-4">
+                                  "type" - "original <b>type</b> from request"
+                                </small>
+                                <br />
+                                <small className="p-4">
+                                  "data" - {'{'} ...original <b>data</b> from
+                                  request
+                                  {' }'}
+                                </small>
+                                <br />
+                                <small className="p-4">
+                                  "results" - {'{ '}
+                                  <b>Dictionary</b> 'lang'{' -> '}Object
+                                  {' }'}
+                                </small>
+                              </p>
+                              <p className="pb-2">
+                                <b>error</b>
+                                : Object|null
+                                <br />
+                              </p>
+                            </div>
+                          }
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mb-1 w-full p-2 ">
+          <div className="collapse w-full border rounded-box border-base-300 collapse-arrow">
+            <input type="checkbox" />
+            <div className="collapse-title text-xl font-medium">
+              Extractor
+              <sup> [01.02.2022]</sup>
+            </div>
+            <div className="collapse-content">
+              <div className="overflow-x-auto">
+                {/* <hr className="border-b-2" /> */}
+                <table className="table w-full text-center ">
+                  <thead className="">
+                    <tr className="border-2">
+                      <th>{translate('ApiName')}</th>
+                      <th>{translate('ApiRequest')}</th>
+                      <th>{translate('ApiResponse')}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="border-b-2">
+                      <th>
+                        Add
+                        <br /> Extract
+                      </th>
+                      <td>
+                        <ModalBtn
+                          title={'Request'}
+                          content={
+                            <textarea className="w-full h-96 text-sm">
+                              {addExtract.request({ token })}
+                            </textarea>
+                          }
+                        />
+                        <ModalBtn
+                          title={'Types'}
+                          content={
+                            <div className="h-96 whitespace-pre-wrap overflow-auto text-left">
+                              <p className="pb-2">
+                                <b>token*</b>
+                                : string
+                                <br />
+                                <small>{token}</small>
+                              </p>
+                              <p className="pb-2">
+                                <b>urlsOrKeys*</b>
+                                : Array of string
+                                <br />
+                                <small>Urls or Keywords</small>
+                              </p>
+                              <p className="pb-3">
+                                <b>contentOpts</b>
+                                : object
+                                <br />
+                                <small>Content settings</small>
+                              </p>
+
+                              <p className="pb-3">
+                                <b>duplicateOpts</b>
+                                : object
+                                <br />
+                                <small>Duplicate clean coefs</small>
+                              </p>
+
+                              <p className="pb-3">
+                                <b>videosOpts</b>
+                                : object
+                                <br />
+                                <small>Youtube videos on page</small>
+                              </p>
+                              <p className="pb-3">
+                                <b>typographOpts</b>
+                                : object
+                                <br />
+                                <small>Cleaning settings</small>
+                              </p>
+                              <p className="pb-3">
+                                <b>rewriteOpts</b>
+                                : object
+                                <br />
+                                <small>Rewrite settings</small>
+                              </p>
+                              <p className="pb-3">
+                                <b>translateOpts</b>
+                                : object
+                                <br />
+                                <small>Translate settings</small>
+                              </p>
+                            </div>
+                          }
+                        />
+                      </td>
+                      <td>
+                        <ModalBtn
+                          title={'Response'}
+                          content={
+                            <p className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
+                              {addExtract.response({ token })}
+                            </p>
+                          }
+                        />
+                        <ModalBtn
+                          title={'Types'}
+                          content={
+                            <div className="h-96 whitespace-pre-wrap overflow-auto text-left">
+                              <p className="pb-2">
+                                <b>Result</b>: object
+                                <br />
+                                <small>"_id" - id of result item</small>
+                              </p>
+                              <p className="pb-2">
+                                <b>Error</b>
+                                : Object|null
+                                <br />
+                                <small>error info</small>
+                              </p>
+                            </div>
+                          }
+                        />
+                      </td>
+                    </tr>
+
+                    <tr className="border-b-2">
+                      <th>
+                        Get <br />
+                        Extract
+                      </th>
+                      <td>
+                        <ModalBtn
+                          title={'Request'}
+                          content={
+                            <textarea className="w-full h-96 text-sm">
+                              {getExtract.request({ token })}
+                            </textarea>
+                          }
+                        />
+                        <ModalBtn
+                          title={'Types'}
+                          content={
+                            <div className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
+                              <p className="pb-2">
+                                <p className="pb-2">
+                                  <b>Id*</b>
+                                  : string
+                                  <br />
+                                  <small>{_id}</small>
+                                </p>
+                                <b>Token*</b>
+                                : string
+                                <br />
+                                <small>{token}</small>
+                              </p>
+                            </div>
+                          }
+                        />
+                      </td>
+                      <td>
+                        <ModalBtn
+                          title={'Response'}
+                          content={
+                            <p className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
+                              {getExtract.response({ token })}
                             </p>
                           }
                         />
@@ -859,6 +1081,127 @@ const getTranslate = {
           ],
           charsCount: 15,
           tone: 'FORMAL',
+          createdAt: new Date().toJSON(),
+          updatedAt: new Date().toJSON(),
+        },
+      },
+      null,
+      2
+    ),
+}
+
+const addExtract = {
+  request: ({
+    token,
+  }: any) => `const resp = await fetch("${HOST_API}/api/extractor/add", {
+    headers: ${JSON.stringify(headers, null, 8)},
+    method: "POST",
+    mode: "cors",
+    body: JSON.stringify(${JSON.stringify(
+      {
+        token,
+        urlsOrKeys: [
+          'https://lifehacker.ru/chto-meshaet-vybratsya-iz-bednosti/',
+          'https://lifehacker.ru/insult/',
+        ],
+        contentOpts: {
+          limitContent: 50e3,
+          coefShuffleBlocks: 0.5,
+        },
+        duplicateOpts: {
+          coefRemoveHeading: 0.8,
+          coefRemoveContent: 0.7,
+        },
+        videosOpts: {},
+        typographOpts: {
+          removeSelectors: {},
+          removeAttrs: {
+            'a[href]': ['href', 'onload'],
+          },
+          replaceTags: {
+            a: 'span',
+          },
+        },
+        rewriteOpts: {
+          power: 0,
+          expand: RewriteMode.Shorter,
+          tone: RewriteMode.Formal,
+        },
+        translateOpts: {},
+      },
+      null,
+      8
+    )}),
+  })
+  
+  const { result, error } = await resp.json()
+  `,
+
+  response: ({ token }: any) =>
+    JSON.stringify(
+      {
+        result: [
+          {
+            _id,
+            token,
+          },
+        ],
+        error: null,
+      },
+      null,
+      2
+    ),
+}
+
+const getExtract = {
+  request: ({
+    token,
+  }: any) => `const resp = await fetch("${HOST_API}/api/extractor/get?id=${_id}&token=${token}", {
+    headers: ${JSON.stringify(headers, null, 8)},
+    method: 'GET',
+    mode: "cors",
+  })
+
+  const { item, error } = await resp.json()
+  `,
+
+  response: ({ token }: any) =>
+    JSON.stringify(
+      {
+        item: {
+          _id,
+          token,
+          status: 9,
+          urlsOrKeys: [
+            'https://lifehacker.ru/chto-meshaet-vybratsya-iz-bednosti/',
+            'https://lifehacker.ru/insult/',
+          ],
+          results: [
+            {
+              url: 'https://lifehacker.ru/chto-meshaet-vybratsya-iz-bednosti/',
+              byline: 'Author Name 1',
+              content: '... <h2>Parsed Heading</h2> ...',
+              description: 'description',
+              originalHtml: '<html>...full html...</html>',
+              siteName: 'Sitename',
+              title: 'Site title',
+            },
+            {
+              url: 'https://lifehacker.ru/insult/',
+              byline: 'Author Name 2',
+              content: '... <h2>Parsed Heading</h2> ...',
+              description: 'description',
+              originalHtml: '<html>...full html...</html>',
+              siteName: 'Sitename',
+              title: 'Site title',
+            },
+          ],
+          union: {
+            byline: 'Author Name 1;Author Name 2',
+            content: '... <h2>Heading</h2> <p>content</p> ...',
+            description: 'description',
+            title: 'Site title',
+          },
           createdAt: new Date().toJSON(),
           updatedAt: new Date().toJSON(),
         },
