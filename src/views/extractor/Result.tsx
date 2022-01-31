@@ -78,6 +78,8 @@ const ResultPage: FC<TResultPage> = () => {
     )
   }
 
+  const isCompleted = data.status === TaskStatus.Completed
+
   return (
     <>
       <div className="min-h-full w-full card">
@@ -140,7 +142,7 @@ const ResultPage: FC<TResultPage> = () => {
                       style={{ background: '#e1f5fe' }}
                     >
                       {translate('Union article')}{' '}
-                      {!data?.results?.length && (
+                      {!isCompleted && (
                         <button className="btn btn-circle loading"></button>
                       )}
                     </div>
