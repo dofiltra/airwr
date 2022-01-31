@@ -147,7 +147,9 @@ const ResultPage: FC<TResultPage> = () => {
                       )}
                     </div>
                     <div
-                      className="collapse-content h-80 overflow-auto"
+                      className={`collapse-content overflow-auto ${
+                        isCompleted ? 'h-80' : ''
+                      }`}
                       style={{ background: '#fff' }}
                       dangerouslySetInnerHTML={{
                         __html: `<h1>${data.union?.title || ''}</h1><br/>${
