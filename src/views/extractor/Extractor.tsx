@@ -7,6 +7,7 @@ import { DateTime } from 'luxon'
 import { Doextractor, RewriteMode, TaskStatus } from 'dprx-types'
 import { ExpandBox, ExpandMode } from 'components/Select/Expand'
 import { ExtractorApi } from 'helpers/api'
+import { Link } from 'react-router-dom'
 import { Loading } from 'components/Containers/Loader'
 import { ToneMode } from 'components/Select/Tone'
 import { smiles } from 'helpers/smiles'
@@ -332,12 +333,12 @@ export default () => {
                       <span className="py-2">
                         #{i + 1} <small>| {task.createdAt} </small>
                       </span>
-                      <a
-                        href={`/extractor/result/${task._id}`}
+                      <Link
+                        to={`/extractor/result/${task._id}`}
                         // target={'_blank'}
                       >
                         {task._id}
-                      </a>
+                      </Link>
                       <small className="w-full p-2">
                         {task.urlsOrKeys?.map((urlOrKey: string) => (
                           <div>{urlOrKey}</div>

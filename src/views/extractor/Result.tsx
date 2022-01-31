@@ -117,7 +117,7 @@ const ResultPage: FC<TResultPage> = () => {
                       {translate(
                         getRewriterStatusText(data.status)
                       ).toLowerCase()}{' '}
-                      {!data?.results?.length && (
+                      {!isCompleted && (
                         <button className="btn btn-sm btn-circle loading"></button>
                       )}
                     </label>
