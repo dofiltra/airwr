@@ -19,8 +19,10 @@ import _ from 'lodash'
 export default () => {
   const { translate } = useLocalize()
   const [groups, setGroups] = useState([] as string[][])
+
+  const [enableCustomizeContent, setEnableCustomizeContent] = useState(false)
   const [limitContent, setLimitContent] = useState(50e3)
-  const [canShuffleBlocks, setCanShuffleBlocks] = useState(true)
+  const [coefShuffleBlocks, setCoefShuffleBlocks] = useState(0)
   const [coefRemoveHeading, setCoefRemoveHeading] = useState(0.8)
   const [coefRemoveContent, setCoefRemoveContent] = useState(0.7)
 
@@ -79,12 +81,26 @@ export default () => {
           </div>
 
           <div className="mb-1 w-full p-2 ">
-            <div className="collapse w-full border rounded-box border-base-300 collapse-arrow">
-              <input type="checkbox" />
-              <div className="collapse-title text-xl font-medium">
-                {translate('Content Settings')}
+            <div className="w-full">
+              <div className="p-2 card bordered">
+                <div className="form-control">
+                  <label className="cursor-pointer label">
+                    <span className="label-text">
+                      {translate('Customize content')}
+                    </span>
+                    <input
+                      type="checkbox"
+                      className="toggle"
+                      onChange={(e) =>
+                        setEnableCustomizeContent(e.target.checked)
+                      }
+                    />
+                  </label>
+                </div>
               </div>
-              <div className="collapse-content">
+            </div>
+            {enableCustomizeContent && (
+              <div className="mb-2 w-full border-2 border-dashed p-4">
                 <div className="mb-1 w-full p-2 ">
                   <div className="form-control">
                     <label className="label">
@@ -102,22 +118,25 @@ export default () => {
                     />
                   </div>
                 </div>
-                <div className="mb-2 w-full p-2 ">
-                  <div className="p-2 card bordered">
-                    <div className="form-control">
-                      <label className="cursor-pointer label">
-                        <span className="label-text">
-                          {translate('Can shuffle blocks')}
-                        </span>
-                        <input
-                          type="checkbox"
-                          className="toggle"
-                          onChange={(e) =>
-                            setCanShuffleBlocks(e.target.checked)
-                          }
-                        />
-                      </label>
-                    </div>
+                <div className="w-full p-1">
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text">
+                        {translate('Coef shuffle blocks')} (
+                        {coefShuffleBlocks * 100}%)
+                      </span>
+                    </label>
+                    <input
+                      type="range"
+                      className="range"
+                      max={100}
+                      value={coefRemoveHeading * 100}
+                      onChange={(e) =>
+                        setCoefShuffleBlocks(
+                          Math.min(parseFloat(e.target.value) / 100, 1)
+                        )
+                      }
+                    />
                   </div>
                 </div>
                 <div className="w-full p-1">
@@ -163,7 +182,7 @@ export default () => {
                   </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
 
           <div className="mb-1 w-full p-2 ">
@@ -218,6 +237,7 @@ export default () => {
               </div>
             )}
           </div>
+
           <div className="flex-auto space-x-3 my-6 flex items-center">
             <button
               onClick={() => {
@@ -241,7 +261,7 @@ export default () => {
                             urlsOrKeys,
                             contentOpts: {
                               limitContent,
-                              canShuffleBlocks,
+                              coefShuffleBlocks,
                             },
                             similarOpts: {
                               coefRemoveHeading,
