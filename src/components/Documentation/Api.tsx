@@ -1131,8 +1131,8 @@ const addExtract = {
             tone: RewriteMode.Formal,
           },
           translateOpts: {
-            selectors: ['p'],
-            lang: LangCode.English,
+            // selectors: ['p'],
+            // lang: LangCode.English,
           },
         },
       ],
