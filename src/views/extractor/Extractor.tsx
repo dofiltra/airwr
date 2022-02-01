@@ -4,7 +4,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { DateTime } from 'luxon'
-import { Doextractor, RewriteMode, TaskStatus } from 'dprx-types'
+import { Doextractor, LangCode, RewriteMode, TaskStatus } from 'dprx-types'
 import { ExpandBox, ExpandMode } from 'components/Select/Expand'
 import { ExtractorApi } from 'helpers/api'
 import { Link } from 'react-router-dom'
@@ -269,11 +269,15 @@ export default () => {
                               },
                             },
                             rewriteOpts: {
+                              selectors: ['p'],
                               power,
                               expand,
                               tone,
                             },
-                            translateOpts: {},
+                            translateOpts: {
+                              selectors: ['p'],
+                              lang: LangCode.English,
+                            },
                           } as Doextractor)
                       )
                   )

@@ -1126,13 +1126,13 @@ const addExtract = {
           },
           rewriteOpts: {
             selectors: ['p'],
-            power: 0,
+            power: 0.5,
             expand: RewriteMode.Shorter,
             tone: RewriteMode.Formal,
           },
           translateOpts: {
             selectors: ['p'],
-            langs: [LangCode.English],
+            lang: LangCode.English,
           },
         },
       ],
