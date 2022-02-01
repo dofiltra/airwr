@@ -269,14 +269,14 @@ export default () => {
                               },
                             },
                             rewriteOpts: {
-                              selectors: ['p'],
+                              selectors: enableRewrite ? ['p'] : [],
                               power,
                               expand,
                               tone,
                             },
                             translateOpts: {
-                              selectors: ['p'],
-                              lang: LangCode.English,
+                              // selectors: ['p'],
+                              // lang: LangCode.English,
                             },
                           } as Doextractor)
                       )
