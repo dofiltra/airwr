@@ -260,7 +260,7 @@ export default () => {
                             },
                             videosOpts: {},
                             typographOpts: {
-                              removeSelectors: {},
+                              removeSelectors: [],
                               removeAttrs: {
                                 'a[href]': ['href', 'onload'],
                               },

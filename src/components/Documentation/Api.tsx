@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC } from 'preact/compat'
 import { HOST_API } from 'helpers/api'
-import { LangCode, RewriteMode, headers } from 'dprx-types'
+import { LangCode, RewriteMode, TaskStatus, headers } from 'dprx-types'
 import { LangCodes } from 'components/Select/Lang'
 import { SignInButtons } from 'components/Buttons/SignIn'
 import { useContext } from 'preact/hooks'
@@ -1116,7 +1116,7 @@ const addExtract = {
           },
           videosOpts: {},
           typographOpts: {
-            removeSelectors: {},
+            removeSelectors: [],
             removeAttrs: {
               'a[href]': ['href', 'onload'],
             },
@@ -1125,11 +1125,15 @@ const addExtract = {
             },
           },
           rewriteOpts: {
+            selectors: ['p'],
             power: 0,
             expand: RewriteMode.Shorter,
             tone: RewriteMode.Formal,
           },
-          translateOpts: {},
+          translateOpts: {
+            selectors: ['p'],
+            langs: [LangCode.English],
+          },
         },
       ],
       null,
@@ -1174,7 +1178,7 @@ const getExtract = {
         item: {
           _id,
           token,
-          status: 9,
+          status: TaskStatus.Completed,
           urlsOrKeys: [
             'https://lifehacker.ru/chto-meshaet-vybratsya-iz-bednosti/',
             'https://lifehacker.ru/insult/',
