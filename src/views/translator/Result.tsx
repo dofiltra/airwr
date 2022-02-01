@@ -211,7 +211,11 @@ const TranslateResultPage: FC<TResultPage> = () => {
                           <button className="btn btn-circle loading"></button>
                         )}
                       </label>
-                      <div className="editor-wrapper h-96 overflow-auto w-full border-4 border-dashed border-gray-200 rounded-lg p-3">
+                      <div
+                        className={`editor-wrapper overflow-auto w-full border-4 border-dashed border-gray-200 rounded-lg p-3 ${
+                          isCompleted ? 'h-96' : 'h-0'
+                        }`}
+                      >
                         <div id={`translate_${lang}`}></div>
                       </div>
                     </div>
