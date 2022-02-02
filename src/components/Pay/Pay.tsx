@@ -28,7 +28,36 @@ export default function Pay({}) {
           {translate('Balance', { coins: coins.toFixed(4) })}
         </p>
         <div className="md:block p-2">
-          <div className="form-control max-w-screen-sm">
+          <div className="form-control">
+            <div className="btn-group py-2">
+              <button
+                className={`btn btn-xs ${
+                  payType === 'Yoomoney'
+                    ? 'btn-active btn-error text-error'
+                    : ''
+                }`}
+                onClick={() => setPayType('Yoomoney')}
+              >
+                Yoomoney
+              </button>
+              <button
+                className={`btn btn-xs ${
+                  payType === 'WMZ' ? 'btn-active btn-error text-error' : ''
+                }`}
+                onClick={() => setPayType('WMZ')}
+              >
+                WMZ
+              </button>
+              <button
+                className={`btn btn-xs ${
+                  payType === 'CARDS' ? 'btn-active btn-error text-error' : ''
+                }`}
+                onClick={() => setPayType('CARDS')}
+              >
+                Cards
+              </button>
+            </div>
+
             {payType === 'Yoomoney' && (
               <>
                 <input
@@ -81,34 +110,6 @@ export default function Pay({}) {
             {payType === 'CARDS' && (
               <div>{translate('CARDS', { token: user?.uid || '' })}</div>
             )}
-            <div className="btn-group py-2">
-              <button
-                className={`btn btn-xs ${
-                  payType === 'Yoomoney'
-                    ? 'btn-active btn-error text-error'
-                    : ''
-                }`}
-                onClick={() => setPayType('Yoomoney')}
-              >
-                Yoomoney
-              </button>
-              <button
-                className={`btn btn-xs ${
-                  payType === 'WMZ' ? 'btn-active btn-error text-error' : ''
-                }`}
-                onClick={() => setPayType('WMZ')}
-              >
-                WMZ
-              </button>
-              <button
-                className={`btn btn-xs ${
-                  payType === 'CARDS' ? 'btn-active btn-error text-error' : ''
-                }`}
-                onClick={() => setPayType('CARDS')}
-              >
-                Cards
-              </button>
-            </div>
 
             {payLink && (
               <p>
