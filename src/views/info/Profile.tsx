@@ -40,13 +40,23 @@ export default () => {
         <p className="mb-5">
           <Pay />
         </p>
-        {Object.keys(history).length && (
-          <>
-            <hr className="mb-5" />
-            <p className="mb-5">{translate('RewriteStats')}</p>
-            <pre className="p-2">{JSON.stringify(history, null, 4)}</pre>
-          </>
-        )}
+        <div className="mb-1 w-full p-2 ">
+          <div className="collapse w-full border rounded-box border-base-300 collapse-arrow">
+            <input type="checkbox" />
+            <div className="collapse-title text-xl font-medium">
+              {translate('RewriteStats')}
+            </div>
+            <div className="collapse-content">
+              <div className="overflow-x-auto">
+                <>
+                  <hr className="mb-5" />
+                  <p className="mb-5"></p>
+                  <pre className="p-2">{JSON.stringify(history, null, 4)}</pre>
+                </>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   )

@@ -41,7 +41,7 @@ export default function Pay({}) {
                     void BalanceApi.isExistsPromo(code).then(({ isExists }) => {
                       setExistsPromo(!!isExists)
                     })
-                    console.log(e.target.value)
+                    console.log(code)
                   }}
                   className={`w-full pr-16 mb-2 input input-primary input-bordered ${
                     promoCode
