@@ -178,7 +178,7 @@ export default () => {
             )}
           </div>
 
-          <div className="mb-1 w-full p-2 ">
+          <div className="mb-1 w-full p-2 hidden">
             <div className="w-full">
               <div className="p-2 card bordered">
                 <div className="form-control">
