@@ -141,7 +141,7 @@ const ResultPage: FC<TResultPage> = () => {
                       className="collapse-title text-xl font-medium border-b-2"
                       style={{ background: '#e1f5fe' }}
                     >
-                      {translate('Union article')}{' '}
+                      {data.union?.title || translate('Union article')}{' '}
                       {!isCompleted && (
                         <button className="btn btn-circle loading"></button>
                       )}
@@ -152,9 +152,7 @@ const ResultPage: FC<TResultPage> = () => {
                       }`}
                       style={{ background: '#fff' }}
                       dangerouslySetInnerHTML={{
-                        __html: `<h1>${data.union?.title || ''}</h1><br/>${
-                          data.union?.content || ''
-                        }`,
+                        __html: `${data.union?.content || ''}`,
                       }}
                     ></div>
                   </div>
@@ -166,7 +164,7 @@ const ResultPage: FC<TResultPage> = () => {
                 <div className="mb-1 w-full p-2 m-2">
                   <h2>
                     {translate('Extracted urls')}{' '}
-                    {!data?.results?.length && (
+                    {!isCompleted && (
                       <button className="btn btn-circle loading"></button>
                     )}
                   </h2>
@@ -191,7 +189,7 @@ const ResultPage: FC<TResultPage> = () => {
                   >
                     {translate('Original articles')} (
                     {data?.results?.length || 0}){' '}
-                    {!data?.results?.length && (
+                    {!isCompleted && (
                       <button className="btn btn-circle loading"></button>
                     )}
                   </div>

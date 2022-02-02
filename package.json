@@ -78,7 +78,7 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "eslint-plugin-sort-imports-es6-autofix": "^0.6.0",
     "eslint-plugin-valtio": "^0.4.1",
-    "postcss": "^8.4.5",
+    "postcss": "^8.4.6",
     "prettier": "^2.5.1",
     "react-scripts": "^5.0.0",
     "rollup-plugin-visualizer": "^5.5.4",
