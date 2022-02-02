@@ -45,6 +45,19 @@ export class BalanceApi extends BaseApi {
 
     return { coins, info }
   }
+
+  static async isExistsPromo(code: string) {
+    if (!code) {
+      return { isExists: false }
+    }
+
+    const { exists = false } = await this.send({
+      url: `${HOST_API}/api/balance/promo?code=${code}`,
+      method: 'GET',
+    })
+
+    return { isExists: exists }
+  }
 }
 
 export class TranslateApi extends BaseApi {

@@ -3,6 +3,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 // import { useState } from 'preact/hooks'
+import { BalanceApi } from 'helpers/api'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import AuthContext from 'components/Auth/AuthContext'
 import React, { useContext, useState } from 'preact/compat'
@@ -13,6 +14,8 @@ export default function Pay({}) {
   const { translate } = useLocalize()
   const { coins = 0 } = useBalance(user?.uid || '')
   const [plusCoins, setPlusCoins] = useState(10)
+  const [promoCode, setPromoCode] = useState('')
+  const [isExistsPromo, setExistsPromo] = useState(false)
   const [payLink, setPayLink] = useState('')
   const [payType, setPayType] = useState<'Yoomoney' | 'WMZ' | 'CARDS'>(
     'Yoomoney'
@@ -27,26 +30,50 @@ export default function Pay({}) {
         <div className="md:block p-2">
           <div className="form-control max-w-screen-sm">
             {payType === 'Yoomoney' && (
-              <div className="relative">
+              <>
                 <input
-                  type="number"
-                  placeholder="10"
-                  value={plusCoins || 1}
+                  type="text"
+                  placeholder="PROMO CODE"
+                  value={promoCode}
                   onChange={(e: any) => {
-                    setPayLink('')
-                    setPlusCoins(parseInt(e.target.value || '1', 10))
+                    const code = e.target.value?.toUpperCase()
+                    setPromoCode(code)
+                    void BalanceApi.isExistsPromo(code).then(({ isExists }) => {
+                      setExistsPromo(!!isExists)
+                    })
+                    console.log(e.target.value)
                   }}
-                  className="w-full pr-16 input input-primary input-bordered"
+                  className={`w-full pr-16 mb-2 input input-primary input-bordered ${
+                    promoCode
+                      ? isExistsPromo
+                        ? 'input-success'
+                        : 'input-error'
+                      : ''
+                  }`}
                 />
-                <button
-                  className="absolute top-0 right-0 rounded-l-none btn btn-primary"
-                  onClick={(e) =>
-                    user?.uid && setPayLink(payYoomoney(user.uid, plusCoins))
-                  }
-                >
-                  {translate('BalanceUpButton')}
-                </button>
-              </div>
+
+                <div className="relative">
+                  <input
+                    type="number"
+                    placeholder="10"
+                    value={plusCoins || 1}
+                    onChange={(e: any) => {
+                      setPayLink('')
+                      setPlusCoins(parseInt(e.target.value || '1', 10))
+                    }}
+                    className="w-full pr-16 input input-primary input-bordered"
+                  />
+
+                  <button
+                    className="absolute top-0 right-0 rounded-l-none btn btn-primary"
+                    onClick={(e) =>
+                      user?.uid && setPayLink(payYoomoney(user.uid, plusCoins))
+                    }
+                  >
+                    {translate('BalanceUpButton')}
+                  </button>
+                </div>
+              </>
             )}
             {payType === 'WMZ' && (
               <div>{translate('WMZ', { token: user?.uid || '' })}</div>
@@ -103,7 +130,7 @@ function payYoomoney(token: string, plusCoins: number) {
     return ''
   }
 
-  const USDRUB = 73 // TODO: from api
+  const USDRUB = 75 // TODO: from api
   const payLink = `https://api.dofiltra.com/api/balance/pay-yoomoney?sum=${
     plusCoins * USDRUB
   }&label=${token}&targets=AI+Dofiltra&successUrl=https://ai.dofiltra.com/profile`
