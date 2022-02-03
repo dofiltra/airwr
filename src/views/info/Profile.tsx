@@ -1,9 +1,10 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { BalanceApi } from 'helpers/api'
 import { SignInButtons } from 'components/Buttons/SignIn'
 import { smiles } from 'helpers/smiles'
-import { useContext } from 'preact/hooks'
+import { useContext, useEffect, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import AuthContext from 'components/Auth/AuthContext'
 import Pay from 'components/Pay/Pay'
@@ -14,9 +15,9 @@ export default () => {
   const smileSrc = smiles.sort(() => (Math.random() > 0.5 ? 1 : -1))[0]
 
   const { user } = useContext(AuthContext)
-  const { history = {} } = useRewritedCharsCount(user?.uid || '')
+  const token = user?.uid || ''
 
-  if (!user?.uid) {
+  if (!token) {
     return (
       <div className="min-h-full">
         <div className="w-full ">
@@ -28,6 +29,20 @@ export default () => {
       </div>
     )
   }
+
+  const { history = {} } = useRewritedCharsCount(token)
+  const [myPromoCode, setMyPromoCode] = useState('')
+  const [myPromoError, setMyPromoError] = useState('')
+  const [myPromoPercent, setMyPromoPercent] = useState(10)
+
+  useEffect(() => {
+    const loadPromo = async () => {
+      const { code: loadedCode, percent } = await BalanceApi.getPromoCode(token)
+      setMyPromoCode(loadedCode)
+      setMyPromoPercent(percent)
+    }
+    void loadPromo()
+  }, [token])
 
   return (
     <>
@@ -52,6 +67,50 @@ export default () => {
                   <hr className="mb-5" />
                   <p className="mb-5"></p>
                   <pre className="p-2">{JSON.stringify(history, null, 4)}</pre>
+                </>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mb-1 w-full p-2 ">
+          <div className="collapse w-full border rounded-box border-base-300 collapse-arrow">
+            <input type="checkbox" />
+            <div className="collapse-title text-xl font-medium">
+              {translate('My Promo Code')}
+            </div>
+            <div className="collapse-content">
+              <div className="overflow-x-auto">
+                <>
+                  <hr className="mb-5" />
+                  {translate('Send promo code another users', {
+                    percent: myPromoPercent,
+                  })}
+                  <div className="text-error">{translate(myPromoError)}</div>
+                  <input
+                    type="text"
+                    placeholder="MY_PROMO_CODE"
+                    value={myPromoCode}
+                    onChange={(e: any) => {
+                      const code = e.target.value
+                        ?.toUpperCase()
+                        .replaceAll(' ', '_')
+
+                      setMyPromoCode(code)
+                      void BalanceApi.setPromoCode(token, code).then(
+                        ({ set, error }: any) => {
+                          setMyPromoError(error)
+                        }
+                      )
+                    }}
+                    className={`w-full mb-2 input input-bordered ${
+                      myPromoError
+                        ? 'input-error'
+                        : myPromoError === undefined
+                        ? 'input-success'
+                        : ''
+                    }`}
+                  />
                 </>
               </div>
             </div>

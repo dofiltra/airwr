@@ -46,9 +46,11 @@
   "Balance": "Balance: ${{coins}}",
   "BalanceUpButton": "Pay",
   "RewriteStats": "Rewrite Stats",
+  "My Promo Code": "My Promo Code",
+  "Send promo code another users": "Send promo code another users",
   "PayLink": "Pay link",
   "WMZ": "Use tranfser on Z126091696076 & write comment with your token {{token}}",
   "CARDS": "For direct deposit via Russian Tinkoff/Sber contact Telegram to @memanot or @Denmir777",
 
-  "Select langs for Translate":"Select langs for Translate (use 'Ctrl' for Multiple select)"
+  "Select langs for Translate": "Select langs for Translate (use 'Ctrl' for Multiple select)"
 }

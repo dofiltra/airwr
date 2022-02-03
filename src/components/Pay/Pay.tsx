@@ -58,29 +58,28 @@ export default function Pay({}) {
               </button>
             </div>
 
+            <input
+              type="text"
+              placeholder="PROMO CODE"
+              value={promoCode}
+              onChange={(e: any) => {
+                const code = e.target.value?.toUpperCase()
+                setPromoCode(code)
+                void BalanceApi.isExistsPromo(code).then(({ isExists }) => {
+                  setExistsPromo(!!isExists)
+                })
+              }}
+              className={`w-full pr-16 mb-2 input input-primary input-bordered ${
+                promoCode
+                  ? isExistsPromo
+                    ? 'input-success'
+                    : 'input-error'
+                  : ''
+              }`}
+            />
+
             {payType === 'Yoomoney' && (
               <>
-                <input
-                  type="text"
-                  placeholder="PROMO CODE"
-                  value={promoCode}
-                  onChange={(e: any) => {
-                    const code = e.target.value?.toUpperCase()
-                    setPromoCode(code)
-                    void BalanceApi.isExistsPromo(code).then(({ isExists }) => {
-                      setExistsPromo(!!isExists)
-                    })
-                    console.log(code)
-                  }}
-                  className={`w-full pr-16 mb-2 input input-primary input-bordered ${
-                    promoCode
-                      ? isExistsPromo
-                        ? 'input-success'
-                        : 'input-error'
-                      : ''
-                  }`}
-                />
-
                 <div className="relative">
                   <input
                     type="number"

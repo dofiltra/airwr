@@ -58,6 +58,32 @@ export class BalanceApi extends BaseApi {
 
     return { isExists: exists }
   }
+
+  static async setPromoCode(token: string, code: string) {
+    if (!code || !token) {
+      return { set: null }
+    }
+
+    const { set } = await this.send({
+      url: `${HOST_API}/api/balance/promo?token=${token}&code=${code}&action=set`,
+      method: 'GET',
+    })
+
+    return { set }
+  }
+
+  static async getPromoCode(token: string) {
+    if (!token) {
+      return { code: '', percent: 10 }
+    }
+
+    const { get } = await this.send({
+      url: `${HOST_API}/api/balance/promo?token=${token}&action=get`,
+      method: 'GET',
+    })
+
+    return { code: get?.code, percent: get?.percent || 10 }
+  }
 }
 
 export class TranslateApi extends BaseApi {
