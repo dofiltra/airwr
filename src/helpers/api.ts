@@ -46,6 +46,15 @@ export class BalanceApi extends BaseApi {
     return { coins, info }
   }
 
+  static async getUsdPrice() {
+    const { USDRUB = '75' } = await this.send({
+      url: `${HOST_API}/api/balance/getUsdPrice`,
+      method: 'GET',
+    })
+
+    return { USDRUB: parseInt(USDRUB, 10) }
+  }
+
   static async isExistsPromo(code: string) {
     if (!code) {
       return { isExists: false }

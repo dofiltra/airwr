@@ -6,7 +6,7 @@
 import { BalanceApi } from 'helpers/api'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import AuthContext from 'components/Auth/AuthContext'
-import React, { useContext, useState } from 'preact/compat'
+import React, { useContext, useEffect, useState } from 'preact/compat'
 import useBalance from 'hooks/useBalance'
 
 export default function Pay({}) {
@@ -20,6 +20,16 @@ export default function Pay({}) {
   const [payType, setPayType] = useState<'Yoomoney' | 'WMZ' | 'CARDS'>(
     'Yoomoney'
   )
+  const token = user?.uid || ''
+  const [usdrub, setUsdRub] = useState(75)
+
+  useEffect(() => {
+    const loadPromo = async () => {
+      const { USDRUB } = await BalanceApi.getUsdPrice()
+      setUsdRub(USDRUB)
+    }
+    void loadPromo()
+  }, [])
 
   return (
     <>
@@ -95,7 +105,10 @@ export default function Pay({}) {
                   <button
                     className="absolute top-0 right-0 rounded-l-none btn btn-primary"
                     onClick={(e) =>
-                      user?.uid && setPayLink(payYoomoney(user.uid, plusCoins))
+                      token &&
+                      setPayLink(
+                        payYoomoney(token, plusCoins, usdrub, promoCode)
+                      )
                     }
                   >
                     {translate('BalanceUpButton')}
@@ -104,10 +117,20 @@ export default function Pay({}) {
               </>
             )}
             {payType === 'WMZ' && (
-              <div>{translate('WMZ', { token: user?.uid || '' })}</div>
+              <div>
+                {translate('WMZ', {
+                  token,
+                  promoCode: promoCode ? `__${promoCode}` : '',
+                })}
+              </div>
             )}
             {payType === 'CARDS' && (
-              <div>{translate('CARDS', { token: user?.uid || '' })}</div>
+              <div>
+                {translate('CARDS', {
+                  token,
+                  promoCode: promoCode ? `__${promoCode}` : '',
+                })}
+              </div>
             )}
 
             {payLink && (
@@ -124,16 +147,21 @@ export default function Pay({}) {
   )
 }
 
-function payYoomoney(token: string, plusCoins: number) {
+function payYoomoney(
+  token: string,
+  plusCoins: number,
+  usdrub: number,
+  promoCode?: string
+) {
   if (plusCoins < 1) {
     alert('Minimum 1 USD')
     return ''
   }
 
-  const USDRUB = 75 // TODO: from api
+  const label = `${token}__${promoCode}`
   const payLink = `https://api.dofiltra.com/api/balance/pay-yoomoney?sum=${
-    plusCoins * USDRUB
-  }&label=${token}&targets=AI+Dofiltra&successUrl=https://ai.dofiltra.com/profile`
+    plusCoins * usdrub
+  }&label=${label}&targets=AI+Dofiltra&successUrl=https://ai.dofiltra.com/profile`
   window.open(payLink, '_blank')
 
   return payLink
