@@ -166,8 +166,8 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
         <div className="mb-1 md:mb-0 w-full p-2 text-center">
           <div>
             {translate('Queue', { count: queueCount })}
-            {queueCount > 100 &&
-              translate('QueueCharsCount', { chars: queueChars })}
+            {/* {queueCount > 100 &&
+              translate('QueueCharsCount', { chars: queueChars })} */}
           </div>
         </div>
 

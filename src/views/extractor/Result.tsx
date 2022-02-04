@@ -93,8 +93,8 @@ const ResultPage: FC<TResultPage> = () => {
               <div className="mt-4 md:mb-0 w-full text-center">
                 <div>
                   {translate('Queue', { count: queueCount })}
-                  {queueCount > 100 &&
-                    translate('QueueCharsCount', { chars: queueChars })}
+                  {/* {queueCount > 100 &&
+                    translate('QueueCharsCount', { chars: queueChars })} */}
                 </div>
               </div>
 
