@@ -73,12 +73,10 @@ export class BalanceApi extends BaseApi {
       return { set: null }
     }
 
-    const { set } = await this.send({
+    return await this.send({
       url: `${HOST_API}/api/balance/promo?token=${token}&code=${code}&action=set`,
       method: 'GET',
     })
-
-    return { set }
   }
 
   static async getPromoCode(token: string) {

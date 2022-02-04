@@ -87,30 +87,45 @@ export default () => {
                     percent: myPromoPercent,
                   })}
                   <div className="text-error">{translate(myPromoError)}</div>
-                  <input
-                    type="text"
-                    placeholder="MY_PROMO_CODE"
-                    value={myPromoCode}
-                    onChange={(e: any) => {
-                      const code = e.target.value
-                        ?.toUpperCase()
-                        .replaceAll(' ', '_')
+                  <div className="relative">
+                    <input
+                      type="text"
+                      placeholder="MY_PROMO_CODE"
+                      value={myPromoCode}
+                      onChange={(e: any) => {
+                        const code = e.target.value
+                          ?.toUpperCase()
+                          .replaceAll(' ', '_')
 
-                      setMyPromoCode(code)
-                      void BalanceApi.setPromoCode(token, code).then(
-                        ({ set, error }: any) => {
-                          setMyPromoError(error)
-                        }
-                      )
-                    }}
-                    className={`w-full mb-2 input input-bordered ${
-                      myPromoError
-                        ? 'input-error'
-                        : myPromoError === undefined
-                        ? 'input-success'
-                        : ''
-                    }`}
-                  />
+                        setMyPromoCode(code)
+                      }}
+                      className={`w-full mb-2 input input-bordered ${
+                        myPromoError
+                          ? 'input-error'
+                          : myPromoError === undefined
+                          ? 'input-success'
+                          : ''
+                      }`}
+                    />
+                    <button
+                      className={
+                        'absolute top-0 right-0 rounded-l-none btn btn-primary'
+                      }
+                      onClick={() => {
+                        void BalanceApi.setPromoCode(token, myPromoCode).then(
+                          ({ set, error, exists }: any) => {
+                            setMyPromoError(error)
+
+                            if (!error && set?.code && !exists) {
+                              alert('Successful!')
+                            }
+                          }
+                        )
+                      }}
+                    >
+                      {translate('Save')}
+                    </button>
+                  </div>
                 </>
               </div>
             </div>
