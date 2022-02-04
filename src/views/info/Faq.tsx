@@ -24,10 +24,10 @@ export default () => {
             </p>
             <p className="text-center">
               <a
-                href="/download/Rewritery_v7.zip"
+                href="/download/Rewritery_v9.zip"
                 className="btn btn-info text-white"
               >
-                {translate('PluginDownload')}
+                {translate('PluginDownload')} (v9)
               </a>
             </p>
           </div>

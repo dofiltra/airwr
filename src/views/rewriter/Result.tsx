@@ -43,13 +43,18 @@ const RewriterResultPage: FC<TResultPage> = () => {
       })
 
       socket.on(SocketEvent.Connect, () => {
+        const roomId = `${SocketEvent.RewritePrefix}${id}`
         socket?.emit(SocketEvent.Join, {
-          roomId: `${SocketEvent.RewritePrefix}${id}`,
+          roomId,
         })
       })
 
       socket.on(SocketEvent.AibackUpdate, (data: RewriteText) => {
-        data && setRewriteData(data)
+        if ((data as any)?._id !== id) {
+          return
+        }
+
+        setRewriteData(data)
         if (data?.status === TaskStatus.Completed) {
           socket?.disconnect()
         }
