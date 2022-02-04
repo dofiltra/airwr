@@ -47,7 +47,11 @@ const ResultPage: FC<TResultPage> = () => {
       })
 
       socket.on(SocketEvent.AibackUpdate, (data: any) => {
-        data && setData(data)
+        if ((data as any)?._id !== id) {
+          return
+        }
+
+        setData(data)
         if (data?.status === TaskStatus.Completed) {
           socket?.disconnect()
         }

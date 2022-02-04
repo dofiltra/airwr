@@ -49,7 +49,11 @@ const TranslateResultPage: FC<TResultPage> = () => {
       })
 
       socket.on(SocketEvent.AibackUpdate, (data: any) => {
-        data && setTranslateData(data)
+        if ((data as any)?._id !== id) {
+          return
+        }
+
+        setTranslateData(data)
         if (data?.status === TaskStatus.Completed) {
           socket?.disconnect()
         }
