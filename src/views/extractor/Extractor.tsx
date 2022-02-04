@@ -139,8 +139,9 @@ export default () => {
                 <div className="w-full p-1">
                   <div className="form-control">
                     <label className="text-white-700">
-                      {translate('Remove similar heading')} (
-                      {(coefRemoveHeading * 100).toFixed(0)}%)
+                      {translate('Remove similar heading', {
+                        percent: (coefRemoveHeading * 100).toFixed(0),
+                      })}
                     </label>
                     <input
                       type="range"
@@ -158,8 +159,9 @@ export default () => {
                 <div className="w-full p-1">
                   <div className="form-control">
                     <label className="text-white-700">
-                      {translate('Remove similar content blocks')} (
-                      {(coefRemoveContent * 100).toFixed(0)}%)
+                      {translate('Remove similar content blocks', {
+                        percent: (coefRemoveContent * 100).toFixed(0),
+                      })}
                     </label>
                     <input
                       type="range"

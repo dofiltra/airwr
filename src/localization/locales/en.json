@@ -54,5 +54,10 @@
   "CARDS": "For direct deposit via Russian Tinkoff/Sber contact Telegram to @memanot or @Denmir777",
 
   "Select langs for Translate": "Select langs for Translate (use 'Ctrl' for Multiple select)",
-  "CODE_BUSY": "PromoCode is busy"
+  "CODE_BUSY": "PromoCode is busy",
+  "Customize content":"",
+  "Limit chars count": "Limit chars count for union article",
+  "Shuffle blocks": "Shuffle blocks",
+  "Remove similar heading": "Remove similar heading {{percent}}%",
+  "Remove similar content blocks": "Remove similar content blocks {{percent}}%"
 }
