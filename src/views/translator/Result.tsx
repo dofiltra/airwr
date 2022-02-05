@@ -13,7 +13,6 @@ import { io } from 'socket.io-client'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import { useParams } from 'react-router-dom'
 import EditorJS from '@editorjs/editorjs'
-import useQueueCount from 'hooks/useQueueCount'
 
 type TResultPage = {
   //

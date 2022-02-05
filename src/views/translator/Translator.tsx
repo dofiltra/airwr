@@ -7,15 +7,13 @@ import { BlockContent, Dotranslate, LangCode, TaskStatus } from 'dprx-types'
 import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
 import { LangApi, TranslateApi } from 'helpers/api'
 import { LangBox } from 'components/Select/Lang'
-import { Loading, LoadingContainer } from 'components/Containers/Loader'
+import { LoadingContainer } from 'components/Containers/Loader'
 import { Navigate } from 'react-router-dom'
 import { PageH1, QueueContainer } from 'components/Containers/PageContainers'
-import { smiles } from 'helpers/smiles'
 import { useContext, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import AuthContext from 'components/Auth/AuthContext'
 import EditorJS from '@editorjs/editorjs'
-import useQueueCount from 'hooks/useQueueCount'
 
 const editorId = 'holder_translate'
 
@@ -23,7 +21,6 @@ export default () => {
   const { translate } = useLocalize()
   const [isVisibleContent, setVisibleContent] = useState(true)
   const [linkResultId, setLinkResult] = useState('')
-  const smileSrc = smiles.sort(() => (Math.random() > 0.5 ? 1 : -1))[0]
 
   if (linkResultId) {
     return <Navigate to={`/translator/result/${linkResultId}`} />
@@ -33,7 +30,6 @@ export default () => {
     return <LoadingContainer />
   }
 
-  const { queueCount = 0, queueChars = 0 } = useQueueCount()
   const [langs, setLangs] = useState([] as LangCode[])
   const [currentLang, setCurrentLang] = useState('' as LangCode)
   const { user } = useContext(AuthContext)

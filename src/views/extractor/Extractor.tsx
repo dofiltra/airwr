@@ -11,13 +11,11 @@ import { Link } from 'react-router-dom'
 import { LoadingContainer } from 'components/Containers/Loader'
 import { PageH1, QueueContainer } from 'components/Containers/PageContainers'
 import { ToneMode } from 'components/Select/Tone'
-import { smiles } from 'helpers/smiles'
 import { useContext, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import AppStore from 'stores/AppStore'
 import AuthContext from 'components/Auth/AuthContext'
 import _ from 'lodash'
-import useQueueCount from 'hooks/useQueueCount'
 
 export default () => {
   const { translate } = useLocalize()
@@ -42,12 +40,10 @@ export default () => {
   const [isOpenHistory, setIsOpenHistory] = useState(false)
   const { user } = useContext(AuthContext)
   const token = user?.uid || ''
-  const smileSrc = smiles.sort(() => (Math.random() > 0.5 ? 1 : -1))[0]
 
   if (!isVisibleContent && !AppStore.extractorTasks?.length) {
     return <LoadingContainer />
   }
-  const { queueCount = 0, queueChars = 0 } = useQueueCount()
 
   return (
     <>

@@ -33,7 +33,6 @@ function getBackgroundColorByStatus(status: number) {
 const RewriterResultPage: FC<TResultPage> = () => {
   const { id = '' } = useParams()
   const { translate } = useLocalize()
-  const { queueCount = 0, queueChars = 0 } = useQueueCount()
   const [rewriteData, setRewriteData] = useState({} as RewriteText)
 
   useEffect(() => {

@@ -11,7 +11,6 @@ import { getRewriterStatusText } from 'helpers/rewriter'
 import { io } from 'socket.io-client'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import { useParams } from 'react-router-dom'
-import useQueueCount from 'hooks/useQueueCount'
 
 type TResultPage = {
   //
@@ -31,7 +30,6 @@ function getBackgroundColorByStatus(status: number) {
 const ResultPage: FC<TResultPage> = () => {
   const { id = '' } = useParams()
   const { translate } = useLocalize()
-  const { queueCount = 0, queueChars = 0 } = useQueueCount()
   const [data, setData] = useState({} as Doextractor)
 
   useEffect(() => {
