@@ -4,11 +4,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { DateTime } from 'luxon'
-import { Doextractor, LangCode, RewriteMode, TaskStatus } from 'dprx-types'
+import { Doextractor, RewriteMode, TaskStatus } from 'dprx-types'
 import { ExpandBox, ExpandMode } from 'components/Select/Expand'
 import { ExtractorApi } from 'helpers/api'
 import { Link } from 'react-router-dom'
-import { Loading } from 'components/Containers/Loader'
+import { LoadingContainer } from 'components/Containers/Loader'
 import { ToneMode } from 'components/Select/Tone'
 import { smiles } from 'helpers/smiles'
 import { useContext, useState } from 'preact/hooks'
@@ -44,12 +44,7 @@ export default () => {
   const smileSrc = smiles.sort(() => (Math.random() > 0.5 ? 1 : -1))[0]
 
   if (!isVisibleContent && !AppStore.extractorTasks?.length) {
-    return (
-      <div className="h-96">
-        <div className="justify-center flex">{translate('Loading')}</div>
-        <Loading />
-      </div>
-    )
+    return <LoadingContainer />
   }
   const { queueCount = 0, queueChars = 0 } = useQueueCount()
 

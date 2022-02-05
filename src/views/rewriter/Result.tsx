@@ -6,7 +6,7 @@ import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
 import { FC, useEffect, useState } from 'preact/compat'
 import { HOST_API } from 'helpers/api'
 import { LangBox } from 'components/Select/Lang'
-import { Loading } from 'components/Containers/Loader'
+import { Loading, LoadingContainer } from 'components/Containers/Loader'
 import { getRewriterStatusText } from 'helpers/rewriter'
 import { io } from 'socket.io-client'
 import { useLocalize } from '@borodutch-labs/localize-react'
@@ -63,13 +63,9 @@ const RewriterResultPage: FC<TResultPage> = () => {
   }, [id])
 
   if (!rewriteData?.blocks?.length) {
-    return (
-      <div className="h-96">
-        <div className="justify-center flex">{translate('Loading')}</div>
-        <Loading />
-      </div>
-    )
+    return <LoadingContainer />
   }
+
   const status = rewriteData.status
   const blocksForRewrite = rewriteData.blocks.filter(
     (b: BlockContent) =>

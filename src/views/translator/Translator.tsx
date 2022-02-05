@@ -7,7 +7,7 @@ import { BlockContent, Dotranslate, LangCode, TaskStatus } from 'dprx-types'
 import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
 import { LangApi, TranslateApi } from 'helpers/api'
 import { LangBox } from 'components/Select/Lang'
-import { Loading } from 'components/Containers/Loader'
+import { Loading, LoadingContainer } from 'components/Containers/Loader'
 import { Navigate } from 'react-router-dom'
 import { smiles } from 'helpers/smiles'
 import { useContext, useState } from 'preact/hooks'
@@ -30,10 +30,7 @@ export default () => {
 
   if (!isVisibleContent) {
     return (
-      <div className="h-96">
-        <div className="justify-center flex">{translate('Loading')}</div>
-        <Loading />
-      </div>
+     <LoadingContainer />
     )
   }
 

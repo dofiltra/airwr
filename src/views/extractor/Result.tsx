@@ -5,7 +5,7 @@
 import { Doextractor, SocketEvent, TaskStatus } from 'dprx-types'
 import { FC, useEffect, useState } from 'preact/compat'
 import { HOST_API } from 'helpers/api'
-import { Loading } from 'components/Containers/Loader'
+import { Loading, LoadingContainer } from 'components/Containers/Loader'
 import { getRewriterStatusText } from 'helpers/rewriter'
 import { io } from 'socket.io-client'
 import { useLocalize } from '@borodutch-labs/localize-react'
@@ -74,12 +74,7 @@ const ResultPage: FC<TResultPage> = () => {
   }, [data])
 
   if (!Object.keys(data || {})?.length) {
-    return (
-      <div className="h-96">
-        <div className="justify-center flex">{translate('Loading')}</div>
-        <Loading />
-      </div>
-    )
+    return <LoadingContainer />
   }
 
   const isCompleted = data.status === TaskStatus.Completed

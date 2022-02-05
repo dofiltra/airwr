@@ -9,7 +9,7 @@ import { ExpandBox, ExpandMode } from 'components/Select/Expand'
 import { FC } from 'preact/compat'
 import { LangApi, RewriteApi } from 'helpers/api'
 import { LangBox } from 'components/Select/Lang'
-import { Loading } from 'components/Containers/Loader'
+import { Loading, LoadingContainer } from 'components/Containers/Loader'
 import { Navigate } from 'react-router-dom'
 import { ToneMode } from 'components/Select/Tone'
 import { smiles } from 'helpers/smiles'
@@ -114,12 +114,7 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
   const [power, setPower] = useState(0.5)
 
   if (!isVisibleContent) {
-    return (
-      <div className="h-96">
-        <div className="justify-center flex">{translate('Loading')}</div>
-        <Loading />
-      </div>
-    )
+    return <LoadingContainer />
   }
 
   const { queueCount = 0, queueChars = 0 } = useQueueCount()
