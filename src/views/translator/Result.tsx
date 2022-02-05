@@ -4,32 +4,17 @@
 
 import { Dotranslate, SocketEvent, TaskStatus } from 'dprx-types'
 import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
-import { FC, useEffect, useState } from 'preact/compat'
 import { HOST_API } from 'helpers/api'
 import { LoadingContainer } from 'components/Containers/Loader'
 import { QueueContainer } from 'components/Containers/PageContainers'
-import { getRewriterStatusText } from 'helpers/rewriter'
+import { getBackgroundColorByStatus, getStatusText } from 'helpers/task'
 import { io } from 'socket.io-client'
+import { useEffect, useState } from 'preact/compat'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import { useParams } from 'react-router-dom'
 import EditorJS from '@editorjs/editorjs'
 
-type TResultPage = {
-  //
-}
-
-function getBackgroundColorByStatus(status: number) {
-  switch (status) {
-    case TaskStatus.InProgress:
-      return 'alert-info'
-    case TaskStatus.Completed:
-      return 'alert-success'
-  }
-
-  return ''
-}
-
-const TranslateResultPage: FC<TResultPage> = () => {
+const TranslateResultPage = () => {
   const { id = '' } = useParams()
   const { translate } = useLocalize()
   const [translateData, setTranslateData] = useState({} as Dotranslate)
@@ -159,7 +144,7 @@ const TranslateResultPage: FC<TResultPage> = () => {
                     <label className="w-full">
                       {translate('TaskStatus')}:{' '}
                       {translate(
-                        getRewriterStatusText(
+                        getStatusText(
                           isCompleted
                             ? TaskStatus.Completed
                             : translateData.status

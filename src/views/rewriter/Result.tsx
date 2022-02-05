@@ -3,34 +3,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { BlockContent, RewriteText, SocketEvent, TaskStatus } from 'dprx-types'
 import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
-import { FC, useEffect, useState } from 'preact/compat'
 import { HOST_API } from 'helpers/api'
 import { LangBox } from 'components/Select/Lang'
 import { LoadingContainer } from 'components/Containers/Loader'
 import { QueueContainer } from 'components/Containers/PageContainers'
-import { getRewriterStatusText } from 'helpers/rewriter'
+import { getBackgroundColorByStatus, getStatusText } from 'helpers/task'
 import { io } from 'socket.io-client'
+import { useEffect, useState } from 'preact/compat'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import { useParams } from 'react-router-dom'
 import EditorJS from '@editorjs/editorjs'
-import useQueueCount from 'hooks/useQueueCount'
 
-type TResultPage = {
-  //
-}
-
-function getBackgroundColorByStatus(status: number) {
-  switch (status) {
-    case TaskStatus.InProgress:
-      return 'alert-info'
-    case TaskStatus.Completed:
-      return 'alert-success'
-  }
-
-  return ''
-}
-
-const RewriterResultPage: FC<TResultPage> = () => {
+const RewriterResultPage = () => {
   const { id = '' } = useParams()
   const { translate } = useLocalize()
   const [rewriteData, setRewriteData] = useState({} as RewriteText)
@@ -153,7 +137,7 @@ const RewriterResultPage: FC<TResultPage> = () => {
                     <label className="w-full">
                       {translate('TaskStatus')}:{' '}
                       {translate(
-                        getRewriterStatusText(
+                        getStatusText(
                           isCompleted
                             ? TaskStatus.Completed
                             : rewriteData.status
