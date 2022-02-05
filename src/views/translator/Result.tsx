@@ -118,92 +118,90 @@ const TranslateResultPage = () => {
   })
 
   return (
-    <>
-      <div className="min-h-full w-full card">
-        <main>
-          <div className="max-w-7xl">
-            <div className="px-4 sm:px-0">
-              <QueueContainer />
+    <div className="min-h-full w-full card">
+      <main>
+        <div className="max-w-7xl">
+          <div className="px-4 sm:px-0">
+            <QueueContainer />
 
-              <div className="mb-1 md:mb-0 w-full p-1">
-                <div className={'alert ' + getBackgroundColorByStatus(status)}>
-                  <div className="flex-1">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      className="w-6 h-6 mx-2 stroke-current"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
-                      />
-                    </svg>
-                    <label className="w-full">
-                      {translate('TaskStatus')}:{' '}
-                      {translate(
-                        getStatusText(
-                          isCompleted
-                            ? TaskStatus.Completed
-                            : translateData.status
-                        )
-                      ).toLowerCase()}{' '}
-                      ({isCompleted ? '100.00' : percent.toFixed(2)}
-                      %){' '}
+            <div className="mb-1 md:mb-0 w-full p-1">
+              <div className={'alert ' + getBackgroundColorByStatus(status)}>
+                <div className="flex-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    className="w-6 h-6 mx-2 stroke-current"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
+                    />
+                  </svg>
+                  <label className="w-full">
+                    {translate('TaskStatus')}:{' '}
+                    {translate(
+                      getStatusText(
+                        isCompleted
+                          ? TaskStatus.Completed
+                          : translateData.status
+                      )
+                    ).toLowerCase()}{' '}
+                    ({isCompleted ? '100.00' : percent.toFixed(2)}
+                    %){' '}
+                    {!isCompleted && (
+                      <button className="btn btn-sm btn-circle loading"></button>
+                    )}
+                    {!isCompleted && (
+                      <div className="w-full">
+                        <progress
+                          className="w-full progress progress-info"
+                          value={percent}
+                          max={100}
+                        />
+                      </div>
+                    )}
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 gap-1">
+              <div className="mb-1 md:mb-0 w-full p-2 ">
+                <label>{translate('Original text')}</label>
+                <div className="editor-wrapper h-96 overflow-auto w-full border-4 border-dashed border-gray-200 rounded-lg p-3">
+                  <div id="orig"></div>
+                </div>
+              </div>
+            </div>
+
+            {translateData.langs.map((lang) => {
+              return (
+                <div className="grid grid-cols-1 gap-1">
+                  <div className="mb-1 md:mb-0 w-full p-2 ">
+                    <label>
+                      {lang}{' '}
                       {!isCompleted && (
-                        <button className="btn btn-sm btn-circle loading"></button>
-                      )}
-                      {!isCompleted && (
-                        <div className="w-full">
-                          <progress
-                            className="w-full progress progress-info"
-                            value={percent}
-                            max={100}
-                          />
-                        </div>
+                        <button className="btn btn-circle loading"></button>
                       )}
                     </label>
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 gap-1">
-                <div className="mb-1 md:mb-0 w-full p-2 ">
-                  <label>{translate('Original text')}</label>
-                  <div className="editor-wrapper h-96 overflow-auto w-full border-4 border-dashed border-gray-200 rounded-lg p-3">
-                    <div id="orig"></div>
-                  </div>
-                </div>
-              </div>
-
-              {translateData.langs.map((lang) => {
-                return (
-                  <div className="grid grid-cols-1 gap-1">
-                    <div className="mb-1 md:mb-0 w-full p-2 ">
-                      <label>
-                        {lang}{' '}
-                        {!isCompleted && (
-                          <button className="btn btn-circle loading"></button>
-                        )}
-                      </label>
-                      <div
-                        className={`editor-wrapper overflow-auto w-full border-4 border-dashed border-gray-200 rounded-lg p-3 ${
-                          isCompleted ? 'h-96' : 'h-0'
-                        }`}
-                      >
-                        <div id={`translate_${lang}`}></div>
-                      </div>
+                    <div
+                      className={`editor-wrapper overflow-auto w-full border-4 border-dashed border-gray-200 rounded-lg p-3 ${
+                        isCompleted ? 'h-96' : 'h-0'
+                      }`}
+                    >
+                      <div id={`translate_${lang}`}></div>
                     </div>
                   </div>
-                )
-              })}
-            </div>
+                </div>
+              )
+            })}
           </div>
-        </main>
-      </div>
-    </>
+        </div>
+      </main>
+    </div>
   )
 }
 
