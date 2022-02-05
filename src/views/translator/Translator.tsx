@@ -9,6 +9,7 @@ import { LangApi, TranslateApi } from 'helpers/api'
 import { LangBox } from 'components/Select/Lang'
 import { Loading, LoadingContainer } from 'components/Containers/Loader'
 import { Navigate } from 'react-router-dom'
+import { PageH1, QueueContainer } from 'components/Containers/PageContainers'
 import { smiles } from 'helpers/smiles'
 import { useContext, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
@@ -29,9 +30,7 @@ export default () => {
   }
 
   if (!isVisibleContent) {
-    return (
-     <LoadingContainer />
-    )
+    return <LoadingContainer />
   }
 
   const { queueCount = 0, queueChars = 0 } = useQueueCount()
@@ -83,21 +82,10 @@ export default () => {
     <>
       <div className="min-h-full">
         <main>
-          <div className="text-center">
-            <h1 className="mt-4 text-5xl font-bold">
-              {translate('TranslatorTitle')}
-              <img src={smileSrc} className="inline px-4" />
-            </h1>
-          </div>
+          <PageH1 title={translate('TranslatorTitle')} />
 
           <div className="w-full card p-4">
-            <div className="mb-1 w-full text-center">
-              <div>
-                {translate('Queue', { count: queueCount })}
-                {/* {queueCount > 100 &&
-                  translate('QueueCharsCount', { chars: queueChars })} */}
-              </div>
-            </div>
+            <QueueContainer />
 
             <div className="mb-1 md:mb-0 w-full p-2 ">
               <label className="">{translate('EnterTextForTranslate')}</label>

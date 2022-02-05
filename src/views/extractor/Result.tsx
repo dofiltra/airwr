@@ -5,7 +5,8 @@
 import { Doextractor, SocketEvent, TaskStatus } from 'dprx-types'
 import { FC, useEffect, useState } from 'preact/compat'
 import { HOST_API } from 'helpers/api'
-import { Loading, LoadingContainer } from 'components/Containers/Loader'
+import { LoadingContainer } from 'components/Containers/Loader'
+import { QueueContainer } from 'components/Containers/PageContainers'
 import { getRewriterStatusText } from 'helpers/rewriter'
 import { io } from 'socket.io-client'
 import { useLocalize } from '@borodutch-labs/localize-react'
@@ -85,13 +86,7 @@ const ResultPage: FC<TResultPage> = () => {
         <main>
           <div className="max-w-7xl">
             <div className="px-4 sm:px-0">
-              <div className="mt-4 md:mb-0 w-full text-center">
-                <div>
-                  {translate('Queue', { count: queueCount })}
-                  {/* {queueCount > 100 &&
-                    translate('QueueCharsCount', { chars: queueChars })} */}
-                </div>
-              </div>
+              <QueueContainer />
 
               <div className="mb-1 md:mb-0 w-full p-1">
                 <div

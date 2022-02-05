@@ -9,6 +9,7 @@ import { ExpandBox, ExpandMode } from 'components/Select/Expand'
 import { ExtractorApi } from 'helpers/api'
 import { Link } from 'react-router-dom'
 import { LoadingContainer } from 'components/Containers/Loader'
+import { PageH1, QueueContainer } from 'components/Containers/PageContainers'
 import { ToneMode } from 'components/Select/Tone'
 import { smiles } from 'helpers/smiles'
 import { useContext, useState } from 'preact/hooks'
@@ -52,21 +53,10 @@ export default () => {
     <>
       <div className="min-h-full">
         <main>
-          <div className="text-center">
-            <h1 className="mt-4 text-5xl font-bold">
-              {translate('ExtractorTitle')}
-              <img src={smileSrc} className="inline px-4" />
-            </h1>
-          </div>
+          <PageH1 title={translate('ExtractorTitle')} />
 
           <div className="w-full card p-4">
-            <div className="mb-1 w-full text-center">
-              <div>
-                {translate('Queue', { count: queueCount })}
-                {/* {queueCount > 100 &&
-                  translate('QueueCharsCount', { chars: queueChars })} */}
-              </div>
-            </div>
+            <QueueContainer />
             <div className="mb-1 w-full p-2 ">
               <label className="">{translate('EnterTextForExtractor')}</label>
               <textarea

@@ -9,22 +9,20 @@ import { ExpandBox, ExpandMode } from 'components/Select/Expand'
 import { FC } from 'preact/compat'
 import { LangApi, RewriteApi } from 'helpers/api'
 import { LangBox } from 'components/Select/Lang'
-import { Loading, LoadingContainer } from 'components/Containers/Loader'
+import { LoadingContainer } from 'components/Containers/Loader'
 import { Navigate } from 'react-router-dom'
+import { PageH1, QueueContainer } from 'components/Containers/PageContainers'
 import { ToneMode } from 'components/Select/Tone'
-import { smiles } from 'helpers/smiles'
 import { useContext, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import AuthContext from 'components/Auth/AuthContext'
 import EditorJS from '@editorjs/editorjs'
-import useQueueCount from 'hooks/useQueueCount'
 
 const editorId = 'holder_rewrite'
 
 export const RewriterPage: FC = () => {
   const { translate } = useLocalize()
   const [linkResultId, setLinkResult] = useState('')
-  const smileSrc = smiles.sort(() => (Math.random() > 0.5 ? 1 : -1))[0]
 
   if (linkResultId) {
     return <Navigate to={`/rewrite/result/${linkResultId}`} />
@@ -34,13 +32,7 @@ export const RewriterPage: FC = () => {
     <>
       <div className="min-h-full">
         <main>
-          <div className="text-center">
-            <h1 className="mt-4 text-5xl font-bold">
-              {translate('RewriterTitle')}
-              <img src={smileSrc} className="inline px-4" />
-            </h1>
-          </div>
-
+          <PageH1 title={translate('RewriterTitle')} />
           <RewriteContent setLinkResult={setLinkResult} />
         </main>
       </div>
@@ -117,7 +109,6 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
     return <LoadingContainer />
   }
 
-  const { queueCount = 0, queueChars = 0 } = useQueueCount()
   const { user } = useContext(AuthContext)
   const token = user?.uid || ''
 
@@ -158,13 +149,7 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
   return (
     <>
       <div className="w-full card p-4">
-        <div className="mb-1 w-full text-center">
-          <div>
-            {translate('Queue', { count: queueCount })}
-            {/* {queueCount > 100 &&
-              translate('QueueCharsCount', { chars: queueChars })} */}
-          </div>
-        </div>
+        <QueueContainer />
 
         <div className="mb-1 md:mb-0 w-full p-2 ">
           <label className="">{translate('EnterTextForRewrite')}</label>
