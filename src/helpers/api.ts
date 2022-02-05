@@ -30,6 +30,13 @@ export class BaseApi {
       return { error }
     }
   }
+
+  static async getQueue() {
+    return await this.send({
+      url: `${HOST_API}/api/stats/getQueue`,
+      method: 'GET',
+    })
+  }
 }
 
 export class BalanceApi extends BaseApi {
@@ -101,14 +108,6 @@ export class TranslateApi extends BaseApi {
       body: data,
     })
   }
-
-  static async getQueue() {
-    const { count = 0 } = await this.send({
-      url: `${HOST_API}/api/translate/getQueue`,
-      method: 'GET',
-    })
-    return count
-  }
 }
 
 export class RewriteApi extends BaseApi {
@@ -127,15 +126,6 @@ export class RewriteApi extends BaseApi {
     })
 
     return item
-  }
-
-  static async getQueue() {
-    const { count = 0 } = await this.send({
-      url: `${HOST_API}/api/rewriteText/getQueue`,
-      method: 'GET',
-    })
-
-    return count
   }
 
   static async getRewritedCharsCount(token?: string) {

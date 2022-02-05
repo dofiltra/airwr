@@ -16,6 +16,7 @@ import { useLocalize } from '@borodutch-labs/localize-react'
 import AppStore from 'stores/AppStore'
 import AuthContext from 'components/Auth/AuthContext'
 import _ from 'lodash'
+import useQueueCount from 'hooks/useQueueCount'
 
 export default () => {
   const { translate } = useLocalize()
@@ -50,6 +51,7 @@ export default () => {
       </div>
     )
   }
+  const { queueCount = 0, queueChars = 0 } = useQueueCount()
 
   return (
     <>
@@ -63,6 +65,13 @@ export default () => {
           </div>
 
           <div className="w-full card p-4">
+            <div className="mb-1 w-full text-center">
+              <div>
+                {translate('Queue', { count: queueCount })}
+                {/* {queueCount > 100 &&
+                  translate('QueueCharsCount', { chars: queueChars })} */}
+              </div>
+            </div>
             <div className="mb-1 w-full p-2 ">
               <label className="">{translate('EnterTextForExtractor')}</label>
               <textarea

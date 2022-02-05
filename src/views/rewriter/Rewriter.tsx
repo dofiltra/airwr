@@ -17,7 +17,7 @@ import { useContext, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import AuthContext from 'components/Auth/AuthContext'
 import EditorJS from '@editorjs/editorjs'
-import useRewriteQueue from 'hooks/useRewriteQueue'
+import useQueueCount from 'hooks/useQueueCount'
 
 const editorId = 'holder_rewrite'
 
@@ -122,7 +122,7 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
     )
   }
 
-  const { queueCount = 0, queueChars = 0 } = useRewriteQueue()
+  const { queueCount = 0, queueChars = 0 } = useQueueCount()
   const { user } = useContext(AuthContext)
   const token = user?.uid || ''
 
@@ -163,7 +163,7 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
   return (
     <>
       <div className="w-full card p-4">
-        <div className="mb-1 md:mb-0 w-full p-2 text-center">
+        <div className="mb-1 w-full text-center">
           <div>
             {translate('Queue', { count: queueCount })}
             {/* {queueCount > 100 &&

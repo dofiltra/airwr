@@ -12,7 +12,7 @@ import { io } from 'socket.io-client'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import { useParams } from 'react-router-dom'
 import EditorJS from '@editorjs/editorjs'
-import useTranslateQueue from 'hooks/useTranslateQueue'
+import useQueueCount from 'hooks/useQueueCount'
 
 type TResultPage = {
   //
@@ -32,7 +32,7 @@ function getBackgroundColorByStatus(status: number) {
 const TranslateResultPage: FC<TResultPage> = () => {
   const { id = '' } = useParams()
   const { translate } = useLocalize()
-  const { queueCount = 0, queueChars = 0 } = useTranslateQueue()
+  const { queueCount = 0, queueChars = 0 } = useQueueCount()
   const [translateData, setTranslateData] = useState({} as Dotranslate)
 
   useEffect(() => {
@@ -144,7 +144,7 @@ const TranslateResultPage: FC<TResultPage> = () => {
         <main>
           <div className="max-w-7xl">
             <div className="px-4 sm:px-0">
-              <div className="mt-4 md:mb-0 w-full text-center">
+              <div className="w-full text-center">
                 <div>
                   {translate('Queue', { count: queueCount })}
                   {/* {queueCount > 100 &&
