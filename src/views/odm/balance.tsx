@@ -8,8 +8,10 @@ import { headers } from 'dprx-types'
 import { useState } from 'preact/hooks'
 
 export const OdmBalancePage: FC = () => {
-  const [info, setInfo] = useState('')
-  const [token, setToken] = useState('')
+  const [error, setError] = useState('')
+  const [userBalance, setUserBalance] = useState('')
+  const [promoBalance, setPromoBalance] = useState('')
+  const [tokenPromo, setTokenPromo] = useState('')
   const [coins, setCoins] = useState(0)
   const [cost, setCost] = useState(0.01)
 
@@ -22,12 +24,15 @@ export const OdmBalancePage: FC = () => {
             <input
               placeholder="token"
               className="w-full min-h-8 p-2"
-              value={token}
+              value={tokenPromo}
               onChange={(e) => {
-                setToken(e.target.value)
-                void BalanceApi.getCoins(e.target.value, 'true').then(
-                  ({ info }) => setInfo(JSON.stringify(info, null, 4))
-                )
+                const [token, promo] = e.target.value.split('__')
+                setTokenPromo(e.target.value)
+
+                void BalanceApi.getCoins(token, 'true').then(({ info }) => {
+                  info?.cost && setCost(info.cost)
+                  setUserBalance(JSON.stringify(info, null, 4))
+                })
               }}
             />
 
@@ -55,7 +60,24 @@ export const OdmBalancePage: FC = () => {
               }}
             />
             <hr />
-            <pre className="text-gray-600">{info}</pre>
+            <br />
+            <div>User balance</div>
+            <pre className="text-gray-600">{userBalance}</pre>
+            <br />
+            {promoBalance && (
+              <>
+                <div>Promo balance</div>
+                <pre className="text-gray-600">{promoBalance}</pre>
+                <br />
+              </>
+            )}
+
+            {error && (
+              <>
+                <div>Error</div>
+                <pre className="text-gray-600">{error}</pre>
+              </>
+            )}
           </div>
         </div>
 
@@ -63,10 +85,20 @@ export const OdmBalancePage: FC = () => {
           <button
             onClick={() =>
               addCoins({
-                token,
+                tokenPromo,
                 coins,
                 cost,
-              }).then((info) => setInfo(JSON.stringify(info, null, 4)))
+              }).then(
+                ({
+                  userBalance = {},
+                  promoBalance = {},
+                  error = { details: 'No error :)' },
+                }) => {
+                  setUserBalance(JSON.stringify(userBalance, null, 4))
+                  setPromoBalance(JSON.stringify(promoBalance, null, 4))
+                  setError(JSON.stringify(error, null, 4))
+                }
+              )
             }
             className="w-full btn btn-success"
           >
@@ -81,9 +113,9 @@ export const OdmBalancePage: FC = () => {
 type TQueueOpts = {
   coins: number
   cost: number
-  token: string
+  tokenPromo: string
 }
-async function addCoins({ token, coins, cost }: TQueueOpts) {
+async function addCoins({ tokenPromo, coins, cost }: TQueueOpts) {
   const urlSearchParams = new URLSearchParams(window.location.search)
   const { secret = '' } = Object.fromEntries(urlSearchParams.entries())
 
@@ -91,9 +123,9 @@ async function addCoins({ token, coins, cost }: TQueueOpts) {
     headers,
     method: 'POST',
     body: JSON.stringify({
+      tokenPromo,
       coins,
       cost,
-      token,
       secret,
     }),
     mode: 'cors',
@@ -104,7 +136,5 @@ async function addCoins({ token, coins, cost }: TQueueOpts) {
     return { error: 'error' }
   }
 
-  const { info, error } = await resp.json()
-
-  return info || error
+  return await resp.json()
 }
