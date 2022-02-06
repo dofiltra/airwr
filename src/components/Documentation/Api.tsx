@@ -1125,10 +1125,10 @@ const addExtract = {
             },
           },
           rewriteOpts: {
-            selectors: ['p'],
-            power: 0.5,
-            expand: RewriteMode.Shorter,
-            tone: RewriteMode.Formal,
+            // selectors: ['p'],
+            // power: 0.5,
+            // expand: RewriteMode.Shorter,
+            // tone: RewriteMode.Formal,
           },
           translateOpts: {
             // selectors: ['p'],
