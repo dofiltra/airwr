@@ -65,7 +65,7 @@
   "Completed": "Завершена",
   "TaskResult": "Результат задачи",
   "Rewrited text": "Отрерайченный текст",
-  "Queue": "Очередь: {{count}} страниц ",
+  "Queue": "Очередь: {{count}} задач",
   "QueueCharsCount": "~{{chars}} символов",
   "ProfileTitle": "Профиль",
   "Balance": "Баланс: ${{coins}}",
