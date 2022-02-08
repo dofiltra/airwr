@@ -2,7 +2,7 @@
 import { Doextractor, Dotranslate, RewriteText, headers } from 'dprx-types'
 import fetch from 'unfetch'
 
-const { VITE_HOST_API_DEV, VITE_HOST_API_PROD } = import.meta.env
+export const { VITE_HOST_API_DEV, VITE_HOST_API_PROD } = import.meta.env
 
 export const HOST_API =
   //VITE_HOST_API_PROD
@@ -147,7 +147,7 @@ export class RewriteApi extends BaseApi {
 export class LangApi extends BaseApi {
   static async detect(text: string) {
     return await this.send({
-      url: 'https://api.dofiltra.com/api/lang/detect',
+      url: `${VITE_HOST_API_PROD}/api/lang/detect`,
       body: { text },
       method: 'POST',
     })
