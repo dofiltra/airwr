@@ -4,9 +4,11 @@ import fetch from 'unfetch'
 
 const { VITE_HOST_API_DEV, VITE_HOST_API_PROD } = import.meta.env
 
-export const HOST_API = window.location.origin.includes('localhost')
-  ? VITE_HOST_API_DEV
-  : VITE_HOST_API_PROD
+export const HOST_API =
+  //VITE_HOST_API_PROD
+  window.location.origin.includes('localhost')
+    ? VITE_HOST_API_DEV
+    : VITE_HOST_API_PROD
 
 export class BaseApi {
   static async send({
