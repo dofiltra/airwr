@@ -6,7 +6,8 @@
   "scripts": {
     "start": "serve -s dist -l 2985",
     "dev": "vite --port 2985",
-    "cp": " cp -Rf /root/git/airwr/dist/* /var/www/ai-stage.dofiltra.com/",
+    "cp": "mkdir -p /var/www/ai.dofiltra.com/ && cp -Rf /root/git/airwr/dist/* /var/www/ai.dofiltra.com/",
+    "cp-stage": "mkdir -p /var/www/ai-stage.dofiltra.com/ && cp -Rf /root/git/airwr/dist/* /var/www/ai-stage.dofiltra.com/",
     "preview": "yarn run build && yarn start",
     "build": "cross-env NODE_ENV=production tsc && vite build",
     "pretty": "prettier --check src",
