@@ -26,7 +26,9 @@ export const OdmStatsPage: FC = () => {
       })
 
       socket.on(SocketEvent.OdmStats, ({ socketsData, used }: any) => {
-        setSocketsData(_.orderBy(socketsData, ['roomId'], ['asc']))
+        setSocketsData(
+          _.uniqBy(_.orderBy(socketsData, ['roomId'], ['asc']), 'roomId')
+        )
         setProxies(_.uniq(used))
         // console.log(socketsData, used)
       })
