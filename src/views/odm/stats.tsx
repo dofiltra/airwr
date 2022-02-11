@@ -26,6 +26,10 @@ export const OdmStatsPage: FC = () => {
         sock!.emit(SocketEvent.Join, { roomId: SocketEvent.OdmStats })
       })
 
+      sock.on(SocketEvent.AibackRestartApp, ({ roomId }) => {
+        console.log(SocketEvent.AibackRestartApp, roomId)
+      })
+
       sock.on(SocketEvent.OdmStats, ({ socketsData, used }: any) => {
         setSocketsData(
           _.uniqBy(
