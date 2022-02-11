@@ -6,7 +6,7 @@
 import { FC } from 'preact/compat'
 import { HOST_API } from 'helpers/api'
 import { ProxyItem, SocketEvent } from 'dprx-types'
-import { io, Socket } from 'socket.io-client'
+import { Socket, io } from 'socket.io-client'
 import { useEffect, useState } from 'preact/hooks'
 import _ from 'lodash'
 
