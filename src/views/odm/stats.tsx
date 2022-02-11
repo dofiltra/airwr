@@ -6,26 +6,27 @@
 import { FC } from 'preact/compat'
 import { HOST_API } from 'helpers/api'
 import { ProxyItem, SocketEvent } from 'dprx-types'
-import { io } from 'socket.io-client'
+import { io, Socket } from 'socket.io-client'
 import { useEffect, useState } from 'preact/hooks'
 import _ from 'lodash'
 
 export const OdmStatsPage: FC = () => {
   const [socketsData, setSocketsData] = useState([] as any[])
   const [proxies, setProxies] = useState([] as any[])
+  const [socket, setSocket] = useState(undefined as Socket | undefined)
 
   useEffect(() => {
     fetch(`${HOST_API}/api/socketio/exec`).finally(() => {
-      const socket = io(HOST_API!.toString(), {
+      const sock = io(HOST_API!.toString(), {
         autoConnect: true,
         reconnection: true,
       })
 
-      socket.on(SocketEvent.Connect, () => {
-        socket.emit(SocketEvent.Join, { roomId: SocketEvent.OdmStats })
+      sock.on(SocketEvent.Connect, () => {
+        sock!.emit(SocketEvent.Join, { roomId: SocketEvent.OdmStats })
       })
 
-      socket.on(SocketEvent.OdmStats, ({ socketsData, used }: any) => {
+      sock.on(SocketEvent.OdmStats, ({ socketsData, used }: any) => {
         setSocketsData(
           _.uniqBy(
             _.orderBy(
@@ -39,6 +40,8 @@ export const OdmStatsPage: FC = () => {
         setProxies(_.uniq(used))
         // console.log(socketsData, used)
       })
+
+      setSocket(sock)
     })
   }, [])
 
@@ -49,9 +52,9 @@ export const OdmStatsPage: FC = () => {
           <label>Sockets data</label>
           <pre className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3 overflow-auto">
             {JSON.stringify(
-              socketsData?.map((dataKey: any) => ({
-                ...dataKey,
-                proxies: dataKey?.proxies
+              socketsData?.map((socketData: any) => ({
+                ...socketData,
+                proxies: socketData?.proxies
                   ?.map((p: ProxyItem) => `${p?.ip}:${p?.port}`)
                   .join('; '),
               })),
@@ -60,6 +63,41 @@ export const OdmStatsPage: FC = () => {
             )}
           </pre>
         </div>
+
+        <div className="mb-1 md:mb-0 w-full p-2 ">
+          <div className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3 min-h-16">
+            {socketsData
+              ?.filter((socketData: any) =>
+                socketData?.roomId?.toLowerCase().startsWith('aiback')
+              )
+              .map((socketData: any) => {
+                const { roomId } = socketData
+                return (
+                  <>
+                    <div className="p-4 mb-4">
+                      <b>{roomId}</b>
+                      <button
+                        className={'btn btn-warning'}
+                        onClick={() => {
+                          const emitted = !!socket?.emit(
+                            SocketEvent.AibackRestartApp,
+                            {
+                              roomId,
+                            }
+                          )
+                          alert(`Restarting '${roomId}': ${emitted}`)
+                        }}
+                      >
+                        Restart
+                      </button>
+                      <hr />
+                    </div>
+                  </>
+                )
+              })}
+          </div>
+        </div>
+
         <div className="mb-1 md:mb-0 w-full p-2 ">
           <label>Proxies ({proxies?.length || 0})</label>
           <div className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3 min-h-16">
