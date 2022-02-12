@@ -64,9 +64,7 @@ export const OdmStatsPage: FC = () => {
                 dotransaProxies: socketData?.dotransaProxies
                   ?.map((p: ProxyItem) => `${p?.ip}:${p?.port}`)
                   .join('; '),
-                proxies: socketData?.proxies
-                  ?.map((p: ProxyItem) => `${p?.ip}:${p?.port}`)
-                  .join('; '),
+                proxies: socketData?.proxies?.length,
               })),
               null,
               2
