@@ -85,6 +85,10 @@ export const OdmStatsPage: FC = () => {
                       <button
                         className={'btn btn-warning'}
                         onClick={() => {
+                          if (!confirm(`Restart '${roomId}'?`)) {
+                            return
+                          }
+
                           const emitted = !!socket?.emit(
                             SocketEvent.AibackRestartApp,
                             {
