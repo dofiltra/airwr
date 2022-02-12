@@ -58,6 +58,12 @@ export const OdmStatsPage: FC = () => {
             {JSON.stringify(
               socketsData?.map((socketData: any) => ({
                 ...socketData,
+                wtnProxies: socketData?.wtnProxies
+                  ?.map((p: ProxyItem) => `${p?.ip}:${p?.port}`)
+                  .join('; '),
+                dotransaProxies: socketData?.dotransaProxies
+                  ?.map((p: ProxyItem) => `${p?.ip}:${p?.port}`)
+                  .join('; '),
                 proxies: socketData?.proxies
                   ?.map((p: ProxyItem) => `${p?.ip}:${p?.port}`)
                   .join('; '),
