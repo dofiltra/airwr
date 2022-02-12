@@ -26,10 +26,6 @@ export const OdmStatsPage: FC = () => {
         sock!.emit(SocketEvent.Join, { roomId: SocketEvent.OdmStats })
       })
 
-      sock.on(SocketEvent.AibackRestartApp, ({ roomId }) => {
-        console.log(SocketEvent.AibackRestartApp, roomId)
-      })
-
       sock.on(SocketEvent.OdmStats, ({ socketsData, used }: any) => {
         setSocketsData(
           _.uniqBy(
@@ -79,7 +75,9 @@ export const OdmStatsPage: FC = () => {
                 socketData?.roomId?.toLowerCase().startsWith('aiback')
               )
               .map((socketData: any) => {
-                const { roomId } = socketData
+                const { roomId: roomIds } = socketData
+                const [roomId] = roomIds.split(';')
+
                 return (
                   <>
                     <div className="p-4 mb-4">
