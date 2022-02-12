@@ -75,7 +75,7 @@ export const OdmStatsPage: FC = () => {
                 socketData?.roomId?.toLowerCase().startsWith('aiback')
               )
               .map((socketData: any) => {
-                const { roomId: roomIds } = socketData
+                const { roomId: roomIds, socketId } = socketData
                 const [roomId] = roomIds.split(';')
 
                 return (
@@ -88,6 +88,7 @@ export const OdmStatsPage: FC = () => {
                           const emitted = !!socket?.emit(
                             SocketEvent.AibackRestartApp,
                             {
+                              socketId,
                               roomId,
                             }
                           )
