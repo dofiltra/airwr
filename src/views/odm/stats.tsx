@@ -101,6 +101,26 @@ export const OdmStatsPage: FC = () => {
                       >
                         Restart
                       </button>
+
+                      <button
+                        className={'btn btn-warning'}
+                        onClick={() => {
+                          if (!confirm(`Reload proxies '${roomId}'?`)) {
+                            return
+                          }
+
+                          const emitted = !!socket?.emit(
+                            SocketEvent.AibackReloadProxies,
+                            {
+                              socketId,
+                              roomId,
+                            }
+                          )
+                          alert(`Reloading '${roomId}': ${emitted}`)
+                        }}
+                      >
+                        Reload Proxies
+                      </button>
                       <hr />
                     </div>
                   </>
