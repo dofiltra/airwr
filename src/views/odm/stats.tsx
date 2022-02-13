@@ -3,9 +3,9 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { AppState, ProxyItem, SocketEvent } from 'dprx-types'
 import { FC } from 'preact/compat'
 import { HOST_API } from 'helpers/api'
-import { ProxyItem, SocketEvent } from 'dprx-types'
 import { Socket, io } from 'socket.io-client'
 import { useEffect, useState } from 'preact/hooks'
 import _ from 'lodash'
@@ -79,7 +79,8 @@ export const OdmStatsPage: FC = () => {
                 socketData?.roomId?.toLowerCase().startsWith('aiback')
               )
               .map((socketData: any) => {
-                const { roomId: roomIds, socketId } = socketData
+                const { roomId: roomIds, socketId, app = {} } = socketData
+                const { state: appState = AppState.Active } = { ...app }
                 const [roomId] = roomIds.split(';')
 
                 return (
@@ -125,6 +126,44 @@ export const OdmStatsPage: FC = () => {
                       >
                         Reload Proxies
                       </button>
+
+                      <br />
+                      <div className="btn-group p-4">
+                        {Object.keys(AppState).map((stateKey) => {
+                          return (
+                            <>
+                              <button
+                                className={`btn ${
+                                  appState.toLowerCase() ===
+                                  stateKey.toLowerCase()
+                                    ? 'btn-active btn-wide'
+                                    : ''
+                                }`}
+                                onClick={() => {
+                                  if (
+                                    !confirm(`'${stateKey}' for '${roomId}'?`)
+                                  ) {
+                                    return
+                                  }
+
+                                  const emitted = !!socket?.emit(
+                                    SocketEvent.AibackState,
+                                    {
+                                      socketId,
+                                      state: stateKey,
+                                    }
+                                  )
+                                  alert(
+                                    `'${stateKey}' for '${roomId}' emitted: ${emitted}`
+                                  )
+                                }}
+                              >
+                                {stateKey}
+                              </button>
+                            </>
+                          )
+                        })}
+                      </div>
                       <hr />
                     </div>
                   </>
