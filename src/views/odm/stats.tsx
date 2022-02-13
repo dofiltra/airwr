@@ -85,54 +85,113 @@ export const OdmStatsPage: FC = () => {
                 socketData?.roomId?.toLowerCase().startsWith('aiback')
               )
               .map((socketData: any) => {
-                const { roomId: roomIds, socketId, app = {} } = socketData
-                const { state: appState = AppState.Active } = { ...app }
+                const {
+                  roomId: roomIds,
+                  socketId,
+                  app = {},
+                  osInfo = {},
+                } = socketData
+                const { state: appState = AppState.Active, version = 0 } = {
+                  ...app,
+                }
+                const { cpu = {}, mem = {}, drive = {} } = { ...osInfo }
                 const [roomId] = roomIds.split(';')
 
                 return (
                   <>
                     <div className="p-4 mb-4">
-                      <b>{roomId}</b>
-                      <button
-                        className={'btn btn-warning'}
-                        onClick={() => {
-                          if (!confirm(`Restart '${roomId}'?`)) {
-                            return
-                          }
+                      <b className="p-4">
+                        {roomId} [v{version}]
+                      </b>
+                      <div className="w-full shadow stats">
+                        <div className="stat">
+                          <div className="stat-title">CPU</div>
+                          <div className="stat-value">
+                            {cpu?.usage?.toFixed(2)}%
+                          </div>
+                          <div
+                            className={`stat-desc ${
+                              cpu?.free > 10 ? 'text-success' : 'text-error'
+                            }`}
+                          >
+                            Free: {cpu?.free?.toFixed(2)}% <br />
+                            Count: {cpu?.count}
+                          </div>
+                        </div>
+                        <div className="stat">
+                          <div className="stat-title">MEMORY</div>
+                          <div className="stat-value">
+                            {mem?.usedMemPercentage?.toFixed(2)}%
+                          </div>
+                          <div
+                            className={`stat-desc ${
+                              mem?.freeMemPercentage > 10
+                                ? 'text-success'
+                                : 'text-error'
+                            }`}
+                          >
+                            Free: {mem?.freeMemPercentage?.toFixed(2)}%
+                          </div>
+                        </div>
+                        <div className="stat">
+                          <div className="stat-title">Drive</div>
+                          <div className="stat-value">
+                            {drive?.usedPercentage}
+                          </div>
+                          <div
+                            className={`stat-desc ${
+                              drive?.freePercentage > 10
+                                ? 'text-success'
+                                : 'text-error'
+                            }`}
+                          >
+                            Free: {drive?.freePercentage}%
+                          </div>
+                        </div>
+                      </div>
 
-                          const emitted = !!socket?.emit(
-                            SocketEvent.AibackRestartApp,
-                            {
-                              socketId,
-                              roomId,
+                      <br />
+                      <div className="btn-group p-4">
+                        <button
+                          className={'btn btn-warning'}
+                          onClick={() => {
+                            if (!confirm(`Restart '${roomId}'?`)) {
+                              return
                             }
-                          )
-                          alert(`Restarting '${roomId}': ${emitted}`)
-                        }}
-                      >
-                        Restart
-                      </button>
 
-                      <button
-                        className={'btn btn-warning'}
-                        onClick={() => {
-                          if (!confirm(`Reload proxies '${roomId}'?`)) {
-                            return
-                          }
+                            const emitted = !!socket?.emit(
+                              SocketEvent.AibackRestartApp,
+                              {
+                                socketId,
+                                roomId,
+                              }
+                            )
+                            alert(`Restarting '${roomId}': ${emitted}`)
+                          }}
+                        >
+                          Restart
+                        </button>
 
-                          const emitted = !!socket?.emit(
-                            SocketEvent.AibackReloadProxies,
-                            {
-                              socketId,
-                              roomId,
+                        <button
+                          className={'btn btn-warning'}
+                          onClick={() => {
+                            if (!confirm(`Reload proxies '${roomId}'?`)) {
+                              return
                             }
-                          )
-                          alert(`Reloading '${roomId}': ${emitted}`)
-                        }}
-                      >
-                        Reload Proxies
-                      </button>
 
+                            const emitted = !!socket?.emit(
+                              SocketEvent.AibackReloadProxies,
+                              {
+                                socketId,
+                                roomId,
+                              }
+                            )
+                            alert(`Reloading '${roomId}': ${emitted}`)
+                          }}
+                        >
+                          Reload Proxies
+                        </button>
+                      </div>
                       <br />
                       <div className="btn-group p-4">
                         {Object.keys(AppState).map((stateKey) => {
