@@ -3548,7 +3548,7 @@ color-string@^1.9.0:
     color-name "^1.0.0"
     simple-swizzle "^0.2.2"
 
-color@^4.0.1, color@^4.2:
+color@^4.0.1:
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/color/-/color-4.2.1.tgz#498aee5fce7fc982606c8875cab080ac0547c884"
   integrity sha512-MFJr0uY4RvTQUKvPq7dh9grVOTYSFeXja2mBXioCGjnjJoXrAp9jJ1NQTDR73c9nwBSAQiNKloKl5zq9WB9UPw==
@@ -3945,13 +3945,10 @@ csstype@^3.0.2:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.0.10.tgz#2ad3a7bed70f35b965707c092e5f30b327c290e5"
   integrity sha512-2u44ZG2OcNUO9HDp/Jl8C07x6pU/eTR3ncV91SiK3dhG9TWvRVsCoJw14Ckx5DgWkzGA3waZWO3d7pgqpUI/XA==
 
-daisyui@^2.0.0-next.1:
-  version "2.0.0-next.1"
-  resolved "https://registry.yarnpkg.com/daisyui/-/daisyui-2.0.0-next.1.tgz#eda2b043b2acddf262f8b73d9526606b9d878c06"
-  integrity sha512-5TSc2DY1acqjJDA8Gocyow/3vQcdnJ/kTtV7bJAA+odygpOkyRJmTnHhcrGeXa4fc7Ogddf3BwlZFhfif/MCZQ==
-  dependencies:
-    color "^4.2"
-    tailwindcss "^3.0"
+daisyui@^1.25.4:
+  version "1.25.4"
+  resolved "https://registry.yarnpkg.com/daisyui/-/daisyui-1.25.4.tgz#d143f5eca073336b20e21a7d9ba12dbe0b30e3c6"
+  integrity sha512-Y9DrFYjjfwK09Fc8/05DhpWgwqhqRuhuH4gMdQxCeZ9dLJ82y5xb6kvwLuK1cWLfCckDOWk3reEKXsciaMHyAw==
 
 damerau-levenshtein@^1.0.7:
   version "1.0.8"
@@ -9238,7 +9235,7 @@ tailwindcss-classnames@^3.0.2:
     lodash "^4.17.15"
     tslib "^2.0.0"
 
-tailwindcss@^3.0, tailwindcss@^3.0.2:
+tailwindcss@^3.0.2:
   version "3.0.22"
   resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.0.22.tgz#5f1aac83810261300ae5b2f98fd4a2fa2ded2c42"
   integrity sha512-F8lt74RlNZirnkaSk310+vGQta7c0/hgx7/bqxruM4wS9lp8oqV93lzavajC3VT0Lp4UUtUVIt8ifKcmGzkr0A==
