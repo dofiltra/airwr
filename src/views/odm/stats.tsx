@@ -55,10 +55,14 @@ export const OdmStatsPage: FC = () => {
               socketsData?.map((socketData: any) => ({
                 ...socketData,
                 wtnProxies: socketData?.wtnProxies
-                  ?.map((p: ProxyItem) => `${p?.ip}:${p?.port}`)
+                  ?.map(
+                    (p: ProxyItem) => `${p?.ip}:${p?.port} | [${p?.useCount}]`
+                  )
                   .join('; '),
                 dotransaProxies: socketData?.dotransaProxies
-                  ?.map((p: ProxyItem) => `${p?.ip}:${p?.port}`)
+                  ?.map(
+                    (p: ProxyItem) => `${p?.ip}:${p?.port} | [${p?.useCount}]`
+                  )
                   .join('; '),
                 proxies: socketData?.proxies?.length,
               })),
