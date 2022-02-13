@@ -54,16 +54,46 @@ export const OdmStatsPage: FC = () => {
             {JSON.stringify(
               socketsData?.map((socketData: any) => ({
                 ...socketData,
-                wtnProxies: socketData?.wtnProxies
-                  ?.map(
-                    (p: ProxyItem) => `${p?.ip}:${p?.port} | [${p?.useCount}]`
-                  )
-                  .join('; '),
-                dotransaProxies: socketData?.dotransaProxies
-                  ?.map(
-                    (p: ProxyItem) => `${p?.ip}:${p?.port} | [${p?.useCount}]`
-                  )
-                  .join('; '),
+
+                wtnProxies: undefined,
+                dotransaProxies: undefined,
+
+                wtn: {
+                  ...socketData?.wtn,
+                  proxies: socketData?.wtn?.proxies
+                    ?.map(
+                      (p: ProxyItem) => `${p?.ip}:${p?.port} | [${p?.useCount}]`
+                    )
+                    .join('; '),
+                  wtnProxies: socketData?.wtn?.wtnProxies
+                    ?.map(
+                      (p: ProxyItem) => `${p?.ip}:${p?.port} | [${p?.useCount}]`
+                    )
+                    .join('; '),
+                  wtnProxies1: socketData?.wtnProxies
+                    ?.map(
+                      (p: ProxyItem) => `${p?.ip}:${p?.port} | [${p?.useCount}]`
+                    )
+                    .join('; '),
+                },
+                dotransa: {
+                  ...socketData?.dotransa,
+                  proxies: socketData?.dotransa?.proxies
+                    ?.map(
+                      (p: ProxyItem) => `${p?.ip}:${p?.port} | [${p?.useCount}]`
+                    )
+                    .join('; '),
+                  dotransaProxies: socketData?.dotransaProxies?.proxies
+                    ?.map(
+                      (p: ProxyItem) => `${p?.ip}:${p?.port} | [${p?.useCount}]`
+                    )
+                    .join('; '),
+                  dotransaProxies1: socketData?.dotransaProxies
+                    ?.map(
+                      (p: ProxyItem) => `${p?.ip}:${p?.port} | [${p?.useCount}]`
+                    )
+                    .join('; '),
+                },
                 proxies: socketData?.proxies?.length,
               })),
               null,
