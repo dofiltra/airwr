@@ -49,36 +49,6 @@ export const OdmStatsPage: FC = () => {
     <>
       <div className=" w-full card p-5">
         <div className="mb-1 md:mb-0 w-full p-2 ">
-          <label>Sockets data</label>
-          <pre className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3 overflow-auto">
-            {JSON.stringify(
-              socketsData?.map((socketData: any) => ({
-                ...socketData,
-                wtn: {
-                  ...socketData?.wtn,
-                  proxies: socketData?.wtn?.proxies
-                    ?.map(
-                      (p: ProxyItem) => `${p?.ip}:${p?.port} | [${p?.useCount}]`
-                    )
-                    .join('; '),
-                },
-                dotransa: {
-                  ...socketData?.dotransa,
-                  proxies: socketData?.dotransa?.proxies
-                    ?.map(
-                      (p: ProxyItem) => `${p?.ip}:${p?.port} | [${p?.useCount}]`
-                    )
-                    .join('; '),
-                },
-                proxies: socketData?.proxies?.length,
-              })),
-              null,
-              2
-            )}
-          </pre>
-        </div>
-
-        <div className="mb-1 md:mb-0 w-full p-2 ">
           <div className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3 min-h-16">
             {socketsData
               ?.filter((socketData: any) =>
@@ -296,6 +266,36 @@ export const OdmStatsPage: FC = () => {
           {/* <div className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3 min-h-16">
             {JSON.stringify(proxies, null, 2)}
           </div> */}
+        </div>
+
+        <div className="mb-1 md:mb-0 w-full p-2 ">
+          <label>Sockets data</label>
+          <pre className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3 overflow-auto">
+            {JSON.stringify(
+              socketsData?.map((socketData: any) => ({
+                ...socketData,
+                wtn: {
+                  ...socketData?.wtn,
+                  proxies: socketData?.wtn?.proxies
+                    ?.map(
+                      (p: ProxyItem) => `${p?.ip}:${p?.port} | [${p?.useCount}]`
+                    )
+                    .join('; '),
+                },
+                dotransa: {
+                  ...socketData?.dotransa,
+                  proxies: socketData?.dotransa?.proxies
+                    ?.map(
+                      (p: ProxyItem) => `${p?.ip}:${p?.port} | [${p?.useCount}]`
+                    )
+                    .join('; '),
+                },
+                proxies: socketData?.proxies?.length,
+              })),
+              null,
+              2
+            )}
+          </pre>
         </div>
       </div>
     </>
