@@ -200,10 +200,6 @@ export const OdmStatsPage: FC = () => {
                         <button
                           className={'btn btn-warning'}
                           onClick={() => {
-                            if (!confirm(`Refresh '${roomId}'?`)) {
-                              return
-                            }
-
                             const emitted = !!socket?.emit(
                               SocketEvent.AibackRefresh,
                               {
