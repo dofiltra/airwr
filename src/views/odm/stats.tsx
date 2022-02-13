@@ -88,19 +88,35 @@ export const OdmStatsPage: FC = () => {
                 const {
                   roomId: roomIds,
                   socketId,
+                  idle = true,
                   app = {},
+                  threads = {},
                   osInfo = {},
+                  wtn = {},
+                  dotransa = {},
                 } = socketData
                 const { state: appState = AppState.Active, version = 0 } = {
                   ...app,
                 }
-                const { cpu = {}, mem = {}, drive = {} } = { ...osInfo }
+                const {
+                  os = {},
+                  cpu = {},
+                  mem = {},
+                  drive = {},
+                } = { ...osInfo }
+                const { threadsCount = 0, freeThreadsCount = 0 } = {
+                  ...threads,
+                }
                 const [roomId] = roomIds.split(';')
 
                 return (
                   <>
                     <div className="p-4 mb-4">
-                      <b className="p-4">
+                      <b
+                        className={`p-4 w-full ${
+                          idle ? 'text-success' : 'text-error'
+                        }`}
+                      >
                         {roomId} [v{version}]
                       </b>
                       <div className="w-full shadow stats">
@@ -134,7 +150,7 @@ export const OdmStatsPage: FC = () => {
                           </div>
                         </div>
                         <div className="stat">
-                          <div className="stat-title">Drive</div>
+                          <div className="stat-title">DRIVE</div>
                           <div className="stat-value">
                             {drive?.usedPercentage}
                           </div>
@@ -150,8 +166,46 @@ export const OdmStatsPage: FC = () => {
                         </div>
                       </div>
 
-                      <br />
-                      <div className="btn-group p-4">
+                      <div className="w-full shadow stats">
+                        <div className="stat">
+                          <div className="stat-title">PROXIES</div>
+                          <div className="stat-value">{proxies.length}</div>
+                          <div
+                            className={`stat-desc ${
+                              threadsCount > 0 ? 'text-success' : 'text-error'
+                            }`}
+                          >
+                            Threads: {threadsCount} <br />
+                            FreeThreadsCount: {freeThreadsCount}
+                          </div>
+                        </div>
+                        <div className="stat">
+                          <div className="stat-title">WTN</div>
+                          <div className="stat-value">{wtn?.count}</div>
+                          <div
+                            className={`stat-desc ${
+                              wtn?.count > 0 ? 'text-success' : 'text-error'
+                            }`}
+                          >
+                            {/* Free: {mem?.freeMemPercentage?.toFixed(2)}% */}
+                          </div>
+                        </div>
+                        <div className="stat">
+                          <div className="stat-title">DOTRANSA</div>
+                          <div className="stat-value">{dotransa?.count}</div>
+                          <div
+                            className={`stat-desc ${
+                              dotransa?.count > 0
+                                ? 'text-success'
+                                : 'text-error'
+                            }`}
+                          >
+                            {/* Free: {drive?.freePercentage}% */}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="btn-group m-2 w-full justify-center ">
                         <button
                           className={'btn btn-warning'}
                           onClick={() => {
@@ -193,7 +247,7 @@ export const OdmStatsPage: FC = () => {
                         </button>
                       </div>
                       <br />
-                      <div className="btn-group p-4">
+                      <div className="btn-group m-2 w-full justify-center ">
                         {Object.keys(AppState).map((stateKey) => {
                           return (
                             <>
@@ -239,9 +293,9 @@ export const OdmStatsPage: FC = () => {
 
         <div className="mb-1 md:mb-0 w-full p-2 ">
           <label>Proxies ({proxies?.length || 0})</label>
-          <div className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3 min-h-16">
+          {/* <div className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3 min-h-16">
             {JSON.stringify(proxies, null, 2)}
-          </div>
+          </div> */}
         </div>
       </div>
     </>
