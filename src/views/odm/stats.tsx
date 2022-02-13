@@ -54,23 +54,9 @@ export const OdmStatsPage: FC = () => {
             {JSON.stringify(
               socketsData?.map((socketData: any) => ({
                 ...socketData,
-
-                wtnProxies: undefined,
-                dotransaProxies: undefined,
-
                 wtn: {
                   ...socketData?.wtn,
                   proxies: socketData?.wtn?.proxies
-                    ?.map(
-                      (p: ProxyItem) => `${p?.ip}:${p?.port} | [${p?.useCount}]`
-                    )
-                    .join('; '),
-                  wtnProxies: socketData?.wtn?.wtnProxies
-                    ?.map(
-                      (p: ProxyItem) => `${p?.ip}:${p?.port} | [${p?.useCount}]`
-                    )
-                    .join('; '),
-                  wtnProxies1: socketData?.wtnProxies
                     ?.map(
                       (p: ProxyItem) => `${p?.ip}:${p?.port} | [${p?.useCount}]`
                     )
@@ -79,16 +65,6 @@ export const OdmStatsPage: FC = () => {
                 dotransa: {
                   ...socketData?.dotransa,
                   proxies: socketData?.dotransa?.proxies
-                    ?.map(
-                      (p: ProxyItem) => `${p?.ip}:${p?.port} | [${p?.useCount}]`
-                    )
-                    .join('; '),
-                  dotransaProxies: socketData?.dotransaProxies?.proxies
-                    ?.map(
-                      (p: ProxyItem) => `${p?.ip}:${p?.port} | [${p?.useCount}]`
-                    )
-                    .join('; '),
-                  dotransaProxies1: socketData?.dotransaProxies
                     ?.map(
                       (p: ProxyItem) => `${p?.ip}:${p?.port} | [${p?.useCount}]`
                     )
