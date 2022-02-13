@@ -142,7 +142,9 @@ export const OdmStatsPage: FC = () => {
                           <div className="stat-value">{threadsCount}</div>
                           <div
                             className={`stat-desc ${
-                              threadsCount > 0 ? 'text-success' : 'text-error'
+                              freeThreadsCount > 0
+                                ? 'text-success'
+                                : 'text-error'
                             }`}
                           >
                             Free: {freeThreadsCount}
@@ -215,7 +217,7 @@ export const OdmStatsPage: FC = () => {
                           Reload Proxies
                         </button>
                       </div>
-                      <br />
+
                       <div className="btn-group m-2 w-full justify-center ">
                         {Object.keys(AppState).map((stateKey) => {
                           return (
