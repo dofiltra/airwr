@@ -200,6 +200,25 @@ export const OdmStatsPage: FC = () => {
                         <button
                           className={'btn btn-warning'}
                           onClick={() => {
+                            if (!confirm(`Refresh '${roomId}'?`)) {
+                              return
+                            }
+
+                            const emitted = !!socket?.emit(
+                              SocketEvent.AibackRefresh,
+                              {
+                                socketId,
+                              }
+                            )
+                            alert(`Refresh '${roomId}': ${emitted}`)
+                          }}
+                        >
+                          Refresh
+                        </button>
+
+                        <button
+                          className={'btn btn-warning'}
+                          onClick={() => {
                             if (!confirm(`Reload proxies '${roomId}'?`)) {
                               return
                             }
