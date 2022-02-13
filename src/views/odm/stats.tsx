@@ -138,15 +138,14 @@ export const OdmStatsPage: FC = () => {
 
                       <div className="w-full shadow stats">
                         <div className="stat">
-                          <div className="stat-title">PROXIES</div>
-                          <div className="stat-value">{proxies.length}</div>
+                          <div className="stat-title">THREADS</div>
+                          <div className="stat-value">{threadsCount}</div>
                           <div
                             className={`stat-desc ${
                               threadsCount > 0 ? 'text-success' : 'text-error'
                             }`}
                           >
-                            Threads: {threadsCount} <br />
-                            FreeThreadsCount: {freeThreadsCount}
+                            Free: {freeThreadsCount}
                           </div>
                         </div>
                         <div className="stat">
