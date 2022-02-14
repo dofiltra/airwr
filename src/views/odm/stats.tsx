@@ -11,7 +11,7 @@ import { useEffect, useState } from 'preact/hooks'
 import _ from 'lodash'
 
 export const OdmStatsPage: FC = () => {
-  const [socketsData, setSocketsData] = useState([] as any[])
+  const [servers, setServers] = useState([] as any[])
   const [proxies, setProxies] = useState([] as any[])
   const [socket, setSocket] = useState(undefined as Socket | undefined)
 
@@ -27,7 +27,7 @@ export const OdmStatsPage: FC = () => {
       })
 
       sock.on(SocketEvent.OdmStats, ({ socketsData, used }: any) => {
-        setSocketsData(
+        setServers(
           _.uniqBy(
             _.orderBy(
               socketsData,
@@ -49,8 +49,49 @@ export const OdmStatsPage: FC = () => {
     <>
       <div className=" w-full card p-5">
         <div className="mb-1 md:mb-0 w-full p-2 ">
+          <h2>TOTAL INFO</h2>
+
+          <div className="w-full shadow stats mt-4 py-2">
+            <div className="stat">
+              <div className="stat-title">THREADS</div>
+              <div className="stat-value">
+                {_.sum(
+                  servers?.map((server) => server?.threads?.threadsCount || 0)
+                )}
+              </div>
+              <div className={`stat-desc ${'text-success'}`}></div>
+            </div>
+
+            <div className="stat">
+              <div className="stat-title">PROXIES</div>
+              <div className="stat-value">{proxies?.length || 0}</div>
+              <div
+                className={`stat-desc ${
+                  proxies?.length > 0 ? 'text-success' : 'text-error'
+                }`}
+              ></div>
+            </div>
+            <div className="stat">
+              <div className="stat-title">REWRITE</div>
+              <div className="stat-value">
+                {_.sum(servers?.map((server) => server?.wtn?.count || 0))}
+              </div>
+              <div className={`stat-desc ${'text-success'}`}></div>
+            </div>
+            <div className="stat">
+              <div className="stat-title">TRANSLATE</div>
+              <div className="stat-value">
+                {_.sum(servers?.map((server) => server?.dotransa?.count || 0))}
+              </div>
+              <div className={`stat-desc ${'text-success'}`}></div>
+            </div>
+          </div>
+          <hr />
+        </div>
+
+        <div className="mb-1 md:mb-0 w-full p-2 ">
           <div className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3 min-h-16">
-            {socketsData
+            {servers
               ?.filter((socketData: any) =>
                 socketData?.roomId?.toLowerCase().startsWith('aiback')
               )
@@ -282,17 +323,10 @@ export const OdmStatsPage: FC = () => {
         </div>
 
         <div className="mb-1 md:mb-0 w-full p-2 ">
-          <label>Proxies ({proxies?.length || 0})</label>
-          {/* <div className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3 min-h-16">
-            {JSON.stringify(proxies, null, 2)}
-          </div> */}
-        </div>
-
-        <div className="mb-1 md:mb-0 w-full p-2 ">
-          <label>Sockets data</label>
+          <label>Servers data</label>
           <pre className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3 overflow-auto">
             {JSON.stringify(
-              socketsData?.map((socketData: any) => ({
+              servers?.map((socketData: any) => ({
                 ...socketData,
                 wtn: {
                   ...socketData?.wtn,
