@@ -64,7 +64,11 @@ export const OdmStatsPage: FC = () => {
                   osInfo = {},
                   wtn = {},
                   dotransa = {},
+                  rewriter = {},
+                  translator = {},
+                  extractor = {},
                 } = socketData
+
                 const { state: appState = AppState.Active, version = 0 } = {
                   ...app,
                 }
@@ -89,7 +93,7 @@ export const OdmStatsPage: FC = () => {
                       >
                         {roomId} [v{version}]
                       </b>
-                      <div className="w-full shadow stats">
+                      <div className="w-full shadow stats mt-4 py-2">
                         <div className="stat">
                           <div className="stat-title">CPU</div>
                           <div className="stat-value">
@@ -122,7 +126,7 @@ export const OdmStatsPage: FC = () => {
                         <div className="stat">
                           <div className="stat-title">DRIVE</div>
                           <div className="stat-value">
-                            {drive?.usedPercentage}
+                            {drive?.usedPercentage}%
                           </div>
                           <div
                             className={`stat-desc ${
@@ -136,7 +140,7 @@ export const OdmStatsPage: FC = () => {
                         </div>
                       </div>
 
-                      <div className="w-full shadow stats">
+                      <div className="w-full shadow stats mt-4 py-2">
                         <div className="stat">
                           <div className="stat-title">THREADS</div>
                           <div className="stat-value">{threadsCount}</div>
@@ -158,7 +162,7 @@ export const OdmStatsPage: FC = () => {
                               wtn?.count > 0 ? 'text-success' : 'text-error'
                             }`}
                           >
-                            {/* Free: {mem?.freeMemPercentage?.toFixed(2)}% */}
+                            Containers: {rewriter?.containerBlocks}
                           </div>
                         </div>
                         <div className="stat">
@@ -171,7 +175,7 @@ export const OdmStatsPage: FC = () => {
                                 : 'text-error'
                             }`}
                           >
-                            {/* Free: {drive?.freePercentage}% */}
+                            Containers: {translator?.containerBlocks}
                           </div>
                         </div>
                       </div>
