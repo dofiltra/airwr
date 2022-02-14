@@ -151,7 +151,7 @@ export const OdmStatsPage: FC = () => {
                           </div>
                         </div>
                         <div className="stat">
-                          <div className="stat-title">WTN</div>
+                          <div className="stat-title">REWRITE</div>
                           <div className="stat-value">{wtn?.count}</div>
                           <div
                             className={`stat-desc ${
@@ -162,7 +162,7 @@ export const OdmStatsPage: FC = () => {
                           </div>
                         </div>
                         <div className="stat">
-                          <div className="stat-title">DOTRANSA</div>
+                          <div className="stat-title">TRANSLATE</div>
                           <div className="stat-value">{dotransa?.count}</div>
                           <div
                             className={`stat-desc ${
