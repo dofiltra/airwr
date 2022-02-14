@@ -101,7 +101,7 @@ export const OdmStatsPage: FC = () => {
                             }`}
                           >
                             Free: {cpu?.free?.toFixed(2)}% <br />
-                            Count: {cpu?.count}
+                            Core: {cpu?.count}
                           </div>
                         </div>
                         <div className="stat">
