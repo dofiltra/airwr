@@ -76,11 +76,13 @@ export default function Navbar({}) {
           </Link>
         </div>
         <div className="hidden md:block px-2">
-          <Link to="/info/faq" className="btn btn-ghost rounded-btn">
+          <a href="https://docs.google.com/document/d/1Le2TvSQM5jdchbd4RG6PhstB6O3zbokqtbPsjbzDxcI" 
+          target="_blank"
+          className="btn btn-ghost rounded-btn">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6 text-pink-500 mx-1"
-              fill="none"
+              fill="none" 
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
@@ -92,7 +94,7 @@ export default function Navbar({}) {
               />
             </svg>
             <span className="hidden md:block">FAQ</span>
-          </Link>
+          </a>
         </div>
         <div className="hidden md:block px-2">
           <Link to="/info/api" className="btn btn-ghost rounded-btn">
