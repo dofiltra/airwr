@@ -95,7 +95,7 @@ export const OdmStatsPage: FC = () => {
               ?.filter((socketData: any) =>
                 socketData?.roomId?.toLowerCase().startsWith('aiback')
               )
-              .map((socketData: any) => {
+              .map((socketData: any, index: number) => {
                 const {
                   roomId: roomIds,
                   socketId,
@@ -132,7 +132,7 @@ export const OdmStatsPage: FC = () => {
                           idle ? 'text-success' : 'text-error'
                         }`}
                       >
-                        {roomId} [v{version}]
+                        #{index + 1} {roomId} [v{version}]
                       </b>
                       <div className="w-full shadow stats mt-4 py-2">
                         <div className="stat">
@@ -195,7 +195,20 @@ export const OdmStatsPage: FC = () => {
                             Queue blocks: {freeThreadsCount}
                           </div>
                         </div>
-                        <div className="stat">
+                        <div
+                          className="stat"
+                          onClick={() => {
+                            console.log(
+                              roomId,
+                              wtn?.proxies
+                                ?.map(
+                                  (p: ProxyItem) =>
+                                    `\n${p?.ip}:${p?.port} | [${p?.useCount}]`
+                                )
+                                .join('; ')
+                            )
+                          }}
+                        >
                           <div className="stat-title">REWRITE</div>
                           <div className="stat-value">{wtn?.count}</div>
                           <div
@@ -206,7 +219,20 @@ export const OdmStatsPage: FC = () => {
                             Containers: {rewriter?.containerBlocks}
                           </div>
                         </div>
-                        <div className="stat">
+                        <div
+                          className="stat"
+                          onClick={() => {
+                            console.log(
+                              roomId,
+                              dotransa?.proxies
+                                ?.map(
+                                  (p: ProxyItem) =>
+                                    `\n${p?.ip}:${p?.port} | [${p?.useCount}]`
+                                )
+                                .join('; ')
+                            )
+                          }}
+                        >
                           <div className="stat-title">TRANSLATE</div>
                           <div className="stat-value">{dotransa?.count}</div>
                           <div
