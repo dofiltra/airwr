@@ -15,6 +15,11 @@ export const OdmStatsPage: FC = () => {
   const [proxies, setProxies] = useState([] as any[])
   const [socket, setSocket] = useState(undefined as Socket | undefined)
 
+  const [queueCount, setQueueCount] = useState(-1)
+  const [queueRewrite, setQueueRewrite] = useState(-1)
+  const [queueTranslate, setQueueTranslate] = useState(-1)
+  const [queueExtractor, setQueueExtractor] = useState(-1)
+
   useEffect(() => {
     fetch(`${HOST_API}/api/socketio/exec`).finally(() => {
       const sock = io(HOST_API!.toString(), {
@@ -24,7 +29,18 @@ export const OdmStatsPage: FC = () => {
 
       sock.on(SocketEvent.Connect, () => {
         sock!.emit(SocketEvent.Join, { roomId: SocketEvent.OdmStats })
+        sock!.emit(SocketEvent.SendQueue, { roomId: SocketEvent.OdmStats })
       })
+
+      sock.on(
+        SocketEvent.SendQueue,
+        ({ count, rewrite, translate, extractor }: any) => {
+          setQueueCount(count)
+          setQueueRewrite(rewrite)
+          setQueueTranslate(translate)
+          setQueueExtractor(extractor)
+        }
+      )
 
       sock.on(SocketEvent.OdmStats, ({ socketsData, used }: any) => {
         setServers(
@@ -50,6 +66,32 @@ export const OdmStatsPage: FC = () => {
       <div className=" w-full card p-5">
         <div className="mb-1 md:mb-0 w-full p-2 ">
           <h2>TOTAL INFO</h2>
+
+          <div className="w-full shadow stats mt-4 py-2">
+            <div className="stat">
+              <div className="stat-title">QUEUE</div>
+              <div className="stat-value">{queueCount}</div>
+              <div className={`stat-desc ${'text-success'}`}></div>
+            </div>
+
+            <div className="stat">
+              <div className="stat-title">REWRITE</div>
+              <div className="stat-value">{queueRewrite}</div>
+              <div className={`stat-desc ${'text-success'}`}></div>
+            </div>
+
+            <div className="stat">
+              <div className="stat-title">TRANSLATE</div>
+              <div className="stat-value">{queueTranslate}</div>
+              <div className={`stat-desc ${'text-success'}`}></div>
+            </div>
+
+            <div className="stat">
+              <div className="stat-title">EXTRACTIR</div>
+              <div className="stat-value">{queueExtractor}</div>
+              <div className={`stat-desc ${'text-success'}`}></div>
+            </div>
+          </div>
 
           <div className="w-full shadow stats mt-4 py-2">
             <div className="stat">
@@ -86,6 +128,7 @@ export const OdmStatsPage: FC = () => {
               <div className={`stat-desc ${'text-success'}`}></div>
             </div>
           </div>
+
           <hr />
         </div>
 

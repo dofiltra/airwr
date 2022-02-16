@@ -8262,6 +8262,8 @@ export type TPseudoClassVariants =
   | 'file:'
   | 'placeholder:'
   | 'print:'
+  | 'ltr:'
+  | 'rtl:'
   | 'sm:'
   | 'md:'
   | 'lg:'
