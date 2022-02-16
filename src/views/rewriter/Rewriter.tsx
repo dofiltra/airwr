@@ -124,7 +124,7 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
 
       socket.on(SocketEvent.Connect, () => {
         socket.emit(SocketEvent.Join, {
-          roomId: `${SocketEvent.RewritePrefix}${token}`,
+          roomId: `RWR-${token}`,
         })
         socket.emit(SocketEvent.SendQueue, { })
       })

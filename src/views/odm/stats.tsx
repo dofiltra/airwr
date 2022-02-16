@@ -25,7 +25,7 @@ export const OdmStatsPage: FC = () => {
 
       sock.on(SocketEvent.Connect, () => {
         sock!.emit(SocketEvent.Join, { roomId: SocketEvent.OdmStats })
-        sock!.emit(SocketEvent.SendQueue, { roomId: SocketEvent.OdmStats })
+        sock!.emit(SocketEvent.SendQueue, {  })
       })
 
       sock.on(SocketEvent.SendQueue, (queue: any) => {
@@ -58,6 +58,7 @@ export const OdmStatsPage: FC = () => {
           <h2>TOTAL INFO</h2>
 
           <div className="w-full shadow stats mt-4 py-2" onClick={()=>{
+            console.log('SendQueue');            
             socket?.emit(SocketEvent.SendQueue, {})
           }}>
             <div className="stat">
