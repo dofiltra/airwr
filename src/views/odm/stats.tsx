@@ -57,7 +57,9 @@ export const OdmStatsPage: FC = () => {
         <div className="mb-1 md:mb-0 w-full p-2 ">
           <h2>TOTAL INFO</h2>
 
-          <div className="w-full shadow stats mt-4 py-2">
+          <div className="w-full shadow stats mt-4 py-2" onClick={()=>{
+            socket?.emit(SocketEvent.SendQueue, {})
+          }}>
             <div className="stat">
               <div className="stat-title">QUEUE</div>
               <div className="stat-value">{queue?.count}</div>
