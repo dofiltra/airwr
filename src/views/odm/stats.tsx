@@ -14,11 +14,7 @@ export const OdmStatsPage: FC = () => {
   const [servers, setServers] = useState([] as any[])
   const [proxies, setProxies] = useState([] as any[])
   const [socket, setSocket] = useState(undefined as Socket | undefined)
-
-  const [queueCount, setQueueCount] = useState(-1)
-  const [queueRewrite, setQueueRewrite] = useState(-1)
-  const [queueTranslate, setQueueTranslate] = useState(-1)
-  const [queueExtractor, setQueueExtractor] = useState(-1)
+  const [queue, setQueue] = useState({} as any)
 
   useEffect(() => {
     fetch(`${HOST_API}/api/socketio/exec`).finally(() => {
@@ -32,15 +28,9 @@ export const OdmStatsPage: FC = () => {
         sock!.emit(SocketEvent.SendQueue, { roomId: SocketEvent.OdmStats })
       })
 
-      sock.on(
-        SocketEvent.SendQueue,
-        ({ count, rewrite, translate, extractor }: any) => {
-          setQueueCount(count)
-          setQueueRewrite(rewrite)
-          setQueueTranslate(translate)
-          setQueueExtractor(extractor)
-        }
-      )
+      sock.on(SocketEvent.SendQueue, (queue: any) => {
+        setQueue(queue)
+      })
 
       sock.on(SocketEvent.OdmStats, ({ socketsData, used }: any) => {
         setServers(
@@ -70,25 +60,25 @@ export const OdmStatsPage: FC = () => {
           <div className="w-full shadow stats mt-4 py-2">
             <div className="stat">
               <div className="stat-title">QUEUE</div>
-              <div className="stat-value">{queueCount}</div>
+              <div className="stat-value">{queue?.count}</div>
               <div className={`stat-desc ${'text-success'}`}></div>
             </div>
 
             <div className="stat">
               <div className="stat-title">REWRITE</div>
-              <div className="stat-value">{queueRewrite}</div>
+              <div className="stat-value">{queue?.rewrite}</div>
               <div className={`stat-desc ${'text-success'}`}></div>
             </div>
 
             <div className="stat">
               <div className="stat-title">TRANSLATE</div>
-              <div className="stat-value">{queueTranslate}</div>
+              <div className="stat-value">{queue?.translate}</div>
               <div className={`stat-desc ${'text-success'}`}></div>
             </div>
 
             <div className="stat">
               <div className="stat-title">EXTRACTIR</div>
-              <div className="stat-value">{queueExtractor}</div>
+              <div className="stat-value">{queue?.extractor}</div>
               <div className={`stat-desc ${'text-success'}`}></div>
             </div>
           </div>

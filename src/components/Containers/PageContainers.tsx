@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { smiles } from 'helpers/smiles'
 import { useLocalize } from '@borodutch-labs/localize-react'
-import useQueueCount from 'hooks/useQueueCount'
 
 export const PageH1 = ({ title }: { title: string }) => {
   const smileSrc = smiles.sort(() => (Math.random() > 0.5 ? 1 : -1))[0]
@@ -15,18 +15,13 @@ export const PageH1 = ({ title }: { title: string }) => {
   )
 }
 
-export const QueueContainer = () => {
+export const QueueContainer = ({ count = '...' }: any) => {
   const { translate } = useLocalize()
-  const { queueCount = 0, queueChars = 0 } = useQueueCount()
 
   return (
     <>
       <div className="mb-1 w-full text-center">
-        <div>
-          {translate('Queue', { count: queueCount })}
-          {/* {queueCount > 100 &&
-              translate('QueueCharsCount', { chars: queueChars })} */}
-        </div>
+        <div>{translate('Queue', { count })}</div>
       </div>
     </>
   )

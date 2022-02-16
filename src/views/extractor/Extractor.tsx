@@ -1,17 +1,19 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { DateTime } from 'luxon'
-import { Doextractor, RewriteMode, TaskStatus } from 'dprx-types'
+import { Doextractor, RewriteMode, SocketEvent, TaskStatus } from 'dprx-types'
 import { ExpandBox, ExpandMode } from 'components/Select/Expand'
-import { ExtractorApi } from 'helpers/api'
+import { ExtractorApi, HOST_API } from 'helpers/api'
 import { Link } from 'react-router-dom'
 import { LoadingContainer } from 'components/Containers/Loader'
 import { PageH1, QueueContainer } from 'components/Containers/PageContainers'
 import { ToneMode } from 'components/Select/Tone'
-import { useContext, useState } from 'preact/hooks'
+import { io } from 'socket.io-client'
+import { useContext, useEffect, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import AppStore from 'stores/AppStore'
 import AuthContext from 'components/Auth/AuthContext'
@@ -40,6 +42,27 @@ export default () => {
   const [isOpenHistory, setIsOpenHistory] = useState(false)
   const { user } = useContext(AuthContext)
   const token = user?.uid || ''
+  const [queue, setQueue] = useState({} as any)
+
+  useEffect(() => {
+    fetch(`${HOST_API}/api/socketio/exec`).finally(() => {
+      const socket = io(HOST_API!.toString(), {
+        autoConnect: true,
+        reconnection: true,
+      })
+
+      socket.on(SocketEvent.Connect, () => {
+        socket.emit(SocketEvent.Join, {
+          roomId: `${SocketEvent.ExtractorPrefix}${token}`,
+        })
+        socket.emit(SocketEvent.SendQueue, { })
+      })
+
+      socket.on(SocketEvent.SendQueue, (queue: any) => {
+        setQueue(queue)
+      })
+    })
+  }, [token])
 
   if (!isVisibleContent && !AppStore.extractorTasks?.length) {
     return <LoadingContainer />
@@ -52,7 +75,7 @@ export default () => {
           <PageH1 title={translate('ExtractorTitle')} />
 
           <div className="w-full card p-4">
-            <QueueContainer />
+            <QueueContainer {...queue} />
             <div className="mb-1 w-full p-2 ">
               <label className="">{translate('EnterTextForExtractor')}</label>
               <textarea

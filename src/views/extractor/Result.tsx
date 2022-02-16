@@ -16,6 +16,7 @@ const ResultPage = () => {
   const { id = '' } = useParams()
   const { translate } = useLocalize()
   const [data, setData] = useState({} as Doextractor)
+  const [queue, setQueue] = useState({} as any)
 
   useEffect(() => {
     fetch(`${HOST_API}/api/socketio/exec`).finally(() => {
@@ -28,6 +29,11 @@ const ResultPage = () => {
         socket.emit(SocketEvent.Join, {
           roomId: `${SocketEvent.ExtractorPrefix}${id}`,
         })
+        socket.emit(SocketEvent.SendQueue, {})
+      })
+
+      socket.on(SocketEvent.SendQueue, (queue: any) => {
+        setQueue(queue)
       })
 
       socket.on(SocketEvent.AibackUpdate, (data: any) => {
@@ -69,7 +75,7 @@ const ResultPage = () => {
         <main>
           <div className="max-w-7xl">
             <div className="px-4 sm:px-0">
-              <QueueContainer />
+              <QueueContainer {...queue} />
 
               <div className="mb-1 md:mb-0 w-full p-1">
                 <div

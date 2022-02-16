@@ -18,6 +18,7 @@ const RewriterResultPage = () => {
   const { id = '' } = useParams()
   const { translate } = useLocalize()
   const [rewriteData, setRewriteData] = useState({} as RewriteText)
+  const [queue, setQueue] = useState({} as any)
 
   useEffect(() => {
     fetch(`${HOST_API}/api/socketio/exec`).finally(() => {
@@ -31,6 +32,10 @@ const RewriterResultPage = () => {
         socket?.emit(SocketEvent.Join, {
           roomId,
         })
+        socket.emit(SocketEvent.SendQueue, {})
+      })
+      socket.on(SocketEvent.SendQueue, (queue: any) => {
+        setQueue(queue)
       })
 
       socket.on(SocketEvent.AibackUpdate, (data: RewriteText) => {
@@ -116,7 +121,7 @@ const RewriterResultPage = () => {
         <main>
           <div className="max-w-7xl">
             <div className="px-4 sm:px-0">
-              <QueueContainer />
+              <QueueContainer {...queue} />
 
               <div className="mb-1 md:mb-0 w-full p-1">
                 <div className={'alert ' + getBackgroundColorByStatus(status)}>

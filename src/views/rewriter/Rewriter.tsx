@@ -1,19 +1,21 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Dataset, LangCode, RewriteMode, TaskStatus } from 'dprx-types'
+import { Dataset, LangCode, RewriteMode, SocketEvent, TaskStatus } from 'dprx-types'
 import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
 import { ExpandBox, ExpandMode } from 'components/Select/Expand'
 import { FC } from 'preact/compat'
-import { LangApi, RewriteApi } from 'helpers/api'
+import { HOST_API, LangApi, RewriteApi } from 'helpers/api'
 import { LangBox } from 'components/Select/Lang'
 import { LoadingContainer } from 'components/Containers/Loader'
 import { Navigate } from 'react-router-dom'
 import { PageH1, QueueContainer } from 'components/Containers/PageContainers'
 import { ToneMode } from 'components/Select/Tone'
-import { useContext, useState } from 'preact/hooks'
+import { io } from 'socket.io-client'
+import { useContext, useEffect, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import AuthContext from 'components/Auth/AuthContext'
 import EditorJS from '@editorjs/editorjs'
@@ -111,6 +113,27 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
 
   const { user } = useContext(AuthContext)
   const token = user?.uid || ''
+  const [queue, setQueue] = useState({} as any)
+
+  useEffect(() => {
+    fetch(`${HOST_API}/api/socketio/exec`).finally(() => {
+      const socket = io(HOST_API!.toString(), {
+        autoConnect: true,
+        reconnection: true,
+      })
+
+      socket.on(SocketEvent.Connect, () => {
+        socket.emit(SocketEvent.Join, {
+          roomId: `${SocketEvent.RewritePrefix}${token}`,
+        })
+        socket.emit(SocketEvent.SendQueue, { })
+      })
+
+      socket.on(SocketEvent.SendQueue, (queue: any) => {
+        setQueue(queue)
+      })
+    })
+  }, [token])
 
   const [api] = useState(
     () =>
@@ -149,7 +172,7 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
   return (
     <>
       <div className="w-full card p-4">
-        <QueueContainer />
+        <QueueContainer {...queue} />
 
         <div className="mb-1 md:mb-0 w-full p-2 ">
           <label className="">{translate('EnterTextForRewrite')}</label>
