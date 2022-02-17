@@ -23,6 +23,14 @@ export const SignInButtons = () => {
         <img alt="..." className="w-5 mr-1" src={'/img/google.svg'} />
         {translate('sign in').toUpperCase()}
       </button>
+
+      <a
+        href="#email-auth"
+        className="justify-center px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"
+      >
+        <img alt="..." className="w-5 mr-1" src={'/img/email.svg'} />
+        {translate('sign in').toUpperCase()}
+      </a>
     </>
   )
 }

@@ -76,13 +76,15 @@ export default function Navbar({}) {
           </Link>
         </div>
         <div className="hidden md:block px-2">
-          <a href="https://docs.google.com/document/d/1Le2TvSQM5jdchbd4RG6PhstB6O3zbokqtbPsjbzDxcI" 
-          target="_blank"
-          className="btn btn-ghost rounded-btn">
+          <a
+            href="https://docs.google.com/document/d/1Le2TvSQM5jdchbd4RG6PhstB6O3zbokqtbPsjbzDxcI"
+            target="_blank"
+            className="btn btn-ghost rounded-btn"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6 text-pink-500 mx-1"
-              fill="none" 
+              fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
@@ -187,11 +189,14 @@ export default function Navbar({}) {
                   tabIndex={0}
                   className="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52"
                 >
-                  <li className="text-center pb-3">
-                    <Link to="/profile">
-                      {user?.displayName?.toUpperCase()}
-                    </Link>
-                  </li>
+                  {user?.uid && (
+                    <li className="text-center pb-3">
+                      <Link to="/profile">
+                        {user?.displayName?.toUpperCase() ||
+                          user?.email?.toUpperCase()}
+                      </Link>
+                    </li>
+                  )}
                   {!user?.uid && (
                     <li>
                       <SignInButtons />
