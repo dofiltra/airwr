@@ -10,7 +10,7 @@
     "cp": "mkdir -p /var/www/ai.dofiltra.com/ && cp -Rf /root/git/airwr/dist/* /var/www/ai.dofiltra.com/",
     "cp-stage": "mkdir -p /var/www/ai-stage.dofiltra.com/ && cp -Rf /root/git/airwr/dist/* /var/www/ai-stage.dofiltra.com/",
     "preview": "yarn run build && yarn start",
-    "build": "cross-env NODE_ENV=production tsc && vite build",
+    "build": "yarn && cross-env NODE_ENV=production tsc && vite build",
     "pretty": "prettier --check src",
     "lint": "yarn pretty && eslint --max-warnings 0 --ext ts,tsx,json src",
     "generate-css-types": "tailwindcss-classnames -o src/classnames/tailwind.ts && prettier --write \"src/classnames/tailwind.ts\"",
