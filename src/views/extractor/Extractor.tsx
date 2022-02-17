@@ -53,7 +53,7 @@ export default () => {
 
       socket.on(SocketEvent.Connect, () => {
         socket.emit(SocketEvent.Join, {
-          roomId: `${SocketEvent.ExtractorPrefix}${token}`,
+          roomId: `EXTR-${token}`,
         })
         socket.emit(SocketEvent.SendQueue, { })
       })
