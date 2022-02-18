@@ -186,7 +186,7 @@ export const OdmStatsPage: FC = () => {
                           </div>
                         </div>
                         <div className="stat">
-                          <div className="stat-title">MEMORY</div>
+                          <div className="stat-title">RAM</div>
                           <div className="stat-value">
                             {mem?.usedMemPercentage?.toFixed(2)}%
                           </div>
