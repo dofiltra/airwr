@@ -80,7 +80,7 @@ export const OdmStatsPage: FC = () => {
             </div>
 
             <div className="stat">
-              <div className="stat-title">EXTRACTIR</div>
+              <div className="stat-title">EXTRACTOR</div>
               <div className="stat-value">{queue?.extractor}</div>
               <div className={`stat-desc ${'text-success'}`}></div>
             </div>
