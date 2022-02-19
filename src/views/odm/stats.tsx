@@ -55,6 +55,7 @@ export const OdmStatsPage: FC = () => {
               ?.filter((socketData: any) =>
                 socketData?.roomId?.toLowerCase().startsWith('aiback')
               )
+              
 
   return (
     <>
@@ -96,11 +97,12 @@ export const OdmStatsPage: FC = () => {
               <div className="stat-title">THREADS</div>
               <div className="stat-value">
                 {_.sum(
-                  servers?.map((server) => server?.threads?.threadsCount || 0)
+                  aibacks?.map((aiback) => aiback?.threads?.threadsCount || 0)
                 )}
               </div>
               <div className={`stat-desc ${'text-success'}`}>
                 Aibacks: {aibacks.length}
+                Free: { aibacks.map(aiback=> aiback?.threads?.freeThreadsCount)}
               </div>
             </div>
 
@@ -135,7 +137,7 @@ export const OdmStatsPage: FC = () => {
         <div className="mb-1 md:mb-0 w-full p-2 ">
           <div className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3 min-h-16">
             {aibacks
-              .map((socketData: any, index: number) => {
+              .map((aiback: any, index: number) => {
                 const {
                   roomId: roomIds,
                   socketId,
@@ -148,7 +150,7 @@ export const OdmStatsPage: FC = () => {
                   rewriter = {},
                   translator = {},
                   extractor = {},
-                } = socketData
+                } = aiback
 
                 const { state: appState = AppState.Active, version = 0 } = {
                   ...app,
