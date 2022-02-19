@@ -242,6 +242,13 @@ export const OdmStatsPage: FC = () => {
                           }`}
                         >
                           Free: {freeThreadsCount}
+                          <br/>
+                          <div className="btn-group">
+  <button className="btn btn-xs" onClick={()=>{
+    
+  }}>+</button>
+  <button className="btn btn-xs">-</button>
+</div>
                         </div>
                       </div>
                       <div
