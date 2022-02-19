@@ -249,7 +249,7 @@ export const OdmStatsPage: FC = () => {
                               onClick={() => {
                                 socket?.emit(SocketEvent.AibackChangeThreads, {
                                   socketId,
-                                  roomId,
+                                  serverName: roomId,
                                   count: 1,
                                 })
                               }}
@@ -261,7 +261,7 @@ export const OdmStatsPage: FC = () => {
                               onClick={() => {
                                 socket?.emit(SocketEvent.AibackChangeThreads, {
                                   socketId,
-                                  roomId,
+                                  serverName: roomId,
                                   count: -1,
                                 })
                               }}
