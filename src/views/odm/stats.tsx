@@ -94,15 +94,16 @@ export const OdmStatsPage: FC = () => {
 
           <div className="w-full shadow stats mt-4 py-2">
             <div className="stat">
-              <div className="stat-title">THREADS</div>
+              <div className="stat-title">AIBACKS</div>
               <div className="stat-value">
-                {_.sum(
-                  aibacks?.map((aiback) => aiback?.threads?.threadsCount || 0)
-                )}
+               {aibacks.length}
               </div>
               <div className={`stat-desc ${'text-success'}`}>
-                Aibacks: {aibacks.length}
-                Free: { aibacks.map(aiback=> aiback?.threads?.freeThreadsCount)}
+                Threads: {_.sum(
+                  aibacks?.map((aiback) => aiback?.threads?.threadsCount || 0)
+                )}
+                <br/>
+                Free: {_.sum( aibacks.map(aiback=> aiback?.threads?.freeThreadsCount||0))}
               </div>
             </div>
 
