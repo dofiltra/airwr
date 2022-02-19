@@ -68,7 +68,7 @@ export default () => {
                 <>
                   <hr className="mb-5" />
                   <h2 className="">Rewrite</h2>
-                  <p className="mb-5 px-4">
+                  <p className="mb-5 px-6">
                     NotStarted: {queue?.rewrite && queue?.rewrite[TaskStatus.NotStarted] || 0}<br/>
                     InProgress: {queue?.rewrite && queue?.rewrite[TaskStatus.InProgress] || 0}<br/>
                     Completed: {queue?.rewrite && queue?.rewrite[TaskStatus.Completed] || 0}<br/>
