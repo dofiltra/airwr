@@ -51,6 +51,11 @@ export const OdmStatsPage: FC = () => {
     })
   }, [])
 
+  const aibacks=servers
+              ?.filter((socketData: any) =>
+                socketData?.roomId?.toLowerCase().startsWith('aiback')
+              )
+
   return (
     <>
       <div className=" w-full card p-5">
@@ -94,7 +99,9 @@ export const OdmStatsPage: FC = () => {
                   servers?.map((server) => server?.threads?.threadsCount || 0)
                 )}
               </div>
-              <div className={`stat-desc ${'text-success'}`}></div>
+              <div className={`stat-desc ${'text-success'}`}>
+                Aibacks: {aibacks.length}
+              </div>
             </div>
 
             <div className="stat">
@@ -127,10 +134,7 @@ export const OdmStatsPage: FC = () => {
 
         <div className="mb-1 md:mb-0 w-full p-2 ">
           <div className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3 min-h-16">
-            {servers
-              ?.filter((socketData: any) =>
-                socketData?.roomId?.toLowerCase().startsWith('aiback')
-              )
+            {aibacks
               .map((socketData: any, index: number) => {
                 const {
                   roomId: roomIds,
