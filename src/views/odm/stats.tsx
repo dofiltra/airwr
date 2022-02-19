@@ -171,6 +171,15 @@ export const OdmStatsPage: FC = () => {
                         className={`p-4 w-full ${
                           idle ? 'text-success' : 'text-error'
                         }`}
+                        onClick={() => {
+                            const emitted = !!socket?.emit(
+                              SocketEvent.AibackRefresh,
+                              {
+                                socketId,
+                              }
+                            )
+                            alert(`Refresh '${roomId}': ${emitted}`)
+                          }}
                       >
                         #{index + 1} {roomId} [v{version}]
                       </b>
@@ -306,21 +315,6 @@ export const OdmStatsPage: FC = () => {
                           }}
                         >
                           Restart
-                        </button>
-
-                        <button
-                          className={'btn btn-warning'}
-                          onClick={() => {
-                            const emitted = !!socket?.emit(
-                              SocketEvent.AibackRefresh,
-                              {
-                                socketId,
-                              }
-                            )
-                            alert(`Refresh '${roomId}': ${emitted}`)
-                          }}
-                        >
-                          Refresh
                         </button>
 
                         <button
