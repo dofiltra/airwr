@@ -314,7 +314,7 @@ export const OdmStatsPage: FC = () => {
                             alert(`Restarting '${roomId}': ${emitted}`)
                           }}
                         >
-                          Restart
+                          Restart app
                         </button>
 
                         <button
@@ -334,7 +334,7 @@ export const OdmStatsPage: FC = () => {
                             alert(`Reloading '${roomId}': ${emitted}`)
                           }}
                         >
-                          Reload Proxies
+                          Rotate Proxies
                         </button>
                       </div>
 
