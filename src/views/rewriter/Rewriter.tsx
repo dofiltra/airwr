@@ -4,7 +4,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Dataset, LangCode, RewriteMode, SocketEvent, TaskStatus } from 'dprx-types'
+import { Dataset, LangCode, ModuleName, RewriteMode, SocketEvent, TaskStatus } from 'dprx-types'
 import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
 import { ExpandBox, ExpandMode } from 'components/Select/Expand'
 import { FC } from 'preact/compat'
@@ -27,7 +27,7 @@ export const RewriterPage: FC = () => {
   const [linkResultId, setLinkResult] = useState('')
 
   if (linkResultId) {
-    return <Navigate to={`/rewrite/result/${linkResultId}`} />
+    return <Navigate to={`/${ModuleName.Rewriter}/result/${linkResultId}`} />
   }
 
   return (

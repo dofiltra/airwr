@@ -4,7 +4,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { BlockContent, Dotranslate, LangCode, SocketEvent, TaskStatus } from 'dprx-types'
+import { BlockContent, Dotranslate, LangCode, ModuleName, SocketEvent, TaskStatus } from 'dprx-types'
 import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
 import { HOST_API, LangApi, TranslateApi } from 'helpers/api'
 import { LangBox } from 'components/Select/Lang'
@@ -25,7 +25,7 @@ export default () => {
   const [linkResultId, setLinkResult] = useState('')
 
   if (linkResultId) {
-    return <Navigate to={`/translator/result/${linkResultId}`} />
+    return <Navigate to={`/${ModuleName.Translator}/result/${linkResultId}`} />
   }
 
   if (!isVisibleContent) {

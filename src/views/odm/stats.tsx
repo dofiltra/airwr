@@ -35,7 +35,7 @@ export const OdmStatsPage: FC = () => {
 
       sock.on(SocketEvent.AibackStopContainer, ({ id, moduleName })=>{
         console.log(moduleName, id);
-        setTasks(_.uniqBy([ {id, moduleName}, ...tasks], 'id'))
+        setTasks(old=> _.uniqBy([ {id, moduleName}, ...old], 'id'))
       })
 
       sock.on(SocketEvent.OdmStats, ({ socketsData, used }: any) => {
@@ -417,12 +417,12 @@ export const OdmStatsPage: FC = () => {
 <div className="collapse border border-base-300 bg-base-100 rounded-box collapse-arrow">
             <input type="checkbox" />
   <div className="collapse-title text-xl font-medium">
-   Last tasks
+   Last completed tasks
   </div>
   <div className="collapse-content"> 
   <ul className="overflow-x-auto">
     {tasks.map(task=><li>
-      <a href={`/${task.moduleName}/${task.id}`} target={'_blank'}>/{task.moduleName}/{task.id}</a>
+      <a href={`/${task.moduleName}/result/${task.id}`} target={'_blank'}>/{task.moduleName}/result/{task.id}</a>
     </li>)}
     </ul>
   </div>

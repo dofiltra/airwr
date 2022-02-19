@@ -18,6 +18,7 @@ import RewriterResultPage from 'views/rewriter/Result'
 import Root from 'components/Containers/Root'
 import TranslateResultPage from 'views/translator/Result'
 import TranslatorPage from 'views/translator/Translator'
+import { ModuleName } from 'dprx-types'
 
 const App = () => {
   return (
@@ -29,17 +30,21 @@ const App = () => {
             <Routes>
               <Route path="/" element={<RewriterPage />} />
               <Route
+                path={`/${ModuleName.Rewriter}/result/:id`}
+                element={<RewriterResultPage />}
+              />
+              <Route
                 path="/rewrite/result/:id"
                 element={<RewriterResultPage />}
               />
-              <Route path="/translator" element={<TranslatorPage />} />
+              <Route path={`/${ModuleName.Translator}`} element={<TranslatorPage />} />
               <Route
-                path="/translator/result/:id"
+                path={`/${ModuleName.Translator}/result/:id`}
                 element={<TranslateResultPage />}
               />
-              <Route path="/extractor" element={<ExtractorPage />} />
+              <Route path={`/${ModuleName.Extractor}`} element={<ExtractorPage />} />
               <Route
-                path="/extractor/result/:id"
+                path={`/${ModuleName.Extractor}/result/:id`}
                 element={<ExtractorResultPage />}
               />
               <Route path="/login" element={<Login />} />
