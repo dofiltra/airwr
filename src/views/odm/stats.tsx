@@ -256,13 +256,18 @@ export const OdmStatsPage: FC = () => {
                             >
                               +
                             </button>
-                            <button className="btn btn-xs" onClick={() => {
+                            <button
+                              className="btn btn-xs"
+                              onClick={() => {
                                 socket?.emit(SocketEvent.AibackChangeThreads, {
                                   socketId,
                                   roomId,
                                   count: -1,
-                                })
-                              }}>-</button>
+                                }) 
+                              }}
+                            >
+                              -
+                            </button>
                           </div>
                         </div>
                       </div>
