@@ -25,7 +25,7 @@ export const OdmStatsPage: FC = () => {
 
       sock.on(SocketEvent.Connect, () => {
         sock!.emit(SocketEvent.Join, { roomId: SocketEvent.OdmStats })
-        sock!.emit(SocketEvent.SendQueue, {  })
+        sock!.emit(SocketEvent.SendQueue, {})
       })
 
       sock.on(SocketEvent.SendQueue, (queue: any) => {
@@ -51,11 +51,9 @@ export const OdmStatsPage: FC = () => {
     })
   }, [])
 
-  const aibacks=servers
-              ?.filter((socketData: any) =>
-                socketData?.roomId?.toLowerCase().startsWith('aiback')
-              )
-              
+  const aibacks = servers?.filter((socketData: any) =>
+    socketData?.roomId?.toLowerCase().startsWith('aiback')
+  )
 
   return (
     <>
@@ -63,10 +61,13 @@ export const OdmStatsPage: FC = () => {
         <div className="mb-1 md:mb-0 w-full p-2 ">
           <h2>TOTAL INFO</h2>
 
-          <div className="w-full shadow stats mt-4 py-2" onClick={()=>{
-            console.log('SendQueue');            
-            socket?.emit(SocketEvent.SendQueue, {})
-          }}>
+          <div
+            className="w-full shadow stats mt-4 py-2"
+            onClick={() => {
+              console.log('SendQueue')
+              socket?.emit(SocketEvent.SendQueue, {})
+            }}
+          >
             <div className="stat">
               <div className="stat-title">QUEUE</div>
               <div className="stat-value">{queue?.count}</div>
@@ -95,15 +96,19 @@ export const OdmStatsPage: FC = () => {
           <div className="w-full shadow stats mt-4 py-2">
             <div className="stat">
               <div className="stat-title">AIBACKS</div>
-              <div className="stat-value">
-               {aibacks.length}
-              </div>
+              <div className="stat-value">{aibacks.length}</div>
               <div className={`stat-desc ${'text-success'}`}>
-                Threads: {_.sum(
+                Threads:{' '}
+                {_.sum(
                   aibacks?.map((aiback) => aiback?.threads?.threadsCount || 0)
                 )}
-                <br/>
-                Free: {_.sum( aibacks.map(aiback=> aiback?.threads?.freeThreadsCount||0))}
+                <br />
+                Free:{' '}
+                {_.sum(
+                  aibacks.map(
+                    (aiback) => aiback?.threads?.freeThreadsCount || 0
+                  )
+                )}
               </div>
             </div>
 
@@ -137,251 +142,241 @@ export const OdmStatsPage: FC = () => {
 
         <div className="mb-1 md:mb-0 w-full p-2 ">
           <div className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3 min-h-16">
-            {aibacks
-              .map((aiback: any, index: number) => {
-                const {
-                  roomId: roomIds,
-                  socketId,
-                  idle = true,
-                  app = {},
-                  threads = {},
-                  osInfo = {},
-                  wtn = {},
-                  dotransa = {},
-                  rewriter = {},
-                  translator = {},
-                  extractor = {},
-                } = aiback
+            {aibacks.map((aiback: any, index: number) => {
+              const {
+                roomId: roomIds,
+                socketId,
+                idle = true,
+                app = {},
+                threads = {},
+                osInfo = {},
+                wtn = {},
+                dotransa = {},
+                rewriter = {},
+                translator = {},
+                extractor = {},
+              } = aiback
 
-                const { state: appState = AppState.Active, version = 0 } = {
-                  ...app,
-                }
-                const {
-                  os = {},
-                  cpu = {},
-                  mem = {},
-                  drive = {},
-                } = { ...osInfo }
-                const { threadsCount = 0, freeThreadsCount = 0 } = {
-                  ...threads,
-                }
-                const [roomId] = roomIds.split(';')
+              const { state: appState = AppState.Active, version = 0 } = {
+                ...app,
+              }
+              const { os = {}, cpu = {}, mem = {}, drive = {} } = { ...osInfo }
+              const { threadsCount = 0, freeThreadsCount = 0 } = {
+                ...threads,
+              }
+              const [roomId] = roomIds.split(';')
 
-                return (
-                  <>
-                    <div className="p-4 mb-4">
-                      <b
-                        className={`p-4 w-full ${
-                          idle ? 'text-success' : 'text-error'
-                        }`}
-                        onClick={() => {
-                            const emitted = !!socket?.emit(
-                              SocketEvent.AibackRefresh,
-                              {
-                                socketId,
-                              }
-                            )
-                            alert(`Refresh '${roomId}': ${emitted}`)
-                          }}
-                      >
-                        #{index + 1} {roomId} [v{version}]
-                      </b>
-                      <div className="w-full shadow stats mt-4 py-2">
-                        <div className="stat">
-                          <div className="stat-title">CPU</div>
-                          <div className="stat-value">
-                            {cpu?.usage?.toFixed(2)}%
-                          </div>
-                          <div
-                            className={`stat-desc ${
-                              cpu?.free > 10 ? 'text-success' : 'text-error'
-                            }`}
-                          >
-                            Free: {cpu?.free?.toFixed(2)}% <br />
-                            Core: {cpu?.count}
-                          </div>
-                        </div>
-                        <div className="stat">
-                          <div className="stat-title">RAM</div>
-                          <div className="stat-value">
-                            {mem?.usedMemPercentage?.toFixed(2)}%
-                          </div>
-                          <div
-                            className={`stat-desc ${
-                              mem?.freeMemPercentage > 10
-                                ? 'text-success'
-                                : 'text-error'
-                            }`}
-                          >
-                            Free: {mem?.freeMemPercentage?.toFixed(2)}%
-                          </div>
-                        </div>
-                        <div className="stat">
-                          <div className="stat-title">DRIVE</div>
-                          <div className="stat-value">
-                            {drive?.usedPercentage}%
-                          </div>
-                          <div
-                            className={`stat-desc ${
-                              drive?.freePercentage > 10
-                                ? 'text-success'
-                                : 'text-error'
-                            }`}
-                          >
-                            Free: {drive?.freePercentage}%
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="w-full shadow stats mt-4 py-2">
-                        <div className="stat">
-                          <div className="stat-title">THREADS</div>
-                          <div className="stat-value">{threadsCount}</div>
-                          <div
-                            className={`stat-desc ${
-                              freeThreadsCount > 0
-                                ? 'text-success'
-                                : 'text-error'
-                            }`}
-                          >
-                            Free: {freeThreadsCount}
-                          </div>
+              return (
+                <>
+                  <div className="p-4 mb-4">
+                    <b
+                      className={`p-4 w-full ${
+                        idle ? 'text-success' : 'text-error'
+                      }`}
+                      onClick={() => {
+                        const emitted = !!socket?.emit(
+                          SocketEvent.AibackRefresh,
+                          {
+                            socketId,
+                          }
+                        )
+                        alert(`Refresh '${roomId}': ${emitted}`)
+                      }}
+                    >
+                      #{index + 1} {roomId} [v{version}]
+                    </b>
+                    <div className="w-full shadow stats mt-4 py-2">
+                      <div className="stat">
+                        <div className="stat-title">CPU</div>
+                        <div className="stat-value">
+                          {cpu?.usage?.toFixed(2)}%
                         </div>
                         <div
-                          className="stat"
-                          onClick={() => {
-                            console.log(
-                              roomId,
-                              wtn?.proxies
-                                ?.map(
-                                  (p: ProxyItem) =>
-                                    `\n${p?.ip}:${p?.port} | [${p?.useCount}]`
-                                )
-                                .join('; ')
-                            )
-                          }}
+                          className={`stat-desc ${
+                            cpu?.free > 10 ? 'text-success' : 'text-error'
+                          }`}
                         >
-                          <div className="stat-title">REWRITE</div>
-                          <div className="stat-value">{wtn?.count}</div>
-                          <div
-                            className={`stat-desc ${
-                              wtn?.count > 0 ? 'text-success' : 'text-error'
-                            }`}
-                          >
-                            Containers: {rewriter?.containerBlocks}
-                          </div>
+                          Free: {cpu?.free?.toFixed(2)}% <br />
+                          Core: {cpu?.count}
+                        </div>
+                      </div>
+                      <div className="stat">
+                        <div className="stat-title">RAM</div>
+                        <div className="stat-value">
+                          {mem?.usedMemPercentage?.toFixed(2)}%
                         </div>
                         <div
-                          className="stat"
-                          onClick={() => {
-                            console.log(
-                              roomId,
-                              dotransa?.proxies
-                                ?.map(
-                                  (p: ProxyItem) =>
-                                    `\n${p?.ip}:${p?.port} | [${p?.useCount}]`
-                                )
-                                .join('; ')
-                            )
-                          }}
+                          className={`stat-desc ${
+                            mem?.freeMemPercentage > 10
+                              ? 'text-success'
+                              : 'text-error'
+                          }`}
                         >
-                          <div className="stat-title">TRANSLATE</div>
-                          <div className="stat-value">{dotransa?.count}</div>
-                          <div
-                            className={`stat-desc ${
-                              dotransa?.count > 0
-                                ? 'text-success'
-                                : 'text-error'
-                            }`}
-                          >
-                            Containers: {translator?.containerBlocks}
-                          </div>
+                          Free: {mem?.freeMemPercentage?.toFixed(2)}%
                         </div>
                       </div>
-
-                      <div className="btn-group m-2 w-full justify-center ">
-                        <button
-                          className={'btn btn-warning'}
-                          onClick={() => {
-                            if (!confirm(`Restart '${roomId}'?`)) {
-                              return
-                            }
-
-                            const emitted = !!socket?.emit(
-                              SocketEvent.AibackRestartApp,
-                              {
-                                socketId,
-                                roomId,
-                              }
-                            )
-                            alert(`Restarting '${roomId}': ${emitted}`)
-                          }}
+                      <div className="stat">
+                        <div className="stat-title">DRIVE</div>
+                        <div className="stat-value">
+                          {drive?.usedPercentage}%
+                        </div>
+                        <div
+                          className={`stat-desc ${
+                            drive?.freePercentage > 10
+                              ? 'text-success'
+                              : 'text-error'
+                          }`}
                         >
-                          Restart app
-                        </button>
-
-                        <button
-                          className={'btn btn-warning'}
-                          onClick={() => {
-                            if (!confirm(`Reload proxies '${roomId}'?`)) {
-                              return
-                            }
-
-                            const emitted = !!socket?.emit(
-                              SocketEvent.AibackReloadProxies,
-                              {
-                                socketId,
-                                roomId,
-                              }
-                            )
-                            alert(`Reloading '${roomId}': ${emitted}`)
-                          }}
-                        >
-                          Rotate Proxies
-                        </button>
+                          Free: {drive?.freePercentage}%
+                        </div>
                       </div>
-
-                      <div className="btn-group m-2 w-full justify-center ">
-                        {Object.keys(AppState).map((stateKey) => {
-                          return (
-                            <>
-                              <button
-                                className={`btn ${
-                                  appState.toLowerCase() ===
-                                  stateKey.toLowerCase()
-                                    ? 'btn-active btn-wide'
-                                    : ''
-                                }`}
-                                onClick={() => {
-                                  if (
-                                    !confirm(`'${stateKey}' for '${roomId}'?`)
-                                  ) {
-                                    return
-                                  }
-
-                                  const emitted = !!socket?.emit(
-                                    SocketEvent.AibackState,
-                                    {
-                                      socketId,
-                                      state: stateKey,
-                                    }
-                                  )
-                                  alert(
-                                    `'${stateKey}' for '${roomId}' emitted: ${emitted}`
-                                  )
-                                }}
-                              >
-                                {stateKey}
-                              </button>
-                            </>
-                          )
-                        })}
-                      </div>
-                      <hr />
                     </div>
-                  </>
-                )
-              })}
+
+                    <div className="w-full shadow stats mt-4 py-2">
+                      <div className="stat">
+                        <div className="stat-title">THREADS</div>
+                        <div className="stat-value">{threadsCount}</div>
+                        <div
+                          className={`stat-desc ${
+                            freeThreadsCount > 0 ? 'text-success' : 'text-error'
+                          }`}
+                        >
+                          Free: {freeThreadsCount}
+                        </div>
+                      </div>
+                      <div
+                        className="stat"
+                        onClick={() => {
+                          console.log(
+                            roomId,
+                            wtn?.proxies
+                              ?.map(
+                                (p: ProxyItem) =>
+                                  `\n${p?.ip}:${p?.port} | [${p?.useCount}]`
+                              )
+                              .join('; ')
+                          )
+                        }}
+                      >
+                        <div className="stat-title">REWRITE</div>
+                        <div className="stat-value">{wtn?.count}</div>
+                        <div
+                          className={`stat-desc ${
+                            wtn?.count > 0 ? 'text-success' : 'text-error'
+                          }`}
+                        >
+                          Containers: {rewriter?.containerBlocks}
+                        </div>
+                      </div>
+                      <div
+                        className="stat"
+                        onClick={() => {
+                          console.log(
+                            roomId,
+                            dotransa?.proxies
+                              ?.map(
+                                (p: ProxyItem) =>
+                                  `\n${p?.ip}:${p?.port} | [${p?.useCount}]`
+                              )
+                              .join('; ')
+                          )
+                        }}
+                      >
+                        <div className="stat-title">TRANSLATE</div>
+                        <div className="stat-value">{dotransa?.count}</div>
+                        <div
+                          className={`stat-desc ${
+                            dotransa?.count > 0 ? 'text-success' : 'text-error'
+                          }`}
+                        >
+                          Containers: {translator?.containerBlocks}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="btn-group m-2 w-full justify-center ">
+                      <button
+                        className={'btn btn-warning'}
+                        onClick={() => {
+                          if (!confirm(`Restart '${roomId}'?`)) {
+                            return
+                          }
+
+                          const emitted = !!socket?.emit(
+                            SocketEvent.AibackRestartApp,
+                            {
+                              socketId,
+                              roomId,
+                            }
+                          )
+                          alert(`Restarting '${roomId}': ${emitted}`)
+                        }}
+                      >
+                        Restart app
+                      </button>
+
+                      <button
+                        className={'btn btn-warning'}
+                        onClick={() => {
+                          if (!confirm(`Reload proxies '${roomId}'?`)) {
+                            return
+                          }
+
+                          const emitted = !!socket?.emit(
+                            SocketEvent.AibackReloadProxies,
+                            {
+                              socketId,
+                              roomId,
+                            }
+                          )
+                          alert(`Reloading '${roomId}': ${emitted}`)
+                        }}
+                      >
+                        Rotate Proxies
+                      </button>
+                    </div>
+
+                    <div className="btn-group m-2 w-full justify-center ">
+                      {Object.keys(AppState).map((stateKey) => {
+                        return (
+                          <>
+                            <button
+                              className={`btn ${
+                                appState.toLowerCase() ===
+                                stateKey.toLowerCase()
+                                  ? 'btn-active btn-wide'
+                                  : ''
+                              }`}
+                              onClick={() => {
+                                if (
+                                  !confirm(`'${stateKey}' for '${roomId}'?`)
+                                ) {
+                                  return
+                                }
+
+                                const emitted = !!socket?.emit(
+                                  SocketEvent.AibackState,
+                                  {
+                                    socketId,
+                                    state: stateKey,
+                                  }
+                                )
+                                alert(
+                                  `'${stateKey}' for '${roomId}' emitted: ${emitted}`
+                                )
+                              }}
+                            >
+                              {stateKey}
+                            </button>
+                          </>
+                        )
+                      })}
+                    </div>
+                    <hr />
+                  </div>
+                </>
+              )
+            })}
           </div>
         </div>
 
