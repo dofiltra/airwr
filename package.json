@@ -51,7 +51,7 @@
     "@editorjs/table": "^2.0.1",
     "@editorjs/warning": "^1.2.0",
     "@vitejs/plugin-react": "^1.2.0",
-    "daisyui": "^2.0.9",
+    "daisyui": "^1.25.4",
     "dprx-types": "^1.1.72",
     "firebase": "^9.6.7",
     "lodash": "^4.17.21",
