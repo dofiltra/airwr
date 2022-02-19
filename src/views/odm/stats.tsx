@@ -420,7 +420,7 @@ export const OdmStatsPage: FC = () => {
    Last completed tasks
   </div>
   <div className="collapse-content"> 
-  <ul className="overflow-x-auto">
+  <ul className="overflow-auto">
     {tasks.map(task=><li>
       <a href={`/${task.moduleName}/result/${task.id}`} target={'_blank'}>/{task.moduleName}/result/{task.id}</a>
     </li>)}
@@ -429,8 +429,13 @@ export const OdmStatsPage: FC = () => {
 </div>
         </div>
         <div className="mb-1 md:mb-0 w-full p-2 ">
-          <label>Servers data</label>
-          <pre className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3 overflow-auto">
+          <div className="collapse border border-base-300 bg-base-100 rounded-box collapse-arrow">
+            <input type="checkbox" />
+  <div className="collapse-title text-xl font-medium">
+          Servers data
+  </div>
+  <div className="collapse-content"> 
+          <pre className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3">
             {JSON.stringify(
               servers?.map((socketData: any) => ({
                 ...socketData,
@@ -456,6 +461,8 @@ export const OdmStatsPage: FC = () => {
               2
             )}
           </pre>
+        </div>
+        </div>
         </div>
       </div>
     </>
