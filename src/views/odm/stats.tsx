@@ -247,7 +247,7 @@ export const OdmStatsPage: FC = () => {
                             <button
                               className="btn btn-xs"
                               onClick={() => {
-                                socket?.emit('', {
+                                socket?.emit(SocketEvent.AibackChangeThreads, {
                                   socketId,
                                   roomId,
                                   count: 1,
@@ -262,8 +262,8 @@ export const OdmStatsPage: FC = () => {
                                 socket?.emit(SocketEvent.AibackChangeThreads, {
                                   socketId,
                                   roomId,
-                                  count: -1, 
-                                }) 
+                                  count: -1,
+                                })
                               }}
                             >
                               -
