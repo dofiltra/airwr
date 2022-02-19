@@ -9,6 +9,7 @@ import { useLocalize } from '@borodutch-labs/localize-react'
 import AuthContext from 'components/Auth/AuthContext'
 import Pay from 'components/Pay/Pay'
 import useRewritedCharsCount from 'hooks/useRewritedCharsCount'
+import { TaskStatus } from 'dprx-types'
 
 export default () => {
   const { translate } = useLocalize()
@@ -30,7 +31,7 @@ export default () => {
     )
   }
 
-  const { history = {} } = useRewritedCharsCount(token)
+  const { history = {}, queue={} } = useRewritedCharsCount(token)
   const [myPromoCode, setMyPromoCode] = useState('')
   const [myPromoError, setMyPromoError] = useState('')
   const [myPromoPercent, setMyPromoPercent] = useState(10)
@@ -55,6 +56,29 @@ export default () => {
         <p className="mb-5">
           <Pay />
         </p>
+
+          <div className="mb-1 w-full p-2 ">
+          <div className="collapse w-full border rounded-box border-base-300 collapse-arrow">
+            <input type="checkbox" />
+            <div className="collapse-title text-xl font-medium">
+              {translate('My queue')}
+            </div>
+            <div className="collapse-content">
+              <div className="overflow-x-auto">
+                <>
+                  <hr className="mb-5" />
+                  <h2 className="">Rewrite</h2>
+                  <p className="mb-5 px-4">
+                    NotStarted: {queue?.rewrite && queue?.rewrite[TaskStatus.NotStarted]}<br/>
+                    InProgress: {queue?.rewrite && queue?.rewrite[TaskStatus.InProgress]}<br/>
+                    Completed: {queue?.rewrite && queue?.rewrite[TaskStatus.Completed]}<br/>
+                  </p>
+                </>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="mb-1 w-full p-2 ">
           <div className="collapse w-full border rounded-box border-base-300 collapse-arrow">
             <input type="checkbox" />

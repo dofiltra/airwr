@@ -8,15 +8,19 @@ export default function useRewritedCharsCount(token?: string) {
   const [history, setHistory] = useState<
     { [dateKey: string]: number } | undefined
   >(undefined)
+  const [queue, setQueue] = useState<any>({})
 
   const fetchData = async () => {
-    const result = await RewriteApi.getRewritedCharsCount(token)
-    setHistory(result)
+    const { history: h, queue: q } = await RewriteApi.getRewritedCharsCount(
+      token
+    )
+    setHistory(h)
+    setQueue(q)
   }
 
   useEffect(() => {
     void fetchData()
   }, [])
 
-  return { history }
+  return { history, queue }
 }

@@ -132,15 +132,15 @@ export class RewriteApi extends BaseApi {
 
   static async getRewritedCharsCount(token?: string) {
     if (!token) {
-      return 0
+      return { history: {}, queue: {} }
     }
 
-    const { history = {} } = await this.send({
+    const { history = {}, queue = {} } = await this.send({
       url: `${HOST_API}/api/stats/getRewritedCharsCount?token=${token}`,
       method: 'GET',
     })
 
-    return history
+    return { history, queue }
   }
 }
 
