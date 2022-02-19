@@ -241,7 +241,7 @@ export const OdmStatsPage: FC = () => {
                                 : 'text-error'
                             }`}
                           >
-                            Queue blocks: {freeThreadsCount}
+                            Free: {freeThreadsCount}
                           </div>
                         </div>
                         <div
