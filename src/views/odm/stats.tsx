@@ -3,7 +3,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { AppState, ProxyItem, SocketEvent } from 'dprx-types'
+import { AppState, ModuleName, ProxyItem, SocketEvent } from 'dprx-types'
 import { FC } from 'preact/compat'
 import { HOST_API } from 'helpers/api'
 import { Socket, io } from 'socket.io-client'
@@ -15,6 +15,7 @@ export const OdmStatsPage: FC = () => {
   const [proxies, setProxies] = useState([] as any[])
   const [socket, setSocket] = useState(undefined as Socket | undefined)
   const [queue, setQueue] = useState({} as any)
+  const [tasks, setTasks]= useState([]as {id: string, moduleName: ModuleName}[])
 
   useEffect(() => {
     fetch(`${HOST_API}/api/socketio/exec`).finally(() => {
@@ -33,8 +34,8 @@ export const OdmStatsPage: FC = () => {
       })
 
       sock.on(SocketEvent.AibackStopContainer, ({ id, moduleName })=>{
-console.log(moduleName, id);
-
+        console.log(moduleName, id);
+        setTasks(_.uniqBy([ {id, moduleName}, ...tasks], 'id'))
       })
 
       sock.on(SocketEvent.OdmStats, ({ socketsData, used }: any) => {
@@ -412,6 +413,18 @@ console.log(moduleName, id);
           </div>
         </div>
 
+        <div className="mb-1 md:mb-0 w-full p-2 ">
+<div className="collapse border border-base-300 bg-base-100 rounded-box collapse-arrow">
+  <div className="collapse-title text-xl font-medium">
+   Last tasks
+  </div>
+  <div className="collapse-content"> 
+    {tasks.map(task=><p>
+      <a href={`/${task.moduleName}/${task.id}`} target={'_blank'}>/{task.moduleName}/{task.id}</a>
+    </p>)}
+  </div>
+</div>
+        </div>
         <div className="mb-1 md:mb-0 w-full p-2 ">
           <label>Servers data</label>
           <pre className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3 overflow-auto">
