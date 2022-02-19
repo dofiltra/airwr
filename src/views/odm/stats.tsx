@@ -415,13 +415,16 @@ export const OdmStatsPage: FC = () => {
 
         <div className="mb-1 md:mb-0 w-full p-2 ">
 <div className="collapse border border-base-300 bg-base-100 rounded-box collapse-arrow">
+            <input type="checkbox" />
   <div className="collapse-title text-xl font-medium">
    Last tasks
   </div>
   <div className="collapse-content"> 
-    {tasks.map(task=><p>
+  <ul className="overflow-x-auto">
+    {tasks.map(task=><li>
       <a href={`/${task.moduleName}/${task.id}`} target={'_blank'}>/{task.moduleName}/{task.id}</a>
-    </p>)}
+    </li>)}
+    </ul>
   </div>
 </div>
         </div>
