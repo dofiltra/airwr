@@ -242,13 +242,28 @@ export const OdmStatsPage: FC = () => {
                           }`}
                         >
                           Free: {freeThreadsCount}
-                          <br/>
+                          <br />
                           <div className="btn-group">
-  <button className="btn btn-xs" onClick={()=>{
-    
-  }}>+</button>
-  <button className="btn btn-xs">-</button>
-</div>
+                            <button
+                              className="btn btn-xs"
+                              onClick={() => {
+                                socket?.emit('', {
+                                  socketId,
+                                  roomId,
+                                  count: 1,
+                                })
+                              }}
+                            >
+                              +
+                            </button>
+                            <button className="btn btn-xs" onClick={() => {
+                                socket?.emit(SocketEvent.AibackChangeThreads, {
+                                  socketId,
+                                  roomId,
+                                  count: -1,
+                                })
+                              }}>-</button>
+                          </div>
                         </div>
                       </div>
                       <div
