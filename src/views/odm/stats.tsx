@@ -32,6 +32,11 @@ export const OdmStatsPage: FC = () => {
         setQueue(queue)
       })
 
+      sock.on(SocketEvent.AibackStopContainer, ({ id, moduleName })=>{
+console.log(moduleName, id);
+
+      })
+
       sock.on(SocketEvent.OdmStats, ({ socketsData, used }: any) => {
         setServers(
           _.uniqBy(
