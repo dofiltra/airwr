@@ -15,7 +15,9 @@ export const OdmStatsPage: FC = () => {
   const [proxies, setProxies] = useState([] as any[])
   const [socket, setSocket] = useState(undefined as Socket | undefined)
   const [queue, setQueue] = useState({} as any)
-  const [tasks, setTasks]= useState([]as {id: string, moduleName: ModuleName}[])
+  const [tasks, setTasks] = useState(
+    [] as { id: string; moduleName: ModuleName }[]
+  )
 
   useEffect(() => {
     fetch(`${HOST_API}/api/socketio/exec`).finally(() => {
@@ -33,9 +35,9 @@ export const OdmStatsPage: FC = () => {
         setQueue(queue)
       })
 
-      sock.on(SocketEvent.AibackStopContainer, ({ id, moduleName })=>{
-        console.log(moduleName, id);
-        setTasks(old=> _.uniqBy([ {id, moduleName}, ...old], 'id'))
+      sock.on(SocketEvent.AibackStopContainer, ({ id, moduleName }) => {
+        console.log(moduleName, id)
+        setTasks((old) => _.uniqBy([{ id, moduleName }, ...old], 'id'))
       })
 
       sock.on(SocketEvent.OdmStats, ({ socketsData, used }: any) => {
@@ -414,55 +416,64 @@ export const OdmStatsPage: FC = () => {
         </div>
 
         <div className="mb-1 md:mb-0 w-full p-2 ">
-<div className="collapse border border-base-300 bg-base-100 rounded-box collapse-arrow">
+          <div className="collapse border border-base-300 bg-base-100 rounded-box collapse-arrow">
             <input type="checkbox" />
-  <div className="collapse-title text-xl font-medium">
-   Last completed tasks
-  </div>
-  <div className="collapse-content"> 
-  <ul className="overflow-auto">
-    {tasks.map(task=><li>
-      <a href={`/${task.moduleName}/result/${task.id}`} target={'_blank'}>/{task.moduleName}/result/{task.id}</a>
-    </li>)}
-    </ul>
-  </div>
-</div>
+            <div className="collapse-title text-xl font-medium">
+              Last completed tasks
+            </div>
+            <div className="collapse-content">
+              <ul className="overflow-auto">
+                {tasks.map((task) => (
+                  <li>
+                    <a
+                      href={`/${task.moduleName}/result/${task.id}`}
+                      target={'_blank'}
+                    >
+                      /{task.moduleName}/result/{task.id}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
         <div className="mb-1 md:mb-0 w-full p-2 ">
           <div className="collapse border border-base-300 bg-base-100 rounded-box collapse-arrow">
             <input type="checkbox" />
-  <div className="collapse-title text-xl font-medium">
-          Servers data
-  </div>
-  <div className="collapse-content"> 
-          <pre className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3">
-            {JSON.stringify(
-              servers?.map((socketData: any) => ({
-                ...socketData,
-                wtn: {
-                  ...socketData?.wtn,
-                  proxies: socketData?.wtn?.proxies
-                    ?.map(
-                      (p: ProxyItem) => `${p?.ip}:${p?.port} | [${p?.useCount}]`
-                    )
-                    .join('; '),
-                },
-                dotransa: {
-                  ...socketData?.dotransa,
-                  proxies: socketData?.dotransa?.proxies
-                    ?.map(
-                      (p: ProxyItem) => `${p?.ip}:${p?.port} | [${p?.useCount}]`
-                    )
-                    .join('; '),
-                },
-                proxies: socketData?.proxies?.length,
-              })),
-              null,
-              2
-            )}
-          </pre>
-        </div>
-        </div>
+            <div className="collapse-title text-xl font-medium">
+              Servers data
+            </div>
+            <div className="collapse-content">
+              <pre className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3">
+                {JSON.stringify(
+                  servers?.map((socketData: any) => ({
+                    ...socketData,
+                    wtn: {
+                      ...socketData?.wtn,
+                      proxies: socketData?.wtn?.proxies
+                        ?.map(
+                          (p: ProxyItem) =>
+                            `${p?.ip}:${p?.port} | [${p?.useCount}]`
+                        )
+                        .join('; '),
+                    },
+                    dotransa: {
+                      ...socketData?.dotransa,
+                      proxies: socketData?.dotransa?.proxies
+                        ?.map(
+                          (p: ProxyItem) =>
+                            `${p?.ip}:${p?.port} | [${p?.useCount}]`
+                        )
+                        .join('; '),
+                    },
+                    proxies: socketData?.proxies?.length,
+                  })),
+                  null,
+                  2
+                )}
+              </pre>
+            </div>
+          </div>
         </div>
       </div>
     </>
