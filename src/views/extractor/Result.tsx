@@ -3,7 +3,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Doextractor, SocketEvent, TaskStatus } from 'dprx-types'
-import { HOST_API } from 'helpers/api'
+import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
+import { ExtractorApi, HOST_API } from 'helpers/api'
 import { LoadingContainer } from 'components/Containers/Loader'
 import { QueueContainer } from 'components/Containers/PageContainers'
 import { getBackgroundColorByStatus, getStatusText } from 'helpers/task'
@@ -11,6 +12,9 @@ import { io } from 'socket.io-client'
 import { useEffect, useState } from 'preact/compat'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import { useParams } from 'react-router-dom'
+import EditorJS from '@editorjs/editorjs'
+
+const editorId = 'holder_extractor'
 
 const ResultPage = () => {
   const { id = '' } = useParams()
@@ -68,6 +72,40 @@ const ResultPage = () => {
   }
 
   const isCompleted = data.status === TaskStatus.Completed
+  const unionContent = data?.union?.content
+
+  useEffect(() => {
+    const unionEditor = new EditorJS({
+      holder: editorId,
+      tools: EDITOR_JS_TOOLS,
+      placeholder: '',
+      autofocus: true,
+      inlineToolbar: false,
+      hideToolbar: true,
+      // onChange: () => {},
+      onReady: async () => {
+        console.log('ready')
+
+        if (unionEditor && unionContent) {
+          const sanitizerConfig = {
+            b: {},
+            p: true,
+            a: {
+              href: true,
+              target: '_blank',
+            },
+          }
+          const cleanHtml = unionEditor?.sanitizer?.clean(
+            unionContent,
+            sanitizerConfig
+          )
+
+          const { blocks = [] } = await ExtractorApi.html2blocks(cleanHtml)
+          console.log(blocks, cleanHtml?.length, unionContent?.length)
+        }
+      },
+    })
+  }, [unionContent])
 
   return (
     <>
@@ -114,6 +152,19 @@ const ResultPage = () => {
                       <li>{urlOrKey}</li>
                     ))}
                   </ol>
+                </div>
+
+                <div className="mb-1 md:mb-0 w-full p-2 ">
+                  <div className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3 min-h-16">
+                    <h2>
+                      {data.union?.title || translate('Union article')}{' '}
+                      {!isCompleted && (
+                        <button className="btn btn-circle loading"></button>
+                      )}
+                    </h2>
+                    <hr />
+                    <div id={editorId}></div>
+                  </div>
                 </div>
 
                 <div className="mb-1 md:mb-0 w-full p-2 ">

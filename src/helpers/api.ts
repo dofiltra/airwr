@@ -163,4 +163,16 @@ export class ExtractorApi extends BaseApi {
       method: 'POST',
     })
   }
+
+  static async html2blocks(html: string) {
+    if (!html?.length) {
+      return { blocks: [] }
+    }
+
+    return await this.send({
+      url: `${HOST_API}/api/extractor/html2blocks`,
+      body: { html },
+      method: 'POST',
+    })
+  }
 }
