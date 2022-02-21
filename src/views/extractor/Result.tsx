@@ -238,7 +238,7 @@ const ResultPage = () => {
                   </div>
                 </div>
 
-                <div className="mb-1 md:mb-0 w-full p-2 ">
+                {/* <div className="mb-1 md:mb-0 w-full p-2 ">
                   <div className="collapse w-full border rounded-box border-base-300 collapse-open">
                     <div
                       className="collapse-title text-xl font-medium border-b-2"
@@ -259,7 +259,7 @@ const ResultPage = () => {
                       }}
                     ></div>
                   </div>
-                </div>
+                </div> */}
               </div>
 
               <div className="grid grid-cols-1 gap-1">
