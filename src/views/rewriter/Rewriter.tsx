@@ -4,7 +4,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Dataset, LangCode, ModuleName, RewriteMode, SocketEvent, TaskStatus } from 'dprx-types'
+import {
+  Dataset,
+  LangCode,
+  ModuleName,
+  RewriteMode,
+  SocketEvent,
+  TaskStatus,
+} from 'dprx-types'
 import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
 import { ExpandBox, ExpandMode } from 'components/Select/Expand'
 import { FC } from 'preact/compat'
@@ -126,7 +133,7 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
         socket.emit(SocketEvent.Join, {
           roomId: `RWR-${token}`,
         })
-        socket.emit(SocketEvent.SendQueue, { })
+        socket.emit(SocketEvent.SendQueue, {})
       })
 
       socket.on(SocketEvent.SendQueue, (queue: any) => {
