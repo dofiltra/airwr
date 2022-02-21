@@ -13,6 +13,7 @@ import _ from 'lodash'
 export const OdmStatsPage: FC = () => {
   const [servers, setServers] = useState([] as any[])
   const [proxies, setProxies] = useState([] as any[])
+  const [totalProxies, setTotalProxies] = useState(0)
   const [socket, setSocket] = useState(undefined as Socket | undefined)
   const [queue, setQueue] = useState({} as any)
   const [tasks, setTasks] = useState(
@@ -33,6 +34,11 @@ export const OdmStatsPage: FC = () => {
 
       sock.on(SocketEvent.SendQueue, (queue: any) => {
         setQueue(queue)
+      })
+
+      sock.on(SocketEvent.ProxiesData, ({ result, error }) => {
+        result && setTotalProxies(result)
+        error && console.log(error)
       })
 
       sock.on(SocketEvent.AibackStopContainer, ({ id, moduleName }) => {
@@ -127,7 +133,9 @@ export const OdmStatsPage: FC = () => {
                 className={`stat-desc ${
                   proxies?.length > 0 ? 'text-success' : 'text-error'
                 }`}
-              ></div>
+              >
+                Total: {totalProxies}
+              </div>
             </div>
             <div className="stat">
               <div className="stat-title">REWRITE</div>
