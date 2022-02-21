@@ -4,7 +4,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { BlockContent, Dotranslate, LangCode, ModuleName, SocketEvent, TaskStatus } from 'dprx-types'
+import {
+  BlockContent,
+  Dotranslate,
+  LangCode,
+  ModuleName,
+  SocketEvent,
+  TaskStatus,
+} from 'dprx-types'
 import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
 import { HOST_API, LangApi, TranslateApi } from 'helpers/api'
 import { LangBox } from 'components/Select/Lang'
@@ -49,7 +56,7 @@ export default () => {
         socket.emit(SocketEvent.Join, {
           roomId: `TRANSL-${token}`,
         })
-        socket.emit(SocketEvent.SendQueue, { })
+        socket.emit(SocketEvent.SendQueue, {})
       })
 
       socket.on(SocketEvent.SendQueue, (queue: any) => {
@@ -57,7 +64,7 @@ export default () => {
       })
     })
   }, [token])
-  
+
   const [api] = useState(
     () =>
       new EditorJS({
@@ -104,7 +111,7 @@ export default () => {
           <PageH1 title={translate('TranslatorTitle')} />
 
           <div className="w-full card p-4">
-           <QueueContainer {...queue} />
+            <QueueContainer {...queue} />
 
             <div className="mb-1 md:mb-0 w-full p-2 ">
               <label className="">{translate('EnterTextForTranslate')}</label>

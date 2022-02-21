@@ -62,6 +62,9 @@ const EmailAuth: FC = () => {
           >
             Auth
           </a>
+          <a href="#" className="btn">
+            Close
+          </a>
         </div>
       </div>
     </div>
