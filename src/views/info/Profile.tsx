@@ -61,7 +61,7 @@ export default () => {
           <div className="collapse w-full border rounded-box border-base-300 collapse-arrow">
             <input type="checkbox" />
             <div className="collapse-title text-xl font-medium">
-              {translate('My queue')}
+              {translate('My queue (last 30 days)')}
             </div>
             <div className="collapse-content">
               <div className="overflow-x-auto">
