@@ -3,8 +3,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Doextractor, SocketEvent, TaskStatus } from 'dprx-types'
-import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
-import { HOST_API } from 'helpers/api'
+import { EDITOR_JS_TOOLS, sanitizerConfig } from 'components/Editorjs/constants'
+import { ExtractorApi, HOST_API } from 'helpers/api'
 import { LoadingContainer } from 'components/Containers/Loader'
 import { QueueContainer } from 'components/Containers/PageContainers'
 import { getBackgroundColorByStatus, getStatusText } from 'helpers/task'
@@ -76,99 +76,30 @@ const ResultPage = () => {
 
   if (unionContent) {
     useEffect(() => {
-      const unionEditor = new EditorJS({
+      const unionEditor: EditorJS = new EditorJS({
         holder: editorId,
         tools: EDITOR_JS_TOOLS,
-        placeholder: '',
+        placeholder: translate('Loading'),
         autofocus: true,
-        inlineToolbar: false,
+        inlineToolbar: true,
         hideToolbar: true,
-        // onChange: () => {},
         onReady: async () => {
-          // const sanitizerConfig = {
-          //   iframe: {
-          //     // attributes: [
-          //     //   'src',
-          //     //   'allowfullscreen',
-          //     //   'width',
-          //     //   'height',
-          //     //   'frameborder',
-          //     //   'allow',
-          //     //   'gesture',
-          //     //   'title',
-          //     // ],
-          //   },
-          //   video: {
-          //     src: true,
-          //     controls: true,
-          //   },
-          //   audio: {
-          //     controls: true,
-          //   },
-          //   source: {},
-          //   figure: {
-          //     // 'class':true,
-          //   },
-          //   figcaption: {},
-          //   img: true,
-          //   p: {},
-          //   div: {
-          //     // 'class':true,
-          //   },
-          //   section: {},
-          //   h1: {},
-          //   h2: {},
-          //   h3: {},
-          //   h4: {},
-          //   h5: {},
-          //   h6: {},
-          //   label: {},
-          //   blockquote: {},
-          //   ins: {},
-          //   pre: {},
-          //   center: {},
-          //   strong: {},
-          //   b: {},
-          //   i: {},
-          //   u: {},
-          //   sub: {},
-          //   sup: {},
-          //   del: {},
-          //   small: {},
-          //   ol: {
-          //     // role: true,
-          //     // start: true,
-          //     // type: true,
-          //   },
-          //   ul: {
-          //     // type: true,
-          //   },
-          //   li: {
-          //     // value: true,
-          //   },
-          //   br: {},
-          //   em: {},
-          //   span: {},
-          //   dl: {},
-          //   dt: {},
-          //   dd: {},
-          //   cite: {},
-          //   table: {},
-          //   thead: {},
-          //   tfoot: {},
-          //   tbody: {},
-          //   th: {},
-          //   tr: {},
-          //   td: {
-          //     rowspan: true,
-          //     colspan: true,
-          //   },
-          // }
+          const cleanHtml = unionEditor.sanitizer.clean(
+            `${unionContent}`,
+            sanitizerConfig
+          )
+
+          const { blocks = [] } = await ExtractorApi.html2blocks(cleanHtml)
           unionEditor.clear()
-          await unionEditor.blocks.renderFromHTML(unionContent)
+
+          if (blocks.length) {
+            return await unionEditor.render({ blocks })
+          }
+
+          return await unionEditor.blocks.renderFromHTML(unionContent)
         },
       })
-    }, [unionContent])
+    }, [unionContent, translate])
   }
 
   return (
