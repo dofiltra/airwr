@@ -28,7 +28,7 @@ export const OdmStatsPage: FC = () => {
       })
 
       sock.on(SocketEvent.Connect, () => {
-        sock.emit(SocketEvent.Join, { roomId: SocketEvent.OdmStats })
+        sock.emit(SocketEvent.Join, { roomId: SocketEvent.SocketsData })
         sock.emit(SocketEvent.SendQueue, {})
         sock.emit(SocketEvent.ProxiesData, {})
       })
@@ -47,7 +47,7 @@ export const OdmStatsPage: FC = () => {
         setTasks((old) => _.uniqBy([{ id, moduleName }, ...old], 'id'))
       })
 
-      sock.on(SocketEvent.OdmStats, ({ socketsData, used }: any) => {
+      sock.on(SocketEvent.SocketsData, ({ socketsData, used }: any) => {
         setServers(
           _.uniqBy(
             _.orderBy(
