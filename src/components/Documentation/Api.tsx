@@ -1107,7 +1107,7 @@ const addExtract = {
             'https://lifehacker.ru/insult/',
           ],
           contentOpts: {
-            limitContent: 50e3,
+            limitContent: 30e3,
             coefShuffleBlocks: 0.5,
           },
           duplicateOpts: {
@@ -1123,16 +1123,6 @@ const addExtract = {
             replaceTags: {
               a: 'span',
             },
-          },
-          rewriteOpts: {
-            // selectors: ['p'],
-            // power: 0.5,
-            // expand: RewriteMode.Shorter,
-            // tone: RewriteMode.Formal,
-          },
-          translateOpts: {
-            // selectors: ['p'],
-            // lang: LangCode.English,
           },
         },
       ],
