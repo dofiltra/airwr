@@ -4262,10 +4262,10 @@ dotenv@^16.0.0:
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.0.0.tgz#c619001253be89ebb638d027b609c75c26e47411"
   integrity sha512-qD9WU0MPM4SWLPJy/r2Be+2WgQj8plChsyrCNQzW/0WjvcJQiKQJ9mH3ZgB3fxbUUxgc/11ZJ0Fi5KiimWGz2Q==
 
-dprx-types@^1.1.75:
-  version "1.1.75"
-  resolved "https://registry.yarnpkg.com/dprx-types/-/dprx-types-1.1.75.tgz#54f02edc0eb50e9c3586ef02fac9c0c12886ff68"
-  integrity sha512-G81Id4GtxfwFupvnrK+/DZYQ2Bci3DCopMLk9GxujfnAv4lEfhGMHwPwyWiTKrfxEALdHcqxO/LmLXdm9tLYAg==
+dprx-types@^1.1.76:
+  version "1.1.76"
+  resolved "https://registry.yarnpkg.com/dprx-types/-/dprx-types-1.1.76.tgz#6651908de7b39871f8b28a45f6a9836827d16d72"
+  integrity sha512-RyBcC8uJr3aRIlYltmJ7hIQUTsmICGUrMKfTcNjtUr2A7s8wkIFvWWCWIUGDIgqecnR6gcGezqSjTTr/770uUA==
   dependencies:
     dotenv "^16.0.0"
     esm-requirer "^1.0.3"
