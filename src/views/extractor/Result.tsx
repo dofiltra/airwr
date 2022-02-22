@@ -3,8 +3,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Doextractor, SocketEvent, TaskStatus } from 'dprx-types'
-// import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
-import { ExtractorApi, HOST_API } from 'helpers/api'
+import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
+import { HOST_API } from 'helpers/api'
 import { LoadingContainer } from 'components/Containers/Loader'
 import { QueueContainer } from 'components/Containers/PageContainers'
 import { getBackgroundColorByStatus, getStatusText } from 'helpers/task'
@@ -12,16 +12,15 @@ import { io } from 'socket.io-client'
 import { useEffect, useState } from 'preact/compat'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import { useParams } from 'react-router-dom'
-// import EditorJS from '@editorjs/editorjs'
+import EditorJS from '@editorjs/editorjs'
 
-// const editorId = 'holder_extractor'
+const editorId = 'holder_extractor'
 
 const ResultPage = () => {
   const { id = '' } = useParams()
   const { translate } = useLocalize()
   const [data, setData] = useState({} as Doextractor)
   const [queue, setQueue] = useState({} as any)
-  // const [unionBlocks, setUnionBlocks] = useState([])
 
   useEffect(() => {
     fetch(`${HOST_API}/api/socketio/exec`).finally(() => {
@@ -75,115 +74,102 @@ const ResultPage = () => {
   const isCompleted = data.status === TaskStatus.Completed
   const unionContent = data?.union?.content
 
-  // if (unionContent) {
-  //   useEffect(() => {
-  //     const unionEditor = new EditorJS({
-  //       holder: editorId,
-  //       tools: EDITOR_JS_TOOLS,
-  //       placeholder: '',
-  //       autofocus: true,
-  //       inlineToolbar: false,
-  //       hideToolbar: true,
-  //       // onChange: () => {},
-  //       onReady: () => {
-  //         const sanitizerConfig = {
-  //           iframe: {
-  //             // attributes: [
-  //             //   'src',
-  //             //   'allowfullscreen',
-  //             //   'width',
-  //             //   'height',
-  //             //   'frameborder',
-  //             //   'allow',
-  //             //   'gesture',
-  //             //   'title',
-  //             // ],
-  //           },
-  //           video: {
-  //             src: true,
-  //             controls: true,
-  //           },
-  //           audio: {
-  //             controls: true,
-  //           },
-  //           source: {},
-  //           figure: {
-  //             // 'class':true,
-  //           },
-  //           figcaption: {},
-  //           img: true,
-  //           p: {},
-  //           div: {
-  //             // 'class':true,
-  //           },
-  //           section: {},
-  //           h1: {},
-  //           h2: {},
-  //           h3: {},
-  //           h4: {},
-  //           h5: {},
-  //           h6: {},
-  //           label: {},
-  //           blockquote: {},
-  //           ins: {},
-  //           pre: {},
-  //           center: {},
-  //           strong: {},
-  //           b: {},
-  //           i: {},
-  //           u: {},
-  //           sub: {},
-  //           sup: {},
-  //           del: {},
-  //           small: {},
-  //           ol: {
-  //             // role: true,
-  //             // start: true,
-  //             // type: true,
-  //           },
-  //           ul: {
-  //             // type: true,
-  //           },
-  //           li: {
-  //             // value: true,
-  //           },
-  //           br: {},
-  //           em: {},
-  //           span: {},
-  //           dl: {},
-  //           dt: {},
-  //           dd: {},
-  //           cite: {},
-  //           table: {},
-  //           thead: {},
-  //           tfoot: {},
-  //           tbody: {},
-  //           th: {},
-  //           tr: {},
-  //           td: {
-  //             rowspan: true,
-  //             colspan: true,
-  //           },
-  //         }
-  //         const cleanHtml = unionEditor?.sanitizer?.clean(
-  //           unionContent,
-  //           sanitizerConfig
-  //         )
-
-  //         const { blocks = [] } = await ExtractorApi.html2blocks(cleanHtml)
-  //         console.log(blocks, cleanHtml?.length, unionContent?.length)
-  //         setUnionBlocks(blocks)
-
-  //         unionEditor.clear()
-  //         if (blocks.length) {
-  //           await unionEditor.render({ blocks })
-  //         } else {
-  //           unionEditor.destroy()
-  //         }
-  //       },
-  //     })
-  //   }, [unionContent])
-  // }
+  if (unionContent) {
+    useEffect(() => {
+      const unionEditor = new EditorJS({
+        holder: editorId,
+        tools: EDITOR_JS_TOOLS,
+        placeholder: '',
+        autofocus: true,
+        inlineToolbar: false,
+        hideToolbar: true,
+        // onChange: () => {},
+        onReady: async () => {
+          // const sanitizerConfig = {
+          //   iframe: {
+          //     // attributes: [
+          //     //   'src',
+          //     //   'allowfullscreen',
+          //     //   'width',
+          //     //   'height',
+          //     //   'frameborder',
+          //     //   'allow',
+          //     //   'gesture',
+          //     //   'title',
+          //     // ],
+          //   },
+          //   video: {
+          //     src: true,
+          //     controls: true,
+          //   },
+          //   audio: {
+          //     controls: true,
+          //   },
+          //   source: {},
+          //   figure: {
+          //     // 'class':true,
+          //   },
+          //   figcaption: {},
+          //   img: true,
+          //   p: {},
+          //   div: {
+          //     // 'class':true,
+          //   },
+          //   section: {},
+          //   h1: {},
+          //   h2: {},
+          //   h3: {},
+          //   h4: {},
+          //   h5: {},
+          //   h6: {},
+          //   label: {},
+          //   blockquote: {},
+          //   ins: {},
+          //   pre: {},
+          //   center: {},
+          //   strong: {},
+          //   b: {},
+          //   i: {},
+          //   u: {},
+          //   sub: {},
+          //   sup: {},
+          //   del: {},
+          //   small: {},
+          //   ol: {
+          //     // role: true,
+          //     // start: true,
+          //     // type: true,
+          //   },
+          //   ul: {
+          //     // type: true,
+          //   },
+          //   li: {
+          //     // value: true,
+          //   },
+          //   br: {},
+          //   em: {},
+          //   span: {},
+          //   dl: {},
+          //   dt: {},
+          //   dd: {},
+          //   cite: {},
+          //   table: {},
+          //   thead: {},
+          //   tfoot: {},
+          //   tbody: {},
+          //   th: {},
+          //   tr: {},
+          //   td: {
+          //     rowspan: true,
+          //     colspan: true,
+          //   },
+          // }
+          unionEditor.clear()
+          await unionEditor.blocks.renderFromHTML(unionContent)
+        },
+      })
+    }, [unionContent])
+  }
 
   return (
     <>
@@ -234,14 +220,14 @@ const ResultPage = () => {
 
                 <div className="mb-1 md:mb-0 w-full p-2 ">
                   <div className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3 min-h-16">
-                    <h2 contentEditable>
+                    <h2>
                       {data.union?.title || translate('Union article')}{' '}
                       {!isCompleted && (
                         <button className="btn btn-circle loading"></button>
                       )}
                     </h2>
                     <hr />
-                    <div
+                    {/* <div
                       className={`p-2 overflow-auto ${
                         isCompleted ? 'h-auto' : ''
                       }`}
@@ -250,8 +236,8 @@ const ResultPage = () => {
                       dangerouslySetInnerHTML={{
                         __html: `${unionContent || ''}`,
                       }}
-                    ></div>
-                    {/* <div id={editorId}></div> */}
+                    ></div> */}
+                    <div id={editorId}></div>
                   </div>
                 </div>
 
