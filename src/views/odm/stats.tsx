@@ -43,7 +43,6 @@ export const OdmStatsPage: FC = () => {
       })
 
       sock.on(SocketEvent.AibackStopContainer, ({ id, moduleName }) => {
-        console.log(moduleName, id)
         setTasks((old) => _.uniqBy([{ id, moduleName }, ...old], 'id'))
       })
 
