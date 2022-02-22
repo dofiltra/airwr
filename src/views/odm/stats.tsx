@@ -28,7 +28,7 @@ export const OdmStatsPage: FC = () => {
       })
 
       sock.on(SocketEvent.Connect, () => {
-        sock!.emit(SocketEvent.Join, { roomId: SocketEvent.OdmStats })
+        sock!.emit(SocketEvent.Join, { roomId: SocketEvent.SocketsData })
         sock!.emit(SocketEvent.SendQueue, {})
       })
 
