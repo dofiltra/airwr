@@ -73,12 +73,12 @@ class DoHeader extends Header {
 }
 
 export const EDITOR_JS_TOOLS = {
+  // code: Code,
   embed: Embed,
   table: Table,
   marker: Marker,
   list: { class: DoList, inlineToolbar: true },
   warning: Warning,
-  // code: Code,
   linkTool: LinkTool,
   image: Image,
   raw: Raw,

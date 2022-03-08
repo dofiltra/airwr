@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { ModuleName } from 'dprx-types'
 import { OdmBalancePage } from 'views/odm/balance'
 import { OdmStatsPage } from 'views/odm/stats'
 import { RewriterPage } from 'views/rewriter/Rewriter'
@@ -11,14 +12,12 @@ import ExtractorResultPage from 'views/extractor/Result'
 import FaqPage from 'views/info/Faq'
 import FooterSmall from 'components/Footer/FooterSmall'
 import LocalizationProvider from 'localization/LocalizationProvider'
-import Login from 'views/Login'
 import Navbar from 'components/Navbar/Navbar'
 import ProfilePage from 'views/info/Profile'
 import RewriterResultPage from 'views/rewriter/Result'
 import Root from 'components/Containers/Root'
 import TranslateResultPage from 'views/translator/Result'
 import TranslatorPage from 'views/translator/Translator'
-import { ModuleName } from 'dprx-types'
 
 const App = () => {
   return (
@@ -37,17 +36,22 @@ const App = () => {
                 path="/rewrite/result/:id"
                 element={<RewriterResultPage />}
               />
-              <Route path={`/${ModuleName.Translator}`} element={<TranslatorPage />} />
+              <Route
+                path={`/${ModuleName.Translator}`}
+                element={<TranslatorPage />}
+              />
               <Route
                 path={`/${ModuleName.Translator}/result/:id`}
                 element={<TranslateResultPage />}
               />
-              <Route path={`/${ModuleName.Extractor}`} element={<ExtractorPage />} />
+              <Route
+                path={`/${ModuleName.Extractor}`}
+                element={<ExtractorPage />}
+              />
               <Route
                 path={`/${ModuleName.Extractor}/result/:id`}
                 element={<ExtractorResultPage />}
               />
-              <Route path="/login" element={<Login />} />
               <Route path="/odm/balance" element={<OdmBalancePage />} />
               <Route path="/odm/stats" element={<OdmStatsPage />} />
               <Route path="/profile" element={<ProfilePage />} />
