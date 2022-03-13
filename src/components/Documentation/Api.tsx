@@ -8,6 +8,8 @@ import { useContext } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import AuthContext from 'components/Auth/AuthContext'
 
+const hostApi = `${HOST_API}`.replace('-stage', '')
+
 export const DocumentationApi: FC = () => {
   const { translate } = useLocalize()
   const { user } = useContext(AuthContext)
@@ -837,7 +839,7 @@ const textRewrite =
 const balance = {
   request: ({
     token,
-  }: any) => `const resp = await fetch("${HOST_API}/api/balance/get?token=${token}", {
+  }: any) => `const resp = await fetch("${hostApi}/api/balance/get?token=${token}", {
     headers: ${JSON.stringify(headers, null, 8)},
     method: 'GET',
     mode: "cors",
@@ -859,7 +861,7 @@ const balance = {
 const stats = {
   request: ({
     token,
-  }: any) => `const resp = await fetch("${HOST_API}/api/stats/getRewritedCharsCount?token=${token}", {
+  }: any) => `const resp = await fetch("${hostApi}/api/stats/getRewritedCharsCount?token=${token}", {
     headers: ${JSON.stringify(headers, null, 8)},
     method: 'GET',
     mode: "cors",
@@ -886,7 +888,7 @@ const stats = {
 const addRewrite = {
   request: ({
     token,
-  }: any) => `const resp = await fetch("${HOST_API}/api/rewriteText/add", {
+  }: any) => `const resp = await fetch("${hostApi}/api/rewriteText/add", {
     headers: ${JSON.stringify(headers, null, 8)},
     method: "POST",
     mode: "cors",
@@ -959,7 +961,7 @@ const addRewrite = {
 const getRewrite = {
   request: ({
     token,
-  }: any) => `const resp = await fetch("${HOST_API}/api/rewriteText/get?id=${_id}&token=${token}", {
+  }: any) => `const resp = await fetch("${hostApi}/api/rewriteText/get?id=${_id}&token=${token}", {
     headers: ${JSON.stringify(headers, null, 8)},
     method: 'GET',
     mode: "cors",
@@ -1003,7 +1005,7 @@ const getRewrite = {
 const addTranslate = {
   request: ({
     token,
-  }: any) => `const resp = await fetch("${HOST_API}/api/translate/add", {
+  }: any) => `const resp = await fetch("${hostApi}/api/translate/add", {
     headers: ${JSON.stringify(headers, null, 8)},
     method: "POST",
     mode: "cors",
@@ -1114,7 +1116,7 @@ const addTranslate = {
 const getTranslate = {
   request: ({
     token,
-  }: any) => `const resp = await fetch("${HOST_API}/api/translate/get?id=${_id}&token=${token}", {
+  }: any) => `const resp = await fetch("${hostApi}/api/translate/get?id=${_id}&token=${token}", {
     headers: ${JSON.stringify(headers, null, 8)},
     method: 'GET',
     mode: "cors",
@@ -1157,7 +1159,7 @@ const getTranslate = {
 const addExtract = {
   request: ({
     token,
-  }: any) => `const resp = await fetch("${HOST_API}/api/extractor/add", {
+  }: any) => `const resp = await fetch("${hostApi}/api/extractor/add", {
     headers: ${JSON.stringify(headers, null, 8)},
     method: "POST",
     mode: "cors",
@@ -1216,7 +1218,7 @@ const addExtract = {
 const getExtract = {
   request: ({
     token,
-  }: any) => `const resp = await fetch("${HOST_API}/api/extractor/get?id=${_id}&token=${token}", {
+  }: any) => `const resp = await fetch("${hostApi}/api/extractor/get?id=${_id}&token=${token}", {
     headers: ${JSON.stringify(headers, null, 8)},
     method: 'GET',
     mode: "cors",
@@ -1274,7 +1276,7 @@ const getExtract = {
 const getStatusesExtract = {
   request: ({
     token,
-  }: any) => `const resp = await fetch("${HOST_API}/api/extractor/getStatuses", {
+  }: any) => `const resp = await fetch("${hostApi}/api/extractor/getStatuses", {
     headers: ${JSON.stringify(headers, null, 8)},
     method: 'POST',
     mode: "cors",
