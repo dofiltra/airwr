@@ -727,6 +727,69 @@ export const DocumentationApi: FC = () => {
                         />
                       </td>
                     </tr>
+
+                    <tr className="border-b-2">
+                      <th>
+                        Get Statuses <br />
+                        Extract
+                      </th>
+                      <td>
+                        <ModalBtn
+                          title={'Request'}
+                          content={
+                            <textarea className="w-full h-96 text-sm">
+                              {getStatusesExtract.request({ token })}
+                            </textarea>
+                          }
+                        />
+                        <ModalBtn
+                          title={'Types'}
+                          content={
+                            <div className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
+                              <p className="pb-2">
+                                <p className="pb-2">
+                                  <b>Ids*</b>: Array of string
+                                </p>
+                                <b>Token*</b>: string
+                              </p>
+                            </div>
+                          }
+                        />
+                      </td>
+                      <td>
+                        <ModalBtn
+                          title={'Response'}
+                          content={
+                            <p className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
+                              {getStatusesExtract.response({ token })}
+                            </p>
+                          }
+                        />
+                        <ModalBtn
+                          title={'Types'}
+                          content={
+                            <div className="h-96 whitespace-pre-wrap overflow-auto text-left">
+                              <p className="pb-4">
+                                <b>result</b>: Object
+                                <br />
+                                <small>"_id" - result id (string)</small>
+                                <br />
+                                <small>
+                                  "status" - NotStarted = 0, InProgress = 3,
+                                  Completed = 9
+                                </small>
+                                <br />
+                              </p>
+                              <p className="pb-2">
+                                <b>error</b>
+                                : Object|null
+                                <br />
+                              </p>
+                            </div>
+                          }
+                        />
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -1202,6 +1265,45 @@ const getExtract = {
           createdAt: new Date().toJSON(),
           updatedAt: new Date().toJSON(),
         },
+      },
+      null,
+      2
+    ),
+}
+
+const getStatusesExtract = {
+  request: ({
+    token,
+  }: any) => `const resp = await fetch("${HOST_API}/api/extractor/getStatuses", {
+    headers: ${JSON.stringify(headers, null, 8)},
+    method: 'POST',
+    mode: "cors",
+    body: JSON.stringify({
+        token: '${token}',
+        ids: [
+          '62233a65232b1c71fdde33e7',
+          '62233a67232b1c71fdde33fb'
+        ]
+    })
+  })
+
+  const { result, error } = await resp.json()
+  `,
+
+  response: ({ token }: any) =>
+    JSON.stringify(
+      {
+        result: [
+          {
+            _id: '62233a65232b1c71fdde33e7',
+            status: 9,
+          },
+          {
+            _id: '62233a67232b1c71fdde33fb',
+            status: 9,
+          },
+        ],
+        error: null,
       },
       null,
       2
