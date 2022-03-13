@@ -1,11 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { subscribe } from 'valtio'
 
 export default class PersistableStore {
   makePersistent() {
     // Start persisting
-    subscribe(this, () => {
+    try {
+      subscribe(this, () => {
+        localStorage.setItem(this.constructor.name, JSON.stringify(this))
+      })
+    } catch (error: any) {
+      console.log(error)
       localStorage.setItem(this.constructor.name, JSON.stringify(this))
-    })
+    }
+
     // Recover the store
     const savedString = localStorage.getItem(this.constructor.name)
     if (savedString) {
