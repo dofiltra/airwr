@@ -3,8 +3,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Doextractor, SocketEvent, TaskStatus } from 'dprx-types'
-import { EDITOR_JS_TOOLS, sanitizerConfig } from 'components/Editorjs/constants'
-import { ExtractorApi, HOST_API } from 'helpers/api'
+import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
+import { HOST_API } from 'helpers/api'
 import { LoadingContainer } from 'components/Containers/Loader'
 import { QueueContainer } from 'components/Containers/PageContainers'
 import { getBackgroundColorByStatus, getStatusText } from 'helpers/task'
@@ -84,17 +84,17 @@ const ResultPage = () => {
         inlineToolbar: true,
         hideToolbar: true,
         onReady: async () => {
-          const cleanHtml = unionEditor.sanitizer.clean(
-            `${unionContent}`,
-            sanitizerConfig
-          )
+          // const cleanHtml = unionEditor.sanitizer.clean(
+          //   `${unionContent}`,
+          //   sanitizerConfig
+          // )
 
-          const { blocks = [] } = await ExtractorApi.html2blocks(cleanHtml)
-          unionEditor.clear()
+          // const { blocks = [] } = await ExtractorApi.html2blocks(cleanHtml)
+          // unionEditor.clear()
 
-          if (blocks.length) {
-            return await unionEditor.render({ blocks })
-          }
+          // if (blocks.length) {
+          //   return await unionEditor.render({ blocks })
+          // }
 
           return await unionEditor.blocks.renderFromHTML(unionContent)
         },
