@@ -13,7 +13,7 @@ type LocaleValues = typeof messages[Locales]
 // get all possible key paths
 type DeepKeys<T> = T extends object
   ? {
-      [K in keyof T]-?: `${K & string}` | Concat<K & string, DeepKeys<T[K]>>
+      [K in keyof T]-?: `${K & string}` | any
     }[keyof T]
   : ''
 type Concat<K extends string, P extends string> = `${K}${'' extends P

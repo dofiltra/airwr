@@ -72,9 +72,8 @@ const ResultPage = () => {
   }
 
   const isCompleted = data.status === TaskStatus.Completed
-  const unionContent = data?.union?.content
 
-  if (unionContent) {
+  if (data?.union?.content || data?.union?.blocks?.length) {
     useEffect(() => {
       const unionEditor: EditorJS = new EditorJS({
         holder: editorId,
@@ -83,23 +82,20 @@ const ResultPage = () => {
         autofocus: true,
         inlineToolbar: true,
         hideToolbar: true,
+        data: {
+          time: new Date().getTime(),
+          version: '2.2.24',
+          blocks: data?.union?.blocks || [],
+        },
         onReady: async () => {
-          // const cleanHtml = unionEditor.sanitizer.clean(
-          //   `${unionContent}`,
-          //   sanitizerConfig
-          // )
+          if (data?.union?.blocks?.length) {
+            return
+          }
 
-          // const { blocks = [] } = await ExtractorApi.html2blocks(cleanHtml)
-          // unionEditor.clear()
-
-          // if (blocks.length) {
-          //   return await unionEditor.render({ blocks })
-          // }
-
-          return await unionEditor.blocks.renderFromHTML(unionContent)
+          return await unionEditor.blocks.renderFromHTML(data!.union!.content!)
         },
       })
-    }, [unionContent, translate])
+    }, [data, translate])
   }
 
   return (
@@ -198,7 +194,7 @@ const ResultPage = () => {
                 )} */}
               </div>
 
-              <div className="grid grid-cols-1 gap-1">
+              {/* <div className="grid grid-cols-1 gap-1">
                 <hr className="mt-6 border-2 border-dashed" />
                 <div className="mb-1 w-full p-2 m-2">
                   <h2>
@@ -261,7 +257,7 @@ const ResultPage = () => {
                       </div>
                     )
                   })}
-              </div>
+              </div> */}
             </div>
           </div>
         </main>
