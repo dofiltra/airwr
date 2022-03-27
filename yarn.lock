@@ -4258,10 +4258,10 @@ dotenv@^10.0.0:
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-10.0.0.tgz#3d4227b8fb95f81096cdd2b66653fb2c7085ba81"
   integrity sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==
 
-dprx-types@^1.1.82:
-  version "1.1.82"
-  resolved "https://registry.yarnpkg.com/dprx-types/-/dprx-types-1.1.82.tgz#4f6a500b46b60b576c97003ecbf3d132cef1eb5a"
-  integrity sha512-WMd7/mNpoMGc0so4TjUK9/QQOW9bYGKmjdHnhw5qD5JtII+uf3/82PdoJ5UMeObZMHEbLOjHJ7yxpt5eIpY+mg==
+dprx-types@^1.1.102:
+  version "1.1.102"
+  resolved "https://registry.yarnpkg.com/dprx-types/-/dprx-types-1.1.102.tgz#30138aee9bf2abc02ab0192d5546ec57371b716a"
+  integrity sha512-3uYg4wQ9aStxvLy4k+7I716VQDpu6s15TllJuTq7Dy9X7xzjXr66kFm5Ya0HQYIhUcmCFZU/8AWa3fMbTyzLWg==
 
 duplexer@^0.1.2:
   version "0.1.2"

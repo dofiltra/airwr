@@ -38,6 +38,9 @@ export default () => {
   )
   const [power, setPower] = useState(0.5)
 
+  const [enableGoogleParser, setEnableGoogleParser] = useState(false)
+  const [enableYandexParser, setEnableYandexParser] = useState(true)
+
   const [isVisibleContent, setVisibleContent] = useState(true)
   const [isOpenHistory, setIsOpenHistory] = useState(false)
   const { user } = useContext(AuthContext)
@@ -55,7 +58,7 @@ export default () => {
         socket.emit(SocketEvent.Join, {
           roomId: `EXTR-${token}`,
         })
-        socket.emit(SocketEvent.SendQueue, { })
+        socket.emit(SocketEvent.SendQueue, {})
       })
 
       socket.on(SocketEvent.SendQueue, (queue: any) => {
@@ -193,6 +196,46 @@ export default () => {
             )}
           </div>
 
+          <div className="mb-1 w-full p-2 ">
+            <div className="w-full">
+              <div className="p-2 card bordered">
+                <div className="form-control">
+                  <label className="cursor-pointer label">
+                    <span className="">
+                      {translate('Enable google parser')}
+                    </span>
+                    <input
+                      type="checkbox"
+                      className="toggle"
+                      checked={enableGoogleParser}
+                      onChange={(e) => setEnableGoogleParser(e.target.checked)}
+                    />
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mb-1 w-full p-2 ">
+            <div className="w-full">
+              <div className="p-2 card bordered">
+                <div className="form-control">
+                  <label className="cursor-pointer label">
+                    <span className="">
+                      {translate('Enable yandex parser')}
+                    </span>
+                    <input
+                      type="checkbox"
+                      className="toggle"
+                      checked={enableYandexParser}
+                      onChange={(e) => setEnableYandexParser(e.target.checked)}
+                    />
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className="mb-1 w-full p-2 hidden">
             <div className="w-full">
               <div className="p-2 card bordered">
@@ -292,6 +335,12 @@ export default () => {
                             translateOpts: {
                               // selectors: ['p'],
                               // lang: LangCode.English,
+                            },
+                            googleParserOpts: {
+                              enable: enableGoogleParser,
+                            },
+                            yandexParserOpts: {
+                              enable: enableYandexParser,
                             },
                           } as Doextractor)
                       )

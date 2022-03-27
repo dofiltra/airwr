@@ -83,5 +83,8 @@
   "Limit chars count": "Максимум символов в объединенной статье",
   "Shuffle blocks": "Перемешивание блоков",
   "Remove similar heading": "Удалять похожие блоки, если H2-заголовки совпадают на {{percent}}%",
-  "Remove similar content blocks": "Удалять похожие блоки, если их контент совпадает на {{percent}}%"
+  "Remove similar content blocks": "Удалять похожие блоки, если их контент совпадает на {{percent}}%",
+
+  "Enable yandex parser": "Парсить из яндекса",
+  "Enable google parser": "Парсить из гугла"
 }
