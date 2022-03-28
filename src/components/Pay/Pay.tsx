@@ -17,9 +17,7 @@ export default function Pay({}) {
   const [promoCode, setPromoCode] = useState('')
   const [isExistsPromo, setExistsPromo] = useState(false)
   const [payLink, setPayLink] = useState('')
-  const [payType, setPayType] = useState<'Yoomoney' | 'WMZ' | 'CARDS'>(
-    'Yoomoney'
-  )
+  const [payType, setPayType] = useState<'Yoomoney' | 'CARDS'>('Yoomoney')
   const token = user?.uid || ''
   const [usdrub, setUsdRub] = useState(75)
 
@@ -49,14 +47,6 @@ export default function Pay({}) {
                 onClick={() => setPayType('Yoomoney')}
               >
                 Yoomoney
-              </button>
-              <button
-                className={`btn btn-xs ${
-                  payType === 'WMZ' ? 'btn-active btn-error text-error' : ''
-                }`}
-                onClick={() => setPayType('WMZ')}
-              >
-                WMZ
               </button>
               <button
                 className={`btn btn-xs ${
@@ -115,14 +105,6 @@ export default function Pay({}) {
                   </button>
                 </div>
               </>
-            )}
-            {payType === 'WMZ' && (
-              <div>
-                {translate('WMZ', {
-                  token,
-                  promoCode: promoCode ? `__${promoCode}` : '',
-                })}
-              </div>
             )}
             {payType === 'CARDS' && (
               <div>
