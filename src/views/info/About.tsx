@@ -1,11 +1,10 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { AuthContext, smiles } from '@dofiltra/tailwind'
 import { Link } from 'react-router-dom'
-import { smiles } from '@dofiltra/tailwind'
 import { useContext } from 'react'
 import { useLocalize } from '@borodutch-labs/localize-react'
-import AuthContext from 'components/Auth/AuthContext'
 
 export default () => {
   const { translate } = useLocalize()

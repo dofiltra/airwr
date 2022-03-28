@@ -1,10 +1,4 @@
-import {
-  AuthContext,
-  AuthContextProvider as AuthContextProvider1,
-  DoFirebase,
-  Loading,
-  User,
-} from '@dofiltra/tailwind'
+import { AuthContext, DoFirebase, Loading, User } from '@dofiltra/tailwind'
 import { onAuthStateChanged } from 'firebase/auth'
 import { useCallback, useState } from 'preact/compat'
 import { useEffect } from 'preact/hooks'

@@ -4,6 +4,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { AuthContext, LoadingContainer, PageH1, QueueContainer } from '@dofiltra/tailwind'
 import {
   BlockContent,
   Dotranslate,
@@ -15,12 +16,10 @@ import {
 import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
 import { HOST_API, LangApi, TranslateApi } from 'helpers/api'
 import { LangBox } from 'components/Select/Lang'
-import { LoadingContainer, PageH1, QueueContainer } from '@dofiltra/tailwind'
 import { Navigate } from 'react-router-dom'
 import { io } from 'socket.io-client'
 import { useContext, useEffect, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
-import AuthContext from 'components/Auth/AuthContext'
 import EditorJS from '@editorjs/editorjs'
 
 const editorId = 'holder_translate'

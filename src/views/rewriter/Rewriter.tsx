@@ -4,6 +4,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { AuthContext, LoadingContainer, PageH1, QueueContainer } from '@dofiltra/tailwind'
 import {
   Dataset,
   LangCode,
@@ -17,13 +18,11 @@ import { ExpandBox, ExpandMode } from 'components/Select/Expand'
 import { FC } from 'preact/compat'
 import { HOST_API, LangApi, RewriteApi } from 'helpers/api'
 import { LangBox } from 'components/Select/Lang'
-import { LoadingContainer, PageH1, QueueContainer } from '@dofiltra/tailwind'
 import { Navigate } from 'react-router-dom'
 import { ToneMode } from 'components/Select/Tone'
 import { io } from 'socket.io-client'
 import { useContext, useEffect, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
-import AuthContext from 'components/Auth/AuthContext'
 import EditorJS from '@editorjs/editorjs'
 
 const editorId = 'holder_rewrite'

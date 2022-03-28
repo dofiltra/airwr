@@ -1,12 +1,11 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { BalanceApi, SignInButtons } from '@dofiltra/tailwind'
+import { AuthContext, BalanceApi, SignInButtons } from '@dofiltra/tailwind'
 import { TaskStatus } from 'dprx-types'
 import { smiles } from '@dofiltra/tailwind'
 import { useContext, useEffect, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
-import AuthContext from 'components/Auth/AuthContext'
 import Pay from 'components/Pay/Pay'
 import useRewritedCharsCount from 'hooks/useRewritedCharsCount'
 
