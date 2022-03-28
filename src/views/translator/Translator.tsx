@@ -15,9 +15,8 @@ import {
 import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
 import { HOST_API, LangApi, TranslateApi } from 'helpers/api'
 import { LangBox } from 'components/Select/Lang'
-import { LoadingContainer } from 'components/Containers/Loader'
+import { LoadingContainer, PageH1, QueueContainer } from '@dofiltra/tailwind'
 import { Navigate } from 'react-router-dom'
-import { PageH1, QueueContainer } from 'components/Containers/PageContainers'
 import { io } from 'socket.io-client'
 import { useContext, useEffect, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
@@ -36,7 +35,7 @@ export default () => {
   }
 
   if (!isVisibleContent) {
-    return <LoadingContainer />
+    return <LoadingContainer loadingText={translate('Loading')} />
   }
 
   const [langs, setLangs] = useState([] as LangCode[])
@@ -111,7 +110,9 @@ export default () => {
           <PageH1 title={translate('TranslatorTitle')} />
 
           <div className="w-full card p-4">
-            <QueueContainer {...queue} />
+            <QueueContainer
+              count={translate('Queue', { count: queue?.count || '...' })}
+            />
 
             <div className="mb-1 md:mb-0 w-full p-2 ">
               <label className="">{translate('EnterTextForTranslate')}</label>

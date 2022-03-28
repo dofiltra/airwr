@@ -17,9 +17,8 @@ import { ExpandBox, ExpandMode } from 'components/Select/Expand'
 import { FC } from 'preact/compat'
 import { HOST_API, LangApi, RewriteApi } from 'helpers/api'
 import { LangBox } from 'components/Select/Lang'
-import { LoadingContainer } from 'components/Containers/Loader'
+import { LoadingContainer, PageH1, QueueContainer } from '@dofiltra/tailwind'
 import { Navigate } from 'react-router-dom'
-import { PageH1, QueueContainer } from 'components/Containers/PageContainers'
 import { ToneMode } from 'components/Select/Tone'
 import { io } from 'socket.io-client'
 import { useContext, useEffect, useState } from 'preact/hooks'
@@ -115,7 +114,7 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
   const [power, setPower] = useState(0.5)
 
   if (!isVisibleContent) {
-    return <LoadingContainer />
+    return <LoadingContainer loadingText={translate('Loading')} />
   }
 
   const { user } = useContext(AuthContext)
@@ -179,7 +178,9 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
   return (
     <>
       <div className="w-full card p-4">
-        <QueueContainer {...queue} />
+        <QueueContainer
+          count={translate('Queue', { count: queue?.count || '...' })}
+        />
 
         <div className="mb-1 md:mb-0 w-full p-2 ">
           <label className="">{translate('EnterTextForRewrite')}</label>

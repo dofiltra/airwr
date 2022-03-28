@@ -9,8 +9,7 @@ import { Doextractor, RewriteMode, SocketEvent, TaskStatus } from 'dprx-types'
 import { ExpandBox, ExpandMode } from 'components/Select/Expand'
 import { ExtractorApi, HOST_API } from 'helpers/api'
 import { Link } from 'react-router-dom'
-import { LoadingContainer } from 'components/Containers/Loader'
-import { PageH1, QueueContainer } from 'components/Containers/PageContainers'
+import { LoadingContainer, PageH1, QueueContainer } from '@dofiltra/tailwind'
 import { ToneMode } from 'components/Select/Tone'
 import { io } from 'socket.io-client'
 import { useContext, useEffect, useState } from 'preact/hooks'
@@ -68,7 +67,7 @@ export default () => {
   }, [token])
 
   if (!isVisibleContent && !AppStore.extractorTasks?.length) {
-    return <LoadingContainer />
+    return <LoadingContainer loadingText={translate('Loading')} />
   }
 
   return (
@@ -78,7 +77,9 @@ export default () => {
           <PageH1 title={translate('ExtractorTitle')} />
 
           <div className="w-full card p-4">
-            <QueueContainer {...queue} />
+            <QueueContainer
+              count={translate('Queue', { count: queue?.count || '...' })}
+            />
             <div className="mb-1 w-full p-2 ">
               <label className="">{translate('EnterTextForExtractor')}</label>
               <textarea

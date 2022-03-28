@@ -3,7 +3,7 @@ import { FC } from 'preact/compat'
 import { HOST_API } from 'helpers/api'
 import { LangCode, RewriteMode, TaskStatus, headers } from 'dprx-types'
 import { LangCodes } from 'components/Select/Lang'
-import { SignInButtons } from 'components/Buttons/SignIn'
+import { SignInButtons } from '@dofiltra/tailwind'
 import { useContext } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import AuthContext from 'components/Auth/AuthContext'
@@ -20,7 +20,8 @@ export const DocumentationApi: FC = () => {
       <div className="grid grid-cols-1 gap-1">
         <div className="mb-1 w-full p-2 m-2">
           <p className="py-3">
-            <b>{translate('Your token')}</b>: {user?.uid || <SignInButtons />}
+            <b>{translate('Your token')}</b>:{' '}
+            {user?.uid || <SignInButtons signInText={translate('sign in')} />}
           </p>
         </div>
 

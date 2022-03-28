@@ -1,7 +1,11 @@
 /** @type {import("@types/tailwindcss/tailwind-config").TailwindConfig } */
 
 module.exports = {
-  purge: ['./public/index.html', './src/**/!(tailwind).{ts,tsx}'],
+  purge: [
+    './public/index.html',
+    './src/**/!(tailwind).{ts,tsx}',
+    './node_modules/@dofiltra/tailwind/**/!(tailwind).{html,js,ts,tsx}'
+  ],
   plugins: [require('daisyui')],
   theme: {
     extend: {

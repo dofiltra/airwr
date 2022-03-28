@@ -5,8 +5,7 @@
 import { Dotranslate, SocketEvent, TaskStatus } from 'dprx-types'
 import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
 import { HOST_API } from 'helpers/api'
-import { LoadingContainer } from 'components/Containers/Loader'
-import { QueueContainer } from 'components/Containers/PageContainers'
+import { LoadingContainer, QueueContainer } from '@dofiltra/tailwind'
 import { getBackgroundColorByStatus, getStatusText } from 'helpers/task'
 import { io } from 'socket.io-client'
 import { useEffect, useState } from 'preact/compat'
@@ -51,7 +50,7 @@ const TranslateResultPage = () => {
   }, [id])
 
   if (!translateData?.blocks?.length) {
-    return <LoadingContainer />
+    return <LoadingContainer loadingText={translate('Loading')} />
   }
 
   const blocksForTranslate = translateData.blocks.filter(
@@ -127,7 +126,9 @@ const TranslateResultPage = () => {
       <main>
         <div className="max-w-7xl">
           <div className="px-4 sm:px-0">
-            <QueueContainer {...queue} />
+            <QueueContainer
+              count={translate('Queue', { count: queue?.count || '...' })}
+            />
 
             <div className="mb-1 md:mb-0 w-full p-1">
               <div className={'alert ' + getBackgroundColorByStatus(status)}>

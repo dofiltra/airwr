@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { smiles } from 'helpers/smiles'
+import { smiles } from '@dofiltra/tailwind'
 import { useLocalize } from '@borodutch-labs/localize-react'
 
 export default () => {

@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { DocumentationApi } from 'components/Documentation/Api'
-import { smiles } from 'helpers/smiles'
+import { smiles } from '@dofiltra/tailwind'
 import { useLocalize } from '@borodutch-labs/localize-react'
 
 export default () => {

@@ -1,10 +1,10 @@
-import { Loading } from 'components/Containers/Loader'
-import { auth } from 'services/firebase'
+import { DoFirebase, Loading } from '@dofiltra/tailwind'
 import { onAuthStateChanged } from 'firebase/auth'
-import { useCallback, useState } from 'react'
+import { useCallback, useState } from 'preact/compat'
 import { useEffect } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
-import AuthContext, { User } from './AuthContext'
+import AuthContext, { User } from '../Auth/AuthContext'
+import React from 'preact/compat'
 
 const AuthContextProvider: React.FC = ({ children }) => {
   const [isInitialized, setIsInitialized] = useState<boolean>(false)
@@ -12,6 +12,10 @@ const AuthContextProvider: React.FC = ({ children }) => {
   const { translate } = useLocalize()
 
   useEffect(() => {
+    const auth = DoFirebase.auth()
+    if (!auth) {
+      return
+    }
     return onAuthStateChanged(auth, (im) => {
       setIsInitialized(true)
       setUser(im)

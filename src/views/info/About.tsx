@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Link } from 'react-router-dom'
-import { smiles } from 'helpers/smiles'
+import { smiles } from '@dofiltra/tailwind'
 import { useContext } from 'react'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import AuthContext from 'components/Auth/AuthContext'

@@ -3,17 +3,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 // import { useState } from 'preact/hooks'
+import { DefaultButton, SignInButtons, SignOutButton } from '@dofiltra/tailwind'
 import { Link } from 'react-router-dom'
-import { SignInButtons } from 'components/Buttons/SignIn'
-import { SignOutButton } from 'components/Buttons/SignOut'
+import { useLocalize } from '@borodutch-labs/localize-react'
 import AppStore from 'stores/AppStore'
 import AuthContext from 'components/Auth/AuthContext'
-import DefaultButton from 'components/Buttons/Button'
 import Language from 'models/Language'
 import React, { useContext } from 'preact/compat'
 
 export default function Navbar({}) {
   const { user } = useContext(AuthContext)
+  const { translate } = useLocalize()
 
   return (
     <>
@@ -199,12 +199,12 @@ export default function Navbar({}) {
                   )}
                   {!user?.uid && (
                     <li>
-                      <SignInButtons />
+                      <SignInButtons signInText={translate('sign in')} />
                     </li>
                   )}
                   {user?.uid && (
                     <li>
-                      <SignOutButton />
+                      <SignOutButton signOutText={translate('sign out')} />
                     </li>
                   )}
                 </ul>
