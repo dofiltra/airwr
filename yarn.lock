@@ -1157,11 +1157,12 @@
   resolved "https://registry.yarnpkg.com/@cush/relative/-/relative-1.0.0.tgz#8cd1769bf9bde3bb27dac356b1bc94af40f6cc16"
   integrity sha512-RpfLEtTlyIxeNPGKcokS+p3BZII/Q3bYxryFRglh5H3A3T8q9fsLYm72VYAMEOOIBLEa8o93kFLiBDUWKrwXZA==
 
-"@dofiltra/tailwind@^0.0.66":
-  version "0.0.66"
-  resolved "https://registry.yarnpkg.com/@dofiltra/tailwind/-/tailwind-0.0.66.tgz#022126a859cf5409452493b14edd1b7cd4cdad7b"
-  integrity sha512-LQzY2rp0KtdBn6poWHj+23xSsvH0vJWndL28XlV5xXZfHaQzECJaKLP0PThJuhUUxeSmgFy3Lds5FclK5HMLsg==
+"@dofiltra/tailwind@^0.0.73":
+  version "0.0.73"
+  resolved "https://registry.yarnpkg.com/@dofiltra/tailwind/-/tailwind-0.0.73.tgz#fd255bcf32733fc443f3fbc7a20e59b0c166bc87"
+  integrity sha512-fWgSzVrWBLBuyuUJk1B+e11p3HSkzz1dKGJ+hLWzpelTudk2r84yLL7oQ/7N5NI+ePykUf+sZV8TyFXCr1tD+g==
   dependencies:
+    "@rollup/plugin-alias" "^3.1.9"
     daisyui "^2.13.3"
     dprx-types "^1.1.90"
     firebase "^9.6.10"
@@ -2287,6 +2288,13 @@
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha1-p3c2C1s5oaLlEG+OhY8v0tBgxXA=
+
+"@rollup/plugin-alias@^3.1.9":
+  version "3.1.9"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-alias/-/plugin-alias-3.1.9.tgz#a5d267548fe48441f34be8323fb64d1d4a1b3fdf"
+  integrity sha512-QI5fsEvm9bDzt32k39wpOwZhVzRcL5ydcffUHMyLVaVaLeC70I8TJZ17F1z1eMoLu4E/UOcH9BWVkKpIKdrfiw==
+  dependencies:
+    slash "^3.0.0"
 
 "@rollup/plugin-babel@^5.2.0":
   version "5.3.1"

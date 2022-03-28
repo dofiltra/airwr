@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@borodutch-labs/localize-react": "^1.7.6",
-    "@dofiltra/tailwind": "^0.0.66",
+    "@dofiltra/tailwind": "^0.0.73",
     "@editorjs/checklist": "^1.3.0",
     "@editorjs/code": "^2.7.0",
     "@editorjs/delimiter": "^1.2.0",
