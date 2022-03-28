@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AuthContext, SignInButtons } from '@dofiltra/tailwind'
 import { FC } from 'preact/compat'
 import { HOST_API } from 'helpers/api'
 import { LangCode, RewriteMode, TaskStatus, headers } from 'dprx-types'
 import { LangCodes } from 'components/Select/Lang'
+import { SignInButtons } from '@dofiltra/tailwind'
 import { useContext } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
+import AuthContext from 'components/Auth/AuthContext'
 
 const hostApi = `${HOST_API}`.replace('-stage', '')
 

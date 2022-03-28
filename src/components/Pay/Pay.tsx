@@ -3,9 +3,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 // import { useState } from 'preact/hooks'
-import { AuthContext, BalanceApi } from '@dofiltra/tailwind'
+import { BalanceApi } from '@dofiltra/tailwind'
 import { VITE_HOST_API_PROD } from 'helpers/api'
 import { useLocalize } from '@borodutch-labs/localize-react'
+import AuthContext from 'components/Auth/AuthContext'
 import React, { useContext, useEffect, useState } from 'preact/compat'
 import useBalance from 'hooks/useBalance'
 

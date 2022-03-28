@@ -2,16 +2,11 @@
 /* eslint-disable no-empty-pattern */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-// import { useState } from 'preact/hooks'
-import {
-  AuthContext,
-  DefaultButton,
-  SignInButtons,
-  SignOutButton,
-} from '@dofiltra/tailwind'
+import { DefaultButton, SignInButtons, SignOutButton } from '@dofiltra/tailwind'
 import { Link } from 'react-router-dom'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import AppStore from 'stores/AppStore'
+import AuthContext from 'components/Auth/AuthContext'
 import Language from 'models/Language'
 import React, { useContext } from 'preact/compat'
 

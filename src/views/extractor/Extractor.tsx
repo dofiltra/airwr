@@ -4,17 +4,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { AuthContext, LoadingContainer, PageH1, QueueContainer } from '@dofiltra/tailwind'
 import { DateTime } from 'luxon'
 import { Doextractor, RewriteMode, SocketEvent, TaskStatus } from 'dprx-types'
 import { ExpandBox, ExpandMode } from 'components/Select/Expand'
 import { ExtractorApi, HOST_API } from 'helpers/api'
 import { Link } from 'react-router-dom'
+import {  LoadingContainer, PageH1, QueueContainer } from '@dofiltra/tailwind'
 import { ToneMode } from 'components/Select/Tone'
 import { io } from 'socket.io-client'
 import { useContext, useEffect, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import AppStore from 'stores/AppStore'
+import AuthContext from 'components/Auth/AuthContext'
 import _ from 'lodash'
 
 export default () => {

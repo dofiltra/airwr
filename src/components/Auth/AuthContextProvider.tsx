@@ -1,8 +1,9 @@
-import { AuthContext, DoFirebase, Loading, User } from '@dofiltra/tailwind'
+import { DoFirebase, Loading, User } from '@dofiltra/tailwind'
 import { onAuthStateChanged } from 'firebase/auth'
 import { useCallback, useState } from 'preact/compat'
 import { useEffect } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
+import AuthContext from './AuthContext'
 import React from 'preact/compat'
 
 const AuthContextProvider: React.FC = ({ children }) => {
