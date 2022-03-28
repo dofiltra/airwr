@@ -1,8 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { BalanceApi } from 'helpers/api'
-import { SignInButtons } from '@dofiltra/tailwind'
+import { BalanceApi, SignInButtons } from '@dofiltra/tailwind'
 import { TaskStatus } from 'dprx-types'
 import { smiles } from '@dofiltra/tailwind'
 import { useContext, useEffect, useState } from 'preact/hooks'

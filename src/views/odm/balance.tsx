@@ -2,8 +2,9 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { BalanceApi, HOST_API } from 'helpers/api'
+import { BalanceApi } from '@dofiltra/tailwind'
 import { FC } from 'preact/compat'
+import { HOST_API } from 'helpers/api'
 import { headers } from 'dprx-types'
 import { useState } from 'preact/hooks'
 

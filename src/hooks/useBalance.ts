@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { BalanceApi } from 'helpers/api'
+import { BalanceApi } from '@dofiltra/tailwind'
 import { useEffect, useState } from 'react'
 
 export default function useBalance(token?: string) {
