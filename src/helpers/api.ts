@@ -101,4 +101,12 @@ export class AiSiteApi extends BaseApi {
       method: 'POST',
     })
   }
+
+  static async remove(body: { host: string; token: string; _id: string }) {
+    return await this.send({
+      url: `${HOST_API}/api/aisite/remove`,
+      body,
+      method: 'POST',
+    })
+  }
 }

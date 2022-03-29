@@ -89,6 +89,7 @@
   "Enable google parser": "Парсить из гугла",
 
   "Add sites": "Добавить сайты",
+  "Sites count": "Количество сайтов: {{count}}",
   "Add": "Добавить",
   "List": "Список",
   "Stats": "Статы"
