@@ -1,6 +1,5 @@
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
 import { FooterSmall, Root } from '@dofiltra/tailwind'
-import { useLocalize } from '@borodutch-labs/localize-react'
 import AuthContextProvider from 'components/Auth/AuthContextProvider'
 import LocalizationProvider from 'localization/LocalizationProvider'
 import Navbar from 'components/Navbar/Navbar'
