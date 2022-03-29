@@ -200,12 +200,12 @@ export default function Navbar({}) {
                   </li>
                 )}
                 {user?.uid && (
-                  <li className="text-center pb-3">
+                  <li className="text-center">
                     <Link to="/sites">{translate('Sites').toUpperCase()}</Link>
                   </li>
                 )}
                 {!user?.uid && (
-                  <li>
+                  <li className="pt-3">
                     <SignInButtons signInText={translate('sign in')} />
                   </li>
                 )}
