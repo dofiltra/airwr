@@ -1,12 +1,14 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { AiSite } from 'dprx-types'
 import { AiSiteApi } from 'helpers/api'
 import { SignInButtons } from '@dofiltra/tailwind'
 import { smiles } from '@dofiltra/tailwind'
 import { useContext, useEffect, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import AuthContext from 'components/Auth/AuthContext'
+import _ from 'lodash'
 import useAiSites from 'hooks/useAiSites'
 
 enum SiteTab {
@@ -35,15 +37,17 @@ export default () => {
     )
   }
 
-  const { aiSites } = useAiSites(token)
+  const { aiSites: aiSitesInit } = useAiSites(token)
+  const [aiSites, setAiSites] = useState<AiSite[]>([])
   const [selectedTab, setSelectedTab] = useState(SiteTab.Add)
   const [newSites, setNewSites] = useState<string[]>([])
 
   useEffect(() => {
-    if (aiSites.length) {
+    if (aiSitesInit.length) {
+      setAiSites(aiSitesInit)
       setSelectedTab(SiteTab.List)
     }
-  }, [aiSites])
+  }, [aiSitesInit])
 
   return (
     <>
@@ -98,6 +102,8 @@ export default () => {
                 ).then(({ result, error }) => {
                   error && alert(error)
                   !error && alert(`Added: ${result?.length || 0}`)
+
+                  setAiSites((prev) => _.uniqBy([...prev, ...result], 'host'))
                 })
               }}
             >
@@ -108,7 +114,7 @@ export default () => {
 
         {selectedTab === SiteTab.List && (
           <div className="mb-1 w-full p-2">
-            <div className='w-full mb-4'>
+            <div className="w-full mb-4">
               {translate('Sites count', { count: aiSites.length })}
               <hr />
             </div>
@@ -128,7 +134,22 @@ export default () => {
                     if (!confirm(`Remove ${aiSite.host}?`)) {
                       return
                     }
-                    console.log(aiSite)
+                    void AiSiteApi.remove(
+                      aiSite as AiSite & { _id: string }
+                    ).then(({ result, error }) => {
+                      if (error) {
+                        return alert(error)
+                      }
+
+                      alert(result)
+
+                      setAiSites((prev) =>
+                        _.uniqBy(
+                          prev.filter((s) => s.host !== aiSite.host),
+                          (s) => s.host
+                        )
+                      )
+                    })
                   }}
                 >
                   <svg
