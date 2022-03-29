@@ -1,12 +1,14 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { AiSite } from 'dprx-types'
 import { AiSiteApi } from 'helpers/api'
 import { SignInButtons } from '@dofiltra/tailwind'
 import { smiles } from '@dofiltra/tailwind'
 import { useContext, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import AuthContext from 'components/Auth/AuthContext'
+import useAiSites from 'hooks/useAiSites'
 
 enum SiteTab {
   Add = 'Add',
@@ -34,10 +36,9 @@ export default () => {
     )
   }
 
-  // const { history = {}, queue = {} } = useRewritedCharsCount(token)
-  // const [myPromoPercent, setMyPromoPercent] = useState(10)
   const [selectedTab, setSelectedTab] = useState(SiteTab.Add)
   const [newSites, setNewSites] = useState<string[]>([])
+  const { aiSites } = useAiSites(token)
 
   // useEffect(() => {
   //   const loadPromo = async () => {
@@ -92,6 +93,7 @@ export default () => {
                 )
               }
             ></textarea>
+
             <button
               className="btn btn-primary btn-success w-full"
               onClick={() => {
@@ -105,19 +107,15 @@ export default () => {
             >
               {translate('Add sites')}
             </button>
-
-            {/* <div className="collapse w-full border rounded-box border-base-300 collapse-arrow">
-            <input type="checkbox" />
-            <div className="collapse-title text-xl font-medium">
-              {translate('My queue (last 30 days)')}
-            </div>
-            <div className="collapse-content">
-              <div className="overflow-x-auto">
-                <p className="mb-5 px-6">123</p>
-              </div>
-            </div>
-          </div> */}
           </div>
+        )}
+
+        {selectedTab === SiteTab.List && (
+          <div className="mb-1 w-full p-2 ">{JSON.stringify(aiSites)}</div>
+        )}
+
+        {selectedTab === SiteTab.Stats && (
+          <div className="mb-1 w-full p-2 ">TODO!</div>
         )}
       </div>
     </>
