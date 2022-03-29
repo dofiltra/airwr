@@ -5,7 +5,6 @@ import { BaseApi } from '@dofiltra/tailwind'
 export const { VITE_HOST_API_DEV, VITE_HOST_API_PROD } = import.meta.env
 
 export const HOST_API =
-  //VITE_HOST_API_PROD
   window.location.origin.includes('localhost') &&
   new URL(window.location.href).searchParams.get('env') !== 'prod'
     ? VITE_HOST_API_DEV

@@ -3,22 +3,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { BalanceApi, useBalance } from '@dofiltra/tailwind'
-import { VITE_HOST_API_PROD } from 'helpers/api'
+import { HOST_API } from 'helpers/api'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import AuthContext from 'components/Auth/AuthContext'
 import React, { useContext, useEffect, useState } from 'preact/compat'
 
 export default function Pay({}) {
-  const { user } = useContext(AuthContext)
-  const { translate } = useLocalize()
-  const { coins = 0 } = useBalance(user?.uid || '')
   const [plusCoins, setPlusCoins] = useState(10)
   const [promoCode, setPromoCode] = useState('')
   const [isExistsPromo, setExistsPromo] = useState(false)
   const [payLink, setPayLink] = useState('')
   const [payType, setPayType] = useState<'Yoomoney' | 'CARDS'>('Yoomoney')
+  const [usdrub, setUsdRub] = useState(100)
+
+  const { user } = useContext(AuthContext)
   const token = user?.uid || ''
-  const [usdrub, setUsdRub] = useState(75)
+
+  const { translate } = useLocalize()
+  const { coins = 0 } = useBalance(user?.uid || '')
 
   useEffect(() => {
     const loadPromo = async () => {
@@ -136,7 +138,7 @@ function payYoomoney(
   }
 
   const label = `${token}__${promoCode}`
-  const payLink = `${VITE_HOST_API_PROD}/api/balance/pay-yoomoney?sum=${
+  const payLink = `${HOST_API}/api/balance/pay-yoomoney?sum=${
     plusCoins * usdrub
   }&label=${label}&targets=AI+Dofiltra&successUrl=https://ai.dofiltra.com/profile`
   window.open(payLink, '_blank')
