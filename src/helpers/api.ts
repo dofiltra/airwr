@@ -2,12 +2,10 @@
 import { AiSite, Doextractor, Dotranslate, RewriteText } from 'dprx-types'
 import { BaseApi, HostManager } from '@dofiltra/tailwind'
 
-export const HOST_API = HostManager.getHostApi()
-
 export class TranslateApi extends BaseApi {
   static async add(data: Dotranslate) {
     return await this.send({
-      url: `${HOST_API}/api/translate/add`,
+      url: `${HostManager.getHostApi()}/api/translate/add`,
       method: 'POST',
       body: data,
     })
@@ -17,7 +15,7 @@ export class TranslateApi extends BaseApi {
 export class RewriteApi extends BaseApi {
   static async add(data: RewriteText) {
     return await this.send({
-      url: `${HOST_API}/api/rewriteText/add`,
+      url: `${HostManager.getHostApi()}/api/rewriteText/add`,
       method: 'POST',
       body: data,
     })
@@ -25,7 +23,7 @@ export class RewriteApi extends BaseApi {
 
   static async get(id: string) {
     const { item } = await this.send({
-      url: `${HOST_API}/api/rewriteText/get?id=${id}`,
+      url: `${HostManager.getHostApi()}/api/rewriteText/get?id=${id}`,
       method: 'GET',
     })
 
@@ -38,7 +36,7 @@ export class RewriteApi extends BaseApi {
     }
 
     const { history = {}, queue = {} } = await this.send({
-      url: `${HOST_API}/api/stats/getRewritedCharsCount?token=${token}`,
+      url: `${HostManager.getHostApi()}/api/stats/getRewritedCharsCount?token=${token}`,
       method: 'GET',
     })
 
@@ -49,7 +47,7 @@ export class RewriteApi extends BaseApi {
 export class LangApi extends BaseApi {
   static async detect(text: string) {
     return await this.send({
-      url: `${HOST_API}/api/lang/detect`,
+      url: `${HostManager.getHostApi()}/api/lang/detect`,
       body: { text },
       method: 'POST',
     })
@@ -59,7 +57,7 @@ export class LangApi extends BaseApi {
 export class ExtractorApi extends BaseApi {
   static async add(body: Doextractor[]) {
     return await this.send({
-      url: `${HOST_API}/api/extractor/add`,
+      url: `${HostManager.getHostApi()}/api/extractor/add`,
       body,
       method: 'POST',
     })
@@ -71,7 +69,7 @@ export class ExtractorApi extends BaseApi {
     }
 
     return await this.send({
-      url: `${HOST_API}/api/extractor/html2blocks`,
+      url: `${HostManager.getHostApi()}/api/extractor/html2blocks`,
       body: { html },
       method: 'POST',
     })
@@ -81,7 +79,7 @@ export class ExtractorApi extends BaseApi {
 export class AiSiteApi extends BaseApi {
   static async add(body: AiSite[]) {
     return await this.send({
-      url: `${HOST_API}/api/aisite/add`,
+      url: `${HostManager.getHostApi()}/api/aisite/add`,
       body,
       method: 'POST',
     })
@@ -89,7 +87,7 @@ export class AiSiteApi extends BaseApi {
 
   static async get(body: { token: string }) {
     return await this.send({
-      url: `${HOST_API}/api/aisite/get`,
+      url: `${HostManager.getHostApi()}/api/aisite/get`,
       body,
       method: 'POST',
     })
@@ -97,7 +95,7 @@ export class AiSiteApi extends BaseApi {
 
   static async remove(body: { host: string; token: string; _id: string }) {
     return await this.send({
-      url: `${HOST_API}/api/aisite/remove`,
+      url: `${HostManager.getHostApi()}/api/aisite/remove`,
       body,
       method: 'POST',
     })

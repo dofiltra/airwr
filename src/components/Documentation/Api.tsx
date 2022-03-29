@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC } from 'preact/compat'
-import { HOST_API } from 'helpers/api'
+import { HostManager, SignInButtons } from '@dofiltra/tailwind'
 import { LangCode, RewriteMode, TaskStatus, headers } from 'dprx-types'
 import { LangCodes } from 'components/Select/Lang'
-import { SignInButtons } from '@dofiltra/tailwind'
 import { useContext } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import AuthContext from 'components/Auth/AuthContext'
 
-const hostApi = `${HOST_API}`.replace('-stage', '')
+const hostApi = `${HostManager.getHostApi()}`
 
 export const DocumentationApi: FC = () => {
   const { translate } = useLocalize()

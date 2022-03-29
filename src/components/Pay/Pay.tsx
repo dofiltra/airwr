@@ -2,8 +2,7 @@
 /* eslint-disable no-empty-pattern */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { BalanceApi, useBalance } from '@dofiltra/tailwind'
-import { HOST_API } from 'helpers/api'
+import { BalanceApi, HostManager, useBalance } from '@dofiltra/tailwind'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import AuthContext from 'components/Auth/AuthContext'
 import React, { useContext, useEffect, useState } from 'preact/compat'
@@ -138,7 +137,7 @@ function payYoomoney(
   }
 
   const label = `${token}__${promoCode}`
-  const payLink = `${HOST_API}/api/balance/pay-yoomoney?sum=${
+  const payLink = `${HostManager.getHostApi()}/api/balance/pay-yoomoney?sum=${
     plusCoins * usdrub
   }&label=${label}&targets=AI+Dofiltra&successUrl=https://ai.dofiltra.com/profile`
   window.open(payLink, '_blank')

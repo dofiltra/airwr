@@ -2,9 +2,8 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { BalanceApi } from '@dofiltra/tailwind'
+import { BalanceApi, HostManager } from '@dofiltra/tailwind'
 import { FC } from 'preact/compat'
-import { HOST_API } from 'helpers/api'
 import { headers } from 'dprx-types'
 import { useState } from 'preact/hooks'
 
@@ -120,7 +119,7 @@ async function addCoins({ tokenPromo, coins, cost }: TQueueOpts) {
   const urlSearchParams = new URLSearchParams(window.location.search)
   const { secret = '' } = Object.fromEntries(urlSearchParams.entries())
 
-  const resp = await fetch(`${HOST_API}/api/balance/odm-add`, {
+  const resp = await fetch(`${HostManager.getHostApi()}/api/balance/odm-add`, {
     headers,
     method: 'POST',
     body: JSON.stringify({
