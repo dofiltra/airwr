@@ -2,10 +2,11 @@
 /* eslint-disable no-empty-pattern */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { BalanceApi, HostManager, useBalance } from '@dofiltra/tailwind'
+import { BalanceApi, HostManager } from '@dofiltra/tailwind'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import AuthContext from 'components/Auth/AuthContext'
 import React, { useContext, useEffect, useState } from 'preact/compat'
+import useBalance from 'hooks/useBalance'
 
 export default function Pay({}) {
   const [plusCoins, setPlusCoins] = useState(10)
@@ -18,8 +19,8 @@ export default function Pay({}) {
   const { user } = useContext(AuthContext)
   const token = user?.uid || ''
 
-  const { translate } = useLocalize()
   const { coins = 0 } = useBalance(user?.uid || '')
+  const { translate } = useLocalize()
 
   useEffect(() => {
     const loadPromo = async () => {

@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import {  BalanceApi, SignInButtons } from '@dofiltra/tailwind'
+import { BalanceApi, SignInButtons } from '@dofiltra/tailwind'
 import { TaskStatus } from 'dprx-types'
 import { smiles } from '@dofiltra/tailwind'
 import { useContext, useEffect, useState } from 'preact/hooks'
@@ -120,7 +120,9 @@ export default () => {
                   {translate('Send promo code another users', {
                     percent: myPromoPercent,
                   })}
-                  <div className="text-error">{translate(myPromoError)}</div>
+                  <div className="text-error">
+                    {translate(myPromoError || '')}
+                  </div>
                   <div className="relative">
                     <input
                       type="text"
