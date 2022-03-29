@@ -1157,11 +1157,12 @@
   resolved "https://registry.yarnpkg.com/@cush/relative/-/relative-1.0.0.tgz#8cd1769bf9bde3bb27dac356b1bc94af40f6cc16"
   integrity sha512-RpfLEtTlyIxeNPGKcokS+p3BZII/Q3bYxryFRglh5H3A3T8q9fsLYm72VYAMEOOIBLEa8o93kFLiBDUWKrwXZA==
 
-"@dofiltra/tailwind@^0.0.75":
-  version "0.0.75"
-  resolved "https://registry.yarnpkg.com/@dofiltra/tailwind/-/tailwind-0.0.75.tgz#976eb45af5fb5370971c3324e709cc110111efad"
-  integrity sha512-TgxJ6uizpuLRIIOdqy4c8oyyYTK6hbISwFVnoNEp0qvGN2RcH+zQFWc5ex/kVrwR854t53zcFm3I302ltjcO7w==
+"@dofiltra/tailwind@^0.0.78":
+  version "0.0.78"
+  resolved "https://registry.yarnpkg.com/@dofiltra/tailwind/-/tailwind-0.0.78.tgz#5952a9c12c9d546390b0c8a40098b01a7bc1ac68"
+  integrity sha512-5bdkQd+iua67I/kZeg+azvg4pRVx6Kkc/Vqt8pqO4SUFozkXlvUzZz70yJb1R3l6lhZ3uiU73cqQdg4673AgMw==
   dependencies:
+    "@borodutch-labs/localize-react" "^1.7.6"
     "@rollup/plugin-alias" "^3.1.9"
     daisyui "^2.13.3"
     dprx-types "^1.1.90"
