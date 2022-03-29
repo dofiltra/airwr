@@ -1,11 +1,10 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { AiSite } from 'dprx-types'
 import { AiSiteApi } from 'helpers/api'
 import { SignInButtons } from '@dofiltra/tailwind'
 import { smiles } from '@dofiltra/tailwind'
-import { useContext, useState } from 'preact/hooks'
+import { useContext, useEffect, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import AuthContext from 'components/Auth/AuthContext'
 import useAiSites from 'hooks/useAiSites'
@@ -36,9 +35,17 @@ export default () => {
     )
   }
 
+  const { aiSites } = useAiSites(token)
   const [selectedTab, setSelectedTab] = useState(SiteTab.Add)
   const [newSites, setNewSites] = useState<string[]>([])
-  const { aiSites } = useAiSites(token)
+
+  useEffect(() => {
+    console.log(aiSites)
+
+    if (aiSites.length) {
+      setSelectedTab(SiteTab.List)
+    }
+  }, [aiSites])
 
   return (
     <>

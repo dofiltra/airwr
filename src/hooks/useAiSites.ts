@@ -8,7 +8,7 @@ export default function useAiSites(token: string) {
   const [aiSites, setAiSites] = useState<AiSite[]>([])
 
   const fetchData = async () => {
-    const data = await AiSiteApi.get({ token })
+    const { result: data } = await AiSiteApi.get({ token })
     setAiSites(data)
   }
 
