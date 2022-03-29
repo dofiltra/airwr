@@ -7,6 +7,12 @@ import { useContext, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import AuthContext from 'components/Auth/AuthContext'
 
+enum SiteTab {
+  Add = 'Add',
+  List = 'List',
+  Stats = 'Stats',
+}
+
 export default () => {
   const { translate } = useLocalize()
   const smileSrc = smiles.sort(() => (Math.random() > 0.5 ? 1 : -1))[0]
@@ -30,7 +36,7 @@ export default () => {
   // const { history = {}, queue = {} } = useRewritedCharsCount(token)
   // const [myPromoCode, setMyPromoCode] = useState('')
   // const [myPromoPercent, setMyPromoPercent] = useState(10)
-  const [selectedTab, setSelectedTab] = useState('Add')
+  const [selectedTab, setSelectedTab] = useState(SiteTab.Add)
 
   // useEffect(() => {
   //   const loadPromo = async () => {
@@ -51,7 +57,7 @@ export default () => {
         <div className="text-center mb-5 justify-center flex"></div>
         <div className="mb-1 w-full p-2 ">
           <div className="tabs">
-            {['Add', 'List', 'Stats'].map((tab) => (
+            {Object.values(SiteTab).map((tab) => (
               <div
                 className={`tab tab-lifted ${
                   tab === selectedTab ? 'tab-active' : ''
@@ -64,7 +70,7 @@ export default () => {
           </div>
         </div>
 
-        {selectedTab === 'Add' && (
+        {selectedTab === SiteTab.Add && (
           <div className="mb-1 w-full p-2 ">
             <textarea
               className="textarea textarea-info w-full"
