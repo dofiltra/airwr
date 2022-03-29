@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { AiSiteApi } from 'helpers/api'
 import { SignInButtons } from '@dofiltra/tailwind'
 import { smiles } from '@dofiltra/tailwind'
 import { useContext, useState } from 'preact/hooks'
@@ -34,9 +35,9 @@ export default () => {
   }
 
   // const { history = {}, queue = {} } = useRewritedCharsCount(token)
-  // const [myPromoCode, setMyPromoCode] = useState('')
   // const [myPromoPercent, setMyPromoPercent] = useState(10)
   const [selectedTab, setSelectedTab] = useState(SiteTab.Add)
+  const [newSites, setNewSites] = useState<string[]>([])
 
   // useEffect(() => {
   //   const loadPromo = async () => {
@@ -76,8 +77,27 @@ export default () => {
               className="textarea textarea-info w-full"
               rows={10}
               placeholder={`https://site1.com\nhttps://site2.com\nhttps://site3.com`}
+              onChange={(e) =>
+                setNewSites(
+                  e.target.value
+                    .split('\n')
+                    .filter((site) => {
+                      try {
+                        return !!new URL(site)
+                      } catch (error: any) {
+                        return false
+                      }
+                    })
+                    .map((site) => new URL(site).origin)
+                )
+              }
             ></textarea>
-            <button className="btn btn-primary btn-success w-full">
+            <button
+              className="btn btn-primary btn-success w-full"
+              onClick={() => {
+                void AiSiteApi.add([]).then((x) => console.log(x))
+              }}
+            >
               {translate('Add sites')}
             </button>
 

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { AiSite, Doextractor, Dotranslate, RewriteText } from 'dprx-types'
 import { BaseApi } from '@dofiltra/tailwind'
-import { Doextractor, Dotranslate, RewriteText } from 'dprx-types'
 
 export const { VITE_HOST_API_DEV, VITE_HOST_API_PROD } = import.meta.env
 
@@ -80,6 +80,24 @@ export class ExtractorApi extends BaseApi {
     return await this.send({
       url: `${HOST_API}/api/extractor/html2blocks`,
       body: { html },
+      method: 'POST',
+    })
+  }
+}
+
+export class AiSiteApi extends BaseApi {
+  static async add(body: AiSite[]) {
+    return await this.send({
+      url: `${HOST_API}/api/aisite/add`,
+      body,
+      method: 'POST',
+    })
+  }
+
+  static async get(body: { token: string }) {
+    return await this.send({
+      url: `${HOST_API}/api/aisite/get`,
+      body,
       method: 'POST',
     })
   }

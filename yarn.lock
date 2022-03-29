@@ -4585,7 +4585,12 @@ dotenv@^10.0.0:
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-10.0.0.tgz#3d4227b8fb95f81096cdd2b66653fb2c7085ba81"
   integrity sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==
 
-dprx-types@^1.1.102, dprx-types@^1.1.90:
+dprx-types@^1.1.105:
+  version "1.1.105"
+  resolved "https://registry.yarnpkg.com/dprx-types/-/dprx-types-1.1.105.tgz#fddaa002dc8d4c09ff083e7fbd69604bd9875d75"
+  integrity sha512-AY+Oao8z9dWGk3NE05+OudS8HQ8l6HJ8EZ/M0GnmMWnjfkKPkS1vpgF+1kLNJVhYoCMrDz2++VNEBiVgkkGhig==
+
+dprx-types@^1.1.90:
   version "1.1.102"
   resolved "https://registry.yarnpkg.com/dprx-types/-/dprx-types-1.1.102.tgz#30138aee9bf2abc02ab0192d5546ec57371b716a"
   integrity sha512-3uYg4wQ9aStxvLy4k+7I716VQDpu6s15TllJuTq7Dy9X7xzjXr66kFm5Ya0HQYIhUcmCFZU/8AWa3fMbTyzLWg==
