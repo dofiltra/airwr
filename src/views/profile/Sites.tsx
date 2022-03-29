@@ -95,7 +95,12 @@ export default () => {
             <button
               className="btn btn-primary btn-success w-full"
               onClick={() => {
-                void AiSiteApi.add([]).then((x) => console.log(x))
+                void AiSiteApi.add(
+                  newSites.map((host) => ({ token, host }))
+                ).then(({ result, error }) => {
+                  error && alert(error)
+                  !error && alert(`Added: ${result?.length || 0}`)
+                })
               }}
             >
               {translate('Add sites')}
