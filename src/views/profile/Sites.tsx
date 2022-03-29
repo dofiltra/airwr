@@ -1,14 +1,11 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { BalanceApi, SignInButtons } from '@dofiltra/tailwind'
-import { TaskStatus } from 'dprx-types'
+import { SignInButtons } from '@dofiltra/tailwind'
 import { smiles } from '@dofiltra/tailwind'
-import { useContext, useEffect, useState } from 'preact/hooks'
+import { useContext, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import AuthContext from 'components/Auth/AuthContext'
-import Pay from 'components/Pay/Pay'
-import useRewritedCharsCount from 'hooks/useRewritedCharsCount'
 
 export default () => {
   const { translate } = useLocalize()
@@ -32,8 +29,8 @@ export default () => {
 
   // const { history = {}, queue = {} } = useRewritedCharsCount(token)
   // const [myPromoCode, setMyPromoCode] = useState('')
-  // const [myPromoError, setMyPromoError] = useState('')
   // const [myPromoPercent, setMyPromoPercent] = useState(10)
+  const [selectedTab, setSelectedTab] = useState('Add')
 
   // useEffect(() => {
   //   const loadPromo = async () => {
@@ -52,10 +49,33 @@ export default () => {
           <img src={smileSrc} className="inline px-4" />
         </h1>
         <div className="text-center mb-5 justify-center flex"></div>
-        <p className="mb-5">{/* <Pay /> */}</p>
-
         <div className="mb-1 w-full p-2 ">
-          <div className="collapse w-full border rounded-box border-base-300 collapse-arrow">
+          <div className="tabs">
+            {['Add', 'List', 'Stats'].map((tab) => (
+              <div
+                className={`tab tab-lifted ${
+                  tab === selectedTab ? 'tab-active' : ''
+                }`}
+                onClick={() => setSelectedTab(tab)}
+              >
+                {translate(tab)}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {selectedTab === 'Add' && (
+          <div className="mb-1 w-full p-2 ">
+            <textarea
+              className="textarea textarea-info w-full"
+              rows={10}
+              placeholder={`https://site1.com\nhttps://site2.com\nhttps://site3.com`}
+            ></textarea>
+            <button className="btn btn-primary btn-success w-full">
+              {translate('Add sites')}
+            </button>
+
+            {/* <div className="collapse w-full border rounded-box border-base-300 collapse-arrow">
             <input type="checkbox" />
             <div className="collapse-title text-xl font-medium">
               {translate('My queue (last 30 days)')}
@@ -65,8 +85,9 @@ export default () => {
                 <p className="mb-5 px-6">123</p>
               </div>
             </div>
+          </div> */}
           </div>
-        </div>
+        )}
       </div>
     </>
   )

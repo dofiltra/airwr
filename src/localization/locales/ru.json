@@ -86,5 +86,9 @@
   "Remove similar content blocks": "Удалять похожие блоки, если их контент совпадает на {{percent}}%",
 
   "Enable yandex parser": "Парсить из яндекса",
-  "Enable google parser": "Парсить из гугла"
+  "Enable google parser": "Парсить из гугла",
+
+  "Add": "Добавить",
+  "List": "Список",
+  "Stats": "Статы"
 }
