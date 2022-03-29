@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Language } from '@dofiltra/tailwind'
 import { proxy } from 'valtio'
-import Language from 'models/Language'
 import PersistableStore from 'stores/persistence/PersistableStore'
 
 class AppStore extends PersistableStore {

@@ -1,9 +1,8 @@
 import { LocalizationProvider as BaseLocalizationProvider } from '@borodutch-labs/localize-react'
 import { FC } from 'preact/compat'
-import { HostManager } from '@dofiltra/tailwind'
+import { HostManager, Language } from '@dofiltra/tailwind'
 import { useSnapshot } from 'valtio'
 import AppStore from '../stores/AppStore'
-import Language from '../models/Language'
 
 const LocalizationProvider: FC = ({ children }) => {
   const appStore = useSnapshot(AppStore)
