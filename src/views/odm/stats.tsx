@@ -5,7 +5,7 @@
 
 import { AppState, ModuleName, ProxyItem, SocketEvent } from 'dprx-types'
 import { FC } from 'preact/compat'
-import { HOST_API } from 'helpers/api'
+import { HostManager } from '@dofiltra/tailwind'
 import { Socket, io } from 'socket.io-client'
 import { useEffect, useState } from 'preact/hooks'
 import _ from 'lodash'
@@ -21,8 +21,8 @@ export const OdmStatsPage: FC = () => {
   )
 
   useEffect(() => {
-    fetch(`${HOST_API}/api/socketio/exec`).finally(() => {
-      const sock = io(HOST_API!.toString(), {
+    fetch(`${HostManager.getHostWs()}/api/socketio/exec`).finally(() => {
+      const sock = io(HostManager.getHostWs()!.toString(), {
         autoConnect: true,
         reconnection: true,
       })

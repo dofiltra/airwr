@@ -7,9 +7,9 @@
 import { DateTime } from 'luxon'
 import { Doextractor, RewriteMode, SocketEvent, TaskStatus } from 'dprx-types'
 import { ExpandBox, ExpandMode } from 'components/Select/Expand'
-import { ExtractorApi, HOST_API } from 'helpers/api'
+import { ExtractorApi } from 'helpers/api'
+import {  HostManager, LoadingContainer, PageH1, QueueContainer } from '@dofiltra/tailwind'
 import { Link } from 'react-router-dom'
-import {  LoadingContainer, PageH1, QueueContainer } from '@dofiltra/tailwind'
 import { ToneMode } from 'components/Select/Tone'
 import { io } from 'socket.io-client'
 import { useContext, useEffect, useState } from 'preact/hooks'
@@ -47,8 +47,8 @@ export default () => {
   const [queue, setQueue] = useState({} as any)
 
   useEffect(() => {
-    fetch(`${HOST_API}/api/socketio/exec`).finally(() => {
-      const socket = io(HOST_API!.toString(), {
+    fetch(`${HostManager.getHostWs()}/api/socketio/exec`).finally(() => {
+      const socket = io(HostManager.getHostWs()!.toString(), {
         autoConnect: true,
         reconnection: true,
       })

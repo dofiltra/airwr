@@ -15,9 +15,9 @@ import {
 import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
 import { ExpandBox, ExpandMode } from 'components/Select/Expand'
 import { FC } from 'preact/compat'
-import { HOST_API, LangApi, RewriteApi } from 'helpers/api'
+import { HostManager, LoadingContainer, PageH1, QueueContainer } from '@dofiltra/tailwind'
+import {  LangApi, RewriteApi } from 'helpers/api'
 import { LangBox } from 'components/Select/Lang'
-import { LoadingContainer, PageH1, QueueContainer } from '@dofiltra/tailwind'
 import { Navigate } from 'react-router-dom'
 import { ToneMode } from 'components/Select/Tone'
 import { io } from 'socket.io-client'
@@ -122,8 +122,8 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
   const [queue, setQueue] = useState({} as any)
 
   useEffect(() => {
-    fetch(`${HOST_API}/api/socketio/exec`).finally(() => {
-      const socket = io(HOST_API!.toString(), {
+    fetch(`${HostManager.getHostWs()}/api/socketio/exec`).finally(() => {
+      const socket = io(HostManager.getHostWs()!.toString(), {
         autoConnect: true,
         reconnection: true,
       })

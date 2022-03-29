@@ -4,8 +4,11 @@
 
 import { Doextractor, SocketEvent, TaskStatus } from 'dprx-types'
 import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
-import { HOST_API } from 'helpers/api'
-import { LoadingContainer, QueueContainer } from '@dofiltra/tailwind'
+import {
+  HostManager,
+  LoadingContainer,
+  QueueContainer,
+} from '@dofiltra/tailwind'
 import { getBackgroundColorByStatus, getStatusText } from 'helpers/task'
 import { io } from 'socket.io-client'
 import { useEffect, useState } from 'preact/compat'
@@ -22,8 +25,8 @@ const ResultPage = () => {
   const [queue, setQueue] = useState({} as any)
 
   useEffect(() => {
-    fetch(`${HOST_API}/api/socketio/exec`).finally(() => {
-      const socket = io(HOST_API!.toString(), {
+    fetch(`${HostManager.getHostWs()}/api/socketio/exec`).finally(() => {
+      const socket = io(HostManager.getHostWs()!.toString(), {
         autoConnect: true,
         reconnection: true,
       })

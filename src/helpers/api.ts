@@ -1,14 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AiSite, Doextractor, Dotranslate, RewriteText } from 'dprx-types'
-import { BaseApi } from '@dofiltra/tailwind'
+import { BaseApi, HostManager } from '@dofiltra/tailwind'
 
-export const { VITE_HOST_API_DEV, VITE_HOST_API_PROD } = import.meta.env
-
-export const HOST_API =
-  window.location.origin.includes('localhost') &&
-  new URL(window.location.href).searchParams.get('env') !== 'prod'
-    ? VITE_HOST_API_DEV
-    : VITE_HOST_API_PROD
+export const HOST_API = HostManager.getHostApi()
 
 export class TranslateApi extends BaseApi {
   static async add(data: Dotranslate) {
@@ -55,7 +49,7 @@ export class RewriteApi extends BaseApi {
 export class LangApi extends BaseApi {
   static async detect(text: string) {
     return await this.send({
-      url: `${VITE_HOST_API_PROD}/api/lang/detect`,
+      url: `${HOST_API}/api/lang/detect`,
       body: { text },
       method: 'POST',
     })
