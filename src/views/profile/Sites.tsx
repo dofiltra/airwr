@@ -37,13 +37,13 @@ export default () => {
     )
   }
 
-  const { aiSites: aiSitesInit } = useAiSites(token)
+  const { aiSites: aiSitesInit = [] } = useAiSites(token)
   const [aiSites, setAiSites] = useState<AiSite[]>([])
   const [selectedTab, setSelectedTab] = useState(SiteTab.Add)
   const [newSites, setNewSites] = useState<string[]>([])
 
   useEffect(() => {
-    if (aiSitesInit.length) {
+    if (aiSitesInit?.length) {
       setAiSites(aiSitesInit)
       setSelectedTab(SiteTab.List)
     }
