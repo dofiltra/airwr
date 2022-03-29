@@ -40,15 +40,6 @@ export default () => {
   const [newSites, setNewSites] = useState<string[]>([])
   const { aiSites } = useAiSites(token)
 
-  // useEffect(() => {
-  //   const loadPromo = async () => {
-  //     const { code: loadedCode, percent } = await BalanceApi.getPromoCode(token)
-  //     setMyPromoCode(loadedCode)
-  //     setMyPromoPercent(percent)
-  //   }
-  //   void loadPromo()
-  // }, [token])
-
   return (
     <>
       <div className="w-full min-h-full">
