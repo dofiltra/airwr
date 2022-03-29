@@ -210,7 +210,7 @@ export default function Navbar({}) {
                   </li>
                 )}
                 {user?.uid && (
-                  <li>
+                  <li className="pt-3">
                     <SignOutButton signOutText={translate('sign out')} />
                   </li>
                 )}
