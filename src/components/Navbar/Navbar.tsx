@@ -192,7 +192,7 @@ export default function Navbar({}) {
                 className="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52"
               >
                 {user?.uid && (
-                  <li className="text-center pb-3">
+                  <li className="text-center">
                     <Link to="/profile">
                       {user?.displayName?.toUpperCase() ||
                         user?.email?.toUpperCase()}
@@ -201,7 +201,7 @@ export default function Navbar({}) {
                 )}
                 {user?.uid && (
                   <li className="text-center pb-3">
-                    <Link to="/sites">{translate('Sites')}</Link>
+                    <Link to="/sites">{translate('Sites').toUpperCase()}</Link>
                   </li>
                 )}
                 {!user?.uid && (
