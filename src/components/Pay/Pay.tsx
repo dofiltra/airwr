@@ -2,7 +2,6 @@
 /* eslint-disable no-empty-pattern */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-// import { useState } from 'preact/hooks'
 import { BalanceApi, useBalance } from '@dofiltra/tailwind'
 import { VITE_HOST_API_PROD } from 'helpers/api'
 import { useLocalize } from '@borodutch-labs/localize-react'
@@ -79,32 +78,28 @@ export default function Pay({}) {
             />
 
             {payType === 'Yoomoney' && (
-              <>
-                <div className="relative">
-                  <input
-                    type="number"
-                    placeholder="10"
-                    value={plusCoins || 1}
-                    onChange={(e: any) => {
-                      setPayLink('')
-                      setPlusCoins(parseInt(e.target.value || '1', 10))
-                    }}
-                    className="w-full pr-16 input input-primary input-bordered"
-                  />
+              <div className="relative">
+                <input
+                  type="number"
+                  placeholder="10"
+                  value={plusCoins || 1}
+                  onChange={(e: any) => {
+                    setPayLink('')
+                    setPlusCoins(parseInt(e.target.value || '1', 10))
+                  }}
+                  className="w-full pr-16 input input-primary input-bordered"
+                />
 
-                  <button
-                    className="absolute top-0 right-0 rounded-l-none btn btn-primary"
-                    onClick={(e) =>
-                      token &&
-                      setPayLink(
-                        payYoomoney(token, plusCoins, usdrub, promoCode)
-                      )
-                    }
-                  >
-                    {translate('BalanceUpButton')}
-                  </button>
-                </div>
-              </>
+                <button
+                  className="absolute top-0 right-0 rounded-l-none btn btn-primary"
+                  onClick={(e) =>
+                    token &&
+                    setPayLink(payYoomoney(token, plusCoins, usdrub, promoCode))
+                  }
+                >
+                  {translate('BalanceUpButton')}
+                </button>
+              </div>
             )}
             {payType === 'CARDS' && (
               <div>

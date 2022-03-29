@@ -12,8 +12,9 @@ import ContactsPage from 'views/info/Contacts'
 import ExtractorPage from 'views/extractor/Extractor'
 import ExtractorResultPage from 'views/extractor/Result'
 import FaqPage from 'views/info/Faq'
-import ProfilePage from 'views/info/Profile'
+import ProfilePage from 'views/profile/Profile'
 import RewriterResultPage from 'views/rewriter/Result'
+import SitesPage from 'views/profile/Sites'
 import TranslateResultPage from 'views/translator/Result'
 import TranslatorPage from 'views/translator/Translator'
 import en from './localization/locales/en.json'
@@ -47,6 +48,7 @@ const routes: { path: string; element: JSX.Element }[] = [
   { path: '/odm/balance', element: <OdmBalancePage /> },
   { path: '/odm/stats', element: <OdmStatsPage /> },
   { path: '/profile', element: <ProfilePage /> },
+  { path: '/sites', element: <SitesPage /> },
   { path: '/info/api', element: <ApiPage /> },
   { path: '/info/about', element: <AboutPage /> },
   { path: '/info/contacts', element: <ContactsPage /> },

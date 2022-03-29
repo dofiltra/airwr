@@ -1157,10 +1157,10 @@
   resolved "https://registry.yarnpkg.com/@cush/relative/-/relative-1.0.0.tgz#8cd1769bf9bde3bb27dac356b1bc94af40f6cc16"
   integrity sha512-RpfLEtTlyIxeNPGKcokS+p3BZII/Q3bYxryFRglh5H3A3T8q9fsLYm72VYAMEOOIBLEa8o93kFLiBDUWKrwXZA==
 
-"@dofiltra/tailwind@^0.0.78":
-  version "0.0.78"
-  resolved "https://registry.yarnpkg.com/@dofiltra/tailwind/-/tailwind-0.0.78.tgz#5952a9c12c9d546390b0c8a40098b01a7bc1ac68"
-  integrity sha512-5bdkQd+iua67I/kZeg+azvg4pRVx6Kkc/Vqt8pqO4SUFozkXlvUzZz70yJb1R3l6lhZ3uiU73cqQdg4673AgMw==
+"@dofiltra/tailwind@^0.0.79":
+  version "0.0.79"
+  resolved "https://registry.yarnpkg.com/@dofiltra/tailwind/-/tailwind-0.0.79.tgz#b946e536fe2f96958fe423e0da43c96e35a21f33"
+  integrity sha512-iExQUhY/3GIqXlPG0PDlejoDyDW8wpFey1zuAIRjPXP5ILToUmr8wkWW2jyoEaUU7ScBaE76CDcM76gtQ/OABw==
   dependencies:
     "@borodutch-labs/localize-react" "^1.7.6"
     "@rollup/plugin-alias" "^3.1.9"
