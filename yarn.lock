@@ -1157,10 +1157,10 @@
   resolved "https://registry.yarnpkg.com/@cush/relative/-/relative-1.0.0.tgz#8cd1769bf9bde3bb27dac356b1bc94af40f6cc16"
   integrity sha512-RpfLEtTlyIxeNPGKcokS+p3BZII/Q3bYxryFRglh5H3A3T8q9fsLYm72VYAMEOOIBLEa8o93kFLiBDUWKrwXZA==
 
-"@dofiltra/tailwind@^0.0.73":
-  version "0.0.73"
-  resolved "https://registry.yarnpkg.com/@dofiltra/tailwind/-/tailwind-0.0.73.tgz#fd255bcf32733fc443f3fbc7a20e59b0c166bc87"
-  integrity sha512-fWgSzVrWBLBuyuUJk1B+e11p3HSkzz1dKGJ+hLWzpelTudk2r84yLL7oQ/7N5NI+ePykUf+sZV8TyFXCr1tD+g==
+"@dofiltra/tailwind@^0.0.74":
+  version "0.0.74"
+  resolved "https://registry.yarnpkg.com/@dofiltra/tailwind/-/tailwind-0.0.74.tgz#16f68e3f69198e87c7e8e8e226bfaa647ad756d5"
+  integrity sha512-FXedXKQ5dbIoe++94xzyNo8M4Zicheo9zFSG3fsGDhcU+w9GFnCh5OA5PQb9Bb2Q4OgVwKvYlCyzohxsEsmytQ==
   dependencies:
     "@rollup/plugin-alias" "^3.1.9"
     daisyui "^2.13.3"
