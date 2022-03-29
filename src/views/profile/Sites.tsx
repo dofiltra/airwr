@@ -48,7 +48,7 @@ export default () => {
           <img src={smileSrc} className="inline px-4" />
         </h1>
         <div className="text-center mb-5 justify-center flex"></div>
-        <div className="mb-1 w-full p-2 ">
+        <div className="mb-1 w-full p-2">
           <div className="tabs">
             {Object.values(SiteTab).map((tab) => (
               <div
@@ -64,7 +64,7 @@ export default () => {
         </div>
 
         {selectedTab === SiteTab.Add && (
-          <div className="mb-1 w-full p-2 ">
+          <div className="mb-1 w-full p-2">
             <textarea
               className="textarea textarea-info w-full"
               rows={10}
@@ -102,11 +102,11 @@ export default () => {
         )}
 
         {selectedTab === SiteTab.List && (
-          <div className="mb-1 w-full p-2 ">{JSON.stringify(aiSites)}</div>
+          <div className="mb-1 w-full p-2">{JSON.stringify(aiSites)}</div>
         )}
 
         {selectedTab === SiteTab.Stats && (
-          <div className="mb-1 w-full p-2 ">TODO!</div>
+          <div className="mb-1 w-full p-2">TODO!</div>
         )}
       </div>
     </>
