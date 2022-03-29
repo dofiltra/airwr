@@ -199,6 +199,11 @@ export default function Navbar({}) {
                     </Link>
                   </li>
                 )}
+                {user?.uid && (
+                  <li className="text-center pb-3">
+                    <Link to="/sites">{translate('Sites')}</Link>
+                  </li>
+                )}
                 {!user?.uid && (
                   <li>
                     <SignInButtons signInText={translate('sign in')} />
