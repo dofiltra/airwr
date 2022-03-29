@@ -40,8 +40,6 @@ export default () => {
   const [newSites, setNewSites] = useState<string[]>([])
 
   useEffect(() => {
-    console.log(aiSites)
-
     if (aiSites.length) {
       setSelectedTab(SiteTab.List)
     }
