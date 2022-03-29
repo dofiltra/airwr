@@ -88,7 +88,7 @@
   "Enable yandex parser": "Парсить из яндекса",
   "Enable google parser": "Парсить из гугла",
 
-  "Sites":"Сайты",
+  "Sites": "Сайты",
   "Add sites": "Добавить сайты",
   "Sites count": "Количество сайтов: {{count}}",
   "Add": "Добавить",
