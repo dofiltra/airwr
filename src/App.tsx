@@ -20,7 +20,7 @@ export const App = ({
                 return <Route path={route.path} element={route.element} />
               })}
             </Routes>
-            <FooterSmall siteName={'Dofiltra'} contactsText={'Contacts'} />
+            {/* <FooterSmall siteName={'Dofiltra'} contactsText={'Contacts'} /> */}
           </AuthContextProvider>
         </LocalizationProvider>
       </Root>
