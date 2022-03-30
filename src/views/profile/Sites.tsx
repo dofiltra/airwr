@@ -199,7 +199,7 @@ export default () => {
                 LI_day_vis = '-',
                 LI_month_vis = '-',
                 LI_week_vis = '-',
-              } = aiSitesStats[aiSite.host]
+              } = {...aiSitesStats[aiSite.host]}
               return (
                 <div className="flex p-2">
                   <div className="flex-1">
