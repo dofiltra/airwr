@@ -1157,15 +1157,15 @@
   resolved "https://registry.yarnpkg.com/@cush/relative/-/relative-1.0.0.tgz#8cd1769bf9bde3bb27dac356b1bc94af40f6cc16"
   integrity sha512-RpfLEtTlyIxeNPGKcokS+p3BZII/Q3bYxryFRglh5H3A3T8q9fsLYm72VYAMEOOIBLEa8o93kFLiBDUWKrwXZA==
 
-"@dofiltra/tailwind@^0.0.81":
-  version "0.0.81"
-  resolved "https://registry.yarnpkg.com/@dofiltra/tailwind/-/tailwind-0.0.81.tgz#49e292789d6468a7a03305bed4f635d42b90089b"
-  integrity sha512-lztxl53CO4WWtMF6JW9q8yuWlweRQtU7+Ddg7+67Gf8uBY+IRddSpQEy0ARxCiC/6Q6x6XKWeG3yH13lypWb3g==
+"@dofiltra/tailwind@^0.0.83":
+  version "0.0.83"
+  resolved "https://registry.yarnpkg.com/@dofiltra/tailwind/-/tailwind-0.0.83.tgz#2ec4824453d8d072411e4b5eba129788721c11a7"
+  integrity sha512-Atk1pc2UHGSRDWV0U0TTQBulxcNQe2W4dQrSFz4MDTXfTGAhTgJ+xQfu1YuWtL89qreFLQbrgmr6sms98G0PhA==
   dependencies:
     "@borodutch-labs/localize-react" "^1.7.6"
     "@rollup/plugin-alias" "^3.1.9"
     daisyui "^2.13.3"
-    dprx-types "^1.1.90"
+    dprx-types "^1.1.109"
     firebase "^9.6.10"
     preact "^10.6.6"
     unfetch "^4.2.0"
@@ -4585,15 +4585,10 @@ dotenv@^10.0.0:
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-10.0.0.tgz#3d4227b8fb95f81096cdd2b66653fb2c7085ba81"
   integrity sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==
 
-dprx-types@^1.1.105:
-  version "1.1.105"
-  resolved "https://registry.yarnpkg.com/dprx-types/-/dprx-types-1.1.105.tgz#fddaa002dc8d4c09ff083e7fbd69604bd9875d75"
-  integrity sha512-AY+Oao8z9dWGk3NE05+OudS8HQ8l6HJ8EZ/M0GnmMWnjfkKPkS1vpgF+1kLNJVhYoCMrDz2++VNEBiVgkkGhig==
-
-dprx-types@^1.1.90:
-  version "1.1.102"
-  resolved "https://registry.yarnpkg.com/dprx-types/-/dprx-types-1.1.102.tgz#30138aee9bf2abc02ab0192d5546ec57371b716a"
-  integrity sha512-3uYg4wQ9aStxvLy4k+7I716VQDpu6s15TllJuTq7Dy9X7xzjXr66kFm5Ya0HQYIhUcmCFZU/8AWa3fMbTyzLWg==
+dprx-types@^1.1.109:
+  version "1.1.109"
+  resolved "https://registry.yarnpkg.com/dprx-types/-/dprx-types-1.1.109.tgz#7980043a5d788e2c060a108339e9aeb6271ebe75"
+  integrity sha512-2mlAUt7B04rFDj7A7+JeY6Mwcfmek/iJUG8oxbGShgrXpvaftoLL99EvpBp4TdeK7iNPrObYutrQLZBuStoymw==
 
 duplexer@^0.1.2:
   version "0.1.2"

@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { AiSite } from 'dprx-types'
+import { AiSite, TLiveinternetOpts } from 'dprx-types'
 import { AiSiteApi } from 'helpers/api'
 import { LiveinternetApi, SignInButtons } from '@dofiltra/tailwind'
 import { smiles } from '@dofiltra/tailwind'
@@ -16,6 +16,8 @@ enum SiteTab {
   List = 'List',
   Stats = 'Stats',
 }
+
+const autoregId = 'autoreg-liveinternet'
 
 export default () => {
   const { translate } = useLocalize()
@@ -50,6 +52,9 @@ export default () => {
   const [totalDay, setTotalDay] = useState(0)
   const [totalWeek, setTotalWeek] = useState(0)
   const [totalMonth, setTotalMonth] = useState(0)
+
+  const [liEmail, setLiEmail] = useState(user?.email || '')
+  const [liPassword, setLiPassword] = useState('dofiltraZzz')
 
   useEffect(() => {
     if (aiSitesInit?.length) {
@@ -274,28 +279,84 @@ export default () => {
             <hr className="m-4" />
 
             <div className="w-full">
-              <button
-                className="btn btn-success w-full"
-                onClick={() => {
-                  console.log(unregistredSites)
-                }}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"
-                  />
-                </svg>
-                {translate('Start autoreg liveinternet')}
-              </button>
+              {unregistredSites.length > 0 && (
+                <label className="btn btn-success w-full" htmlFor={autoregId}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"
+                    />
+                  </svg>
+                  {translate('Start autoreg liveinternet')}
+                </label>
+              )}
+              <input type="checkbox" id={autoregId} className="modal-toggle" />
+              <div className="modal">
+                <div className="modal-box">
+                  <h3 className="font-bold text-lg">
+                    Autoreg liveinternet ({unregistredSites.length})
+                  </h3>
+                  <div className="form-control m-2">
+                    <label className="input-group input-group-vertical">
+                      <span>Email</span>
+                      <input
+                        type="text"
+                        placeholder="info@site.com"
+                        className="input input-bordered"
+                        value={liEmail}
+                        onChange={(e) => setLiEmail(e.target.value)}
+                      />
+                    </label>
+                  </div>
+                  <div className="form-control m-2">
+                    <label className="input-group input-group-vertical">
+                      <span>Password</span>
+                      <input
+                        type="text"
+                        placeholder="OnlyLetters"
+                        className="input input-bordered"
+                        value={liPassword}
+                        onChange={(e) => setLiPassword(e.target.value)}
+                      />
+                    </label>
+                  </div>
+                  <div className="modal-action">
+                    <label
+                      htmlFor={autoregId}
+                      className="btn"
+                      onClick={() => {
+                        const sites = unregistredSites.map(
+                          (unregSite) =>
+                            ({
+                              host: unregSite,
+                              email: liEmail,
+                              password: liPassword,
+                            } as TLiveinternetOpts)
+                        )
+                        void LiveinternetApi.reg({ token, sites }).then(
+                          ({ result, error }) => {
+                            error && alert(error)
+                            result && alert(`Start reg ${result} sites!`)
+                          }
+                        )
+                      }}
+                    >
+                      {translate('Start')}
+                    </label>
+                    <label htmlFor={autoregId} className="btn">
+                      {translate('Close')}
+                    </label>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         )}
