@@ -46,6 +46,10 @@ export default () => {
     [domain: string]: { [key: string]: string }
   }>({})
 
+  const [totalDay, setTotalDay] = useState(0)
+  const [totalWeek, setTotalWeek] = useState(0)
+  const [totalMonth, setTotalMonth] = useState(0)
+
   useEffect(() => {
     if (aiSitesInit?.length) {
       setAiSites(aiSitesInit)
@@ -54,11 +58,43 @@ export default () => {
   }, [aiSitesInit])
 
   useEffect(() => {
-    aiSites.forEach(async (site) => {
+    aiSites?.forEach(async (site) => {
       const stats = await LiveinternetApi.getStats(site.host)
-      setAiSitesStats((prev) => ({ ...prev, [site.host]: stats }))
+      setAiSitesStats((prev) => ({
+        ...prev,
+        [site.host]: {
+          // LI_day_vis: '',
+          // LI_week_vis: '',
+          // LI_month_vis: '',
+          ...stats,
+        },
+      }))
     })
   }, [aiSites])
+
+  useEffect(() => {
+    try {
+      setTotalDay(
+        Object.keys(aiSitesStats || {})
+          .map((key) => parseInt(aiSitesStats[key]?.LI_day_vis || '0'))
+          .reduce((prev, cur) => prev + cur, 0)
+      )
+
+      setTotalWeek(
+        Object.keys(aiSitesStats || {})
+          .map((key) => parseInt(aiSitesStats[key]?.LI_week_vis || '0'))
+          .reduce((prev, cur) => prev + cur, 0)
+      )
+
+      setTotalMonth(
+        Object.keys(aiSitesStats || {})
+          .map((key) => parseInt(aiSitesStats[key]?.LI_month_vis || '0'))
+          .reduce((prev, cur) => prev + cur, 0)
+      )
+    } catch (error: any) {
+      return console.log(error)
+    }
+  }, [aiSitesStats])
 
   return (
     <>
@@ -193,48 +229,42 @@ export default () => {
             </div>
             <hr className="" />
 
-            {aiSites.map((aiSite, index) => {
-              const {
-                LI_error = '',
-                LI_day_vis = '-',
-                LI_month_vis = '-',
-                LI_week_vis = '-',
-              } = { ...aiSitesStats[aiSite.host] }
-              return (
-                <div className="flex p-2">
-                  <div className="flex-1">
-                    <small>{index + 1} </small>
-                    <a href={aiSite.host} target="_blank">
-                      {aiSite.host}
-                    </a>
+            {aiSites?.map((aiSite, index) => {
+              try {
+                const {
+                  // LI_error = '',
+                  LI_day_vis = '-',
+                  LI_month_vis = '-',
+                  LI_week_vis = '-',
+                } = { ...aiSitesStats[aiSite.host] }
+
+                console.log(LI_day_vis)
+
+                return (
+                  <div className="flex p-2">
+                    <div className="flex-1">
+                      <small>{index + 1} </small>
+                      <a href={aiSite.host} target="_blank">
+                        {aiSite.host}
+                      </a>
+                    </div>
+                    <div className="flex-1 text-center">{LI_day_vis}</div>
+                    <div className="flex-1 text-center">{LI_week_vis}</div>
+                    <div className="flex-1 text-center">{LI_month_vis}</div>
                   </div>
-                  <div className="flex-1 text-center">{LI_day_vis}</div>
-                  <div className="flex-1 text-center">{LI_week_vis}</div>
-                  <div className="flex-1 text-center">{LI_month_vis}</div>
-                </div>
-              )
+                )
+              } catch (error: any) {
+                console.log(error)
+              }
+              return <></>
             })}
             <hr className=" p-2" />
 
             <div className="flex mt-4">
               <div className="flex-1 text-center">Total</div>
-              <div className="flex-1 text-center">
-                {Object.keys(aiSitesStats)
-                  .map((key) => parseInt(aiSitesStats[key]?.LI_day_vis || '0'))
-                  .reduce((prev, cur) => prev + cur, 0)}
-              </div>
-              <div className="flex-1 text-center">
-                {Object.keys(aiSitesStats)
-                  .map((key) => parseInt(aiSitesStats[key]?.LI_week_vis || '0'))
-                  .reduce((prev, cur) => prev + cur, 0)}
-              </div>
-              <div className="flex-1 text-center">
-                {Object.keys(aiSitesStats)
-                  .map((key) =>
-                    parseInt(aiSitesStats[key]?.LI_month_vis || '0')
-                  )
-                  .reduce((prev, cur) => prev + cur, 0)}
-              </div>
+              <div className="flex-1 text-center">{totalDay}</div>
+              <div className="flex-1 text-center">{totalWeek}</div>
+              <div className="flex-1 text-center">{totalMonth}</div>
             </div>
           </div>
         )}
