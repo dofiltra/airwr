@@ -56,9 +56,9 @@ export default () => {
   useEffect(() => {
     aiSites.forEach(async (site) => {
       const stats = await LiveinternetApi.getStats(site.host)
-      aiSitesStats[site.host] = stats
+      setAiSitesStats((prev) => ({ ...prev, [site.host]: stats }))
     })
-  }, [aiSites, aiSitesStats])
+  }, [aiSites])
 
   return (
     <>
@@ -191,7 +191,7 @@ export default () => {
               <div className="flex-1 text-center">Week</div>
               <div className="flex-1 text-center">Month</div>
             </div>
-            <hr className=''/>
+            <hr className="" />
 
             {aiSites.map((aiSite, index) => {
               const {
@@ -199,7 +199,7 @@ export default () => {
                 LI_day_vis = '-',
                 LI_month_vis = '-',
                 LI_week_vis = '-',
-              } = {...aiSitesStats[aiSite.host]}
+              } = { ...aiSitesStats[aiSite.host] }
               return (
                 <div className="flex p-2">
                   <div className="flex-1">
@@ -214,7 +214,7 @@ export default () => {
                 </div>
               )
             })}
-            <hr className=' p-2'/>
+            <hr className=" p-2" />
 
             <div className="flex mt-4">
               <div className="flex-1 text-center">Total</div>
@@ -230,7 +230,9 @@ export default () => {
               </div>
               <div className="flex-1 text-center">
                 {Object.keys(aiSitesStats)
-                  .map((key) => parseInt(aiSitesStats[key]?.LI_month_vis || '0'))
+                  .map((key) =>
+                    parseInt(aiSitesStats[key]?.LI_month_vis || '0')
+                  )
                   .reduce((prev, cur) => prev + cur, 0)}
               </div>
             </div>
