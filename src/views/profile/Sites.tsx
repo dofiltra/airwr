@@ -3,7 +3,7 @@
 
 import { AiSite } from 'dprx-types'
 import { AiSiteApi } from 'helpers/api'
-import { SignInButtons } from '@dofiltra/tailwind'
+import { LiveinternetApi, SignInButtons } from '@dofiltra/tailwind'
 import { smiles } from '@dofiltra/tailwind'
 import { useContext, useEffect, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
@@ -42,12 +42,23 @@ export default () => {
   const [selectedTab, setSelectedTab] = useState(SiteTab.Add)
   const [newSites, setNewSites] = useState<string[]>([])
 
+  const [aiSitesStats, setAiSitesStats] = useState<{
+    [domain: string]: { [key: string]: string }
+  }>({})
+
   useEffect(() => {
     if (aiSitesInit?.length) {
       setAiSites(aiSitesInit)
       setSelectedTab(SiteTab.List)
     }
   }, [aiSitesInit])
+
+  useEffect(() => {
+    aiSites.forEach(async (site) => {
+      const stats = await LiveinternetApi.getStats(site.host)
+      aiSitesStats[site.host] = stats
+    })
+  }, [aiSites, aiSitesStats])
 
   return (
     <>
@@ -173,7 +184,57 @@ export default () => {
         )}
 
         {selectedTab === SiteTab.Stats && (
-          <div className="mb-1 w-full p-2">TODO!</div>
+          <div className="w-full">
+            <div className="flex m-4">
+              <div className="flex-1 text-center">Host</div>
+              <div className="flex-1 text-center">Day</div>
+              <div className="flex-1 text-center">Week</div>
+              <div className="flex-1 text-center">Month</div>
+            </div>
+            <hr className=''/>
+
+            {aiSites.map((aiSite, index) => {
+              const {
+                LI_error = '',
+                LI_day_vis = '-',
+                LI_month_vis = '-',
+                LI_week_vis = '-',
+              } = aiSitesStats[aiSite.host]
+              return (
+                <div className="flex p-2">
+                  <div className="flex-1">
+                    <small>{index + 1} </small>
+                    <a href={aiSite.host} target="_blank">
+                      {aiSite.host}
+                    </a>
+                  </div>
+                  <div className="flex-1 text-center">{LI_day_vis}</div>
+                  <div className="flex-1 text-center">{LI_week_vis}</div>
+                  <div className="flex-1 text-center">{LI_month_vis}</div>
+                </div>
+              )
+            })}
+            <hr className=' p-2'/>
+
+            <div className="flex mt-4">
+              <div className="flex-1 text-center">Total</div>
+              <div className="flex-1 text-center">
+                {Object.keys(aiSitesStats)
+                  .map((key) => parseInt(aiSitesStats[key]?.LI_day_vis || '0'))
+                  .reduce((prev, cur) => prev + cur, 0)}
+              </div>
+              <div className="flex-1 text-center">
+                {Object.keys(aiSitesStats)
+                  .map((key) => parseInt(aiSitesStats[key]?.LI_week_vis || '0'))
+                  .reduce((prev, cur) => prev + cur, 0)}
+              </div>
+              <div className="flex-1 text-center">
+                {Object.keys(aiSitesStats)
+                  .map((key) => parseInt(aiSitesStats[key]?.LI_month_vis || '0'))
+                  .reduce((prev, cur) => prev + cur, 0)}
+              </div>
+            </div>
+          </div>
         )}
       </div>
     </>
