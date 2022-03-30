@@ -41,6 +41,7 @@ export default () => {
   const [aiSites, setAiSites] = useState<AiSite[]>([])
   const [selectedTab, setSelectedTab] = useState(SiteTab.Add)
   const [newSites, setNewSites] = useState<string[]>([])
+  const [unregistredSites, setUnregistredSites] = useState<string[]>([])
 
   const [aiSitesStats, setAiSitesStats] = useState<{
     [domain: string]: { [key: string]: string }
@@ -60,12 +61,13 @@ export default () => {
   useEffect(() => {
     aiSites?.forEach(async (site) => {
       const stats = await LiveinternetApi.getStats(site.host)
+      if (stats?.LI_error?.toLowerCase().includes('unreg')) {
+        return setUnregistredSites((prev) => _.uniq([...prev, site.host]))
+      }
+
       setAiSitesStats((prev) => ({
         ...prev,
         [site.host]: {
-          // LI_day_vis: '',
-          // LI_week_vis: '',
-          // LI_month_vis: '',
           ...stats,
         },
       }))
@@ -170,7 +172,7 @@ export default () => {
                 <div className="flex-1">
                   <small>{index + 1} </small>
                   <a href={aiSite.host} target="_blank">
-                    {aiSite.host}
+                    {new URL(aiSite.host).host}
                   </a>
                 </div>
                 {/* <div className="flex-1 w-64"></div> */}
@@ -226,6 +228,7 @@ export default () => {
               <div className="flex-1 text-center">Day</div>
               <div className="flex-1 text-center">Week</div>
               <div className="flex-1 text-center">Month</div>
+              <div className="flex-1 text-center"></div>
             </div>
             <hr className="" />
 
@@ -245,12 +248,13 @@ export default () => {
                     <div className="flex-1">
                       <small>{index + 1} </small>
                       <a href={aiSite.host} target="_blank">
-                        {aiSite.host}
+                        {new URL(aiSite.host).host}
                       </a>
                     </div>
                     <div className="flex-1 text-center">{LI_day_vis}</div>
                     <div className="flex-1 text-center">{LI_week_vis}</div>
                     <div className="flex-1 text-center">{LI_month_vis}</div>
+                    <div className="flex-1 text-center"></div>
                   </div>
                 )
               } catch (error: any) {
@@ -265,6 +269,33 @@ export default () => {
               <div className="flex-1 text-center">{totalDay}</div>
               <div className="flex-1 text-center">{totalWeek}</div>
               <div className="flex-1 text-center">{totalMonth}</div>
+              <div className="flex-1 text-center"></div>
+            </div>
+            <hr className="m-4" />
+
+            <div className="w-full">
+              <button
+                className="btn btn-success w-full"
+                onClick={() => {
+                  console.log(unregistredSites)
+                }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"
+                  />
+                </svg>
+                {translate('Start autoreg liveinternet')}
+              </button>
             </div>
           </div>
         )}
