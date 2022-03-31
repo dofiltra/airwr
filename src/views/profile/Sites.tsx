@@ -336,7 +336,7 @@ export default () => {
                         const sites = unregistredSites.map(
                           (unregSite) =>
                             ({
-                              host: unregSite,
+                              host: new URL(unregSite).host,
                               email: liEmail,
                               password: liPassword,
                             } as TLiveinternetOpts)
