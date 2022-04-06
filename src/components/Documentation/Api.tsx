@@ -535,7 +535,7 @@ export const DocumentationApi: FC = () => {
             <input type="checkbox" />
             <div className="collapse-title text-xl font-medium">
               Extract
-              <sup> [01.02.2022]</sup>
+              <sup> [07.04.2022]</sup>
             </div>
             <div className="collapse-content">
               <div className="overflow-x-auto">
