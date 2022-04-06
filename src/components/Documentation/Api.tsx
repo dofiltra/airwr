@@ -1,11 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import {
+  Doextractor,
+  GoogleParserDomain,
+  GoogleParserLocation,
+  LangCode,
+  RewriteMode,
+  TaskStatus,
+  headers,
+} from 'dprx-types'
 import { FC } from 'preact/compat'
 import { HostManager, SignInButtons } from '@dofiltra/tailwind'
-import { LangCode, RewriteMode, TaskStatus, headers } from 'dprx-types'
 import { LangCodes } from 'components/Select/Lang'
 import { useContext } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import AuthContext from 'components/Auth/AuthContext'
+
+const googleParserCountries = GoogleParserLocation.getCountries()
 
 export const DocumentationApi: FC = () => {
   const { translate } = useLocalize()
@@ -576,6 +586,122 @@ export const DocumentationApi: FC = () => {
                                 <br />
                                 <small>Content settings</small>
                               </p>
+                              <p className="pb-3">
+                                <b>yandexParserOpts</b>
+                                : object
+                                <br />
+                                <small>
+                                  {' '}
+                                  <b>enable</b>: boolean
+                                  <br />
+                                  <select className="select select-primary w-full max-w-xs">
+                                    {[true, false].map((o) => (
+                                      <option>{o.toString()}</option>
+                                    ))}
+                                  </select>
+                                </small>
+                              </p>
+
+                              <p className="pb-3">
+                                <b>googleParserOpts</b>
+                                : object
+                                <br />
+                                <small>
+                                  {' '}
+                                  <b>enable</b>: boolean
+                                  <br />
+                                  <select className="select select-primary w-full max-w-xs">
+                                    {[true, false].map((o) => (
+                                      <option>{o.toString()}</option>
+                                    ))}
+                                  </select>
+                                </small>
+                                <br />
+                                <small>
+                                  {' '}
+                                  <b>device</b>: string
+                                  <br />
+                                  <select className="select select-primary w-full max-w-xs">
+                                    {['desktop', 'tablet', 'mobile'].map(
+                                      (o) => (
+                                        <option selected={o === 'mobile'}>
+                                          {o}
+                                        </option>
+                                      )
+                                    )}
+                                  </select>
+                                </small>
+                                <br />
+                                <small>
+                                  {' '}
+                                  <b>country</b>: number
+                                  <br />
+                                  <select className="select select-primary w-full max-w-xs">
+                                    {googleParserCountries.map((country) => (
+                                      <option
+                                        selected={country.id === 2840}
+                                        value={country.id}
+                                      >
+                                        {country.id} ({country.name})
+                                      </option>
+                                    ))}
+                                  </select>
+                                </small>
+                                <br />
+                                <small>
+                                  {' '}
+                                  <b>domain</b>: number
+                                  <br />
+                                  <select className="select select-primary w-full max-w-xs">
+                                    {Object.keys(GoogleParserDomain)
+                                      .filter(
+                                        (value: any) =>
+                                          typeof GoogleParserDomain[value] ===
+                                          'number'
+                                      )
+                                      .map((domain: any) => (
+                                        <option
+                                          value={GoogleParserDomain[domain]}
+                                          selected={domain === 'com'}
+                                        >
+                                          {GoogleParserDomain[domain]} ({domain}
+                                          )
+                                        </option>
+                                      ))}
+                                  </select>
+                                </small>
+                                <br />
+                                <small>
+                                  {' '}
+                                  <b>loc</b>: number <br />
+                                  <select className="select select-primary w-full max-w-xs">
+                                    {googleParserCountries.map((loc) => (
+                                      <option
+                                        selected={loc.id === 2840}
+                                        value={loc.id}
+                                      >
+                                        {loc.id} ({loc.name})
+                                      </option>
+                                    ))}
+                                  </select>
+                                </small>
+                                <br />
+                                <small>
+                                  {' '}
+                                  <b>lr</b>: string
+                                  <br />
+                                  <select className="select select-primary w-full max-w-xs">
+                                    {googleParserCountries.map((loc) => (
+                                      <option
+                                        selected={loc.countryCode === 'US'}
+                                        value={loc.countryCode}
+                                      >
+                                        {loc.countryCode}
+                                      </option>
+                                    ))}
+                                  </select>
+                                </small>
+                              </p>
 
                               <p className="pb-3">
                                 <b>duplicateOpts</b>
@@ -596,7 +722,7 @@ export const DocumentationApi: FC = () => {
                                 <br />
                                 <small>Cleaning settings</small>
                               </p>
-                              <p className="pb-3">
+                              {/* <p className="pb-3">
                                 <b>rewriteOpts</b>
                                 : object
                                 <br />
@@ -607,7 +733,7 @@ export const DocumentationApi: FC = () => {
                                 : object
                                 <br />
                                 <small>Translate settings</small>
-                              </p>
+                              </p> */}
                             </div>
                           }
                         />
@@ -1169,6 +1295,17 @@ const addExtract = {
             'https://lifehacker.ru/chto-meshaet-vybratsya-iz-bednosti/',
             'https://lifehacker.ru/insult/',
           ],
+          googleParserOpts: {
+            enable: true,
+            device: 'mobile',
+            country: 2840,
+            domain: 37,
+            loc: 2840,
+            lr: 'US',
+          },
+          yandexParserOpts: {
+            enable: true,
+          },
           contentOpts: {
             limitContent: 30e3,
             coefShuffleBlocks: 0.5,
@@ -1187,7 +1324,8 @@ const addExtract = {
               a: 'span',
             },
           },
-        },
+          status: TaskStatus.NotStarted,
+        } as Doextractor,
       ],
       null,
       8

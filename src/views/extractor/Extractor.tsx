@@ -5,10 +5,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { DateTime } from 'luxon'
-import { Doextractor, RewriteMode, SocketEvent, TaskStatus } from 'dprx-types'
+import {
+  Doextractor,
+  GoogleParserDomain,
+  GoogleParserLocation,
+  RewriteMode,
+  SocketEvent,
+  TaskStatus,
+} from 'dprx-types'
 import { ExpandBox, ExpandMode } from 'components/Select/Expand'
 import { ExtractorApi } from 'helpers/api'
-import {  HostManager, LoadingContainer, PageH1, QueueContainer } from '@dofiltra/tailwind'
+import {
+  HostManager,
+  LoadingContainer,
+  PageH1,
+  QueueContainer,
+} from '@dofiltra/tailwind'
 import { Link } from 'react-router-dom'
 import { ToneMode } from 'components/Select/Tone'
 import { io } from 'socket.io-client'
@@ -37,7 +49,17 @@ export default () => {
   )
   const [power, setPower] = useState(0.5)
 
+  const googleParserCountries = GoogleParserLocation.getCountries()
+  const usa = googleParserCountries.find((x) => x.id === 2840)
   const [enableGoogleParser, setEnableGoogleParser] = useState(false)
+  const [googleParserDomain, setGoogleParserDomain] = useState(37) // .com
+  const [googleParserCountry, setGoogleParserCountry] = useState(usa?.id)
+  const [googleParserLocation, setGoogleParserLocation] = useState(usa?.id)
+  const [googleParserLang, setGoogleParserLang] = useState(usa?.countryCode)
+  const [googleParserDevice, setGoogleParserDevice] = useState<
+    'tablet' | 'desktop' | 'mobile'
+  >('mobile')
+
   const [enableYandexParser, setEnableYandexParser] = useState(true)
 
   const [isVisibleContent, setVisibleContent] = useState(true)
@@ -199,7 +221,7 @@ export default () => {
 
           <div className="mb-1 w-full p-2 ">
             <div className="w-full">
-              <div className="p-2 card bordered">
+              <div className="w-full p-2 card bordered">
                 <div className="form-control">
                   <label className="cursor-pointer label">
                     <span className="">
@@ -214,6 +236,137 @@ export default () => {
                   </label>
                 </div>
               </div>
+              {enableGoogleParser && (
+                <div className="w-full p-2 card bordered">
+                  <div className="form-control">
+                    <label className="cursor-pointer label">
+                      <span className="">{translate('Device')}</span>
+                      <select
+                        className="select select-primary w-full max-w-xs"
+                        onChange={(e) =>
+                          setGoogleParserDevice(
+                            e.target.value as 'tablet' | 'desktop' | 'mobile'
+                          )
+                        }
+                      >
+                        {['desktop', 'tablet', 'mobile'].map((o) => (
+                          <option selected={o === googleParserDevice}>
+                            {o}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                  </div>
+                </div>
+              )}
+              {enableGoogleParser && (
+                <div className="w-full p-2 card bordered">
+                  <div className="form-control">
+                    <label className="cursor-pointer label">
+                      <span className="">{translate('Domain')}</span>
+                      <select
+                        className="select select-primary w-full max-w-xs"
+                        onChange={(e) =>
+                          setGoogleParserDomain(parseInt(e.target.value, 10))
+                        }
+                      >
+                        {Object.keys(GoogleParserDomain)
+                          .filter(
+                            (value: any) =>
+                              typeof GoogleParserDomain[value] === 'number'
+                          )
+                          .map((domain: any) => (
+                            <option
+                              selected={
+                                (GoogleParserDomain[
+                                  domain
+                                ] as unknown as number) === googleParserDomain
+                              }
+                              value={GoogleParserDomain[domain]}
+                            >
+                              {domain}
+                            </option>
+                          ))}
+                      </select>
+                    </label>
+                  </div>
+                </div>
+              )}
+              {enableGoogleParser && (
+                <div className="w-full p-2 card bordered">
+                  <div className="form-control">
+                    <label className="cursor-pointer label">
+                      <span className="">{translate('Country')}</span>
+                      <select
+                        className="select select-primary w-full max-w-xs"
+                        onChange={(e) => {
+                          setGoogleParserCountry(parseInt(e.target.value, 10))
+                        }}
+                      >
+                        {googleParserCountries.map((country) => (
+                          <option
+                            selected={country.id === googleParserCountry}
+                            value={country.id}
+                          >
+                            {country.name}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                  </div>
+                </div>
+              )}
+              {enableGoogleParser && (
+                <div className="w-full p-2 card bordered">
+                  <div className="form-control">
+                    <label className="cursor-pointer label">
+                      <span className="">{translate('Location')}</span>
+                      <select
+                        className="select select-primary w-full max-w-xs"
+                        onChange={(e) => {
+                          console.log(e.target.value)
+
+                          setGoogleParserLocation(parseInt(e.target.value, 10))
+                        }}
+                      >
+                        {googleParserCountries.map((loc) => (
+                          <option
+                            selected={loc.id === googleParserLocation}
+                            value={loc.id}
+                          >
+                            {loc.name}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                  </div>
+                </div>
+              )}
+              {enableGoogleParser && (
+                <div className="w-full p-2 card bordered">
+                  <div className="form-control">
+                    <label className="cursor-pointer label">
+                      <span className="">{translate('Language')}</span>
+                      <select
+                        className="select select-primary w-full max-w-xs"
+                        onChange={(e) => {
+                          console.log(e.target.value)
+                          setGoogleParserLang(e.target.value)
+                        }}
+                      >
+                        {googleParserCountries.map((loc) => (
+                          <option
+                            selected={loc.countryCode === googleParserLang}
+                            value={loc.countryCode}
+                          >
+                            {loc.countryCode}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
@@ -339,6 +492,11 @@ export default () => {
                             },
                             googleParserOpts: {
                               enable: enableGoogleParser,
+                              device: googleParserDevice,
+                              country: googleParserCountry,
+                              domain: googleParserDomain,
+                              loc: googleParserLocation,
+                              lr: googleParserLang,
                             },
                             yandexParserOpts: {
                               enable: enableYandexParser,
