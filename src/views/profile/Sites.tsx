@@ -32,7 +32,7 @@ export default () => {
         <div className="w-full ">
           <h1 className="text-center mb-5">Auth required</h1>
           <div className="text-center mb-5 justify-center flex">
-            <SignInButtons signInText={translate('sign in')} />
+            <SignInButtons signInText={translate('Sign in')} />
           </div>
         </div>
       </div>

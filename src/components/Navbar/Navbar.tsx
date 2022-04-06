@@ -207,14 +207,14 @@ export default function Navbar({}) {
                 {!user?.uid && (
                   <li className="pt-3">
                     <SignInButtons
-                      signInText={translate('sign in').toUpperCase()}
+                      signInText={translate('Sign in').toUpperCase()}
                     />
                   </li>
                 )}
                 {user?.uid && (
                   <li className="pt-3">
                     <SignOutButton
-                      signOutText={translate('sign out').toUpperCase()}
+                      signOutText={translate('Sign out').toUpperCase()}
                     />
                   </li>
                 )}

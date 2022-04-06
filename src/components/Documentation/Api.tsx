@@ -18,7 +18,7 @@ export const DocumentationApi: FC = () => {
         <div className="mb-1 w-full p-2 m-2">
           <p className="py-3">
             <b>{translate('Your token')}</b>:{' '}
-            {user?.uid || <SignInButtons signInText={translate('sign in')} />}
+            {user?.uid || <SignInButtons signInText={translate('Sign in')} />}
           </p>
         </div>
 
