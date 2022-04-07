@@ -4590,10 +4590,10 @@ dprx-types@^1.1.109:
   resolved "https://registry.yarnpkg.com/dprx-types/-/dprx-types-1.1.109.tgz#7980043a5d788e2c060a108339e9aeb6271ebe75"
   integrity sha512-2mlAUt7B04rFDj7A7+JeY6Mwcfmek/iJUG8oxbGShgrXpvaftoLL99EvpBp4TdeK7iNPrObYutrQLZBuStoymw==
 
-dprx-types@^1.1.114:
-  version "1.1.114"
-  resolved "https://registry.yarnpkg.com/dprx-types/-/dprx-types-1.1.114.tgz#8fcba63978efd6a80cec71a7864ffc59ae758469"
-  integrity sha512-pwxhtyPE4Qf797m37gNv4ZZV0W4H6otf3OLg9N4fKu/8JK2s6CwzV50HNdcSt+7Ut7FN15eSW0lQghLKGP71SQ==
+dprx-types@^1.1.115:
+  version "1.1.115"
+  resolved "https://registry.yarnpkg.com/dprx-types/-/dprx-types-1.1.115.tgz#500de2ff32043be5f4dc9727609f4b3be1e5989c"
+  integrity sha512-haBtqezLkYElZ+VGB77eTH7t+cTXaZzlaOusk4UDV7dpb/yo8L/7KdNZzqOskxbUrn8xvMu8sAj4UlxUxy6YKg==
 
 duplexer@^0.1.2:
   version "0.1.2"
