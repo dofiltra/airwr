@@ -52,6 +52,8 @@
   "PayLink": "Pay link",
   "CARDS": "For direct deposit via Russian Tinkoff/Sber contact Telegram to @memanot or @Denmir777",
   "CODE_BUSY": "PromoCode is busy",
+  "Additional variants": "Additional variants",
+  "Rewrited variant": "Rewrited variant #{{index}}",
 
   "Select langs for Translate": "Select langs for Translate (use 'Ctrl' for Multiple select)",
   "Customize content": "Customize content",

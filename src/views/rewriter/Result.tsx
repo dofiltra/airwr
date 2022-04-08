@@ -242,19 +242,29 @@ const RewriterResultPage = () => {
                 </div>
               </div>
 
-              {rewriteData.targetLang === LangCode.English &&
-                [...new Array(9)].map((v, i) => (
+              {rewriteData.targetLang === LangCode.English && (
+                <div className="w-full">
                   <div className="grid gap-1">
-                    <div className="mb-1 md:mb-0 w-full p-2 ">
-                      <label>
-                        {translate('Rewrited variant', { index: i + 1 })}
-                      </label>
-                      <div className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3">
-                        <div id={`${rewriteHolderId}_${i + 1}`}></div>
-                      </div>
+                    <div className="mb-1 md:mb-0 w-full p-2">
+                      <hr />
+                      <h2>{translate('Additional variants')}</h2>
                     </div>
                   </div>
-                ))}
+                  {[...new Array(9)].map((v, i) => (
+                    <div className="grid gap-1">
+                      <div className="mb-1 md:mb-0 w-full p-2 bg-white">
+                        <label>
+                          {translate('Rewrited variant', { index: i + 1 })}
+                        </label>
+                        <div className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3">
+                          <div id={`${rewriteHolderId}_${i + 1}`}></div>
+                        </div>
+                      </div>
+                      <hr className="w-full m-4" />
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </main>
