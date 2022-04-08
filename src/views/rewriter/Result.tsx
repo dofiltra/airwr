@@ -1,7 +1,13 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { BlockContent, RewriteText, SocketEvent, TaskStatus } from 'dprx-types'
+import {
+  BlockContent,
+  LangCode,
+  RewriteText,
+  SocketEvent,
+  TaskStatus,
+} from 'dprx-types'
 import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
 import {
   HostManager,
@@ -15,6 +21,8 @@ import { useEffect, useState } from 'preact/compat'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import { useParams } from 'react-router-dom'
 import EditorJS from '@editorjs/editorjs'
+
+const rewriteHolderId = 'rewrite'
 
 const RewriterResultPage = () => {
   const { id = '' } = useParams()
@@ -57,6 +65,44 @@ const RewriterResultPage = () => {
     return <LoadingContainer loadingText={translate('Loading')} />
   }
 
+  useEffect(() => {
+    const blocks = rewriteData.blocks
+    if (
+      rewriteData.status !== TaskStatus.Completed ||
+      rewriteData.targetLang !== LangCode.English ||
+      !blocks?.length
+    ) {
+      return
+    }
+
+    ;[...new Array(9)].forEach(
+      (v, i) =>
+        new EditorJS({
+          holder: `${rewriteHolderId}_${i + 1}`,
+          tools: EDITOR_JS_TOOLS,
+          placeholder: translate('Loading'),
+          readOnly: true,
+          autofocus: false,
+          inlineToolbar: false,
+          hideToolbar: true,
+          data: {
+            time: Date.now() + 1,
+            version: '2.2.2',
+            blocks: blocks.map((block: BlockContent) => {
+              const variants = block.rewriteDataSuggestions || []
+              return {
+                ...block,
+                data: {
+                  ...(variants[i + 1] || block.data),
+                  withBackground: !!variants[i + 1],
+                },
+              }
+            }),
+          },
+        })
+    )
+  }, [rewriteData, translate])
+
   const status = rewriteData.status
   const blocksForRewrite = rewriteData.blocks.filter(
     (b: BlockContent) =>
@@ -74,13 +120,13 @@ const RewriterResultPage = () => {
   const dataRewrite = {
     time: Date.now() + 1,
     version: '2.2.2',
-    blocks: rewriteData.blocks.map((b: BlockContent) => {
-      const sug = b.rewriteDataSuggestions || []
+    blocks: rewriteData.blocks.map((block: BlockContent) => {
+      const variants = block.rewriteDataSuggestions || []
       return {
-        ...b,
+        ...block,
         data: {
-          ...(sug[0] || b.data),
-          withBackground: !!sug[0],
+          ...(variants[0] || block.data),
+          withBackground: !!variants[0],
         },
       }
     }),
@@ -106,7 +152,7 @@ const RewriterResultPage = () => {
   const [rewriteEditor] = useState(
     () =>
       new EditorJS({
-        holder: 'rewrite',
+        holder: rewriteHolderId,
         tools: EDITOR_JS_TOOLS,
         data: dataRewrite,
       })
@@ -191,10 +237,24 @@ const RewriterResultPage = () => {
                 <div className="mb-1 md:mb-0 w-full p-2 ">
                   <label>{translate('Rewrited text')}</label>
                   <div className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3">
-                    <div id="rewrite"></div>
+                    <div id={rewriteHolderId}></div>
                   </div>
                 </div>
               </div>
+
+              {rewriteData.targetLang === LangCode.English &&
+                [...new Array(9)].map((v, i) => (
+                  <div className="grid gap-1">
+                    <div className="mb-1 md:mb-0 w-full p-2 ">
+                      <label>
+                        {translate('Rewrited variant', { index: i + 1 })}
+                      </label>
+                      <div className="editor-wrapper w-full border-4 border-dashed border-gray-200 rounded-lg p-3">
+                        <div id={`${rewriteHolderId}_${i + 1}`}></div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
             </div>
           </div>
         </main>
