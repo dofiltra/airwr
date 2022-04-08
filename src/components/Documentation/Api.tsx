@@ -116,7 +116,7 @@ export const DocumentationApi: FC = () => {
             <input type="checkbox" />
             <div className="collapse-title text-xl font-medium">
               Rewrite
-              <sup> [10.11.2021]</sup>
+              <sup> [08.04.2022]</sup>
             </div>
             <div className="collapse-content">
               <div className="overflow-x-auto">
@@ -323,6 +323,69 @@ export const DocumentationApi: FC = () => {
                         />
                       </td>
                     </tr>
+
+                    <tr className="border-b-2">
+                      <th>
+                        Get Statuses <br />
+                        Rewrite
+                      </th>
+                      <td>
+                        <ModalBtn
+                          title={'Request'}
+                          content={
+                            <textarea className="w-full h-96 text-sm">
+                              {getStatusesRewrite.request({ token })}
+                            </textarea>
+                          }
+                        />
+                        <ModalBtn
+                          title={'Types'}
+                          content={
+                            <div className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
+                              <p className="pb-2">
+                                <p className="pb-2">
+                                  <b>Ids*</b>: Array of string
+                                </p>
+                                <b>Token*</b>: string
+                              </p>
+                            </div>
+                          }
+                        />
+                      </td>
+                      <td>
+                        <ModalBtn
+                          title={'Response'}
+                          content={
+                            <p className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
+                              {getStatusesRewrite.response({ token })}
+                            </p>
+                          }
+                        />
+                        <ModalBtn
+                          title={'Types'}
+                          content={
+                            <div className="h-96 whitespace-pre-wrap overflow-auto text-left">
+                              <p className="pb-4">
+                                <b>result</b>: Object
+                                <br />
+                                <small>"_id" - result id (string)</small>
+                                <br />
+                                <small>
+                                  "status" - NotStarted = 0, InProgress = 3,
+                                  Completed = 9
+                                </small>
+                                <br />
+                              </p>
+                              <p className="pb-2">
+                                <b>error</b>
+                                : Object|null
+                                <br />
+                              </p>
+                            </div>
+                          }
+                        />
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -335,7 +398,7 @@ export const DocumentationApi: FC = () => {
             <input type="checkbox" />
             <div className="collapse-title text-xl font-medium">
               Translate
-              <sup> [01.12.2022]</sup>
+              <sup> [08.04.2022]</sup>
             </div>
             <div className="collapse-content">
               <div className="overflow-x-auto">
@@ -523,6 +586,69 @@ export const DocumentationApi: FC = () => {
                         />
                       </td>
                     </tr>
+
+                    <tr className="border-b-2">
+                      <th>
+                        Get Statuses <br />
+                        Translate
+                      </th>
+                      <td>
+                        <ModalBtn
+                          title={'Request'}
+                          content={
+                            <textarea className="w-full h-96 text-sm">
+                              {getStatusesTranslate.request({ token })}
+                            </textarea>
+                          }
+                        />
+                        <ModalBtn
+                          title={'Types'}
+                          content={
+                            <div className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
+                              <p className="pb-2">
+                                <p className="pb-2">
+                                  <b>Ids*</b>: Array of string
+                                </p>
+                                <b>Token*</b>: string
+                              </p>
+                            </div>
+                          }
+                        />
+                      </td>
+                      <td>
+                        <ModalBtn
+                          title={'Response'}
+                          content={
+                            <p className="h-96 whitespace-pre-wrap text-sm overflow-auto text-left">
+                              {getStatusesTranslate.response({ token })}
+                            </p>
+                          }
+                        />
+                        <ModalBtn
+                          title={'Types'}
+                          content={
+                            <div className="h-96 whitespace-pre-wrap overflow-auto text-left">
+                              <p className="pb-4">
+                                <b>result</b>: Object
+                                <br />
+                                <small>"_id" - result id (string)</small>
+                                <br />
+                                <small>
+                                  "status" - NotStarted = 0, InProgress = 3,
+                                  Completed = 9
+                                </small>
+                                <br />
+                              </p>
+                              <p className="pb-2">
+                                <b>error</b>
+                                : Object|null
+                                <br />
+                              </p>
+                            </div>
+                          }
+                        />
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -535,7 +661,7 @@ export const DocumentationApi: FC = () => {
             <input type="checkbox" />
             <div className="collapse-title text-xl font-medium">
               Extract
-              <sup> [07.04.2022]</sup>
+              <sup> [08.04.2022]</sup>
             </div>
             <div className="collapse-content">
               <div className="overflow-x-auto">
@@ -1126,6 +1252,45 @@ const getRewrite = {
     ),
 }
 
+const getStatusesRewrite = {
+  request: ({
+    token,
+  }: any) => `const resp = await fetch("${HostManager.getHostApi()}/api/rewrite/getStatuses", {
+    headers: ${JSON.stringify(headers, null, 8)},
+    method: 'POST',
+    mode: "cors",
+    body: JSON.stringify({
+        token: '${token}',
+        ids: [
+          '62233a65232b1c71fdde33e7',
+          '62233a67232b1c71fdde33fb'
+        ]
+    })
+  })
+
+  const { result, error } = await resp.json()
+  `,
+
+  response: ({ token }: any) =>
+    JSON.stringify(
+      {
+        result: [
+          {
+            _id: '62233a65232b1c71fdde33e7',
+            status: 9,
+          },
+          {
+            _id: '62233a67232b1c71fdde33fb',
+            status: 9,
+          },
+        ],
+        error: null,
+      },
+      null,
+      2
+    ),
+}
+
 const addTranslate = {
   request: ({
     token,
@@ -1274,6 +1439,45 @@ const getTranslate = {
           createdAt: new Date().toJSON(),
           updatedAt: new Date().toJSON(),
         },
+      },
+      null,
+      2
+    ),
+}
+
+const getStatusesTranslate = {
+  request: ({
+    token,
+  }: any) => `const resp = await fetch("${HostManager.getHostApi()}/api/translate/getStatuses", {
+    headers: ${JSON.stringify(headers, null, 8)},
+    method: 'POST',
+    mode: "cors",
+    body: JSON.stringify({
+        token: '${token}',
+        ids: [
+          '62233a65232b1c71fdde33e7',
+          '62233a67232b1c71fdde33fb'
+        ]
+    })
+  })
+
+  const { result, error } = await resp.json()
+  `,
+
+  response: ({ token }: any) =>
+    JSON.stringify(
+      {
+        result: [
+          {
+            _id: '62233a65232b1c71fdde33e7',
+            status: 9,
+          },
+          {
+            _id: '62233a67232b1c71fdde33fb',
+            status: 9,
+          },
+        ],
+        error: null,
       },
       null,
       2
