@@ -1255,7 +1255,7 @@ const getRewrite = {
 const getStatusesRewrite = {
   request: ({
     token,
-  }: any) => `const resp = await fetch("${HostManager.getHostApi()}/api/rewrite/getStatuses", {
+  }: any) => `const resp = await fetch("${HostManager.getHostApi()}/api/rewriteText/getStatuses", {
     headers: ${JSON.stringify(headers, null, 8)},
     method: 'POST',
     mode: "cors",
