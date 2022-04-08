@@ -242,7 +242,7 @@ const RewriterResultPage = () => {
                 </div>
               </div>
 
-              {rewriteData.targetLang === LangCode.English && (
+              {rewriteData.targetLang === LangCode.English && isCompleted && (
                 <div className="w-full">
                   <div className="grid gap-1">
                     <div className="mb-1 md:mb-0 w-full p-2">
