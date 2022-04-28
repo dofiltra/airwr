@@ -169,6 +169,10 @@ const RewriterResultPage = () => {
         <main>
           <div className="max-w-7xl">
             <div className="px-4 sm:px-0">
+              <p className="text-center" style={{color: 'red'}}>
+                Рерайтер временно отключен, идут работы...
+              </p>
+
               <QueueContainer
                 count={translate('Queue', { count: queue?.count || '...' })}
               />

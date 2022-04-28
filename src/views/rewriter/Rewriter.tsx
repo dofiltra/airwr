@@ -178,6 +178,7 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
   return (
     <>
       <div className="w-full card p-4">
+        <p className="text-center" style={{color: 'red'}}>Рерайтер временно отключен, идут работы...</p>
         <QueueContainer
           count={translate('Queue', { count: queue?.count || '...' })}
         />
