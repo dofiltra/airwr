@@ -553,7 +553,7 @@ export default () => {
 
                   return days <= 7
                 })
-                .slice(0, 100)
+                .slice(0, 5e3)
                 .map((task: any, i: number) => (
                   <>
                     <div className="w-full card p-4 border-t-2">
