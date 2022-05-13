@@ -117,7 +117,11 @@ export default function Pay({}) {
               </div>
             )}
             {payType === 'WMZ' && (
-              <div>{translate('WMZ', { token: user?.uid || '' })}</div>
+              <div>
+                {translate('WMZ', {
+                  token: promoCode ? `${token}__${promoCode}` : user?.uid || '',
+                })}
+              </div>
             )}
             {payType === 'CARDS' && (
               <div>
