@@ -13,7 +13,10 @@ export default function Pay({}) {
   const [promoCode, setPromoCode] = useState('')
   const [isExistsPromo, setExistsPromo] = useState(false)
   const [payLink, setPayLink] = useState('')
-  const [payType, setPayType] = useState<'Yoomoney' | 'CARDS'>('Yoomoney')
+  const [payType, setPayType] = useState<'Yoomoney' | 'WMZ' | 'CARDS'>(
+    'Yoomoney'
+  )
+
   const [usdrub, setUsdRub] = useState(100)
 
   const { user } = useContext(AuthContext)
@@ -51,6 +54,14 @@ export default function Pay({}) {
               </button>
               <button
                 className={`btn btn-xs ${
+                  payType === 'WMZ' ? 'btn-active btn-error text-error' : ''
+                }`}
+                onClick={() => setPayType('WMZ')}
+              >
+                WMZ
+              </button>
+              <button
+                className={`btn btn-xs ${
                   payType === 'CARDS' ? 'btn-active btn-error text-error' : ''
                 }`}
                 onClick={() => setPayType('CARDS')}
@@ -66,9 +77,11 @@ export default function Pay({}) {
               onChange={(e: any) => {
                 const code = e.target.value?.toUpperCase()
                 setPromoCode(code)
-                void BalanceApi.isExistsPromo(code).then(({ isExists }) => {
-                  setExistsPromo(!!isExists)
-                })
+                void BalanceApi.isExistsPromo(code).then(
+                  ({ isExists }: { isExists: boolean }) => {
+                    setExistsPromo(!!isExists)
+                  }
+                )
               }}
               className={`w-full pr-16 mb-2 input input-primary input-bordered ${
                 promoCode
@@ -102,6 +115,9 @@ export default function Pay({}) {
                   {translate('BalanceUpButton')}
                 </button>
               </div>
+            )}
+            {payType === 'WMZ' && (
+              <div>{translate('WMZ', { token: user?.uid || '' })}</div>
             )}
             {payType === 'CARDS' && (
               <div>
