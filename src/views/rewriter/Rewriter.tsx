@@ -178,6 +178,7 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
   return (
     <>
       <div className="w-full card p-4">
+        {/* <p className="text-center" style={{color: 'red'}}>Рерайтер временно отключен, идут работы...</p> */}
         <QueueContainer
           count={translate('Queue', { count: queue?.count || '...' })}
         />
@@ -192,7 +193,7 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
         <div className="grid grid-cols-1 gap-2">
           <div
             className={`mb-1 md:mb-0 w-full p-2 ${
-              targetLang === LangCode.Russian ? 'hidden' : ''
+              '' //targetLang === LangCode.Russian ? 'hidden' : ''
             }`}
           >
             <label className="text-white-700">
