@@ -249,10 +249,10 @@ const RewriterResultPage = () => {
               {rewriteData.targetLang === LangCode.English && isCompleted && (
                 <div className="w-full">
                   <div className="grid gap-1">
-                    <div className="mb-1 md:mb-0 w-full p-2">
+                    {/* <div className="mb-1 md:mb-0 w-full p-2">
                       <hr />
                       <h2>{translate('Additional variants')}</h2>
-                    </div>
+                    </div> */}
                   </div>
                   {/* {[...new Array(3)].map((v, i) => (
                     <div className="grid gap-1">
