@@ -75,32 +75,32 @@ const RewriterResultPage = () => {
       return
     }
 
-    ;[...new Array(9)].forEach(
-      (v, i) =>
-        new EditorJS({
-          holder: `${rewriteHolderId}_${i + 1}`,
-          tools: EDITOR_JS_TOOLS,
-          placeholder: translate('Loading'),
-          readOnly: true,
-          autofocus: false,
-          inlineToolbar: false,
-          hideToolbar: true,
-          data: {
-            time: Date.now() + 1,
-            version: '2.2.2',
-            blocks: blocks.map((block: BlockContent) => {
-              const variants = block.rewriteDataSuggestions || []
-              return {
-                ...block,
-                data: {
-                  ...(variants[i + 1] || block.data),
-                  withBackground: !!variants[i + 1],
-                },
-              }
-            }),
-          },
-        })
-    )
+    // ;[...new Array(3)].forEach(
+    //   (v, i) =>
+    //     new EditorJS({
+    //       holder: `${rewriteHolderId}_${i + 1}`,
+    //       tools: EDITOR_JS_TOOLS,
+    //       placeholder: translate('Loading'),
+    //       readOnly: true,
+    //       autofocus: false,
+    //       inlineToolbar: false,
+    //       hideToolbar: true,
+    //       data: {
+    //         time: Date.now() + 1,
+    //         version: '2.2.2',
+    //         blocks: blocks.map((block: BlockContent) => {
+    //           const variants = block.rewriteDataSuggestions || []
+    //           return {
+    //             ...block,
+    //             data: {
+    //               ...(variants[i + 1] || block.data),
+    //               withBackground: !!variants[i + 1],
+    //             },
+    //           }
+    //         }),
+    //       },
+    //     })
+    // )
   }, [rewriteData, translate])
 
   const status = rewriteData.status
@@ -254,7 +254,7 @@ const RewriterResultPage = () => {
                       <h2>{translate('Additional variants')}</h2>
                     </div>
                   </div>
-                  {[...new Array(9)].map((v, i) => (
+                  {/* {[...new Array(3)].map((v, i) => (
                     <div className="grid gap-1">
                       <div className="mb-1 md:mb-0 w-full p-2 bg-white">
                         <label>
@@ -266,7 +266,7 @@ const RewriterResultPage = () => {
                       </div>
                       <hr className="w-full m-4" />
                     </div>
-                  ))}
+                  ))} */}
                 </div>
               )}
             </div>
