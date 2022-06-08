@@ -543,7 +543,7 @@ export default () => {
             <div className="collapse-title text-xl font-medium">
               {translate('History')}
             </div>
-            <div className="collapse-content overflow-auto h-96">
+            <div className="collapse-content overflow-auto h-100">
               {_.orderBy(AppStore.extractorTasks, 'createdAt', 'desc')
                 .filter((task) => {
                   const { days } = DateTime.fromJSDate(new Date()).diff(
