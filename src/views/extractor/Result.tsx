@@ -192,6 +192,16 @@ const ResultPage = () => {
                   >
                     Open Rewriter
                   </button>
+                  <button
+                    className="btn btn-secondary"
+                    onClick={async () => {
+                      const { blocks = [] } = await unionEditor!.saver.save()
+                      AppStore.lastBlocks = blocks
+                      setNavigateUrl('/translator')
+                    }}
+                  >
+                    Open Translator
+                  </button>
                 </div>
 
                 {/* {!unionBlocks.length && (
