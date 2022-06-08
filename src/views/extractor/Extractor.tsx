@@ -51,7 +51,7 @@ export default () => {
 
   const googleParserCountries = GoogleParserLocation.getCountries()
   const usa = googleParserCountries.find((x) => x.id === 2840)
-  const [enableGoogleParser, setEnableGoogleParser] = useState(false)
+  const [enableGoogleParser, setEnableGoogleParser] = useState(true)
   const [googleParserDomain, setGoogleParserDomain] = useState(37) // .com
   const [googleParserCountry, setGoogleParserCountry] = useState(usa?.id)
   const [googleParserLocation, setGoogleParserLocation] = useState(usa?.id)
@@ -60,7 +60,7 @@ export default () => {
     'tablet' | 'desktop' | 'mobile'
   >('desktop')
 
-  const [enableYandexParser, setEnableYandexParser] = useState(true)
+  const [enableYandexParser, setEnableYandexParser] = useState(false)
 
   const [isVisibleContent, setVisibleContent] = useState(true)
   const [isOpenHistory, setIsOpenHistory] = useState(false)
