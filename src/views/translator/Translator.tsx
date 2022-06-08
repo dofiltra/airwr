@@ -13,13 +13,19 @@ import {
   TaskStatus,
 } from 'dprx-types'
 import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
-import { HostManager, LoadingContainer, PageH1, QueueContainer } from '@dofiltra/tailwind'
+import {
+  HostManager,
+  LoadingContainer,
+  PageH1,
+  QueueContainer,
+} from '@dofiltra/tailwind'
 import { LangApi, TranslateApi } from 'helpers/api'
 import { LangBox } from 'components/Select/Lang'
 import { Navigate } from 'react-router-dom'
 import { io } from 'socket.io-client'
 import { useContext, useEffect, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
+import AppStore from 'stores/AppStore'
 import AuthContext from 'components/Auth/AuthContext'
 import EditorJS from '@editorjs/editorjs'
 
@@ -73,13 +79,16 @@ export default () => {
         autofocus: true,
         inlineToolbar: false,
         hideToolbar: true,
+        data: {
+          time: Date.now(),
+          version: '2.2.2',
+          blocks: AppStore.lastBlocks || [],
+        },
         onChange: () => {
           const detect = async () => {
             const editorData = await api.saver.save()
             if (!editorData?.blocks?.length) {
-              console.log('no blocks')
-
-              return
+              return console.log('no blocks')
             }
 
             const text = editorData.blocks

@@ -21,7 +21,13 @@ export default function Navbar({}) {
   return (
     <div className="navbar shadow-lg bg-neutral text-neutral-content rounded-box mb-2">
       <div className="">
-        <Link to="/" className="btn btn-ghost rounded-btn">
+        <Link
+          to="/"
+          className="btn btn-ghost rounded-btn"
+          onClick={() => {
+            AppStore.lastBlocks = []
+          }}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6 text-green-500 mx-1"
@@ -40,7 +46,13 @@ export default function Navbar({}) {
         </Link>
       </div>
       <div className="px-1">
-        <Link to="/translator" className="btn btn-ghost rounded-btn">
+        <Link
+          to="/translator"
+          className="btn btn-ghost rounded-btn"
+          onClick={() => {
+            AppStore.lastBlocks = []
+          }}
+        >
           <svg
             className="h-6 w-6 text-blue-500"
             fill="none"
@@ -59,7 +71,13 @@ export default function Navbar({}) {
       </div>
 
       <div className="px-1">
-        <Link to="/extractor" className="btn btn-ghost rounded-btn">
+        <Link
+          to="/extractor"
+          className="btn btn-ghost rounded-btn"
+          onClick={() => {
+            AppStore.lastBlocks = []
+          }}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6 mx-1 text-yellow-400"

@@ -160,7 +160,7 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
         data: {
           time: Date.now(),
           version: '2.2.2',
-          blocks: AppStore.lastBlocks,
+          blocks: AppStore.lastBlocks || [],
         },
         onChange: () => {
           const detect = async () => {
