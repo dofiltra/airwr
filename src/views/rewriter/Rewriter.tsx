@@ -124,6 +124,26 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
     return <LoadingContainer loadingText={translate('Loading')} />
   }
 
+  const detect = async () => {
+    const editorData = await api.saver.save()
+    if (!editorData?.blocks?.length) {
+      return
+    }
+
+    const text = editorData.blocks
+      .map((x: any) => x?.data?.text)
+      .filter((x: any) => x)
+      .join(' ')
+      .slice(0, 1e3)
+
+    const detectResult = await LangApi.detect(text)
+    if (detectResult?.length) {
+      const [lang] = detectResult
+      const code = lang?.code?.toUpperCase()
+      code && setTargetLang(code)
+    }
+  }
+
   const { user } = useContext(AuthContext)
   const token = user?.uid || ''
   const [queue, setQueue] = useState({} as any)
@@ -162,26 +182,14 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
           version: '2.2.2',
           blocks: AppStore.lastBlocks || [],
         },
-        onChange: () => {
-          const detect = async () => {
-            const editorData = await api.saver.save()
-            if (!editorData?.blocks?.length) {
-              return
-            }
-
-            const text = editorData.blocks
-              .map((x: any) => x?.data?.text)
-              .filter((x: any) => x)
-              .join(' ')
-              .slice(0, 1e3)
-
-            const detectResult = await LangApi.detect(text)
-            if (detectResult?.length) {
-              const [lang] = detectResult
-              const code = lang?.code?.toUpperCase()
-              code && setTargetLang(code)
-            }
+        onReady: async () => {
+          if (!AppStore.lastBlocks?.length) {
+            return
           }
+
+          await detect()
+        },
+        onChange: () => {
           detect()
         },
       })
