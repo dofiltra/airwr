@@ -55,7 +55,7 @@
   "EnterTextForTranslatePlaceholder": "Вставьте сюда текст, который нужно перевести...",
   "EnterTextForRewrite": "Введите текст для рерайта:",
   "EnterTextForRewritePlaceholder": "Вставьте сюда текст, который нужно отрерайтить...",
-  "EnterTextForExtractor": "Вставьте ссылки из которых хотите извлечь статьи",
+  "EnterTextForExtractor": "Вставьте ссылки/ключи из которых хотите извлечь статьи. Каждая группа отделяется пустой строкой",
   "EnterTextForExtractorPlaceholder": "https://lifehacker.ru/kak-sdelat-snezhinki-iz-bumagi/\nhttp://new-year.dvorec.ru/delaem_snezinku.php\nhttps://7gy.ru/detskoe-tvorchestvo/cvetnaya-bumaga/30-shemy-snezhinok-iz-bumagi.html",
   "Show result": "Ссылка на результата",
   "Original text": "Изначальный текст",
