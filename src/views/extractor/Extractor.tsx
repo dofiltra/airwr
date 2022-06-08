@@ -58,7 +58,7 @@ export default () => {
   const [googleParserLang, setGoogleParserLang] = useState(usa?.countryCode)
   const [googleParserDevice, setGoogleParserDevice] = useState<
     'tablet' | 'desktop' | 'mobile'
-  >('mobile')
+  >('desktop')
 
   const [enableYandexParser, setEnableYandexParser] = useState(true)
 
