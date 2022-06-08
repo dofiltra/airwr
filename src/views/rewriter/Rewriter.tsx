@@ -15,8 +15,13 @@ import {
 import { EDITOR_JS_TOOLS } from 'components/Editorjs/constants'
 import { ExpandBox, ExpandMode } from 'components/Select/Expand'
 import { FC } from 'preact/compat'
-import { HostManager, LoadingContainer, PageH1, QueueContainer } from '@dofiltra/tailwind'
-import {  LangApi, RewriteApi } from 'helpers/api'
+import {
+  HostManager,
+  LoadingContainer,
+  PageH1,
+  QueueContainer,
+} from '@dofiltra/tailwind'
+import { LangApi, RewriteApi } from 'helpers/api'
 import { LangBox } from 'components/Select/Lang'
 import { Navigate } from 'react-router-dom'
 import { ToneMode } from 'components/Select/Tone'
@@ -59,7 +64,8 @@ type TQueueOpts = {
   setVisibleContent: (arg: boolean) => void
   setLinkResult: (arg: string) => void
 }
-async function addQueue({
+
+ async function addQueue({
   api,
   targetLang,
   power,

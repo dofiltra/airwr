@@ -23,6 +23,7 @@ const ResultPage = () => {
   const { translate } = useLocalize()
   const [data, setData] = useState({} as Doextractor)
   const [queue, setQueue] = useState({} as any)
+  const [unionEditor, setUnionEditor] = useState<EditorJS | null>(null)
 
   useEffect(() => {
     fetch(`${HostManager.getHostWs()}/api/socketio/exec`).finally(() => {
@@ -77,7 +78,11 @@ const ResultPage = () => {
 
   if (data?.union?.content || data?.union?.blocks?.length) {
     useEffect(() => {
-      const unionEditor: EditorJS = new EditorJS({
+      if (unionEditor) {
+        return
+      }
+
+      const ue: EditorJS = new EditorJS({
         holder: editorId,
         tools: EDITOR_JS_TOOLS,
         placeholder: translate('Loading'),
@@ -94,10 +99,11 @@ const ResultPage = () => {
             return
           }
 
-          return await unionEditor.blocks.renderFromHTML(data!.union!.content!)
+          return await ue!.blocks.renderFromHTML(data!.union!.content!)
         },
       })
-    }, [data, translate])
+      setUnionEditor(ue)
+    }, [data, translate, unionEditor])
   }
 
   return (
@@ -170,6 +176,14 @@ const ResultPage = () => {
                     ></div> */}
                     <div id={editorId}></div>
                   </div>
+                  <button
+                    className="btn btn-secondary"
+                    onClick={async () => {
+                      console.log(await unionEditor?.saver.save())
+                    }}
+                  >
+                    Send to Rewriter
+                  </button>
                 </div>
 
                 {/* {!unionBlocks.length && (
