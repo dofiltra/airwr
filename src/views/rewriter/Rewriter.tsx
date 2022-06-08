@@ -28,6 +28,7 @@ import { ToneMode } from 'components/Select/Tone'
 import { io } from 'socket.io-client'
 import { useContext, useEffect, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
+import AppStore from 'stores/AppStore'
 import AuthContext from 'components/Auth/AuthContext'
 import EditorJS from '@editorjs/editorjs'
 
@@ -65,7 +66,7 @@ type TQueueOpts = {
   setLinkResult: (arg: string) => void
 }
 
- async function addQueue({
+async function addQueue({
   api,
   targetLang,
   power,
@@ -156,6 +157,11 @@ const RewriteContent: FC<{ setLinkResult: any }> = ({ setLinkResult }) => {
         autofocus: true,
         inlineToolbar: false,
         hideToolbar: true,
+        data: {
+          time: Date.now(),
+          version: '2.2.2',
+          blocks: AppStore.lastBlocks,
+        },
         onChange: () => {
           const detect = async () => {
             const editorData = await api.saver.save()

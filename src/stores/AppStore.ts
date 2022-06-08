@@ -5,6 +5,7 @@ import PersistableStore from 'stores/persistence/PersistableStore'
 
 class AppStore extends PersistableStore {
   language: Language = Language.en
+  lastBlocks: any[] = []
   extractorTasks: any[] = []
 }
 

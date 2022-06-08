@@ -9,11 +9,12 @@ import {
   LoadingContainer,
   QueueContainer,
 } from '@dofiltra/tailwind'
+import { Navigate, useParams } from 'react-router-dom'
 import { getBackgroundColorByStatus, getStatusText } from 'helpers/task'
 import { io } from 'socket.io-client'
 import { useEffect, useState } from 'preact/compat'
 import { useLocalize } from '@borodutch-labs/localize-react'
-import { useParams } from 'react-router-dom'
+import AppStore from 'stores/AppStore'
 import EditorJS from '@editorjs/editorjs'
 
 const editorId = 'holder_extractor'
@@ -24,6 +25,7 @@ const ResultPage = () => {
   const [data, setData] = useState({} as Doextractor)
   const [queue, setQueue] = useState({} as any)
   const [unionEditor, setUnionEditor] = useState<EditorJS | null>(null)
+  const [navigateUrl, setNavigateUrl] = useState('')
 
   useEffect(() => {
     fetch(`${HostManager.getHostWs()}/api/socketio/exec`).finally(() => {
@@ -72,6 +74,10 @@ const ResultPage = () => {
 
   if (!Object.keys(data || {})?.length) {
     return <LoadingContainer loadingText={translate('Loading')} />
+  }
+
+  if (navigateUrl) {
+    return <Navigate to={navigateUrl} />
   }
 
   const isCompleted = data.status === TaskStatus.Completed
@@ -179,10 +185,12 @@ const ResultPage = () => {
                   <button
                     className="btn btn-secondary"
                     onClick={async () => {
-                      console.log(await unionEditor?.saver.save())
+                      const { blocks = [] } = await unionEditor!.saver.save()
+                      AppStore.lastBlocks = blocks
+                      setNavigateUrl('/')
                     }}
                   >
-                    Send to Rewriter
+                    Open Rewriter
                   </button>
                 </div>
 
