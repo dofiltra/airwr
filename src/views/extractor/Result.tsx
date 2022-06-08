@@ -182,26 +182,30 @@ const ResultPage = () => {
                     ></div> */}
                     <div id={editorId}></div>
                   </div>
-                  <button
-                    className="btn btn-secondary"
-                    onClick={async () => {
-                      const { blocks = [] } = await unionEditor!.saver.save()
-                      AppStore.lastBlocks = blocks
-                      setNavigateUrl('/')
-                    }}
-                  >
-                    Open Rewriter
-                  </button>
-                  <button
-                    className="btn btn-secondary"
-                    onClick={async () => {
-                      const { blocks = [] } = await unionEditor!.saver.save()
-                      AppStore.lastBlocks = blocks
-                      setNavigateUrl('/translator')
-                    }}
-                  >
-                    Open Translator
-                  </button>
+                  {unionEditor && (
+                    <button
+                      className="btn btn-secondary"
+                      onClick={async () => {
+                        const { blocks = [] } = await unionEditor!.saver.save()
+                        AppStore.lastBlocks = blocks
+                        setNavigateUrl('/')
+                      }}
+                    >
+                      Open Rewriter
+                    </button>
+                  )}
+                  {unionEditor && (
+                    <button
+                      className="btn btn-secondary"
+                      onClick={async () => {
+                        const { blocks = [] } = await unionEditor!.saver.save()
+                        AppStore.lastBlocks = blocks
+                        setNavigateUrl('/translator')
+                      }}
+                    >
+                      Open Translator
+                    </button>
+                  )}
                 </div>
 
                 {/* {!unionBlocks.length && (
