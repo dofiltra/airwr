@@ -595,7 +595,6 @@ export default () => {
                 <button
                   className="btn btn-ghost rounded-btn"
                   onClick={() => {
-                    console.log('export')
                     alert('Coming soon...')
                   }}
                 >
