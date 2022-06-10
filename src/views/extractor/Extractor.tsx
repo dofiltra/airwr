@@ -573,6 +573,7 @@ export default () => {
                         .map((t) => t._id)
                     )
                     setStatuses(data)
+                    alert('Statuses updated!')
                   }}
                 >
                   <svg
@@ -589,6 +590,29 @@ export default () => {
                     />
                   </svg>
                   <span className="hidden md:block">Status</span>
+                </button>
+
+                <button
+                  className="btn btn-ghost rounded-btn"
+                  onClick={() => {
+                    console.log('export')
+                    alert('Coming soon...')
+                  }}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6 mx-1 text-gray-800"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                    />
+                  </svg>
+                  <span className="hidden md:block">Export</span>
                 </button>
               </div>
 
