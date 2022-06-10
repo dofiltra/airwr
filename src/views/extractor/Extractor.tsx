@@ -566,11 +566,17 @@ export default () => {
                 <button
                   className="btn btn-ghost rounded-btn"
                   onClick={async () => {
+                    const ids = tasksHistory
+                      .filter((t) => t.status !== TaskStatus.Completed)
+                      .map((t) => t._id)
+
+                    if (!ids.length) {
+                      return
+                    }
+
                     const { result: data } = await ExtractorApi.getStatuses(
                       token,
-                      tasksHistory
-                        .filter((t) => t.status !== TaskStatus.Completed)
-                        .map((t) => t._id)
+                      ids
                     )
                     setStatuses(data)
                     alert('Statuses updated!')
