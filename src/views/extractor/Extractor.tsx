@@ -567,49 +567,27 @@ export default () => {
               {tasksHistory.slice(0, 5e3).map((task: any, i: number) => {
                 const taskStatus =
                   statuses.find((s) => s._id === task._id)?.status || 0
+
+                const classStatus =
+                  'px-2 py-0 alert ' + getBackgroundColorByStatus(taskStatus)
+
                 return (
                   <>
                     <div className="w-full card p-4 border-t-2">
-                      <span className="py-2">
-                        #{i + 1}
-                        <small>| {task.createdAt} |</small>
-                      </span>
-
-                      <div
-                        className={
-                          'p-2 alert ' + getBackgroundColorByStatus(taskStatus)
-                        }
-                      >
-                        <Link to={`/extractor/result/${task._id}`}>
-                          <b>{'Id'}</b>: {task._id}
-                        </Link>
-                      </div>
-
-                      <div
-                        className={
-                          'p-2 alert ' + getBackgroundColorByStatus(taskStatus)
-                        }
-                      >
+                      <div className="py-2">
                         <Link
                           to={`/extractor/result/${task._id}`}
                           className="w-full"
                         >
-                          <b>{'Status'}</b>: {getStatusText(taskStatus)}
+                          #{i + 1}
+                          <small>
+                            {' '}
+                            | {task._id} | {task.createdAt}
+                          </small>
                         </Link>
                       </div>
 
-                      <div
-                        className={
-                          'p-2 alert ' + getBackgroundColorByStatus(taskStatus)
-                        }
-                      >
-                        <b>Keywords:</b>
-                      </div>
-                      <div
-                        className={
-                          'px-2 py-0 alert ' + getBackgroundColorByStatus(taskStatus)
-                        }
-                      >
+                      <div className={classStatus}>
                         <small className="w-full px-4 py-2">
                           {task.urlsOrKeys?.map((urlOrKey: string) => (
                             <div>{urlOrKey}</div>
