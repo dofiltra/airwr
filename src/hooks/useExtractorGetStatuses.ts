@@ -18,5 +18,5 @@ export default function useExtractorGetStatuses(token: string, ids: string[]) {
     void fetchData()
   }, [])
 
-  return { statuses }
+  return statuses
 }
