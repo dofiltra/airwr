@@ -23,12 +23,14 @@ import {
 } from '@dofiltra/tailwind'
 import { Link } from 'react-router-dom'
 import { ToneMode } from 'components/Select/Tone'
+import { getBackgroundColorByStatus, getStatusText } from 'helpers/task'
 import { io } from 'socket.io-client'
 import { useContext, useEffect, useState } from 'preact/hooks'
 import { useLocalize } from '@borodutch-labs/localize-react'
 import AppStore from 'stores/AppStore'
 import AuthContext from 'components/Auth/AuthContext'
 import _ from 'lodash'
+import useExtractorGetStatuses from 'hooks/useExtractorGetStatuses'
 
 export default () => {
   const { translate } = useLocalize()
@@ -67,6 +69,24 @@ export default () => {
   const { user } = useContext(AuthContext)
   const token = user?.uid || ''
   const [queue, setQueue] = useState({} as any)
+
+  const tasksHistory = (AppStore.extractorTasks = _.orderBy(
+    AppStore.extractorTasks || [],
+    'createdAt',
+    'desc'
+  ).filter((task) => {
+    const { days } = DateTime.fromJSDate(new Date()).diff(
+      DateTime.fromJSDate(new Date(task.createdAt)),
+      'days'
+    )
+
+    return days <= 7
+  }))
+
+  const { statuses } = useExtractorGetStatuses(
+    token,
+    tasksHistory.map((t) => t._id)
+  )
 
   useEffect(() => {
     fetch(`${HostManager.getHostWs()}/api/socketio/exec`).finally(() => {
@@ -544,36 +564,62 @@ export default () => {
               {translate('History')}
             </div>
             <div className="collapse-content overflow-auto h-100">
-              {_.orderBy(AppStore.extractorTasks, 'createdAt', 'desc')
-                .filter((task) => {
-                  const { days } = DateTime.fromJSDate(new Date()).diff(
-                    DateTime.fromJSDate(new Date(task.createdAt)),
-                    'days'
-                  )
-
-                  return days <= 7
-                })
-                .slice(0, 5e3)
-                .map((task: any, i: number) => (
+              {tasksHistory.slice(0, 5e3).map((task: any, i: number) => {
+                const taskStatus =
+                  statuses.find((s) => s._id === task._id)?.status || 0
+                return (
                   <>
                     <div className="w-full card p-4 border-t-2">
                       <span className="py-2">
-                        #{i + 1} <small>| {task.createdAt} </small>
+                        #{i + 1}
+                        <small>| {task.createdAt} |</small>
                       </span>
-                      <Link
-                        to={`/extractor/result/${task._id}`}
-                        // target={'_blank'}
+
+                      <div
+                        className={
+                          'p-2 alert ' + getBackgroundColorByStatus(taskStatus)
+                        }
                       >
-                        {task._id}
-                      </Link>
-                      <small className="w-full p-2">
-                        {task.urlsOrKeys?.map((urlOrKey: string) => (
-                          <div>{urlOrKey}</div>
-                        ))}
-                      </small>
+                        <Link to={`/extractor/result/${task._id}`}>
+                          <b>{'Id'}</b>: {task._id}
+                        </Link>
+                      </div>
+
+                      <div
+                        className={
+                          'p-2 alert ' + getBackgroundColorByStatus(taskStatus)
+                        }
+                      >
+                        <Link
+                          to={`/extractor/result/${task._id}`}
+                          className="w-full"
+                        >
+                          <b>{'Status'}</b>: {getStatusText(taskStatus)}
+                        </Link>
+                      </div>
+
+                      <div
+                        className={
+                          'p-2 alert ' + getBackgroundColorByStatus(taskStatus)
+                        }
+                      >
+                        <b>Keywords:</b>
+                      </div>
+                      <div
+                        className={
+                          'px-2 py-0 alert ' + getBackgroundColorByStatus(taskStatus)
+                        }
+                      >
+                        <small className="w-full px-4 py-2">
+                          {task.urlsOrKeys?.map((urlOrKey: string) => (
+                            <div>{urlOrKey}</div>
+                          ))}
+                        </small>
+                      </div>
                     </div>
                   </>
-                ))}
+                )
+              })}
             </div>
           </div>
         </main>

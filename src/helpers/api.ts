@@ -74,6 +74,17 @@ export class ExtractorApi extends BaseApi {
       method: 'POST',
     })
   }
+
+  static async getStatuses(token: string, ids: string[]) {
+    return await this.send({
+      url: `${HostManager.getHostApi()}/api/extractor/getStatuses`,
+      body: {
+        token,
+        ids,
+      },
+      method: 'POST',
+    })
+  }
 }
 
 export class AiSiteApi extends BaseApi {
