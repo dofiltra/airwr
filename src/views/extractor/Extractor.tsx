@@ -601,7 +601,20 @@ export default () => {
                 <button
                   className="btn btn-ghost rounded-btn"
                   onClick={() => {
-                    alert('Coming soon...')
+                    const ids = tasksHistory
+                      .filter((t) => t.status === TaskStatus.Completed)
+                      .map((t) => t._id)
+
+                    if (!ids.length) {
+                      return
+                    }
+
+                    window.open(
+                      `${HostManager.getHostApi()}/api/extractor/export?token=${token}&limit=${
+                        ids.length
+                      }`,
+                      '_blank'
+                    )
                   }}
                 >
                   <svg
