@@ -603,13 +603,10 @@ export default () => {
                   </button>
                 )) ||
                   ''}
+                {completedCount &&
                 <button
                   className="btn btn-ghost rounded-btn"
                   onClick={() => {
-                    if (!completedCount) {
-                      return
-                    }
-
                     window.open(
                       `${HostManager.getHostApi()}/api/extractor/export?token=${token}&limit=${completedCount}`,
                       '_blank'
@@ -632,12 +629,12 @@ export default () => {
                   <span className="hidden md:block">
                     Export (
                     {
-                      statuses.filter((t) => t.status === TaskStatus.Completed)
-                        .length
+                     completedCount
                     }
                     )
                   </span>
                 </button>
+||''}
               </div>
 
               {tasksHistory.slice(0, 5e3).map((task: any, i: number) => {
