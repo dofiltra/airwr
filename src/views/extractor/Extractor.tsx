@@ -603,7 +603,7 @@ export default () => {
                 <button
                   className="btn btn-ghost rounded-btn"
                   onClick={() => {
-                    const completedCount = tasksHistory.filter(
+                    const completedCount = statuses.filter(
                       (t) => t.status === TaskStatus.Completed
                     ).length
                     if (!completedCount) {
@@ -632,9 +632,8 @@ export default () => {
                   <span className="hidden md:block">
                     Export (
                     {
-                      tasksHistory.filter(
-                        (t) => t.status === TaskStatus.Completed
-                      ).length
+                      statuses.filter((t) => t.status === TaskStatus.Completed)
+                        .length
                     }
                     )
                   </span>
