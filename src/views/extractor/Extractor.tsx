@@ -86,7 +86,12 @@ export default () => {
 
   const notCompletedIds = tasksHistory
     .filter((t) => t.status !== TaskStatus.Completed)
-    .filter(t=> !statuses.filter(s=> s.status === TaskStatus.Completed).some(s=> s._id === t._id))
+    .filter(
+      (t) =>
+        !statuses
+          .filter((s) => s.status === TaskStatus.Completed)
+          .some((s) => s._id === t._id)
+    )
     .map((t) => t._id)
 
   const completedCount = statuses.filter(
@@ -113,22 +118,22 @@ export default () => {
     })
   }, [token])
 
-  useEffect(()=>{
-    if (!notCompletedIds.length || statuses.length === notCompletedIds.length){
+  useEffect(() => {
+    if (!notCompletedIds.length || statuses.length === notCompletedIds.length) {
       return
     }
 
-const fetchData = async ()=>{
-  const { result: data } = await ExtractorApi.getStatuses(
-                        token,
-                        notCompletedIds
-                      )
-                      if (statuses.length !== data.length){
-                      setStatuses(data)
-                      }
-}
+    const fetchData = async () => {
+      const { result: data } = await ExtractorApi.getStatuses(
+        token,
+        notCompletedIds
+      )
+      if (statuses.length !== data.length) {
+        setStatuses(data)
+      }
+    }
 
-void fetchData()
+    void fetchData()
   }, [token, statuses, notCompletedIds])
 
   if (!isVisibleContent && !AppStore.extractorTasks?.length) {
