@@ -112,6 +112,22 @@ export default () => {
     })
   }, [token])
 
+  useEffect(()=>{
+    if (!notCompletedIds.length){
+      return
+    }
+    
+const fetchData = async ()=>{
+  const { result: data } = await ExtractorApi.getStatuses(
+                        token,
+                        notCompletedIds
+                      )
+                      setStatuses(data)
+}
+
+void fetchData()
+  }, [token, notCompletedIds])
+
   if (!isVisibleContent && !AppStore.extractorTasks?.length) {
     return <LoadingContainer loadingText={translate('Loading')} />
   }
