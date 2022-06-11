@@ -69,6 +69,7 @@ export default () => {
   const { user } = useContext(AuthContext)
   const token = user?.uid || ''
   const [queue, setQueue] = useState({} as any)
+  const [statuses, setStatuses] = useState([] as any[])
 
   const tasksHistory = (AppStore.extractorTasks = _.orderBy(
     AppStore.extractorTasks || [],
@@ -87,7 +88,9 @@ export default () => {
     .filter((t) => t.status !== TaskStatus.Completed)
     .map((t) => t._id)
 
-  const [statuses, setStatuses] = useState([] as any[])
+  const completedCount = statuses.filter(
+    (t) => t.status === TaskStatus.Completed
+  ).length
 
   useEffect(() => {
     fetch(`${HostManager.getHostWs()}/api/socketio/exec`).finally(() => {
@@ -603,9 +606,6 @@ export default () => {
                 <button
                   className="btn btn-ghost rounded-btn"
                   onClick={() => {
-                    const completedCount = statuses.filter(
-                      (t) => t.status === TaskStatus.Completed
-                    ).length
                     if (!completedCount) {
                       return
                     }
