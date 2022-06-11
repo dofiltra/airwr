@@ -82,9 +82,7 @@ export default () => {
 
     return days <= 7
   }))
-  const completedCount = tasksHistory.filter(
-    (t) => t.status === TaskStatus.Completed
-  ).length
+
   const notCompletedIds = tasksHistory
     .filter((t) => t.status !== TaskStatus.Completed)
     .map((t) => t._id)
@@ -602,40 +600,45 @@ export default () => {
                   </button>
                 )) ||
                   ''}
+                <button
+                  className="btn btn-ghost rounded-btn"
+                  onClick={() => {
+                    const completedCount = tasksHistory.filter(
+                      (t) => t.status === TaskStatus.Completed
+                    ).length
+                    if (!completedCount) {
+                      return
+                    }
 
-                {(completedCount && (
-                  <button
-                    className="btn btn-ghost rounded-btn"
-                    onClick={() => {
-                      if (!completedCount) {
-                        return
-                      }
-
-                      window.open(
-                        `${HostManager.getHostApi()}/api/extractor/export?token=${token}&limit=${completedCount}`,
-                        '_blank'
-                      )
-                    }}
+                    window.open(
+                      `${HostManager.getHostApi()}/api/extractor/export?token=${token}&limit=${completedCount}`,
+                      '_blank'
+                    )
+                  }}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6 mx-1 text-gray-800"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6 mx-1 text-gray-800"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                      />
-                    </svg>
-                    <span className="hidden md:block">
-                      Export ({completedCount})
-                    </span>
-                  </button>
-                )) ||
-                  ''}
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                    />
+                  </svg>
+                  <span className="hidden md:block">
+                    Export (
+                    {
+                      tasksHistory.filter(
+                        (t) => t.status === TaskStatus.Completed
+                      ).length
+                    }
+                    )
+                  </span>
+                </button>
               </div>
 
               {tasksHistory.slice(0, 5e3).map((task: any, i: number) => {
