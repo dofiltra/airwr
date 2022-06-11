@@ -569,7 +569,7 @@ export default () => {
             <div className="collapse-content overflow-auto h-100">
               <hr />
               <div className="w-full p-2">
-                {notCompletedIds.length && (
+                {(notCompletedIds.length && (
                   <button
                     className="btn btn-ghost rounded-btn"
                     onClick={async () => {
@@ -600,9 +600,10 @@ export default () => {
                     </svg>
                     <span className="hidden md:block">Status</span>
                   </button>
-                )}
+                )) ||
+                  ''}
 
-                {completedCount && (
+                {(completedCount && (
                   <button
                     className="btn btn-ghost rounded-btn"
                     onClick={() => {
@@ -633,7 +634,8 @@ export default () => {
                       Export ({completedCount})
                     </span>
                   </button>
-                )}
+                )) ||
+                  ''}
               </div>
 
               {tasksHistory.slice(0, 5e3).map((task: any, i: number) => {
