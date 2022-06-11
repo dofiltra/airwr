@@ -85,6 +85,9 @@ export default () => {
   const completedCount = tasksHistory.filter(
     (t) => t.status === TaskStatus.Completed
   ).length
+  const notCompletedIds = tasksHistory
+    .filter((t) => t.status !== TaskStatus.Completed)
+    .map((t) => t._id)
 
   const [statuses, setStatuses] = useState([] as any[])
 
@@ -566,40 +569,38 @@ export default () => {
             <div className="collapse-content overflow-auto h-100">
               <hr />
               <div className="w-full p-2">
-                <button
-                  className="btn btn-ghost rounded-btn"
-                  onClick={async () => {
-                    const ids = tasksHistory
-                      .filter((t) => t.status !== TaskStatus.Completed)
-                      .map((t) => t._id)
+                {notCompletedIds.length && (
+                  <button
+                    className="btn btn-ghost rounded-btn"
+                    onClick={async () => {
+                      if (!notCompletedIds.length) {
+                        return
+                      }
 
-                    if (!ids.length) {
-                      return
-                    }
-
-                    const { result: data } = await ExtractorApi.getStatuses(
-                      token,
-                      ids
-                    )
-                    setStatuses(data)
-                    alert('Statuses updated!')
-                  }}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 mx-1 text-gray-800"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+                      const { result: data } = await ExtractorApi.getStatuses(
+                        token,
+                        notCompletedIds
+                      )
+                      setStatuses(data)
+                      alert('Statuses updated!')
+                    }}
                   >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                    />
-                  </svg>
-                  <span className="hidden md:block">Status</span>
-                </button>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6 mx-1 text-gray-800"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                      />
+                    </svg>
+                    <span className="hidden md:block">Status</span>
+                  </button>
+                )}
 
                 {completedCount && (
                   <button
