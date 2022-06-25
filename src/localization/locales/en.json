@@ -64,5 +64,8 @@
   "Remove similar content blocks": "Remove similar content blocks {{percent}}%",
 
   "Enable yandex parser": "Enable yandex parser",
-  "Enable google parser": "Enable google parser"
+  "Enable google parser": "Enable google parser",
+
+  "Group urls/keywords": "Group urls/keywords",
+  "Sources": "Sources"
 }
