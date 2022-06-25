@@ -90,6 +90,9 @@
   "Enable yandex parser": "Парсить из яндекса",
   "Enable google parser": "Парсить из гугла",
 
+  "Group urls/keywords": "Группа ключей или ссылок",
+  "Sources": "Источники",
+
   "Sites": "Сайты",
   "Add sites": "Добавить сайты",
   "Sites count": "Количество сайтов: {{count}}",

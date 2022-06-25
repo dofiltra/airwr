@@ -154,11 +154,29 @@ const ResultPage = () => {
               <div className="grid grid-cols-1 gap-1">
                 <div className="mb-1 w-full p-2 m-2">
                   <h2>{translate('Group urls/keywords')}</h2>
-                  <ol className="">
+                  <ol className="mb-2">
                     {data.urlsOrKeys.map((urlOrKey) => (
                       <li>{urlOrKey}</li>
                     ))}
                   </ol>
+                </div>
+
+                <div className="collapse w-full border rounded-box border-base-300 collapse-arrow">
+                  <input type="checkbox" />
+                  <div className="collapse-title text-xl font-medium">
+                    {translate('Sources')}
+                  </div>
+                  <div className="collapse-content">
+                    <ol className="">
+                      {data.union?.sources?.map((url) => (
+                        <li>
+                          <a href={url} target="_blank">
+                            {url}
+                          </a>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
                 </div>
 
                 <div className="mb-1 md:mb-0 w-full p-2 ">
@@ -182,30 +200,35 @@ const ResultPage = () => {
                     ></div> */}
                     <div id={editorId}></div>
                   </div>
-                  {unionEditor && (
-                    <button
-                      className="btn btn-secondary"
-                      onClick={async () => {
-                        const { blocks = [] } = await unionEditor!.saver.save()
-                        AppStore.lastBlocks = blocks
-                        setNavigateUrl('/')
-                      }}
-                    >
-                      Open Rewriter
-                    </button>
-                  )}
-                  {unionEditor && (
-                    <button
-                      className="btn btn-secondary"
-                      onClick={async () => {
-                        const { blocks = [] } = await unionEditor!.saver.save()
-                        AppStore.lastBlocks = blocks
-                        setNavigateUrl('/translator')
-                      }}
-                    >
-                      Open Translator
-                    </button>
-                  )}
+
+                  <div className="p-2">
+                    {unionEditor && (
+                      <button
+                        className="btn btn-secondary"
+                        onClick={async () => {
+                          const { blocks = [] } =
+                            await unionEditor!.saver.save()
+                          AppStore.lastBlocks = blocks
+                          setNavigateUrl('/')
+                        }}
+                      >
+                        Open Rewriter
+                      </button>
+                    )}
+                    {unionEditor && (
+                      <button
+                        className="btn btn-secondary"
+                        onClick={async () => {
+                          const { blocks = [] } =
+                            await unionEditor!.saver.save()
+                          AppStore.lastBlocks = blocks
+                          setNavigateUrl('/translator')
+                        }}
+                      >
+                        Open Translator
+                      </button>
+                    )}
+                  </div>
                 </div>
 
                 {/* {!unionBlocks.length && (
