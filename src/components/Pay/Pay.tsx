@@ -13,9 +13,9 @@ export default function Pay({}) {
   const [promoCode, setPromoCode] = useState('')
   const [isExistsPromo, setExistsPromo] = useState(false)
   const [payLink, setPayLink] = useState('')
-  const [payType, setPayType] = useState<'Yoomoney' | 'WMZ' | 'CARDS'>(
-    'Yoomoney'
-  )
+  const [payType, setPayType] = useState<
+    'Yoomoney' | 'WMZ' | 'CARDS' | 'QIWI' | 'USDT'
+  >('Yoomoney')
 
   const [usdrub, setUsdRub] = useState(100)
 
@@ -51,6 +51,22 @@ export default function Pay({}) {
                 onClick={() => setPayType('Yoomoney')}
               >
                 Yoomoney
+              </button>
+              <button
+                className={`btn btn-xs ${
+                  payType === 'QIWI' ? 'btn-active btn-error text-error' : ''
+                }`}
+                onClick={() => setPayType('QIWI')}
+              >
+                QIWI
+              </button>
+              <button
+                className={`btn btn-xs ${
+                  payType === 'USDT' ? 'btn-active btn-error text-error' : ''
+                }`}
+                onClick={() => setPayType('USDT')}
+              >
+                USDT
               </button>
               <button
                 className={`btn btn-xs ${
@@ -130,6 +146,22 @@ export default function Pay({}) {
                   promoCode: promoCode ? `__${promoCode}` : '',
                 })}
               </div>
+            )}
+            {payType === 'QIWI' && (
+              <div>
+                {translate('QIWI', {
+                  token,
+                  promoCode: promoCode ? `__${promoCode}` : '',
+                })}
+              </div>
+            )}
+            {payType === 'USDT' && (
+              <pre>
+                {translate('USDT', {
+                  token,
+                  promoCode: promoCode ? `__${promoCode}` : '',
+                })}
+              </pre>
             )}
 
             {payLink && (
