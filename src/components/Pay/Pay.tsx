@@ -132,6 +132,32 @@ export default function Pay({}) {
                 </button>
               </div>
             )}
+            {payType === 'QIWI' && (
+              <div className="relative">
+                <input
+                  type="number"
+                  placeholder="10"
+                  value={plusCoins || 1}
+                  onChange={(e: any) => {
+                    setPayLink('')
+                    setPlusCoins(parseInt(e.target.value || '1', 10))
+                  }}
+                  className="w-full pr-16 input input-primary input-bordered"
+                />
+
+                <button
+                  className="absolute top-0 right-0 rounded-l-none btn btn-primary"
+                  onClick={async (e) =>
+                    token &&
+                    setPayLink(
+                      await payQiwi(token, plusCoins, usdrub, promoCode)
+                    )
+                  }
+                >
+                  {translate('BalanceUpButton')}
+                </button>
+              </div>
+            )}
             {payType === 'WMZ' && (
               <div>
                 {translate('WMZ', {
@@ -142,14 +168,6 @@ export default function Pay({}) {
             {payType === 'CARDS' && (
               <div>
                 {translate('CARDS', {
-                  token,
-                  promoCode: promoCode ? `__${promoCode}` : '',
-                })}
-              </div>
-            )}
-            {payType === 'QIWI' && (
-              <div>
-                {translate('QIWI', {
                   token,
                   promoCode: promoCode ? `__${promoCode}` : '',
                 })}
@@ -196,4 +214,26 @@ function payYoomoney(
   window.open(payLink, '_blank')
 
   return payLink
+}
+
+async function payQiwi(
+  token: string,
+  plusCoins: number,
+  usdrub: number,
+  promoCode?: string
+) {
+  if (plusCoins < 1) {
+    alert('Minimum 1 USD')
+    return ''
+  }
+
+  const label = `${token}__${promoCode}`
+  const sum = plusCoins * usdrub
+  const url = `${HostManager.getHostApi()}/api/balance/pay-qiwi?sum=${sum}&comment=AI%20Dofiltra&token=${label}`
+  const resp = await fetch(url)
+  const { payUrl = '' } = await resp.json()
+
+  window.open(payUrl, '_blank')
+
+  return payUrl
 }
