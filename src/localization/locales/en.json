@@ -32,7 +32,7 @@
   "EnterTextForRewrite": "Enter text for rewrite:",
   "EnterTextForRewritePlaceholder": "Replace this the text that needs to be redacted...",
   "EnterTextForExtractor": "Insert the links/keywords from which you want to extract the articles. Each group is separated by a blank line",
-  "EnterTextForExtractorPlaceholder": "https://lifehacker.ru/kak-sdelat-snezhinki-iz-bumagi/\nhttp://new-year.dvorec.ru/delaem_snezinku.php\nhttps://7gy.ru/detskoe-tvorchestvo/cvetnaya-bumaga/30-shemy-snezhinok-iz-bumagi.html",
+  "EnterTextForExtractorPlaceholder": "https://lifehacker.ru/kak-sdelat-snezhinki-iz-bumagi/\n\nhttp://new-year.dvorec.ru/delaem_snezinku.php\nhttps://7gy.ru/detskoe-tvorchestvo/cvetnaya-bumaga/30-shemy-snezhinok-iz-bumagi.html",
   "Show result": "Show result",
   "Original text": "Original text",
   "TaskStatus": "Task Status",
