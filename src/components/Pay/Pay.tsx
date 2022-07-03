@@ -72,7 +72,11 @@ export default function Pay({}) {
                 className={`btn btn-xs ${
                   payType === 'WMZ' ? 'btn-active btn-error text-error' : ''
                 }`}
-                onClick={() => setPayType('WMZ')}
+                onClick={() => {
+                  setPayType('WMZ')
+
+                  token && setPayLink(payWmz(token, plusCoins, promoCode))
+                }}
               >
                 WMZ
               </button>
@@ -232,6 +236,21 @@ async function payQiwi(
   const url = `${HostManager.getHostApi()}/api/balance/pay-qiwi?sum=${sum}&comment=AI%20Dofiltra&token=${label}`
   const resp = await fetch(url)
   const { payUrl = '' } = await resp.json()
+
+  window.open(payUrl, '_blank')
+
+  return payUrl
+}
+
+function payWmz(token: string, plusCoins: number, promoCode?: string) {
+  if (plusCoins < 1) {
+    alert('Minimum 1 USD')
+    return ''
+  }
+
+  const wmid = 302561646230
+  const label = `${token}--${promoCode}`
+  const payUrl = `https://pay.web.money/${wmid}?currency=WMZ&amount=${plusCoins}&description=${label}`
 
   window.open(payUrl, '_blank')
 
