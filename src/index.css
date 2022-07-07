@@ -67,3 +67,7 @@ blockquote p:before {
 blockquote cite {
   font-style: normal;
 }
+
+.cdx-simple-image__caption {
+  display: none;
+}
