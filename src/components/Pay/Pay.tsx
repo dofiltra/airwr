@@ -38,7 +38,7 @@ export default function Pay({}) {
     <>
       <div className="p-3  text-neutral-content rounded-box mb-2">
         <p className="md:block p-2">
-          {translate('Balance', { coins: coins.toFixed(4) })}
+          {translate('Balance', { coins: coins.toFixed(3) })}
         </p>
         <div className="md:block p-2">
           <div className="form-control">
