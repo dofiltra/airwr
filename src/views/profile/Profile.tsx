@@ -52,7 +52,7 @@ export default () => {
           <img src={smileSrc} className="inline px-4" />
         </h1>
         <div className="text-center mb-5 justify-center flex"></div>
-        <p className="mb-5">
+        <p className="mb-5 border-2 border-dashed">
           <Pay />
         </p>
 
