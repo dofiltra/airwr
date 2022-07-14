@@ -44,7 +44,7 @@
   "Queue": "Queue: {{count}} pages ",
   "QueueCharsCount": "~{{chars}} chars",
   "ProfileTitle": "Profile",
-  "Balance": "Balance: ${{coins}}",
+  "Balance": "Balance: {{coins}} ₮",
   "BalanceUpButton": "Pay",
   "RewriteStats": "Rewrite Stats",
   "My Promo Code": "My Promo Code",

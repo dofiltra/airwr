@@ -69,7 +69,7 @@
   "QueueCharsCount": "~{{chars}} символов",
   "ProfileTitle": "Профиль",
   "RewriteStats": "Статистика профиля по рерайту",
-  "Balance": "Баланс: ${{coins}}",
+  "Balance": "Баланс: {{coins}} ₮",
   "BalanceUpButton": "Пополнить",
   "My Promo Code": "Мой промо код",
   "Send promo code another users": "При использовании промокода +{{percent}}% от суммы пополнения (Вам и партнеру)",

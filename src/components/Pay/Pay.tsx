@@ -17,7 +17,8 @@ export default function Pay({}) {
     'Yoomoney' | 'WMZ' | 'CARDS' | 'QIWI' | 'USDT'
   >('Yoomoney')
 
-  const [usdrub, setUsdRub] = useState(100)
+  const [usdtrub, setUsdtRub] = useState(0)
+  const [usdtwmz, setUsdtWmz] = useState(1.11)
 
   const { user } = useContext(AuthContext)
   const token = user?.uid || ''
@@ -27,8 +28,8 @@ export default function Pay({}) {
 
   useEffect(() => {
     const loadPromo = async () => {
-      const { USDRUB } = await BalanceApi.getUsdPrice()
-      setUsdRub(USDRUB)
+      const { RUB } = await BalanceApi.getUsdtRate({ currency: 'RUB' })
+      setUsdtRub(RUB)
     }
     void loadPromo()
   }, [])
@@ -129,7 +130,9 @@ export default function Pay({}) {
                   className="absolute top-0 right-0 rounded-l-none btn btn-primary"
                   onClick={(e) =>
                     token &&
-                    setPayLink(payYoomoney(token, plusCoins, usdrub, promoCode))
+                    setPayLink(
+                      payYoomoney(token, plusCoins, usdtrub, promoCode)
+                    )
                   }
                 >
                   {translate('BalanceUpButton')}
@@ -154,7 +157,7 @@ export default function Pay({}) {
                   onClick={async (e) =>
                     token &&
                     setPayLink(
-                      await payQiwi(token, plusCoins, usdrub, promoCode)
+                      await payQiwi(token, plusCoins, usdtrub, promoCode)
                     )
                   }
                 >
@@ -193,6 +196,78 @@ export default function Pay({}) {
                 </a>
               </p>
             )}
+          </div>
+        </div>
+        <div className="md:block p-2">
+          <div class="overflow-x-auto">
+            <table class="table table-zebra w-full">
+              <thead>
+                <tr className="font-bold">
+                  <th>{translate('Payment method')}</th>
+                  <th>{translate('Rate')}</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>USDT</td>
+                  <td>
+                    Отдам:&nbsp;&nbsp; 1 USDT <br />
+                    Получу: 1 ₮
+                  </td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>WMZ</td>
+                  <td>
+                    Отдам:&nbsp;&nbsp; {usdtwmz} <small>WMZ</small> <br />
+                    Получу: 1 ₮
+                  </td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>
+                    TINKOFF
+                    <br />
+                    SBER
+                    <br />
+                    ALFABANK
+                    <br />
+                    ROSBANK
+                    <br />
+                    SBP (by phone number)
+                  </td>
+                  <td>
+                    Отдам:&nbsp;&nbsp; {usdtrub} RUB <br />
+                    Получу: 1 ₮
+                  </td>
+                  <td>
+                    <a
+                      href="https://www.sberbank.ru/ru/quotes/currencies?currency=USD"
+                      target={'_blank'}
+                    >
+                      https://www.sberbank.ru/ru/quotes/currencies?currency=USD
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>QIWI</td>
+                  <td>
+                    Отдам:&nbsp;&nbsp;{usdtrub} RUB <br />
+                    Получу: 1 ₮
+                  </td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>YOOMONEY</td>
+                  <td>
+                    Отдам:&nbsp;&nbsp;{usdtrub} RUB <br />
+                    Получу: 1 ₮
+                  </td>
+                  <td> </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
