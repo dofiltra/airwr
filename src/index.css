@@ -68,6 +68,8 @@ blockquote cite {
   font-style: normal;
 }
 
-.cdx-simple-image__caption {
+.cdx-simple-image__caption,
+.cdx-quote__caption {
   display: none;
 }
+
