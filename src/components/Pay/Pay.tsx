@@ -28,8 +28,15 @@ export default function Pay({}) {
 
   useEffect(() => {
     const loadPromo = async () => {
-      const { RUB } = await BalanceApi.getUsdtRate({ currency: 'RUB' })
-      setUsdtRub(RUB)
+      const { RUB: usdtRub } = await BalanceApi.getUsdtRate({ currency: 'RUB' })
+      const { RUB: wmzRub } = await BalanceApi.getWmzRate({ currency: 'RUB' })
+      const wmzRubBuy = wmzRub?.buy
+
+      setUsdtRub(usdtRub)
+
+      if (wmzRubBuy) {
+        setUsdtWmz(parseFloat((usdtRub / wmzRubBuy).toFixed(2)))
+      }
     }
     void loadPromo()
   }, [])
